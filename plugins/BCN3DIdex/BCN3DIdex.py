@@ -40,6 +40,8 @@ class BCN3DIdex(Extension):
         ContainerRegistry.getInstance().containerLoadComplete.connect(self._onContainerLoadComplete)
         CuraApplication.getInstance().getOutputDeviceManager().writeStarted.connect(self._setPrintModeGcode)
 
+        self._onGlobalContainerStackChanged()
+
     ##  Add the duplication/mirror gcode before saving it.
     #
     #   The print mode is a custom BCN3D setting, so when doing the slice it has no effect.
@@ -118,4 +120,35 @@ class BCN3DIdex(Extension):
         self._global_container_stack = self._application.getGlobalContainerStack()
 
         if self._global_container_stack:
+            self._global_container_stack.propertyChanged.connect(self._onPropertyChanged)
             self._global_container_stack.setProperty("machine_disallowed_areas", "value", "=[] if print_mode == 'regular' else [[[-(abs(machine_head_with_fans_polygon[0][0]) + abs(machine_head_with_fans_polygon[2][0])) / 2, machine_depth / 2], [-(abs(machine_head_with_fans_polygon[0][0]) + abs(machine_head_with_fans_polygon[2][0])) / 2, -machine_depth / 2], [machine_width / 2, -machine_depth / 2], [machine_width / 2, machine_depth / 2]]] if print_mode == 'mirror' else [[[0, machine_depth / 2], [0, -machine_depth / 2], [machine_width / 2, -machine_depth / 2], [machine_width / 2, machine_depth / 2]]]")
+
+            # Calling _onPropertyChanged as an initialization
+            self._onPropertyChanged("print_mode", "value")
+
+    def _onPropertyChanged(self, key: str, property_name: str) -> None:
+        if key == "print_mode" and property_name == "value":
+            print_mode = self._global_container_stack.getProperty("print_mode", "value")
+            left_extruder = self._global_container_stack.extruderList[0]
+            right_extruder = self._global_container_stack.extruderList[1]
+            if print_mode != "regular":
+                if not left_extruder.isEnabled:
+                    # Force the left extruder to be enabled on mirror/duplication modes
+                    self._application.getMachineManager().setExtruderEnabled(0, True)
+                self._application.getMachineManager().setExtruderEnabled(1, False)
+                right_extruder.enabledChanged.connect(self._onEnabledChanged)
+            else:
+                try:
+                    right_extruder.enabledChanged.disconnect(self._onEnabledChanged)
+                except Exception:
+                    # Just in case the connection didn't exists
+                    pass
+                self._application.getMachineManager().setExtruderEnabled(1, True)
+
+    def _onEnabledChanged(self):
+        print_mode = self._global_container_stack.getProperty("print_mode", "value")
+        if print_mode != "regular":
+            right_extruder = self._global_container_stack.extruderList[1]
+            if right_extruder.isEnabled:
+                # When in duplication/mirror modes force the right extruder to be disabled
+                self._application.getMachineManager().setExtruderEnabled(1, False)
