@@ -9,8 +9,10 @@ from UM.Logger import Logger
 from UM.Settings.SettingDefinition import SettingDefinition
 from UM.Settings.DefinitionContainer import DefinitionContainer
 from UM.Settings.ContainerRegistry import ContainerRegistry
+from UM.Scene.Iterator.DepthFirstIterator import DepthFirstIterator
 
 from cura.CuraApplication import CuraApplication
+from cura.Scene.CuraSceneNode import CuraSceneNode
 from UM.i18n import i18nCatalog
 i18n_catalog = i18nCatalog("BCN3DIdex")
 
@@ -137,6 +139,11 @@ class BCN3DIdex(Extension):
                     self._application.getMachineManager().setExtruderEnabled(0, True)
                 self._application.getMachineManager().setExtruderEnabled(1, False)
                 right_extruder.enabledChanged.connect(self._onEnabledChanged)
+
+                for node in DepthFirstIterator(self._application.getController().getScene().getRoot()):
+                    if not isinstance(node, CuraSceneNode) or not node.isSelectable():
+                        continue
+                    node.callDecoration("setActiveExtruder", left_extruder.getId())
             else:
                 try:
                     right_extruder.enabledChanged.disconnect(self._onEnabledChanged)
