@@ -2,7 +2,7 @@ import collections
 import json
 import os.path
 
-from typing import List, Optional, Any, Dict, TYPE_CHECKING
+from typing import List, Optional, Any, Dict
 
 from UM.Extension import Extension
 from UM.Logger import Logger
@@ -68,10 +68,22 @@ class BCN3DIdex(Extension):
         if not gcode_list:
             return
 
-        if "M605" not in gcode_list[0]:
-            gcode_list[0] += self._duplication_gcode if print_mode == "duplication" else self._mirror_gcode
+        if "M605" not in gcode_list[1]:
+            gcode_list[1] = self._addRightExtruderHeat(gcode_list[1])
+            gcode_list[1] += self._duplication_gcode if print_mode == "duplication" else self._mirror_gcode
             gcode_dict[active_build_plate_id] = gcode_list
             setattr(scene, "gcode_dict", gcode_dict)
+
+    def _addRightExtruderHeat(self, layer):
+        lines = layer.split("\n")
+        for i in range(len(lines)):
+            if lines[i].startswith("M104"):
+                values = lines[i].split(" ")
+                lines[i] += "\n" + values[0] + " T1 " + values[1] + " ;heat T1 for duplication/mirror"
+            elif lines[i].startswith("M109"):
+                values = lines[i].split(" ")
+                lines[i] += "\n" + values[0] + " T1 " + values[1] + " ;heat T1 for duplication/mirror"
+        return "\n".join(lines)
 
     def _onContainerLoadComplete(self, container_id: str) -> None:
         container = ContainerRegistry.getInstance().findContainers(id=container_id)[0]
