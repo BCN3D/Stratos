@@ -122,8 +122,8 @@ class CrashHandler:
         return dialog
 
     def _closeEarlyCrashDialog(self):
-        if self._send_report_checkbox.isChecked():
-            self._sendCrashReport()
+        # if self._send_report_checkbox.isChecked():
+        #     self._sendCrashReport()
         os._exit(1)
 
     ##  Backup the current resource directories and create clean ones.
@@ -340,7 +340,7 @@ class CrashHandler:
         # need for this extra button.
         if self.has_started:
             buttons.addButton(catalog.i18nc("@action:button", "Send report"), QDialogButtonBox.AcceptRole)
-            buttons.accepted.connect(self._sendCrashReport)
+            # buttons.accepted.connect(self._sendCrashReport)
         buttons.rejected.connect(self.dialog.close)
 
         return buttons
