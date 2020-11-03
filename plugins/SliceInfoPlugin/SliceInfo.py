@@ -5,36 +5,42 @@ import json
 import os
 import platform
 import time
-from typing import cast, Optional, Set
+from typing import cast, Optional, Set, TYPE_CHECKING
 
 from PyQt5.QtCore import pyqtSlot, QObject
+from PyQt5.QtNetwork import QNetworkRequest
 
 from UM.Extension import Extension
-from UM.Application import Application
 from UM.Scene.Iterator.DepthFirstIterator import DepthFirstIterator
-from UM.Message import Message
 from UM.i18n import i18nCatalog
 from UM.Logger import Logger
 from UM.PluginRegistry import PluginRegistry
 from UM.Qt.Duration import DurationFormat
 
-from .SliceInfoJob import SliceInfoJob
+from cura import ApplicationMetadata
+
+if TYPE_CHECKING:
+    from PyQt5.QtNetwork import QNetworkReply
 
 
 catalog = i18nCatalog("cura")
 
 
-##      This Extension runs in the background and sends several bits of information to the Ultimaker servers.
-#       The data is only sent when the user in question gave permission to do so. All data is anonymous and
-#       no model files are being sent (Just a SHA256 hash of the model).
 class SliceInfo(QObject, Extension):
+    """This Extension runs in the background and sends several bits of information to the Ultimaker servers.
+
+    The data is only sent when the user in question gave permission to do so. All data is anonymous and
+    no model files are being sent (Just a SHA256 hash of the model).
+    """
+
     info_url = "https://stats.ultimaker.com/api/cura"
 
     def __init__(self, parent = None):
         QObject.__init__(self, parent)
         Extension.__init__(self)
 
-        self._application = Application.getInstance()
+        from cura.CuraApplication import CuraApplication
+        self._application = CuraApplication.getInstance()
 
         self._application.getOutputDeviceManager().writeStarted.connect(self._onWriteStarted)
         self._application.getPreferences().addPreference("info/send_slice_info", True)
@@ -51,10 +57,12 @@ class SliceInfo(QObject, Extension):
         if self._more_info_dialog is None:
             self._more_info_dialog = self._createDialog("MoreInfoWindow.qml")
 
-    ##  Perform action based on user input.
-    #   Note that clicking "Disable" won't actually disable the data sending, but rather take the user to preferences where they can disable it.
     def messageActionTriggered(self, message_id, action_id):
-        Application.getInstance().getPreferences().setValue("info/asked_send_slice_info", True)
+        """Perform action based on user input.
+
+        Note that clicking "Disable" won't actually disable the data sending, but rather take the user to preferences where they can disable it.
+        """
+        self._application.getPreferences().setValue("info/asked_send_slice_info", True)
         if action_id == "MoreInfo":
             self.showMoreInfoDialog()
         self.send_slice_info_message.hide()
@@ -67,7 +75,7 @@ class SliceInfo(QObject, Extension):
     def _createDialog(self, qml_name):
         Logger.log("d", "Creating dialog [%s]", qml_name)
         file_path = os.path.join(PluginRegistry.getInstance().getPluginPath(self.getPluginId()), qml_name)
-        dialog = Application.getInstance().createQmlComponent(file_path, {"manager": self})
+        dialog = self._application.createQmlComponent(file_path, {"manager": self})
         return dialog
 
     @pyqtSlot(result = str)
@@ -85,17 +93,15 @@ class SliceInfo(QObject, Extension):
 
     @pyqtSlot(bool)
     def setSendSliceInfo(self, enabled: bool):
-        Application.getInstance().getPreferences().setValue("info/send_slice_info", enabled)
+        self._application.getPreferences().setValue("info/send_slice_info", enabled)
 
     def _getUserModifiedSettingKeys(self) -> list:
-        from cura.CuraApplication import CuraApplication
-        application = cast(CuraApplication, Application.getInstance())
-        machine_manager = application.getMachineManager()
+        machine_manager = self._application.getMachineManager()
         global_stack = machine_manager.activeMachine
 
         user_modified_setting_keys = set()  # type: Set[str]
 
-        for stack in [global_stack] + list(global_stack.extruders.values()):
+        for stack in [global_stack] + global_stack.extruderList:
             # Get all settings in user_changes and quality_changes
             all_keys = stack.userChanges.getAllKeys() | stack.qualityChanges.getAllKeys()
             user_modified_setting_keys |= all_keys
@@ -104,29 +110,28 @@ class SliceInfo(QObject, Extension):
 
     def _onWriteStarted(self, output_device):
         try:
-            if not Application.getInstance().getPreferences().getValue("info/send_slice_info"):
+            if not self._application.getPreferences().getValue("info/send_slice_info"):
                 Logger.log("d", "'info/send_slice_info' is turned off.")
                 return  # Do nothing, user does not want to send data
 
-            from cura.CuraApplication import CuraApplication
-            application = cast(CuraApplication, Application.getInstance())
-            machine_manager = application.getMachineManager()
-            print_information = application.getPrintInformation()
+            machine_manager = self._application.getMachineManager()
+            print_information = self._application.getPrintInformation()
 
             global_stack = machine_manager.activeMachine
 
             data = dict()  # The data that we're going to submit.
             data["time_stamp"] = time.time()
             data["schema_version"] = 0
-            data["cura_version"] = application.getVersion()
+            data["cura_version"] = self._application.getVersion()
+            data["cura_build_type"] = ApplicationMetadata.CuraBuildType
 
-            active_mode = Application.getInstance().getPreferences().getValue("cura/active_mode")
+            active_mode = self._application.getPreferences().getValue("cura/active_mode")
             if active_mode == 0:
                 data["active_mode"] = "recommended"
             else:
                 data["active_mode"] = "custom"
 
-            data["camera_view"] = application.getPreferences().getValue("general/camera_perspective_mode")
+            data["camera_view"] = self._application.getPreferences().getValue("general/camera_perspective_mode")
             if data["camera_view"] == "orthographic":
                 data["camera_view"] = "orthogonal" #The database still only recognises the old name "orthogonal".
 
@@ -139,7 +144,7 @@ class SliceInfo(QObject, Extension):
                     machine_settings_changed_by_user = True
 
             data["machine_settings_changed_by_user"] = machine_settings_changed_by_user
-            data["language"] = Application.getInstance().getPreferences().getValue("general/language")
+            data["language"] = self._application.getPreferences().getValue("general/language")
             data["os"] = {"type": platform.system(), "version": platform.version()}
 
             data["active_machine"] = {"definition_id": global_stack.definition.getId(),
@@ -147,7 +152,7 @@ class SliceInfo(QObject, Extension):
 
             # add extruder specific data to slice info
             data["extruders"] = []
-            extruders = list(global_stack.extruders.values())
+            extruders = global_stack.extruderList
             extruders = sorted(extruders, key = lambda extruder: extruder.getMetaDataEntry("position"))
 
             for extruder in extruders:
@@ -181,7 +186,7 @@ class SliceInfo(QObject, Extension):
 
             data["models"] = []
             # Listing all files placed on the build plate
-            for node in DepthFirstIterator(application.getController().getScene().getRoot()):
+            for node in DepthFirstIterator(self._application.getController().getScene().getRoot()):
                 if node.callDecoration("isSliceable"):
                     model = dict()
                     model["hash"] = node.getMeshData().getHash()
@@ -194,7 +199,7 @@ class SliceInfo(QObject, Extension):
                                              "maximum": {"x": bounding_box.maximum.x,
                                                          "y": bounding_box.maximum.y,
                                                          "z": bounding_box.maximum.z}}
-                    model["transformation"] = {"data": str(node.getWorldTransformation().getData()).replace("\n", "")}
+                    model["transformation"] = {"data": str(node.getWorldTransformation(copy = False).getData()).replace("\n", "")}
                     extruder_position = node.callDecoration("getActiveExtruderPosition")
                     model["extruder"] = 0 if extruder_position is None else int(extruder_position)
 
@@ -260,10 +265,23 @@ class SliceInfo(QObject, Extension):
             # Convert data to bytes
             binary_data = json.dumps(data).encode("utf-8")
 
-            # Sending slice info non-blocking
-            reportJob = SliceInfoJob(self.info_url, binary_data)
-            reportJob.start()
+            # Send slice info non-blocking
+            network_manager = self._application.getHttpRequestManager()
+            network_manager.post(self.info_url, data = binary_data,
+                                 callback = self._onRequestFinished, error_callback = self._onRequestError)
         except Exception:
             # We really can't afford to have a mistake here, as this would break the sending of g-code to a device
             # (Either saving or directly to a printer). The functionality of the slice data is not *that* important.
             Logger.logException("e", "Exception raised while sending slice info.") # But we should be notified about these problems of course.
+
+    def _onRequestFinished(self, reply: "QNetworkReply") -> None:
+        status_code = reply.attribute(QNetworkRequest.HttpStatusCodeAttribute)
+        if status_code == 200:
+            Logger.log("i", "SliceInfo sent successfully")
+            return
+
+        data = reply.readAll().data().decode("utf-8")
+        Logger.log("e", "SliceInfo request failed, status code %s, data: %s", status_code, data)
+
+    def _onRequestError(self, reply: "QNetworkReply", error: "QNetworkReply.NetworkError") -> None:
+        Logger.log("e", "Got error for SliceInfo request: %s", reply.errorString())

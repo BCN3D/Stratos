@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Uranium json setting files\n"
 "Report-Msgid-Bugs-To: r.dulek@ultimaker.com\n"
-"POT-Creation-Date: 2019-11-05 13:13+0000\n"
+"POT-Creation-Date: 2020-07-31 14:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE\n"
@@ -74,7 +74,7 @@ msgstr ""
 
 #: fdmprinter.def.json
 msgctxt "material_guid description"
-msgid "GUID of the material. This is set automatically. "
+msgid "GUID of the material. This is set automatically."
 msgstr ""
 
 #: fdmprinter.def.json
@@ -229,6 +229,19 @@ msgid "Whether the machine is able to stabilize the build volume temperature."
 msgstr ""
 
 #: fdmprinter.def.json
+msgctxt "machine_always_write_active_tool label"
+msgid "Always Write Active Tool"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "machine_always_write_active_tool description"
+msgid ""
+"Write active tool after sending temp commands to inactive tool. Required for "
+"Dual Extruder printing with Smoothie or other firmware with modal tool "
+"commands."
+msgstr ""
+
+#: fdmprinter.def.json
 msgctxt "machine_center_is_zero label"
 msgid "Is Center Origin"
 msgstr ""
@@ -307,18 +320,6 @@ msgctxt "machine_heat_zone_length description"
 msgid ""
 "The distance from the tip of the nozzle in which heat from the nozzle is "
 "transferred to the filament."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "machine_filament_park_distance label"
-msgid "Filament Park Distance"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "machine_filament_park_distance description"
-msgid ""
-"The distance from the tip of the nozzle where to park the filament when an "
-"extruder is no longer used."
 msgstr ""
 
 #: fdmprinter.def.json
@@ -438,6 +439,18 @@ msgid ""
 msgstr ""
 
 #: fdmprinter.def.json
+msgctxt "machine_extruders_share_heater label"
+msgid "Extruders Share Heater"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "machine_extruders_share_heater description"
+msgid ""
+"Whether the extruders share a single heater rather than each extruder having "
+"its own heater."
+msgstr ""
+
+#: fdmprinter.def.json
 msgctxt "machine_disallowed_areas label"
 msgid "Disallowed Areas"
 msgstr ""
@@ -455,16 +468,6 @@ msgstr ""
 #: fdmprinter.def.json
 msgctxt "nozzle_disallowed_areas description"
 msgid "A list of polygons with areas the nozzle is not allowed to enter."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "machine_head_polygon label"
-msgid "Machine Head Polygon"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "machine_head_polygon description"
-msgid "A 2D silhouette of the print head (fan caps excluded)."
 msgstr ""
 
 #: fdmprinter.def.json
@@ -1400,6 +1403,18 @@ msgid ""
 msgstr ""
 
 #: fdmprinter.def.json
+msgctxt "hole_xy_offset label"
+msgid "Hole Horizontal Expansion"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "hole_xy_offset description"
+msgid ""
+"Amount of offset applied to all holes in each layer. Positive values "
+"increase the size of the holes, negative values reduce the size of the holes."
+msgstr ""
+
+#: fdmprinter.def.json
 msgctxt "z_seam_type label"
 msgid "Z Seam Alignment"
 msgstr ""
@@ -2216,6 +2231,26 @@ msgid ""
 msgstr ""
 
 #: fdmprinter.def.json
+msgctxt "skin_edge_support_thickness label"
+msgid "Skin Edge Support Thickness"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "skin_edge_support_thickness description"
+msgid "The thickness of the extra infill that supports skin edges."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "skin_edge_support_layers label"
+msgid "Skin Edge Support Layers"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "skin_edge_support_layers description"
+msgid "The number of infill layers that supports skin edges."
+msgstr ""
+
+#: fdmprinter.def.json
 msgctxt "material label"
 msgid "Material"
 msgstr ""
@@ -2431,6 +2466,18 @@ msgid ""
 msgstr ""
 
 #: fdmprinter.def.json
+msgctxt "material_break_preparation_temperature label"
+msgid "Break Preparation Temperature"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "material_break_preparation_temperature description"
+msgid ""
+"The temperature used to purge material, should be roughly equal to the "
+"highest possible printing temperature."
+msgstr ""
+
+#: fdmprinter.def.json
 msgctxt "material_break_retracted_position label"
 msgid "Break Retracted Position"
 msgstr ""
@@ -2459,6 +2506,76 @@ msgstr ""
 #: fdmprinter.def.json
 msgctxt "material_break_temperature description"
 msgid "The temperature at which the filament is broken for a clean break."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "material_flush_purge_speed label"
+msgid "Flush Purge Speed"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "material_flush_purge_speed description"
+msgid "How fast to prime the material after switching to a different material."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "material_flush_purge_length label"
+msgid "Flush Purge Length"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "material_flush_purge_length description"
+msgid ""
+"How much material to use to purge the previous material out of the nozzle "
+"(in length of filament) when switching to a different material."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "material_end_of_filament_purge_speed label"
+msgid "End of Filament Purge Speed"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "material_end_of_filament_purge_speed description"
+msgid ""
+"How fast to prime the material after replacing an empty spool with a fresh "
+"spool of the same material."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "material_end_of_filament_purge_length label"
+msgid "End of Filament Purge Length"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "material_end_of_filament_purge_length description"
+msgid ""
+"How much material to use to purge the previous material out of the nozzle "
+"(in length of filament) when replacing an empty spool with a fresh spool of "
+"the same material."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "material_maximum_park_duration label"
+msgid "Maximum Park Duration"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "material_maximum_park_duration description"
+msgid "How long the material can be kept out of dry storage safely."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "material_no_load_move_factor label"
+msgid "No Load Move Factor"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "material_no_load_move_factor description"
+msgid ""
+"A factor indicating how much the filament gets compressed between the feeder "
+"and the nozzle chamber, used to determine how far to move the material for a "
+"filament switch."
 msgstr ""
 
 #: fdmprinter.def.json
@@ -2607,134 +2724,6 @@ msgid ""
 msgstr ""
 
 #: fdmprinter.def.json
-msgctxt "retraction_enable label"
-msgid "Enable Retraction"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retraction_enable description"
-msgid ""
-"Retract the filament when the nozzle is moving over a non-printed area. "
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retract_at_layer_change label"
-msgid "Retract at Layer Change"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retract_at_layer_change description"
-msgid "Retract the filament when the nozzle is moving to the next layer."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retraction_amount label"
-msgid "Retraction Distance"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retraction_amount description"
-msgid "The length of material retracted during a retraction move."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retraction_speed label"
-msgid "Retraction Speed"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retraction_speed description"
-msgid ""
-"The speed at which the filament is retracted and primed during a retraction "
-"move."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retraction_retract_speed label"
-msgid "Retraction Retract Speed"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retraction_retract_speed description"
-msgid "The speed at which the filament is retracted during a retraction move."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retraction_prime_speed label"
-msgid "Retraction Prime Speed"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retraction_prime_speed description"
-msgid "The speed at which the filament is primed during a retraction move."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retraction_extra_prime_amount label"
-msgid "Retraction Extra Prime Amount"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retraction_extra_prime_amount description"
-msgid ""
-"Some material can ooze away during a travel move, which can be compensated "
-"for here."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retraction_min_travel label"
-msgid "Retraction Minimum Travel"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retraction_min_travel description"
-msgid ""
-"The minimum distance of travel needed for a retraction to happen at all. "
-"This helps to get fewer retractions in a small area."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retraction_count_max label"
-msgid "Maximum Retraction Count"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retraction_count_max description"
-msgid ""
-"This setting limits the number of retractions occurring within the minimum "
-"extrusion distance window. Further retractions within this window will be "
-"ignored. This avoids retracting repeatedly on the same piece of filament, as "
-"that can flatten the filament and cause grinding issues."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retraction_extrusion_window label"
-msgid "Minimum Extrusion Distance Window"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "retraction_extrusion_window description"
-msgid ""
-"The window in which the maximum retraction count is enforced. This value "
-"should be approximately the same as the retraction distance, so that "
-"effectively the number of times a retraction passes the same patch of "
-"material is limited."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "limit_support_retractions label"
-msgid "Limit Support Retractions"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "limit_support_retractions description"
-msgid ""
-"Omit retraction when moving from support to support in a straight line. "
-"Enabling this setting saves print time, but can lead to excessive stringing "
-"within the support structure."
-msgstr ""
-
-#: fdmprinter.def.json
 msgctxt "material_standby_temperature label"
 msgid "Standby Temperature"
 msgstr ""
@@ -2744,64 +2733,6 @@ msgctxt "material_standby_temperature description"
 msgid ""
 "The temperature of the nozzle when another nozzle is currently used for "
 "printing."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "switch_extruder_retraction_amount label"
-msgid "Nozzle Switch Retraction Distance"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "switch_extruder_retraction_amount description"
-msgid ""
-"The amount of retraction when switching extruders. Set to 0 for no "
-"retraction at all. This should generally be the same as the length of the "
-"heat zone."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "switch_extruder_retraction_speeds label"
-msgid "Nozzle Switch Retraction Speed"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "switch_extruder_retraction_speeds description"
-msgid ""
-"The speed at which the filament is retracted. A higher retraction speed "
-"works better, but a very high retraction speed can lead to filament grinding."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "switch_extruder_retraction_speed label"
-msgid "Nozzle Switch Retract Speed"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "switch_extruder_retraction_speed description"
-msgid ""
-"The speed at which the filament is retracted during a nozzle switch retract."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "switch_extruder_prime_speed label"
-msgid "Nozzle Switch Prime Speed"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "switch_extruder_prime_speed description"
-msgid ""
-"The speed at which the filament is pushed back after a nozzle switch "
-"retraction."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "switch_extruder_extra_prime_amount label"
-msgid "Nozzle Switch Extra Prime Amount"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "switch_extruder_extra_prime_amount description"
-msgid "Extra material to prime after nozzle switching."
 msgstr ""
 
 #: fdmprinter.def.json
@@ -3508,6 +3439,133 @@ msgid "travel"
 msgstr ""
 
 #: fdmprinter.def.json
+msgctxt "retraction_enable label"
+msgid "Enable Retraction"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retraction_enable description"
+msgid "Retract the filament when the nozzle is moving over a non-printed area."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retract_at_layer_change label"
+msgid "Retract at Layer Change"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retract_at_layer_change description"
+msgid "Retract the filament when the nozzle is moving to the next layer."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retraction_amount label"
+msgid "Retraction Distance"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retraction_amount description"
+msgid "The length of material retracted during a retraction move."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retraction_speed label"
+msgid "Retraction Speed"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retraction_speed description"
+msgid ""
+"The speed at which the filament is retracted and primed during a retraction "
+"move."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retraction_retract_speed label"
+msgid "Retraction Retract Speed"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retraction_retract_speed description"
+msgid "The speed at which the filament is retracted during a retraction move."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retraction_prime_speed label"
+msgid "Retraction Prime Speed"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retraction_prime_speed description"
+msgid "The speed at which the filament is primed during a retraction move."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retraction_extra_prime_amount label"
+msgid "Retraction Extra Prime Amount"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retraction_extra_prime_amount description"
+msgid ""
+"Some material can ooze away during a travel move, which can be compensated "
+"for here."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retraction_min_travel label"
+msgid "Retraction Minimum Travel"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retraction_min_travel description"
+msgid ""
+"The minimum distance of travel needed for a retraction to happen at all. "
+"This helps to get fewer retractions in a small area."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retraction_count_max label"
+msgid "Maximum Retraction Count"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retraction_count_max description"
+msgid ""
+"This setting limits the number of retractions occurring within the minimum "
+"extrusion distance window. Further retractions within this window will be "
+"ignored. This avoids retracting repeatedly on the same piece of filament, as "
+"that can flatten the filament and cause grinding issues."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retraction_extrusion_window label"
+msgid "Minimum Extrusion Distance Window"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "retraction_extrusion_window description"
+msgid ""
+"The window in which the maximum retraction count is enforced. This value "
+"should be approximately the same as the retraction distance, so that "
+"effectively the number of times a retraction passes the same patch of "
+"material is limited."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "limit_support_retractions label"
+msgid "Limit Support Retractions"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "limit_support_retractions description"
+msgid ""
+"Omit retraction when moving from support to support in a straight line. "
+"Enabling this setting saves print time, but can lead to excessive stringing "
+"within the support structure."
+msgstr ""
+
+#: fdmprinter.def.json
 msgctxt "retraction_combing label"
 msgid "Combing Mode"
 msgstr ""
@@ -3929,6 +3987,96 @@ msgid ""
 msgstr ""
 
 #: fdmprinter.def.json
+msgctxt "support_structure label"
+msgid "Support Structure"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "support_structure description"
+msgid ""
+"Chooses between the techniques available to generate support. \"Normal\" "
+"support creates a support structure directly below the overhanging parts and "
+"drops those areas straight down. \"Tree\" support creates branches towards "
+"the overhanging areas that support the model on the tips of those branches, "
+"and allows the branches to crawl around the model to support it from the "
+"build plate as much as possible."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "support_structure option normal"
+msgid "Normal"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "support_structure option tree"
+msgid "Tree"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "support_tree_angle label"
+msgid "Tree Support Branch Angle"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "support_tree_angle description"
+msgid ""
+"The angle of the branches. Use a lower angle to make them more vertical and "
+"more stable. Use a higher angle to be able to have more reach."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "support_tree_branch_distance label"
+msgid "Tree Support Branch Distance"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "support_tree_branch_distance description"
+msgid ""
+"How far apart the branches need to be when they touch the model. Making this "
+"distance small will cause the tree support to touch the model at more "
+"points, causing better overhang but making support harder to remove."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "support_tree_branch_diameter label"
+msgid "Tree Support Branch Diameter"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "support_tree_branch_diameter description"
+msgid ""
+"The diameter of the thinnest branches of tree support. Thicker branches are "
+"more sturdy. Branches towards the base will be thicker than this."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "support_tree_branch_diameter_angle label"
+msgid "Tree Support Branch Diameter Angle"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "support_tree_branch_diameter_angle description"
+msgid ""
+"The angle of the branches' diameter as they gradually become thicker towards "
+"the bottom. An angle of 0 will cause the branches to have uniform thickness "
+"over their length. A bit of an angle can increase stability of the tree "
+"support."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "support_tree_collision_resolution label"
+msgid "Tree Support Collision Resolution"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "support_tree_collision_resolution description"
+msgid ""
+"Resolution to compute collisions with to avoid hitting the model. Setting "
+"this lower will produce more accurate trees that fail less often, but "
+"increases slicing time dramatically."
+msgstr ""
+
+#: fdmprinter.def.json
 msgctxt "support_type label"
 msgid "Support Placement"
 msgstr ""
@@ -4211,7 +4359,7 @@ msgstr ""
 #: fdmprinter.def.json
 msgctxt "support_xy_distance_overhang description"
 msgid ""
-"Distance of the support structure from the overhang in the X/Y directions. "
+"Distance of the support structure from the overhang in the X/Y directions."
 msgstr ""
 
 #: fdmprinter.def.json
@@ -4239,6 +4387,20 @@ msgid ""
 "The maximum width of the steps of the stair-like bottom of support resting "
 "on the model. A low value makes the support harder to remove, but too high "
 "values can lead to unstable support structures."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "support_bottom_stair_step_min_slope label"
+msgid "Support Stair Step Minimum Slope Angle"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "support_bottom_stair_step_min_slope description"
+msgid ""
+"The minimum slope of the area for stair-stepping to take effect. Low values "
+"should make support easier to remove on shallower slopes, but really low "
+"values may result in some very counter-intuitive results on other parts of "
+"the model."
 msgstr ""
 
 #: fdmprinter.def.json
@@ -4768,6 +4930,18 @@ msgid ""
 msgstr ""
 
 #: fdmprinter.def.json
+msgctxt "support_meshes_present label"
+msgid "Scene Has Support Meshes"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "support_meshes_present description"
+msgid ""
+"There are support meshes present in the scene. This setting is controlled by "
+"Cura."
+msgstr ""
+
+#: fdmprinter.def.json
 msgctxt "platform_adhesion label"
 msgid "Build Plate Adhesion"
 msgstr ""
@@ -4924,6 +5098,19 @@ msgctxt "brim_line_count description"
 msgid ""
 "The number of lines used for a brim. More brim lines enhance adhesion to the "
 "build plate, but also reduces the effective print area."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "brim_gap label"
+msgid "Brim Distance"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "brim_gap description"
+msgid ""
+"The horizontal distance between the first brim line and the outline of the "
+"first layer of the print. A small gap can make the brim easier to remove "
+"while still providing the thermal benefits."
 msgstr ""
 
 #: fdmprinter.def.json
@@ -5417,13 +5604,71 @@ msgid "Distance of the ooze shield from the print, in the X/Y directions."
 msgstr ""
 
 #: fdmprinter.def.json
+msgctxt "switch_extruder_retraction_amount label"
+msgid "Nozzle Switch Retraction Distance"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "switch_extruder_retraction_amount description"
+msgid ""
+"The amount of retraction when switching extruders. Set to 0 for no "
+"retraction at all. This should generally be the same as the length of the "
+"heat zone."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "switch_extruder_retraction_speeds label"
+msgid "Nozzle Switch Retraction Speed"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "switch_extruder_retraction_speeds description"
+msgid ""
+"The speed at which the filament is retracted. A higher retraction speed "
+"works better, but a very high retraction speed can lead to filament grinding."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "switch_extruder_retraction_speed label"
+msgid "Nozzle Switch Retract Speed"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "switch_extruder_retraction_speed description"
+msgid ""
+"The speed at which the filament is retracted during a nozzle switch retract."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "switch_extruder_prime_speed label"
+msgid "Nozzle Switch Prime Speed"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "switch_extruder_prime_speed description"
+msgid ""
+"The speed at which the filament is pushed back after a nozzle switch "
+"retraction."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "switch_extruder_extra_prime_amount label"
+msgid "Nozzle Switch Extra Prime Amount"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "switch_extruder_extra_prime_amount description"
+msgid "Extra material to prime after nozzle switching."
+msgstr ""
+
+#: fdmprinter.def.json
 msgctxt "meshfix label"
 msgid "Mesh Fixes"
 msgstr ""
 
 #: fdmprinter.def.json
 msgctxt "meshfix description"
-msgid "category_fixes"
+msgid "Make the meshes more suited for 3D printing."
 msgstr ""
 
 #: fdmprinter.def.json
@@ -5580,7 +5825,7 @@ msgstr ""
 
 #: fdmprinter.def.json
 msgctxt "blackmagic description"
-msgid "category_blackmagic"
+msgid "Non-traditional ways to print your models."
 msgstr ""
 
 #: fdmprinter.def.json
@@ -5592,10 +5837,10 @@ msgstr ""
 msgctxt "print_sequence description"
 msgid ""
 "Whether to print all models one layer at a time or to wait for one model to "
-"finish, before moving on to the next. One at a time mode is only possible if "
-"all models are separated in such a way that the whole print head can move in "
-"between and all models are lower than the distance between the nozzle and "
-"the X/Y axes."
+"finish, before moving on to the next. One at a time mode is possible if a) "
+"only one extruder is enabled and b) all models are separated in such a way "
+"that the whole print head can move in between and all models are lower than "
+"the distance between the nozzle and the X/Y axes."
 msgstr ""
 
 #: fdmprinter.def.json
@@ -5623,13 +5868,14 @@ msgstr ""
 
 #: fdmprinter.def.json
 msgctxt "infill_mesh_order label"
-msgid "Infill Mesh Order"
+msgid "Mesh Processing Rank"
 msgstr ""
 
 #: fdmprinter.def.json
 msgctxt "infill_mesh_order description"
 msgid ""
-"Determines which infill mesh is inside the infill of another infill mesh. An "
+"Determines the priority of this mesh when considering overlapping volumes. "
+"Areas where multiple meshes reside will be won by the lower rank mesh. An "
 "infill mesh with a higher order will modify the infill of infill meshes with "
 "lower order and normal meshes."
 msgstr ""
@@ -5798,107 +6044,7 @@ msgstr ""
 
 #: fdmprinter.def.json
 msgctxt "experimental description"
-msgid "experimental!"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "support_tree_enable label"
-msgid "Tree Support"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "support_tree_enable description"
-msgid ""
-"Generate a tree-like support with branches that support your print. This may "
-"reduce material usage and print time, but greatly increases slicing time."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "support_tree_angle label"
-msgid "Tree Support Branch Angle"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "support_tree_angle description"
-msgid ""
-"The angle of the branches. Use a lower angle to make them more vertical and "
-"more stable. Use a higher angle to be able to have more reach."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "support_tree_branch_distance label"
-msgid "Tree Support Branch Distance"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "support_tree_branch_distance description"
-msgid ""
-"How far apart the branches need to be when they touch the model. Making this "
-"distance small will cause the tree support to touch the model at more "
-"points, causing better overhang but making support harder to remove."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "support_tree_branch_diameter label"
-msgid "Tree Support Branch Diameter"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "support_tree_branch_diameter description"
-msgid ""
-"The diameter of the thinnest branches of tree support. Thicker branches are "
-"more sturdy. Branches towards the base will be thicker than this."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "support_tree_branch_diameter_angle label"
-msgid "Tree Support Branch Diameter Angle"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "support_tree_branch_diameter_angle description"
-msgid ""
-"The angle of the branches' diameter as they gradually become thicker towards "
-"the bottom. An angle of 0 will cause the branches to have uniform thickness "
-"over their length. A bit of an angle can increase stability of the tree "
-"support."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "support_tree_collision_resolution label"
-msgid "Tree Support Collision Resolution"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "support_tree_collision_resolution description"
-msgid ""
-"Resolution to compute collisions with to avoid hitting the model. Setting "
-"this lower will produce more accurate trees that fail less often, but "
-"increases slicing time dramatically."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "support_tree_wall_thickness label"
-msgid "Tree Support Wall Thickness"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "support_tree_wall_thickness description"
-msgid ""
-"The thickness of the walls of the branches of tree support. Thicker walls "
-"take longer to print but don't fall over as easily."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "support_tree_wall_count label"
-msgid "Tree Support Wall Line Count"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "support_tree_wall_count description"
-msgid ""
-"The number of walls of the branches of tree support. Thicker walls take "
-"longer to print but don't fall over as easily."
+msgid "Features that haven't completely been fleshed out yet."
 msgstr ""
 
 #: fdmprinter.def.json
@@ -5909,13 +6055,13 @@ msgstr ""
 #: fdmprinter.def.json
 msgctxt "slicing_tolerance description"
 msgid ""
-"How to slice layers with diagonal surfaces. The areas of a layer can be "
-"generated based on where the middle of the layer intersects the surface "
-"(Middle). Alternatively each layer can have the areas which fall inside of "
-"the volume throughout the height of the layer (Exclusive) or a layer has the "
-"areas which fall inside anywhere within the layer (Inclusive). Exclusive "
-"retains the most details, Inclusive makes for the best fit and Middle takes "
-"the least time to process."
+"Vertical tolerance in the sliced layers. The contours of a layer are "
+"normally generated by taking cross sections through the middle of each "
+"layer's thickness (Middle). Alternatively each layer can have the areas "
+"which fall inside of the volume throughout the entire thickness of the layer "
+"(Exclusive) or a layer has the areas which fall inside anywhere within the "
+"layer (Inclusive). Inclusive retains the most details, Exclusive makes for "
+"the best fit and Middle stays closest to the original surface."
 msgstr ""
 
 #: fdmprinter.def.json
@@ -6244,92 +6390,6 @@ msgid ""
 msgstr ""
 
 #: fdmprinter.def.json
-msgctxt "spaghetti_infill_enabled label"
-msgid "Spaghetti Infill"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "spaghetti_infill_enabled description"
-msgid ""
-"Print the infill every so often, so that the filament will curl up "
-"chaotically inside the object. This reduces print time, but the behaviour is "
-"rather unpredictable."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "spaghetti_infill_stepped label"
-msgid "Spaghetti Infill Stepping"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "spaghetti_infill_stepped description"
-msgid ""
-"Whether to print spaghetti infill in steps or extrude all the infill "
-"filament at the end of the print."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "spaghetti_max_infill_angle label"
-msgid "Spaghetti Maximum Infill Angle"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "spaghetti_max_infill_angle description"
-msgid ""
-"The maximum angle w.r.t. the Z axis of the inside of the print for areas "
-"which are to be filled with spaghetti infill afterwards. Lowering this value "
-"causes more angled parts in your model to be filled on each layer."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "spaghetti_max_height label"
-msgid "Spaghetti Infill Maximum Height"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "spaghetti_max_height description"
-msgid ""
-"The maximum height of inside space which can be combined and filled from the "
-"top."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "spaghetti_inset label"
-msgid "Spaghetti Inset"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "spaghetti_inset description"
-msgid ""
-"The offset from the walls from where the spaghetti infill will be printed."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "spaghetti_flow label"
-msgid "Spaghetti Flow"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "spaghetti_flow description"
-msgid ""
-"Adjusts the density of the spaghetti infill. Note that the Infill Density "
-"only controls the line spacing of the filling pattern, not the amount of "
-"extrusion for spaghetti infill."
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "spaghetti_infill_extra_volume label"
-msgid "Spaghetti Infill Extra Volume"
-msgstr ""
-
-#: fdmprinter.def.json
-msgctxt "spaghetti_infill_extra_volume description"
-msgid ""
-"A correction term to adjust the total volume being extruded each time when "
-"filling spaghetti."
-msgstr ""
-
-#: fdmprinter.def.json
 msgctxt "support_conical_enabled label"
 msgid "Enable Conical Support"
 msgstr ""
@@ -6375,6 +6435,16 @@ msgctxt "magic_fuzzy_skin_enabled description"
 msgid ""
 "Randomly jitter while printing the outer wall, so that the surface has a "
 "rough and fuzzy look."
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "magic_fuzzy_skin_outside_only label"
+msgid "Fuzzy Skin Outside Only"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "magic_fuzzy_skin_outside_only description"
+msgid "Jitter only the parts' outlines and not the parts' holes."
 msgstr ""
 
 #: fdmprinter.def.json
@@ -6866,6 +6936,18 @@ msgid ""
 msgstr ""
 
 #: fdmprinter.def.json
+msgctxt "bridge_sparse_infill_max_density label"
+msgid "Bridge Sparse Infill Max Density"
+msgstr ""
+
+#: fdmprinter.def.json
+msgctxt "bridge_sparse_infill_max_density description"
+msgid ""
+"Maximum density of infill considered to be sparse. Skin over sparse infill "
+"is considered to be unsupported and so may be treated as a bridge skin."
+msgstr ""
+
+#: fdmprinter.def.json
 msgctxt "bridge_wall_coast label"
 msgid "Bridge Wall Coasting"
 msgstr ""
@@ -7053,10 +7135,10 @@ msgstr ""
 #: fdmprinter.def.json
 msgctxt "clean_between_layers description"
 msgid ""
-"Whether to include nozzle wipe G-Code between layers. Enabling this setting "
-"could influence behavior of retract at layer change. Please use Wipe "
-"Retraction settings to control retraction at layers where the wipe script "
-"will be working."
+"Whether to include nozzle wipe G-Code between layers (maximum 1 per layer). "
+"Enabling this setting could influence behavior of retract at layer change. "
+"Please use Wipe Retraction settings to control retraction at layers where "
+"the wipe script will be working."
 msgstr ""
 
 #: fdmprinter.def.json
@@ -7067,8 +7149,10 @@ msgstr ""
 #: fdmprinter.def.json
 msgctxt "max_extrusion_before_wipe description"
 msgid ""
-"Maximum material, that can be extruded before another nozzle wipe is "
-"initiated."
+"Maximum material that can be extruded before another nozzle wipe is "
+"initiated. If this value is less than the volume of material required in a "
+"layer, the setting has no effect in this layer, i.e. it is limited to one "
+"wipe per layer."
 msgstr ""
 
 #: fdmprinter.def.json
@@ -7129,7 +7213,7 @@ msgstr ""
 
 #: fdmprinter.def.json
 msgctxt "wipe_retraction_prime_speed label"
-msgid "Retraction Prime Speed"
+msgid "Wipe Retraction Prime Speed"
 msgstr ""
 
 #: fdmprinter.def.json
@@ -7150,16 +7234,15 @@ msgstr ""
 
 #: fdmprinter.def.json
 msgctxt "wipe_hop_enable label"
-msgid "Wipe Z Hop When Retracted"
+msgid "Wipe Z Hop"
 msgstr ""
 
 #: fdmprinter.def.json
 msgctxt "wipe_hop_enable description"
 msgid ""
-"Whenever a retraction is done, the build plate is lowered to create "
-"clearance between the nozzle and the print. It prevents the nozzle from "
-"hitting the print during travel moves, reducing the chance to knock the "
-"print from the build plate."
+"When wiping, the build plate is lowered to create clearance between the "
+"nozzle and the print. It prevents the nozzle from hitting the print during "
+"travel moves, reducing the chance to knock the print from the build plate."
 msgstr ""
 
 #: fdmprinter.def.json

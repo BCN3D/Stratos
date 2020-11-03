@@ -213,33 +213,19 @@ _creality_limited_quality_type = {
     "extra_coarse": "draft"
 }
 
-##  Upgrades configurations from the state they were in at version 4.1 to the
-#   state they should be in at version 4.2.
-class VersionUpgrade41to42(VersionUpgrade):
-    ##  Gets the version number from a CFG file in Uranium's 4.1 format.
-    #
-    #   Since the format may change, this is implemented for the 4.1 format only
-    #   and needs to be included in the version upgrade system rather than
-    #   globally in Uranium.
-    #
-    #   \param serialised The serialised form of a CFG file.
-    #   \return The version number stored in the CFG file.
-    #   \raises ValueError The format of the version number in the file is
-    #   incorrect.
-    #   \raises KeyError The format of the file is incorrect.
-    def getCfgVersion(self, serialised: str) -> int:
-        parser = configparser.ConfigParser(interpolation = None)
-        parser.read_string(serialised)
-        format_version = int(parser.get("general", "version"))  # Explicitly give an exception when this fails. That means that the file format is not recognised.
-        setting_version = int(parser.get("metadata", "setting_version", fallback = "0"))
-        return format_version * 1000000 + setting_version
 
-    ##  Upgrades instance containers to have the new version
-    #   number.
-    #
-    #   This renames the renamed settings in the containers.
+class VersionUpgrade41to42(VersionUpgrade):
+    """Upgrades configurations from the state they were in at version 4.1 to the
+
+    state they should be in at version 4.2.
+    """
+
     def upgradeInstanceContainer(self, serialized: str, filename: str) -> Tuple[List[str], List[str]]:
-        parser = configparser.ConfigParser(interpolation = None)
+        """Upgrades instance containers to have the new version number.
+
+        This renames the renamed settings in the containers.
+        """
+        parser = configparser.ConfigParser(interpolation = None, comment_prefixes = ())
         parser.read_string(serialized)
 
         # Update version number.
@@ -274,10 +260,12 @@ class VersionUpgrade41to42(VersionUpgrade):
         parser.write(result)
         return [filename], [result.getvalue()]
 
-    ##  Upgrades Preferences to have the new version number.
-    #
-    #   This renames the renamed settings in the list of visible settings.
     def upgradePreferences(self, serialized: str, filename: str) -> Tuple[List[str], List[str]]:
+        """Upgrades Preferences to have the new version number.
+
+        This renames the renamed settings in the list of visible settings.
+        """
+
         parser = configparser.ConfigParser(interpolation = None)
         parser.read_string(serialized)
 
@@ -301,8 +289,9 @@ class VersionUpgrade41to42(VersionUpgrade):
         parser.write(result)
         return [filename], [result.getvalue()]
 
-    ##  Upgrades stacks to have the new version number.
     def upgradeStack(self, serialized: str, filename: str) -> Tuple[List[str], List[str]]:
+        """Upgrades stacks to have the new version number."""
+
         parser = configparser.ConfigParser(interpolation = None)
         parser.read_string(serialized)
 
@@ -325,7 +314,9 @@ class VersionUpgrade41to42(VersionUpgrade):
             material_id = parser["containers"]["3"]
             old_quality_id = parser["containers"]["2"]
             if material_id in _creality_quality_per_material and old_quality_id in _creality_quality_per_material[material_id]:
-                parser["containers"]["2"] = _creality_quality_per_material[material_id][old_quality_id]
+                if definition_id == "creality_cr10_extruder_0":  # We can't disambiguate between Creality CR-10 and Creality-CR10S since they share the same extruder definition. Have to go by the name.
+                    if "cr-10s" in parser["metadata"].get("machine", "Creality CR-10").lower():  # Not perfect, since the user can change this name :(
+                        parser["containers"]["2"] = _creality_quality_per_material[material_id][old_quality_id]
 
             stack_copy = {}  # type: Dict[str, str]  # Make a copy so that we don't modify the dict we're iterating over.
             stack_copy.update(parser["containers"])

@@ -2,7 +2,7 @@
 # Cura is released under the terms of the LGPLv3 or higher.
 from typing import Optional, Dict, Any, Set, List
 
-from PyQt5.QtCore import Qt, QObject, pyqtProperty, pyqtSignal
+from PyQt5.QtCore import Qt, QObject, pyqtProperty, pyqtSignal, QTimer
 
 import cura.CuraApplication
 from UM.Qt.ListModel import ListModel
@@ -32,9 +32,14 @@ class IntentModel(ListModel):
 
         self._intent_category = "engineering"
 
+        self._update_timer = QTimer()
+        self._update_timer.setInterval(100)
+        self._update_timer.setSingleShot(True)
+        self._update_timer.timeout.connect(self._update)
+
         machine_manager = cura.CuraApplication.CuraApplication.getInstance().getMachineManager()
-        machine_manager.globalContainerChanged.connect(self._update)
-        machine_manager.extruderChanged.connect(self._update)  # We also need to update if an extruder gets disabled
+        machine_manager.globalContainerChanged.connect(self._updateDelayed)
+        machine_manager.extruderChanged.connect(self._updateDelayed)  # We also need to update if an extruder gets disabled
         ContainerRegistry.getInstance().containerAdded.connect(self._onChanged)
         ContainerRegistry.getInstance().containerRemoved.connect(self._onChanged)
         self._layer_height_unit = ""  # This is cached
@@ -52,9 +57,12 @@ class IntentModel(ListModel):
     def intentCategory(self) -> str:
         return self._intent_category
 
+    def _updateDelayed(self):
+        self._update_timer.start()
+
     def _onChanged(self, container):
         if container.getMetaDataEntry("type") == "intent":
-            self._update()
+            self._updateDelayed()
 
     def _update(self) -> None:
         new_items = []  # type: List[Dict[str, Any]]
@@ -90,8 +98,9 @@ class IntentModel(ListModel):
         new_items = sorted(new_items, key = lambda x: x["layer_height"])
         self.setItems(new_items)
 
-    ##  Get the active materials for all extruders. No duplicates will be returned
     def _getActiveMaterials(self) -> Set["MaterialNode"]:
+        """Get the active materials for all extruders. No duplicates will be returned"""
+
         global_stack = cura.CuraApplication.CuraApplication.getInstance().getGlobalContainerStack()
         if global_stack is None:
             return set()
@@ -106,7 +115,10 @@ class IntentModel(ListModel):
                 Logger.log("w", "Could not find the variant %s", active_variant_name)
                 continue
             active_variant_node = machine_node.variants[active_variant_name]
-            active_material_node = active_variant_node.materials[extruder.material.getMetaDataEntry("base_file")]
+            active_material_node = active_variant_node.materials.get(extruder.material.getMetaDataEntry("base_file"))
+            if active_material_node is None:
+                Logger.log("w", "Could not find the material %s", extruder.material.getMetaDataEntry("base_file"))
+                continue
             nodes.add(active_material_node)
 
         return nodes

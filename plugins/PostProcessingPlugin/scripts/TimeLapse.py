@@ -1,6 +1,9 @@
+# Copyright (c) 2020 Ultimaker B.V.
+# Cura is released under the terms of the LGPLv3 or higher.
 # Created by Wayne Porter
 
 from ..Script import Script
+
 
 class TimeLapse(Script):
     def __init__(self):
@@ -17,7 +20,7 @@ class TimeLapse(Script):
                 "trigger_command":
                 {
                     "label": "Trigger camera command",
-                    "description": "Gcode command used to trigger camera.",
+                    "description": "G-code command used to trigger camera.",
                     "type": "str",
                     "default_value": "M240"
                 },
@@ -75,21 +78,29 @@ class TimeLapse(Script):
         trigger_command = self.getSettingValueByKey("trigger_command")
         pause_length = self.getSettingValueByKey("pause_length")
         gcode_to_append = ";TimeLapse Begin\n"
+        last_x = 0
+        last_y = 0
 
         if park_print_head:
-            gcode_to_append += self.putValue(G = 1, F = feed_rate, X = x_park, Y = y_park) + " ;Park print head\n"
-        gcode_to_append += self.putValue(M = 400) + " ;Wait for moves to finish\n"
+            gcode_to_append += self.putValue(G=1, F=feed_rate,
+                                             X=x_park, Y=y_park) + " ;Park print head\n"
+        gcode_to_append += self.putValue(M=400) + " ;Wait for moves to finish\n"
         gcode_to_append += trigger_command + " ;Snap Photo\n"
-        gcode_to_append += self.putValue(G = 4, P = pause_length) + " ;Wait for camera\n"
-        gcode_to_append += ";TimeLapse End\n"
-        for layer in data:
+        gcode_to_append += self.putValue(G=4, P=pause_length) + " ;Wait for camera\n"
+
+        for idx, layer in enumerate(data):
+            for line in layer.split("\n"):
+                if self.getValue(line, "G") in {0, 1}:  # Track X,Y location.
+                    last_x = self.getValue(line, "X", last_x)
+                    last_y = self.getValue(line, "Y", last_y)
             # Check that a layer is being printed
             lines = layer.split("\n")
             for line in lines:
                 if ";LAYER:" in line:
-                    index = data.index(layer)
                     layer += gcode_to_append
 
-                    data[index] = layer
+                    layer += "G0 X%s Y%s\n" % (last_x, last_y)
+
+                    data[idx] = layer
                     break
         return data

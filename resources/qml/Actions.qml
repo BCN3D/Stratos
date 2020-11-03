@@ -54,6 +54,7 @@ Item
     property alias manageProfiles: manageProfilesAction;
 
     property alias manageMaterials: manageMaterialsAction;
+    property alias marketplaceMaterials: marketplaceMaterialsAction;
 
     property alias preferences: preferencesAction;
 
@@ -190,6 +191,12 @@ Item
 
     Action
     {
+        id: marketplaceMaterialsAction
+        text: catalog.i18nc("@action:inmenu", "Add more materials from Marketplace")
+    }
+
+    Action
+    {
         id: updateProfileAction;
         enabled: !Cura.MachineManager.stacksHaveErrors && Cura.MachineManager.hasUserSettings && Cura.MachineManager.activeQualityChangesGroup != null
         text: catalog.i18nc("@action:inmenu menubar:profile","&Update profile with current settings/overrides");
@@ -258,7 +265,7 @@ Item
         text: catalog.i18ncp("@action:inmenu menubar:edit", "Delete Selected Model", "Delete Selected Models", UM.Selection.selectionCount);
         enabled: UM.Controller.toolsEnabled && UM.Selection.hasSelection;
         iconName: "edit-delete";
-        shortcut: StandardKey.Delete;
+        shortcut: StandardKey.Delete | "Backspace"
         onTriggered: CuraActions.deleteSelection();
     }
 

@@ -1,9 +1,12 @@
 import collections
+from typing import Dict, Optional
+
 from UM.i18n import i18nCatalog
 from typing import Dict, Optional
 catalog = i18nCatalog("cura")
 
-intent_translations = collections.OrderedDict()  # type: "collections.OrderedDict[str, Dict[str, Optional[str]]]"
+
+intent_translations = collections.OrderedDict()  # type: collections.OrderedDict[str, Dict[str, Optional[str]]]
 intent_translations["default"] = {
     "name": catalog.i18nc("@label", "Default")
 }

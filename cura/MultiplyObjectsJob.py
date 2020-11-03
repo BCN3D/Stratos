@@ -4,6 +4,8 @@
 import copy
 from typing import List
 
+from PyQt5.QtCore import QCoreApplication
+
 from UM.Job import Job
 from UM.Operations.GroupedOperation import GroupedOperation
 from UM.Message import Message
@@ -47,7 +49,7 @@ class MultiplyObjectsJob(Job):
         nodes = []
 
         not_fit_count = 0
-
+        found_solution_for_all = False
         for node in self._objects:
             # If object is part of a group, multiply group
             current_node = node
@@ -66,7 +68,7 @@ class MultiplyObjectsJob(Job):
 
             found_solution_for_all = True
             arranger.resetLastPriority()
-            for i in range(self._count):
+            for _ in range(self._count):
                 # We do place the nodes one by one, as we want to yield in between.
                 new_node = copy.deepcopy(node)
                 solution_found = False
@@ -93,15 +95,16 @@ class MultiplyObjectsJob(Job):
                 nodes.append(new_node)
                 current_progress += 1
                 status_message.setProgress((current_progress / total_progress) * 100)
+                QCoreApplication.processEvents()
                 Job.yieldThread()
-
+            QCoreApplication.processEvents()
             Job.yieldThread()
 
         if nodes:
-            op = GroupedOperation()
+            operation = GroupedOperation()
             for new_node in nodes:
-                op.addOperation(AddSceneNodeOperation(new_node, current_node.getParent()))
-            op.push()
+                operation.addOperation(AddSceneNodeOperation(new_node, current_node.getParent()))
+            operation.push()
         status_message.hide()
 
         if not found_solution_for_all:

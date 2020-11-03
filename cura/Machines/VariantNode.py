@@ -1,13 +1,12 @@
 # Copyright (c) 2019 Ultimaker B.V.
 # Cura is released under the terms of the LGPLv3 or higher.
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from UM.Logger import Logger
 from UM.Settings.ContainerRegistry import ContainerRegistry
 from UM.Settings.Interfaces import ContainerInterface
 from UM.Signal import Signal
 
-from cura.Settings.cura_empty_instance_containers import empty_variant_container
 from cura.Machines.ContainerNode import ContainerNode
 from cura.Machines.MaterialNode import MaterialNode
 
@@ -18,16 +17,16 @@ if TYPE_CHECKING:
     from cura.Machines.MachineNode import MachineNode
 
 
-##  This class represents an extruder variant in the container tree.
-#
-#   The subnodes of these nodes are materials.
-#
-#   This node contains materials with ALL filament diameters underneath it. The
-#   tree of this variant is not specific to one global stack, so because the
-#   list of materials can be different per stack depending on the compatible
-#   material diameter setting, we cannot filter them here. Filtering must be
-#   done in the model.
 class VariantNode(ContainerNode):
+    """This class represents an extruder variant in the container tree.
+
+    The subnodes of these nodes are materials.
+
+    This node contains materials with ALL filament diameters underneath it. The tree of this variant is not specific
+    to one global stack, so because the list of materials can be different per stack depending on the compatible
+    material diameter setting, we cannot filter them here. Filtering must be done in the model.
+    """
+
     def __init__(self, container_id: str, machine: "MachineNode") -> None:
         super().__init__(container_id)
         self.machine = machine
@@ -40,9 +39,10 @@ class VariantNode(ContainerNode):
         container_registry.containerRemoved.connect(self._materialRemoved)
         self._loadAll()
 
-    ##  (Re)loads all materials under this variant.
     @UM.FlameProfiler.profile
     def _loadAll(self) -> None:
+        """(Re)loads all materials under this variant."""
+
         container_registry = ContainerRegistry.getInstance()
 
         if not self.machine.has_materials:
@@ -52,7 +52,7 @@ class VariantNode(ContainerNode):
         # Find all the materials for this variant's name.
         else:  # Printer has its own material profiles. Look for material profiles with this printer's definition.
             base_materials = container_registry.findInstanceContainersMetadata(type = "material", definition = "fdmprinter")
-            printer_specific_materials = container_registry.findInstanceContainersMetadata(type = "material", definition = self.machine.container_id, variant_name = None)
+            printer_specific_materials = container_registry.findInstanceContainersMetadata(type = "material", definition = self.machine.container_id)
             variant_specific_materials = container_registry.findInstanceContainersMetadata(type = "material", definition = self.machine.container_id, variant_name = self.variant_name)  # If empty_variant, this won't return anything.
             materials_per_base_file = {material["base_file"]: material for material in base_materials}
             materials_per_base_file.update({material["base_file"]: material for material in printer_specific_materials})  # Printer-specific profiles override global ones.
@@ -70,29 +70,29 @@ class VariantNode(ContainerNode):
         if not self.materials:
             self.materials["empty_material"] = MaterialNode("empty_material", variant = self)
 
-    ##  Finds the preferred material for this printer with this nozzle in one of
-    #   the extruders.
-    #
-    #   If the preferred material is not available, an arbitrary material is
-    #   returned. If there is a configuration mistake (like a typo in the
-    #   preferred material) this returns a random available material. If there
-    #   are no available materials, this will return the empty material node.
-    #   \param approximate_diameter The desired approximate diameter of the
-    #   material.
-    #   \return The node for the preferred material, or any arbitrary material
-    #   if there is no match.
     def preferredMaterial(self, approximate_diameter: int) -> MaterialNode:
+        """Finds the preferred material for this printer with this nozzle in one of the extruders.
+
+        If the preferred material is not available, an arbitrary material is returned. If there is a configuration
+        mistake (like a typo in the preferred material) this returns a random available material. If there are no
+        available materials, this will return the empty material node.
+
+        :param approximate_diameter: The desired approximate diameter of the material.
+
+        :return: The node for the preferred material, or any arbitrary material if there is no match.
+        """
+
         for base_material, material_node in self.materials.items():
             if self.machine.preferred_material == base_material and approximate_diameter == int(material_node.getMetaDataEntry("approximate_diameter")):
                 return material_node
-            
+
         # First fallback: Check if we should be checking for the 175 variant.
         if approximate_diameter == 2:
             preferred_material = self.machine.preferred_material + "_175"
             for base_material, material_node in self.materials.items():
                 if preferred_material == base_material and approximate_diameter == int(material_node.getMetaDataEntry("approximate_diameter")):
                     return material_node
-        
+
         # Second fallback: Choose any material with matching diameter.
         for material_node in self.materials.values():
             if material_node.getMetaDataEntry("approximate_diameter") and approximate_diameter == int(material_node.getMetaDataEntry("approximate_diameter")):
@@ -108,10 +108,10 @@ class VariantNode(ContainerNode):
         ))
         return fallback
 
-    ##  When a material gets added to the set of profiles, we need to update our
-    #   tree here.
     @UM.FlameProfiler.profile
     def _materialAdded(self, container: ContainerInterface) -> None:
+        """When a material gets added to the set of profiles, we need to update our tree here."""
+
         if container.getMetaDataEntry("type") != "material":
             return  # Not interested.
         if not ContainerRegistry.getInstance().findContainersMetadata(id = container.getId()):

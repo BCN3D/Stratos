@@ -7,7 +7,7 @@ import os
 import unicodedata
 from typing import Dict, List, Optional, TYPE_CHECKING
 
-from PyQt5.QtCore import QObject, pyqtSignal, pyqtProperty, pyqtSlot
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtProperty, pyqtSlot, QTimer
 
 from UM.Logger import Logger
 from UM.Qt.Duration import Duration
@@ -21,11 +21,13 @@ if TYPE_CHECKING:
 catalog = i18nCatalog("cura")
 
 
-##  A class for processing and the print times per build plate as well as managing the job name
-#
-#   This class also mangles the current machine name and the filename of the first loaded mesh into a job name.
-#   This job name is requested by the JobSpecs qml file.
 class PrintInformation(QObject):
+    """A class for processing and the print times per build plate as well as managing the job name
+
+    This class also mangles the current machine name and the filename of the first loaded mesh into a job name.
+    This job name is requested by the JobSpecs qml file.
+    """
+
 
     UNTITLED_JOB_NAME = "Untitled"
 
@@ -47,7 +49,12 @@ class PrintInformation(QObject):
         if self._backend:
             self._backend.printDurationMessage.connect(self._onPrintDurationMessage)
 
-        self._application.getController().getScene().sceneChanged.connect(self._onSceneChanged)
+        self._application.getController().getScene().sceneChanged.connect(self._onSceneChangedDelayed)
+
+        self._change_timer = QTimer()
+        self._change_timer.setInterval(100)
+        self._change_timer.setSingleShot(True)
+        self._change_timer.timeout.connect(self._onSceneChanged)
 
         self._is_user_specified_job_name = False
         self._base_name = ""
@@ -195,7 +202,11 @@ class PrintInformation(QObject):
         self._material_costs[build_plate_number] = []
         self._material_names[build_plate_number] = []
 
-        material_preference_values = json.loads(self._application.getInstance().getPreferences().getValue("cura/material_settings"))
+        try:
+            material_preference_values = json.loads(self._application.getInstance().getPreferences().getValue("cura/material_settings"))
+        except json.JSONDecodeError:
+            Logger.warning("Material preference values are corrupt. Will revert to defaults!")
+            material_preference_values = {}
 
         for index, extruder_stack in enumerate(global_stack.extruderList):
             if index >= len(self._material_amounts):
@@ -298,9 +309,7 @@ class PrintInformation(QObject):
 
         # Only update the job name when it's not user-specified.
         if not self._is_user_specified_job_name:
-            if self._pre_sliced:
-                self._job_name = catalog.i18nc("@label", "Pre-sliced file {0}", base_name)
-            elif self._application.getInstance().getPreferences().getValue("cura/jobname_prefix"):
+            if self._application.getInstance().getPreferences().getValue("cura/jobname_prefix") and not self._pre_sliced:
                 # Don't add abbreviation if it already has the exact same abbreviation.
                 if base_name.startswith(self._abbr_machine + "_"):
                     self._job_name = base_name
@@ -377,10 +386,12 @@ class PrintInformation(QObject):
     def baseName(self):
         return self._base_name
 
-    ##  Created an acronym-like abbreviated machine name from the currently
-    #   active machine name.
-    #   Called each time the global stack is switched.
     def _defineAbbreviatedMachineName(self) -> None:
+        """Created an acronym-like abbreviated machine name from the currently active machine name.
+
+        Called each time the global stack is switched.
+        """
+
         global_container_stack = self._application.getGlobalContainerStack()
         if not global_container_stack:
             self._abbr_machine = ""
@@ -389,8 +400,9 @@ class PrintInformation(QObject):
 
         self._abbr_machine = self._application.getMachineManager().getAbbreviatedMachineName(active_machine_type_name)
 
-    ##  Utility method that strips accents from characters (eg: â -> a)
     def _stripAccents(self, to_strip: str) -> str:
+        """Utility method that strips accents from characters (eg: â -> a)"""
+
         return ''.join(char for char in unicodedata.normalize('NFD', to_strip) if unicodedata.category(char) != 'Mn')
 
     @pyqtSlot(result = "QVariantMap")
@@ -420,12 +432,15 @@ class PrintInformation(QObject):
 
         self._onPrintDurationMessage(build_plate, temp_message, temp_material_amounts)
 
-    ##  Listen to scene changes to check if we need to reset the print information
-    def _onSceneChanged(self, scene_node: SceneNode) -> None:
+    def _onSceneChangedDelayed(self, scene_node: SceneNode) -> None:
         # Ignore any changes that are not related to sliceable objects
-        if not isinstance(scene_node, SceneNode)\
-                or not scene_node.callDecoration("isSliceable")\
+        if not isinstance(scene_node, SceneNode) \
+                or not scene_node.callDecoration("isSliceable") \
                 or not scene_node.callDecoration("getBuildPlateNumber") == self._active_build_plate:
             return
+        self._change_timer.start()
+
+    def _onSceneChanged(self) -> None:
+        """Listen to scene changes to check if we need to reset the print information"""
 
         self.setToZeroPrintInformation(self._active_build_plate)

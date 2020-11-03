@@ -118,7 +118,10 @@ UM.ManagementPage
         UM.Dialog
         {
             id: actionDialog
-
+            minimumWidth: UM.Theme.getSize("modal_window_minimum").width
+            minimumHeight: UM.Theme.getSize("modal_window_minimum").height
+            maximumWidth: minimumWidth * 3
+            maximumHeight: minimumHeight * 3
             rightButtons: Button
             {
                 text: catalog.i18nc("@action:button", "Close")
@@ -133,6 +136,7 @@ UM.ManagementPage
         {
             id: confirmDialog
             object: base.currentItem && base.currentItem.name ? base.currentItem.name : ""
+            text: base.currentItem ? base.currentItem.removalWarning : "";
             onYes:
             {
                 Cura.MachineManager.removeMachine(base.currentItem.id)
@@ -148,8 +152,6 @@ UM.ManagementPage
         UM.RenameDialog
         {
             id: renameDialog;
-            width: 300 * screenScaleFactor
-            height: 150 * screenScaleFactor
             object: base.currentItem && base.currentItem.name ? base.currentItem.name : "";
             property var machine_name_validator: Cura.MachineNameValidator { }
             validName: renameDialog.newName.match(renameDialog.machine_name_validator.machineNameRegex) != null;

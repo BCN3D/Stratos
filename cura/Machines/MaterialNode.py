@@ -14,10 +14,13 @@ if TYPE_CHECKING:
     from typing import Dict
     from cura.Machines.VariantNode import VariantNode
 
-##  Represents a material in the container tree.
-#
-#   Its subcontainers are quality profiles.
+
 class MaterialNode(ContainerNode):
+    """Represents a material in the container tree.
+
+    Its subcontainers are quality profiles.
+    """
+
     def __init__(self, container_id: str, variant: "VariantNode") -> None:
         super().__init__(container_id)
         self.variant = variant
@@ -33,16 +36,16 @@ class MaterialNode(ContainerNode):
         container_registry.containerRemoved.connect(self._onRemoved)
         container_registry.containerMetaDataChanged.connect(self._onMetadataChanged)
 
-    ##  Finds the preferred quality for this printer with this material and this
-    #   variant loaded.
-    #
-    #   If the preferred quality is not available, an arbitrary quality is
-    #   returned. If there is a configuration mistake (like a typo in the
-    #   preferred quality) this returns a random available quality. If there are
-    #   no available qualities, this will return the empty quality node.
-    #   \return The node for the preferred quality, or any arbitrary quality if
-    #   there is no match.
     def preferredQuality(self) -> QualityNode:
+        """Finds the preferred quality for this printer with this material and this variant loaded.
+
+        If the preferred quality is not available, an arbitrary quality is returned. If there is a configuration
+        mistake (like a typo in the preferred quality) this returns a random available quality. If there are no
+        available qualities, this will return the empty quality node.
+
+        :return: The node for the preferred quality, or any arbitrary quality if there is no match.
+        """
+
         for quality_id, quality_node in self.qualities.items():
             if self.variant.machine.preferred_quality_type == quality_node.quality_type:
                 return quality_node
@@ -76,9 +79,7 @@ class MaterialNode(ContainerNode):
                 # The quality profiles only reference a material with the material_root_id. They will never state something
                 # such as "generic_pla_ultimaker_s5_AA_0.4". So we search with the "base_file" which is the material_root_id.
             else:
-                qualities = container_registry.findInstanceContainersMetadata(type = "quality",
-                                                                              definition = self.variant.machine.quality_definition,
-                                                                              material = self.base_file)
+                qualities = container_registry.findInstanceContainersMetadata(type = "quality", definition = self.variant.machine.quality_definition, material = self.base_file)
             if not qualities:
                 my_material_type = self.material_type
                 if self.variant.machine.has_variants:
@@ -86,8 +87,7 @@ class MaterialNode(ContainerNode):
                                                                                                definition = self.variant.machine.quality_definition,
                                                                                                variant = self.variant.variant_name)
                 else:
-                    qualities_any_material = container_registry.findInstanceContainersMetadata(type = "quality",
-                                                                                               definition = self.variant.machine.quality_definition)
+                    qualities_any_material = container_registry.findInstanceContainersMetadata(type = "quality", definition = self.variant.machine.quality_definition)
                 for material_metadata in container_registry.findInstanceContainersMetadata(type = "material", material = my_material_type):
                     qualities.extend((quality for quality in qualities_any_material if quality.get("material") == material_metadata["base_file"]))
 
@@ -109,10 +109,13 @@ class MaterialNode(ContainerNode):
         if not self.qualities:
             self.qualities["empty_quality"] = QualityNode("empty_quality", parent = self)
 
-    ##  Triggered when any container is removed, but only handles it when the
-    #   container is removed that this node represents.
-    #   \param container The container that was allegedly removed.
     def _onRemoved(self, container: ContainerInterface) -> None:
+        """Triggered when any container is removed, but only handles it when the container is removed that this node
+        represents.
+
+        :param container: The container that was allegedly removed.
+        """
+
         if container.getId() == self.container_id:
             # Remove myself from my parent.
             if self.base_file in self.variant.materials:
@@ -121,13 +124,15 @@ class MaterialNode(ContainerNode):
                     self.variant.materials["empty_material"] = MaterialNode("empty_material", variant = self.variant)
             self.materialChanged.emit(self)
 
-    ##  Triggered when any metadata changed in any container, but only handles
-    #   it when the metadata of this node is changed.
-    #   \param container The container whose metadata changed.
-    #   \param kwargs Key-word arguments provided when changing the metadata.
-    #   These are ignored. As far as I know they are never provided to this
-    #   call.
     def _onMetadataChanged(self, container: ContainerInterface, **kwargs: Any) -> None:
+        """Triggered when any metadata changed in any container, but only handles it when the metadata of this node is
+        changed.
+
+        :param container: The container whose metadata changed.
+        :param kwargs: Key-word arguments provided when changing the metadata. These are ignored. As far as I know they
+        are never provided to this call.
+        """
+
         if container.getId() != self.container_id:
             return
 
