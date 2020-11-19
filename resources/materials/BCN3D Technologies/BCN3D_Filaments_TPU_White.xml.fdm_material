@@ -73,7 +73,7 @@
            <hotend id="e3D - 1.0mm - Brass" />
         </machine>
         <machine>
-            <machine_identifier manufacturer="BCN3D Technologies" product="bcn3depsilon" />
+            <machine_identifier manufacturer="BCN3D Technologies" product="bcn3dw50" />
             <setting key="heated bed temperature">65</setting>
             <setting key="retraction amount">9</setting>
             <setting key="heated bed temperature">30</setting>
