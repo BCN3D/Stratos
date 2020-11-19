@@ -48,7 +48,7 @@
            <hotend id="e3D - 1.0mm - Brass" />
         </machine>
         <machine>
-            <machine_identifier manufacturer="BCN3D Technologies" product="bcn3depsilon" />
+            <machine_identifier manufacturer="BCN3D Technologies" product="bcn3dw50" />
             <hotend id="e3D - 0.4mm - Brass" />
             <hotend id="e3D - 0.6mm - Brass" />
             <hotend id="e3D - 0.6mm - NozzleX">
