@@ -21,7 +21,7 @@ class BCN3DIdex(Extension):
     def __init__(self) -> None:
         super().__init__()
         self._duplication_gcode = "M605 S5 ;enable duplication mode\nG4 P1\nG4 P2\nG4 P3\n"
-        self._mirror_gcode = "M605 S65 ;enable mirror mode\nG4 P1\nG4 P2\nG4 P3\n"
+        self._mirror_gcode = "M605 S6 ;enable mirror mode\nG4 P1\nG4 P2\nG4 P3\n"
 
         self._application = CuraApplication.getInstance()
         self._i18n_catalog = None  # type: Optional[i18nCatalog]
