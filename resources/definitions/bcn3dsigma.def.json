@@ -140,7 +140,7 @@
         "acceleration_topbottom": { "value": "acceleration_wall_x" },
         "acceleration_support": { "value": "acceleration_wall_x" },
         "acceleration_support_interface": { "value": "acceleration_topbottom" },
-        "acceleration_travel": { "value": "800" },
+        "acceleration_travel": { "value": 800 },
         "acceleration_layer_0": { "value": "acceleration_topbottom" },
         "jerk_enabled": { "value": true },
         "jerk_print": { "value": "machine_max_jerk_xy" },
