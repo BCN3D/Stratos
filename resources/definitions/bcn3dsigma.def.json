@@ -1,7 +1,7 @@
 {
     "version": 2,
     "name": "Sigma",
-    "inherits": "fdmprinter",
+    "inherits": "bcn3dprinter",
     "metadata": {
         "author": "BCN3D Technologies",
         "category": "BCN3D Technologies",
