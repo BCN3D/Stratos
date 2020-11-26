@@ -357,6 +357,22 @@
     },
     "blackmagic": {
       "children": {
+         "heat_extrude_gcoder": {
+          "label": "123Print Mode GCode",
+          "description": "123GCode to enable selected print mode.",
+          "type": "enum",
+           "options": {
+            "": "Regular",
+            "M605 S6      ;enable mirror mode": "Mirror",
+            "M605 S5      ;enable duplication mode": "Duplication"
+          },
+          "default_value": "",
+          "value": "'' if print_mode == 'regular' else 'M104 T1 S{material_print_temperature_layer_0}      ;Fixed T1 temperature\nM109 T1 S{material_print_temperature_layer_0}      ;Fixed T1 temperature'",
+          "enabled": false,
+          "settable_per_extruder": false,
+          "comments": "BCN3D setting"
+        },
+
         "print_mode": {
           "label": "Print Mode",
           "description": "Choose the print mode.",
