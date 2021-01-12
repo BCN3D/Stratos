@@ -407,7 +407,7 @@
           "description": "GCode to enable selected print mode.",
           "type": "str",
           "default_value": "",
-          "value": "'T{extruder_nr} \\n' + (\"G92 E0 ;set zero the extruded length \\nG1 E10 F35 (parametrizar)\\n G92 E0 \\nG4 S2 ;stabilize hotend \\nG1 E-0.5 F1000 \\nG92 E0 \\n\" if adhesion_extruder_nr == extruder_nr or print_mode == \"mirror\" or print_mode == \"duplication\" \" G92 E0 ;set zero the extruded length \\nG1 E{start_purge_distance} F{purge_speed_gcode} (parametrizar) \\nG92 E0 \\nG1 E-{switch_extruder_retraction_amount} F1000 \\nG92 E0\\n \" if adhesion_extruder_nr != extruder_nr and enabled_extruder == 2 else \"\")",
+          "value": "'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + '\\n' + (\"G92 E0 ;set zero the extruded length \\nG1 E10 F35 (parametrizar) \\nG92 E0 \\nG4 S2 ;stabilize hotend \\nG1 E-0.5 F1000 \\nG92 E0 \\n\" if adhesion_extruder_nr == extruder_nr or print_mode == \"mirror\" or print_mode == \"duplication\" else \" G92 E0 ;set zero the extruded length \\nG1 E{start_purge_distance} F{purge_speed_gcode} (parametrizar) \\nG92 E0 \\nG1 E-{switch_extruder_retraction_amount} F1000 \\nG92 E0\\n \" if adhesion_extruder_nr != extruder_nr and enabled_extruder == 2 else \"\")",
           "enabled": false,
           "settable_per_extruder": true,
           "comments": "BCN3D setting"
