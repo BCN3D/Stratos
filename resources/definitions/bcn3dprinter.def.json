@@ -212,6 +212,20 @@
     },
     "dual": {
       "children": {
+        "print_mode": {
+          "label": "Print Mode",
+          "description": "Choose the print mode.",
+          "type": "enum",
+          "options": {
+            "regular": "Regular",
+            "mirror": "Mirror",
+            "duplication": "Duplication"
+          },
+          "default_value": "regular",
+          "enabled": false,
+          "settable_per_extruder": false,
+          "comments": "BCN3D setting"
+        },
         "fix_tool_change_travel": {
           "label": "Fix Tool Change Travel",
           "description": "Allows the new tool to go straight to the position where it has to print, instead of going to the last position before tool change and then travel to the position where it has to print.",
@@ -372,30 +386,10 @@
           "settable_per_extruder": false,
           "comments": "BCN3D setting"
         },
-
-        "print_mode": {
-          "label": "Print Mode",
-          "description": "Choose the print mode.",
-          "type": "enum",
-          "options": {
-            "regular": "Regular",
-            "mirror": "Mirror",
-            "duplication": "Duplication"
-          },
-          "default_value": "regular",
-          "enabled": false,
-          "settable_per_extruder": false,
-          "comments": "BCN3D setting"
-        },
         "print_mode_gcode": {
           "label": "Print Mode GCode",
           "description": "GCode to enable selected print mode.",
-          "type": "enum",
-          "options": {
-            "": "Regular",
-            "M605 S6      ;enable mirror mode": "Mirror",
-            "M605 S5      ;enable duplication mode": "Duplication"
-          },
+          "type": "str",
           "default_value": "",
           "value": "'' if print_mode == 'regular' else 'M605 S6      ;enable mirror mode' if print_mode == 'mirror' else 'M605 S5      ;enable duplication mode'",
           "enabled": false,
