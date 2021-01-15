@@ -371,12 +371,21 @@
     },
     "blackmagic": {
       "children": {
+        "machine_nozzle_type": {
+          "label": "Print Mode GCode",
+          "description": "GCode to enable selected print mode.",
+          "type": "str",
+          "default_value": "",
+          "enabled": false,
+          "settable_per_extruder": true,
+          "comments": "BCN3D setting"
+        },
          "used_nozzle_size": {
           "label": "Print Mode GCode",
           "description": "GCode to enable selected print mode.",
           "type": "str",
           "default_value": "",
-          "value": "'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + ' ' + str(extruderValue(extruder_nr, 'machine_nozzle_size')) if adhesion_extruder_nr == extruder_nr or extruders_enabled_count == 2 else 'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + ' ' + str(extruderValue(0, 'machine_nozzle_size')) if print_mode == \"mirror\" or print_mode == \"duplication\" else ''",
+          "value": "'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + ' ' + str(extruderValue(extruder_nr, 'machine_nozzle_size')) + str(extruderValue(extruder_nr, 'machine_nozzle_type')) if adhesion_extruder_nr == extruder_nr or extruders_enabled_count == 2 else 'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + ' ' + str(extruderValue(0, 'machine_nozzle_size')) + str(extruderValue(0, 'machine_nozzle_type')) if print_mode == \"mirror\" or print_mode == \"duplication\" else ''",
           "enabled": false,
           "settable_per_extruder": true,
           "comments": "BCN3D setting"
