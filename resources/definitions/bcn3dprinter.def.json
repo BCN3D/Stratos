@@ -414,7 +414,7 @@
           "description": "GCode to enable selected print mode.",
           "type": "str",
           "default_value": "",
-          "value": "'' if print_mode == 'regular' else 'M605 S6      ;enable mirror mode' if print_mode == 'mirror' else 'M605 S5      ;enable duplication mode'",
+          "value": "'' if print_mode == 'regular' else 'M605 S6 \\t\\t;enable mirror mode' if print_mode == 'mirror' else 'M605 S5 \\t\\t;enable duplication mode'",
           "enabled": false,
           "settable_per_extruder": false,
           "comments": "BCN3D setting"
@@ -424,7 +424,7 @@
           "description": "GCode to enable selected print mode.",
           "type": "str",
           "default_value": "",
-          "value": "'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + '\\n' + 'G92 E0 ;set zero the extruded length \\nG1 E10 F35 (parametrizar) \\nG92 E0 \\nG4 S2 ;stabilize hotend \\nG1 E-0.5 F1000 \\nG92 E0 \\n' if adhesion_extruder_nr == extruder_nr or print_mode == \"mirror\" or print_mode == \"duplication\" else 'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + '\\n' + 'G92 E0 ;set zero the extruded length \\nG1 E' + str(extruderValue(extruder_nr, 'start_purge_distance')) + 'F' + str(extruderValue(extruder_nr, 'purge_speed_gcode')) + '\\nG92 E0 \\nG1 E-' + str(extruderValue(extruder_nr, 'switch_extruder_retraction_amount')) + ' F1000 \\nG92 E0\\n' if adhesion_extruder_nr != extruder_nr and extruders_enabled_count == 2 else ''",
+          "value": "'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + '\\n' + 'G92 E0 \\t\\t;set zero the extruded length \\nG1 E10 F35 (parametrizar) \\nG92 E0 \\nG4 S2 \\t\\t;stabilize hotend \\nG1 E-0.5 F1000 \\nG92 E0' if adhesion_extruder_nr == extruder_nr or print_mode == \"mirror\" or print_mode == \"duplication\" else 'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + '\\n' + 'G92 E0 \\t\\t;set zero the extruded length \\nG1 E' + str(extruderValue(extruder_nr, 'start_purge_distance')) + ' F' + str(extruderValue(extruder_nr, 'purge_speed_gcode')) + '\\nG92 E0 \\nG1 E-' + str(extruderValue(extruder_nr, 'switch_extruder_retraction_amount')) + ' F1000 \\nG92 E0' if adhesion_extruder_nr != extruder_nr and extruders_enabled_count == 2 else ''",
           "enabled": false,
           "settable_per_extruder": true,
           "comments": "BCN3D setting"
