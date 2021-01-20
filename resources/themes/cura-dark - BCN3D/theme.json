@@ -153,7 +153,7 @@
         "viewport_overlay": [30, 36, 39, 255],
 
         "primary": [12, 169, 227, 255],
-        "primary_text": [255, 255, 255, 204],
+        "primary_text": [81, 145, 247, 255],
         "secondary": [95, 95, 95, 255],
 
         "icon": [204, 204, 204, 255],
@@ -169,6 +169,19 @@
         "machine_selector_bar": [39, 44, 48, 255],
         "machine_selector_active": [39, 44, 48, 255],
         "machine_selector_printer_icon": [204, 204, 204, 255],
+
+        "main_window_header_background": [29, 29, 27, 255],
+        "main_window_header_background_gradient": [29, 29, 27, 255],
+        "main_window_header_button_text_active": [29, 29, 27, 255],
+        "main_window_header_button_text_hovered": [29, 29, 27, 255],
+        "main_window_header_button_background_hovered": [255, 255, 255, 204],
+
+
+        "secondary_button": [81, 145, 247, 255],
+        "secondary_button_shadow": [216, 216, 216, 0],
+        "secondary_button_hover": [75, 80, 83, 255],
+        "secondary_button_text": [255, 255, 255, 255],
+
 
         "text": [255, 255, 255, 204],
         "text_detail": [255, 255, 255, 172],
@@ -259,7 +272,7 @@
         "setting_control_border_highlight": [12, 169, 227, 255],
         "setting_control_text": [255, 255, 255, 181],
         "setting_control_button": [255, 255, 255, 127],
-        "setting_control_button_hover": [255, 255, 255, 204],
+        "setting_control_button_hover": [81, 145, 247, 255],
         "setting_control_disabled": [34, 39, 42, 255],
         "setting_control_disabled_text": [255, 255, 255, 101],
         "setting_control_disabled_border": [255, 255, 255, 101],
