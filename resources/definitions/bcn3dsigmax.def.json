@@ -3,31 +3,10 @@
     "name": "Sigmax",
     "inherits": "bcn3dsigma",
     "metadata": {
-        "author": "BCN3D Technologies",
-        "category": "BCN3D Technologies",
-        "additional_info": "",
         "weight": "6",
-        "manufacturer": "BCN3D Technologies",
-        "file_formats": "text/x-gcode",
         "platform": "bcn3dsigmax_bed.stl",
-        "platform_offset": [0, 0, 0],
-        "has_machine_quality": true,
-        "visible": true,
         "variant_definition": "bcn3dsigma",
-        "quality_definition": "bcn3dsigma",
-        "has_materials": true,
-        "has_machine_materials": true,
-        "has_variant_materials": true,
-        "has_variants": true,
-        "preferred_material": "*BCN3D_Filaments_PLA_Light_Blue*",
-        "preferred_variant": "bcn3dsigma_0.6mm_-_Brass*",
-        "preferred_quality": "*High*",
-        "variants_name": "Hotend",
-        "machine_extruder_trains":
-        {
-            "0": "bcn3dsigmax_extruder_left",
-            "1": "bcn3dsigmax_extruder_right"
-        }
+        "quality_definition": "bcn3dsigma"
     },
     "overrides": {
         "machine_name": { "default_value": "Sigmax" },

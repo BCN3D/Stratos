@@ -1,10 +1,20 @@
 {
-  "name": "FDM Printer Base Description",
+  "name": "BCN3D Printer Base Description",
   "version": 2,
   "inherits": "fdmprinter",
   "metadata": {
     "visible": false,
-    "author": "fieldOfView"
+    "author": "BCN3D Technologies",
+    "manufacturer": "BCN3D Technologies",
+    "preferred_material": "BCN3D_Filaments_PLA_Light_Blue",
+    "preferred_variant_name": "e3D - 0.4mm - Brass",
+    "preferred_quality_type": "normal",
+    "variants_name": "Hotend",
+    "has_machine_quality": true,
+    "has_materials": true,
+    "has_machine_materials": true,
+    "has_variant_materials": true,
+    "has_variants": true
   },
   "settings": {
     "material": {
@@ -172,7 +182,7 @@
             "duplication": "Duplication"
           },
           "default_value": "regular",
-          "enabled": false,
+          "enabled": true,
           "settable_per_extruder": false,
           "comments": "BCN3D setting"
         },

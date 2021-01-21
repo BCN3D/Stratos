@@ -3,24 +3,10 @@
     "name": "Epsilon W50",
     "inherits": "bcn3dprinter",
     "metadata": {
-        "author": "BCN3D Technologies",
-        "category": "BCN3D Technologies",
-        "additional_info": "",
         "weight": "1",
-        "manufacturer": "BCN3D Technologies",
         "file_formats": "text/x-gcode",
         "platform": "bcn3depsilon_bed.stl",
-        "platform_offset": [0, 0, 0],
-        "has_machine_quality": true,
         "visible": true,
-        "has_materials": true,
-        "has_machine_materials": true,
-        "has_variant_materials": true,
-        "has_variants": true,
-        "preferred_material": "*BCN3D_Filaments_PLA_Light_Blue*",
-        "preferred_variant": "bcn3dw50_e3D_-_0.4mm_-_Brass*",
-        "preferred_quality": "*High*",
-        "variants_name": "Hotend",
         "machine_extruder_trains": {
             "0": "bcn3dw50_extruder_left",
             "1": "bcn3dw50_extruder_right"
@@ -199,7 +185,7 @@
             "enabled": true,
             "value": false
         },
-        "start_purge_distance": { "value": 15 },
+        "start_purge_distance": { "value": 10 },
         "support_angle": { "value": 60 },
         "support_bottom_distance": { "value": "layer_height" },
         "support_bottom_height": { "value": "3 * layer_height" },
