@@ -44,31 +44,6 @@
     },
     "speed": {
       "children": {
-        "purge_speed": {
-          "label": "Purge Speed",
-          "description": "The speed at which the filament is pushed by the extruder when purging in the purge tray.",
-          "unit": "mm/s",
-          "type": "float",
-          "default_value": 0.8,
-          "minimum_value": "1/60.0",
-          "maximum_value": "machine_max_feedrate_e",
-          "enabled": "(smart_purge and print_mode == 'regular') or avoid_grinding_filament",
-          "settable_per_mesh": false,
-          "settable_per_extruder": true,
-          "comments": "BCN3D setting"
-        },
-        "purge_speed_gcode": {
-          "label": "Purge Speed",
-          "description": "The speed at which the filament is pushed by the extruder when purging in the purge tray.",
-          "unit": "mm/min",
-          "type": "float",
-          "default_value": 0.8,
-          "value": "round(purge_speed * 60, 1)",
-          "enabled": false,
-          "settable_per_mesh": false,
-          "settable_per_extruder": true,
-          "comments": "BCN3D setting"
-        }
       }
     },
     "travel": {
@@ -161,50 +136,25 @@
     },
     "platform_adhesion": {
       "children": {
-        "purge_in_bucket_before_start": {
-          "label": "Purge Before Printing",
-          "description": "Whether to prime the filament in the bucket before printing. Turning this setting on will ensure that the extruder will have material ready at the nozzle before printing. Printing Brim or Skirt can act like priming too, in which case turning this setting off saves some time.",
-          "type": "bool",
-          "default_value": false,
-          "settable_per_mesh": false,
-          "settable_per_extruder": true,
-          "enabled": false,
-          "comments": "BCN3D setting"
-        },
-        "purge_in_bucket_before_start_l_enable_gcode": {
-          "label": "Purge Before Printing L Enable GCode",
-          "description": "GCode to enable Purge Before Printing L commands.",
-          "type": "enum",
-          "options": {
-            ";": "No",
-            "": "Yes"
-          },
-          "default_value": "",
-          "value": "'G1 F' + str(extruderValue(0, 'purge_speed_gcode')) + ' E' + str(extruderValue(0, 'start_purge_distance')) + ' ;extrude ' + str(extruderValue(0, 'start_purge_distance')) + 'mm of feed stock' if extruderValue(0, 'purge_in_bucket_before_start') and 0 in getUsedExtruders() else ''",
-          "enabled": false,
-          "comments": "BCN3D setting"
-        },
-        "purge_in_bucket_before_start_r_enable_gcode": {
-          "label": "Purge Before Printing R Enable GCode",
-          "description": "GCode to enable Purge Before Printing R commands.",
-          "type": "enum",
-          "options": {
-            ";": "No",
-            "": "Yes"
-          },
-          "default_value": "",
-          "value": "purge_in_bucket_before_start_l_enable_gcode if print_mode != 'regular' else 'G1 F' + str(extruderValue(1, 'purge_speed_gcode')) + ' E' + str(extruderValue(1, 'start_purge_distance')) + ' ;extrude ' + str(extruderValue(1, 'start_purge_distance')) + 'mm of feed stock' if extruderValue(1, 'purge_in_bucket_before_start') and 1 in getUsedExtruders() else ''",
-          "enabled": false,
-          "comments": "BCN3D setting"
-        },
         "start_purge_distance": {
           "label": "Start Purge Distance",
           "description": "Filament distance purged before extruder starts printing.",
           "unit": "mm",
           "type": "float",
-          "default_value": 20,
+          "default_value": 10,
           "minimum_value": "0",
-          "enabled": "purge_in_bucket_before_start",
+          "settable_per_extruder": true,
+          "comments": "BCN3D setting"
+        },
+        "start_purge_speed": {
+          "label": "Start Purge Speed",
+          "description": "The speed at which the filament is pushed by the extruder when purging in the purge tray.",
+          "unit": "mm/s",
+          "type": "float",
+          "default_value": 35,
+          "minimum_value": "0",
+          "maximum_value_warning": "45",
+          "settable_per_mesh": false,
           "settable_per_extruder": true,
           "comments": "BCN3D setting"
         }
@@ -399,7 +349,7 @@
           "settable_per_extruder": true,
           "comments": "BCN3D setting"
         },
-         "used_nozzle_size": {
+        "used_nozzle_size": {
           "label": "Print Mode GCode",
           "description": "GCode to enable selected print mode.",
           "type": "str",
@@ -424,7 +374,7 @@
           "description": "GCode to enable selected print mode.",
           "type": "str",
           "default_value": "",
-          "value": "'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + '\\n' + 'G92 E0 \\t\\t;set zero the extruded length \\nG1 E10 F35 (parametrizar) \\nG92 E0 \\nG4 S2 \\t\\t;stabilize hotend \\nG1 E-0.5 F1000 \\nG92 E0' if adhesion_extruder_nr == extruder_nr or print_mode == \"mirror\" or print_mode == \"duplication\" else 'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + '\\n' + 'G92 E0 \\t\\t;set zero the extruded length \\nG1 E' + str(extruderValue(extruder_nr, 'start_purge_distance')) + ' F' + str(extruderValue(extruder_nr, 'purge_speed_gcode')) + '\\nG92 E0 \\nG1 E-' + str(extruderValue(extruder_nr, 'switch_extruder_retraction_amount')) + ' F1000 \\nG92 E0' if adhesion_extruder_nr != extruder_nr and extruders_enabled_count == 2 else ''",
+          "value": "'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + '\\n' + 'G92 E0 \\t\\t;set zero the extruded length \\nG1 E' + str(extruderValue(extruder_nr, 'start_purge_distance')) + ' F' + str(extruderValue(extruder_nr, 'start_purge_speed')) + '\\nG92 E0 \\nG4 S2 \\t\\t;stabilize hotend \\nG1 E-0.5 F1000 \\nG92 E0' if adhesion_extruder_nr == extruder_nr or print_mode == \"mirror\" or print_mode == \"duplication\" else 'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + '\\n' + 'G92 E0 \\t\\t;set zero the extruded length \\nG1 E' + str(extruderValue(extruder_nr, 'start_purge_distance')) + ' F' + str(extruderValue(extruder_nr, 'start_purge_speed')) + '\\nG92 E0 \\nG1 E-' + str(extruderValue(extruder_nr, 'switch_extruder_retraction_amount')) + ' F1000 \\nG92 E0' if adhesion_extruder_nr != extruder_nr and extruders_enabled_count == 2 else ''",
           "enabled": false,
           "settable_per_extruder": true,
           "comments": "BCN3D setting"
