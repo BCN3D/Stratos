@@ -322,8 +322,8 @@
     "blackmagic": {
       "children": {
         "material_type": {
-          "label": "Print Mode GCode",
-          "description": "GCode to enable selected print mode.",
+          "label": "Material type",
+          "description": "Material typ",
           "type": "str",
           "default_value": "",
           "enabled": false,
@@ -331,8 +331,8 @@
           "comments": "BCN3D setting"
         },
         "used_material": {
-          "label": "Print Mode GCode",
-          "description": "GCode to enable selected print mode.",
+          "label": "Used materials",
+          "description": "Comment with the materials used.",
           "type": "str",
           "default_value": "",
           "value": "'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + ' ' + str(extruderValue(extruder_nr, 'material_type')) if adhesion_extruder_nr == extruder_nr or extruders_enabled_count == 2 else 'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + ' ' + str(extruderValue(0, 'material_type')) if print_mode == \"mirror\" or print_mode == \"duplication\" else ''",
@@ -341,8 +341,8 @@
           "comments": "BCN3D setting"
         },
         "machine_nozzle_type": {
-          "label": "Print Mode GCode",
-          "description": "GCode to enable selected print mode.",
+          "label": "Nozzle type",
+          "description": "Nozzle type.",
           "type": "str",
           "default_value": "",
           "enabled": false,
@@ -350,8 +350,8 @@
           "comments": "BCN3D setting"
         },
         "used_nozzle_size": {
-          "label": "Print Mode GCode",
-          "description": "GCode to enable selected print mode.",
+          "label": "Used nozzle size",
+          "description": "Comment with the nozzle size used.",
           "type": "str",
           "default_value": "",
           "value": "'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + ' ' + str(extruderValue(extruder_nr, 'machine_nozzle_size')) + str(extruderValue(extruder_nr, 'machine_nozzle_type')) if adhesion_extruder_nr == extruder_nr or extruders_enabled_count == 2 else 'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + ' ' + str(extruderValue(0, 'machine_nozzle_size')) + str(extruderValue(0, 'machine_nozzle_type')) if print_mode == \"mirror\" or print_mode == \"duplication\" else ''",
@@ -370,8 +370,8 @@
           "comments": "BCN3D setting"
         },
         "purge_in_bucket_before_start_gcode": {
-          "label": "Print Mode GCode",
-          "description": "GCode to enable selected print mode.",
+          "label": "Purge in bucket before start GCode",
+          "description": "GCode to purge in bucket each extruder.",
           "type": "str",
           "default_value": "",
           "value": "'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + '\\n' + 'G92 E0 \\t\\t;set zero the extruded length \\nG1 E' + str(extruderValue(extruder_nr, 'start_purge_distance')) + ' F' + str(extruderValue(extruder_nr, 'start_purge_speed')) + '\\nG92 E0 \\nG4 S2 \\t\\t;stabilize hotend \\nG1 E-0.5 F1000 \\nG92 E0' if adhesion_extruder_nr == extruder_nr or print_mode == \"mirror\" or print_mode == \"duplication\" else 'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + '\\n' + 'G92 E0 \\t\\t;set zero the extruded length \\nG1 E' + str(extruderValue(extruder_nr, 'start_purge_distance')) + ' F' + str(extruderValue(extruder_nr, 'start_purge_speed')) + '\\nG92 E0 \\nG1 E-' + str(extruderValue(extruder_nr, 'switch_extruder_retraction_amount')) + ' F1000 \\nG92 E0' if adhesion_extruder_nr != extruder_nr and extruders_enabled_count == 2 else ''",
