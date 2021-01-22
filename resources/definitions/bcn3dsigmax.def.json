@@ -5,7 +5,6 @@
     "metadata": {
         "weight": "6",
         "platform": "bcn3dsigmax_bed.stl",
-        "variant_definition": "bcn3dsigma",
         "quality_definition": "bcn3dsigma"
     },
     "overrides": {
