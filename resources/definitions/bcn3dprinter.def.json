@@ -186,6 +186,9 @@
           "settable_per_extruder": false,
           "comments": "BCN3D setting"
         },
+          "prime_tower_enable": {
+            "resolve":  "False if 'bvoh' in extruderValues('material_type') else any(extruderValues('prime_tower_enable'))"
+          },
         "fix_tool_change_travel": {
           "label": "Fix Tool Change Travel",
           "description": "Allows the new tool to go straight to the position where it has to print, instead of going to the last position before tool change and then travel to the position where it has to print.",
