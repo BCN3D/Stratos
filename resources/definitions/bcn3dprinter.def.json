@@ -187,7 +187,7 @@
           "comments": "BCN3D setting"
         },
           "prime_tower_enable": {
-            "resolve":  "False if 'bvoh' in extruderValues('material_type') else any(extruderValues('prime_tower_enable'))"
+            "resolve":  "False if 'BVOH' in extruderValues('material_type') else any(extruderValues('prime_tower_enable'))"
           },
         "fix_tool_change_travel": {
           "label": "Fix Tool Change Travel",
