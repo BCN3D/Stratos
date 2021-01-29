@@ -6,7 +6,6 @@
         "weight": "7",
         "file_formats": "text/x-gcode",
         "platform": "bcn3dsigma_bed.stl",
-        "platform_offset": [0, 0, 0],
         "visible": true,
         "machine_extruder_trains":
         {
@@ -22,23 +21,9 @@
         "machine_width": { "default_value": 210 },
         "machine_depth": { "default_value": 297 },
         "machine_height": { "default_value": 210 },
-        "print_mode": { "enabled": true },
         "machine_disallowed_areas": { "value": "[] if print_mode == 'regular' else [[[-(abs(machine_head_with_fans_polygon[0][0]) + abs(machine_head_with_fans_polygon[2][0])) / 2, machine_depth / 2], [-(abs(machine_head_with_fans_polygon[0][0]) + abs(machine_head_with_fans_polygon[2][0])) / 2, -machine_depth / 2], [machine_width / 2, -machine_depth / 2], [machine_width / 2, machine_depth / 2]]] if print_mode == 'mirror' else [[[0, machine_depth / 2], [0, -machine_depth / 2], [machine_width / 2, -machine_depth / 2], [machine_width / 2, machine_depth / 2]]]" },
         "machine_heated_bed": { "default_value": true },
-        "machine_extruder_count": { "default_value": 2 },
         "machine_center_is_zero": { "default_value": false },
-        "machine_gcode_flavor": { "default_value": "RepRap (Marlin/Sprinter)" },
-        "machine_head_with_fans_polygon":
-        {
-            "default_value":
-            [
-                [-27.8, 39.6],
-                [-27.8, -58.8],
-                [26.2, 39.6],
-                [26.2, -58.8]
-            ]
-        },
-        "gantry_height": { "default_value": 210 },
         "machine_max_feedrate_x": { "default_value": 200 },
         "machine_max_feedrate_y": { "default_value": 200 },
         "machine_max_feedrate_z": { "default_value": 12 },
@@ -111,11 +96,9 @@
         "retraction_min_travel": { "value": "3.75 * machine_nozzle_size" },
         "retraction_count_max": { "value": "10 * retraction_extrusion_window" },
         "retraction_extrusion_window": { "value": 1 },
-        "speed_infill": { "value": "round(speed_print / infill_sparse_layer, 1)" },
         "speed_wall_x": { "value": "round(speed_print - (speed_print - speed_wall) / 2, 1)" },
         "speed_wall_0": { "value": "speed_wall" },
         "speed_topbottom": { "value": "speed_wall_x" },
-        "speed_support_infill": { "value": "round(speed_support / support_infill_sparse_layer, 1)" },
         "speed_support_interface": { "value": "speed_wall" },
         "speed_travel": { "value": "100" },
         "speed_travel_layer_0": { "value": "round(speed_travel * speed_layer_0 / speed_print, 1)" },
@@ -202,11 +185,6 @@
         "raft_base_thickness": { "value": "extruderValue(adhesion_extruder_nr, 'machine_nozzle_size') * 0.75" },
         "raft_base_line_width": { "value": "extruderValue(adhesion_extruder_nr, 'machine_nozzle_size') * 2.5" },
         "raft_base_line_spacing": { "value": "extruderValue(adhesion_extruder_nr, 'machine_nozzle_size') * 7.5" },
-        "prime_tower_enable": { "value": true },
-        "prime_tower_size": { "value": "max(25, round(math.sqrt(prime_tower_min_volume/layer_height), 2))" },
-        "prime_tower_min_volume": { "value": "2 * smart_purge_minimum_purge_distance * math.pi * (material_diameter/2) ** 2" },
-        "prime_tower_wall_thickness": { "value": 4.8},
-        "prime_tower_wipe_enabled": { "value": false },
         "dual_pre_wipe": { "value": false },
         "ooze_shield_enabled": { "value": false },
         "multiple_mesh_overlap": { "value": "0.375 * machine_nozzle_size - xy_offset" },
