@@ -9,6 +9,12 @@ import Cura 1.1 as Cura
 
 Item
 {
+    property var emailText: ""
+    property var passwordText: ""
+    property int signInStatusCode: 200
+    property bool emailErrorVisible: false
+    property bool passwordErrorVisible: false
+
     property var profile: Cura.API.account.userProfile
     property var loggedIn: Cura.API.account.isLoggedIn
 
@@ -128,6 +134,7 @@ Item
 
         closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
         onOpened: Cura.API.account.popupOpened()
+        onClosed: this.resetForm()
 
         opacity: opened ? 1 : 0
         Behavior on opacity { NumberAnimation { duration: 100 } }
@@ -144,6 +151,16 @@ Item
             target: Qt.point(width - (accountWidget.width / 2), -10)
 
             arrowSize: UM.Theme.getSize("default_arrow").width
+        }
+
+        function resetForm() {
+            signInStatusCode = 200
+
+            emailText = ""
+            passwordText = ""
+
+            emailErrorVisible = false
+            passwordErrorVisible = false
         }
     }
 }

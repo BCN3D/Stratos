@@ -70,11 +70,12 @@ Column
         TextField
         {
             id: email
+            text: emailText
             anchors.horizontalCenter: parent.horizontalCenter
             placeholderText: "Email"
             onEditingFinished: {
-                if (text != "") emailError.visible = false
-                else emailError.visible = true
+                if (text != "") emailErrorVisible = false
+                else emailErrorVisible = true
             }
         }
         Label
@@ -85,7 +86,7 @@ Column
             horizontalAlignment: Text.AlignLeft
             text: "Email is required"
             color: "red"
-            visible: false
+            visible: emailErrorVisible
         }
     }
 
@@ -97,12 +98,13 @@ Column
         TextField
         {
             id: password
+            text: passwordText
             anchors.horizontalCenter: parent.horizontalCenter
             placeholderText: "Password"
             echoMode: TextInput.Password
             onEditingFinished: {
-                if (text != "") passwordError.visible = false
-                else passwordError.visible = true
+                if (text != "") passwordErrorVisible = false
+                else passwordErrorVisible = true
             }
         }
         Label
@@ -113,7 +115,20 @@ Column
             horizontalAlignment: Text.AlignLeft
             text: "Password is required"
             color: "red"
-            visible: false
+            visible: passwordErrorVisible
+        }
+    }
+
+    Item
+    {
+        height: 12
+        width: 50
+        anchors.horizontalCenter: parent.horizontalCenter
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: signInStatusCode == 400 ? "Incorrect email or password" : signInStatusCode == -1 ? "Can't sign in. Check internet connection." : "Can't sign in. Something went wrong."
+            color: "red"
+            visible: signInStatusCode != 200
         }
     }
 
@@ -135,5 +150,20 @@ Column
         text: catalog.i18nc("@button", "Create account")
         onClicked: Qt.openUrlExternally("https://cloud.bcn3d.com")
         fixedWidthMode: true
+    }
+
+    function signIn() {
+        signInStatusCode = Cura.AuthenticationService.signIn(email.text, password.text)
+        if (signInStatusCode == 200) {
+            popup.close()
+        }
+    }
+
+    function signOut() {
+        var success = Cura.AuthenticationService.signOut()
+        if (success) {
+            signInButton.visible = true
+            userButton.visible = false
+        }
     }
 }
