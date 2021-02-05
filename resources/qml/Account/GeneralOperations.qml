@@ -26,7 +26,7 @@ Column
         anchors.horizontalCenter: parent.horizontalCenter
         horizontalAlignment: Text.AlignHCenter
         renderType: Text.NativeRendering
-        text: "Ultimaker Account"
+        text: "BCN3D Account"
         font: UM.Theme.getFont("large_bold")
         color: UM.Theme.getColor("text")
     }
@@ -40,6 +40,7 @@ Column
         text: catalog.i18nc("@label", "Your key to connected 3D printing")
         font: UM.Theme.getFont("default_bold")
         color: UM.Theme.getColor("text")
+        visible: false
     }
 
     Label
@@ -52,12 +53,68 @@ Column
         lineHeight: 1.4
         font: UM.Theme.getFont("default")
         color: UM.Theme.getColor("text")
+        visible: false
     }
 
     // placeholder
     Label
     {
         text: " "
+    }
+
+    Item
+    {
+        height: 50
+        width: 250
+        anchors.horizontalCenter: parent.horizontalCenter
+        TextField
+        {
+            id: email
+            anchors.horizontalCenter: parent.horizontalCenter
+            placeholderText: "Email"
+            onEditingFinished: {
+                if (text != "") emailError.visible = false
+                else emailError.visible = true
+            }
+        }
+        Label
+        {
+            id: emailError
+            anchors.left: email.left
+            anchors.top: email.bottom
+            horizontalAlignment: Text.AlignLeft
+            text: "Email is required"
+            color: "red"
+            visible: false
+        }
+    }
+
+    Item
+    {
+        height: 50
+        width: 50
+        anchors.horizontalCenter: parent.horizontalCenter
+        TextField
+        {
+            id: password
+            anchors.horizontalCenter: parent.horizontalCenter
+            placeholderText: "Password"
+            echoMode: TextInput.Password
+            onEditingFinished: {
+                if (text != "") passwordError.visible = false
+                else passwordError.visible = true
+            }
+        }
+        Label
+        {
+            id: passwordError
+            anchors.left: password.left
+            anchors.top: password.bottom
+            horizontalAlignment: Text.AlignLeft
+            text: "Password is required"
+            color: "red"
+            visible: false
+        }
     }
 
     Cura.PrimaryButton
@@ -76,7 +133,7 @@ Column
         width: UM.Theme.getSize("account_button").width
         height: UM.Theme.getSize("account_button").height
         text: catalog.i18nc("@button", "Create account")
-        onClicked: Qt.openUrlExternally(CuraApplication.ultimakerCloudAccountRootUrl + "/app/create")
+        onClicked: Qt.openUrlExternally("https://cloud.bcn3d.com")
         fixedWidthMode: true
     }
 }
