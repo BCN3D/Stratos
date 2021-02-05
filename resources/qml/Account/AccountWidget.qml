@@ -32,7 +32,7 @@ Item
         background: Rectangle
         {
             radius: UM.Theme.getSize("action_button_radius").width
-            color: signInButton.hovered ? UM.Theme.getColor("primary_text") : UM.Theme.getColor("main_window_header_background")
+            color: signInButton.hovered ? UM.Theme.getColor("main_window_header_background") : UM.Theme.getColor("primary_text")
             border.width: UM.Theme.getSize("default_lining").width
             border.color: UM.Theme.getColor("primary_text")
         }
@@ -42,7 +42,7 @@ Item
             id: label
             text: signInButton.text
             font: UM.Theme.getFont("default")
-            color: signInButton.hovered ? UM.Theme.getColor("main_window_header_background") : UM.Theme.getColor("primary_text")
+            color: signInButton.hovered ? UM.Theme.getColor("primary_text") : UM.Theme.getColor("main_window_header_background")
             width: contentWidth
             verticalAlignment: Text.AlignVCenter
             renderType: Text.NativeRendering
