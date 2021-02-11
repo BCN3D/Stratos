@@ -16,24 +16,22 @@ class AuthApiService(QObject):
             raise ValueError("Duplicate singleton creation")
 
         self._email = None
-        self._username = None
+        self._profile = None
         self._is_logged_in = False
         self._session_manager = SessionManager.getInstance()
         self._session_manager.initialize()
 
         if self._session_manager.getAccessToken():
             if self.isValidtoken():
-                current_user = self.getCurrentUser()
-                print("hola")
-                print(current_user)
-                self._email = current_user["email"]
-                self._username = current_user["username"]
-                self._is_logged_in = True
-                self.authStateChanged.emit(True)
+                self.getCurrentUser()
 
     @pyqtProperty(str, notify=authStateChanged)
     def email(self):
         return self._email
+
+    @pyqtProperty(str, notify=authStateChanged)
+    def profile(self):
+        return self._profile
 
     @pyqtProperty(bool, notify=authStateChanged)
     def isLoggedIn(self):
@@ -43,7 +41,11 @@ class AuthApiService(QObject):
         headers = {"Authorization": "Bearer {}".format(self._session_manager.getAccessToken())}
         response = get(self.api_url + "/user_data", headers=headers)
         if 200 <= response.status_code < 300:
-            return response.json()
+            current_user = response.json()
+            self._email = current_user["email"]
+            self._profile = {"username": current_user["username"]}
+            self._is_logged_in = True
+            self.authStateChanged.emit(True)
         else:
             return {}
 
@@ -77,6 +79,7 @@ class AuthApiService(QObject):
             message = Message("Go to Add Printer to see your printers registered to the cloud", title="Sign In successfully")
             message.show()
             self._session_manager.storeSession()
+            self.getCurrentUser()
             return 200
         else:
             return response.status_code
@@ -88,6 +91,7 @@ class AuthApiService(QObject):
         if 200 <= response.status_code < 300:
             self._session_manager.clearSession()
             self._email = None
+            self._profile = None
             self._is_logged_in = False
             self.authStateChanged.emit(False)
             return True

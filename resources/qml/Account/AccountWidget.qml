@@ -15,7 +15,7 @@ Item
     property bool emailErrorVisible: false
     property bool passwordErrorVisible: false
 
-    property var username: Cura.AuthenticationService.username
+    property var profile: Cura.AuthenticationService.username
     property var loggedIn: Cura.AuthenticationService.isLoggedIn
 
     height: signInButton.height > accountWidget.height ? signInButton.height : accountWidget.height
@@ -68,7 +68,7 @@ Item
 
         visible: loggedIn
 
-        text:  username.charAt(0).toUpperCase()
+        text: profile["username"].charAt(0).toUpperCase()
 
         background: AvatarImage
         {
