@@ -138,8 +138,16 @@ Column
         width: UM.Theme.getSize("account_button").width
         height: UM.Theme.getSize("account_button").height
         text: catalog.i18nc("@button", "Sign in")
-        onClicked: Cura.API.account.login()
+        onClicked: this.signIn()
         fixedWidthMode: true
+
+        function signIn() {
+        signInStatusCode = Cura.AuthenticationService.signIn(email.text, password.text)
+        if (signInStatusCode == 200) {
+            popup.close()
+        }
+    }
+
     }
 
     Cura.SecondaryButton
@@ -152,12 +160,7 @@ Column
         fixedWidthMode: true
     }
 
-    function signIn() {
-        signInStatusCode = Cura.AuthenticationService.signIn(email.text, password.text)
-        if (signInStatusCode == 200) {
-            popup.close()
-        }
-    }
+
 
     function signOut() {
         var success = Cura.AuthenticationService.signOut()
