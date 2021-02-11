@@ -1,4 +1,3 @@
-from UM.Preferences import Preferences
 from UM.Application import Application
 
 import json
