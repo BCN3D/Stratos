@@ -15,8 +15,8 @@ Item
     property bool emailErrorVisible: false
     property bool passwordErrorVisible: false
 
-    property var profile: Cura.API.account.userProfile
-    property var loggedIn: Cura.API.account.isLoggedIn
+    property var username: Cura.AuthenticationService.username
+    property var loggedIn: Cura.AuthenticationService.isLoggedIn
 
     height: signInButton.height > accountWidget.height ? signInButton.height : accountWidget.height
     width: signInButton.width > accountWidget.width ? signInButton.width : accountWidget.width
@@ -68,7 +68,7 @@ Item
 
         visible: loggedIn
 
-        text: (loggedIn && profile["profile_image_url"] == "") ? profile["username"].charAt(0).toUpperCase() : ""
+        text:  username.charAt(0).toUpperCase()
 
         background: AvatarImage
         {

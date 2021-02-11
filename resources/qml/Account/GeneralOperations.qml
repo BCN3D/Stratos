@@ -158,14 +158,4 @@ Column
         onClicked: Qt.openUrlExternally("https://cloud.bcn3d.com")
         fixedWidthMode: true
     }
-
-
-
-    function signOut() {
-        var success = Cura.AuthenticationService.signOut()
-        if (success) {
-            signInButton.visible = true
-            userButton.visible = false
-        }
-    }
 }

@@ -121,7 +121,14 @@ Column
     Cura.TertiaryButton
     {
         id: signOutButton
-        onClicked: Cura.API.account.logout()
+        onClicked: this.signOut()
         text: catalog.i18nc("@button", "Sign Out")
+
+        function signOut() {
+            var success = Cura.AuthenticationService.signOut()
+            if (success) {
+                popup.close()
+            }
+        }
     }
 }

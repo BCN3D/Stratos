@@ -16,6 +16,7 @@ class AuthApiService(QObject):
             raise ValueError("Duplicate singleton creation")
 
         self._email = None
+        self._username = None
         self._is_logged_in = False
         self._session_manager = SessionManager.getInstance()
         self._session_manager.initialize()
@@ -23,7 +24,10 @@ class AuthApiService(QObject):
         if self._session_manager.getAccessToken():
             if self.isValidtoken():
                 current_user = self.getCurrentUser()
+                print("hola")
+                print(current_user)
                 self._email = current_user["email"]
+                self._username = current_user["username"]
                 self._is_logged_in = True
                 self.authStateChanged.emit(True)
 
@@ -84,6 +88,7 @@ class AuthApiService(QObject):
         if 200 <= response.status_code < 300:
             self._session_manager.clearSession()
             self._email = None
+            self._is_logged_in = False
             self.authStateChanged.emit(False)
             return True
         else:
