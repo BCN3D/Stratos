@@ -142,12 +142,11 @@ Column
         fixedWidthMode: true
 
         function signIn() {
-        signInStatusCode = Cura.AuthenticationService.signIn(email.text, password.text)
-        if (signInStatusCode == 200) {
-            popup.close()
+            signInStatusCode = Cura.AuthenticationService.signIn(email.text, password.text)
+            if (signInStatusCode == 200) {
+                popup.close()
+            }
         }
-    }
-
     }
 
     Cura.SecondaryButton

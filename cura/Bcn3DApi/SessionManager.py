@@ -1,4 +1,5 @@
 from UM.Preferences import Preferences
+from UM.Application import Application
 
 import json
 
@@ -15,7 +16,7 @@ class SessionManager:
         self._refresh_token = None
         self._current_user = None
 
-        self._preferences = Preferences.getInstance()
+        self._preferences = Application.getInstance().getPreferences()
 
     def initialize(self):
         self._preferences.addPreference(self.bcn3d_auth_data_key, "{}")
