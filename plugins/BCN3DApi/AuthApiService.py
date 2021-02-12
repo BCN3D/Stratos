@@ -21,9 +21,8 @@ class AuthApiService(QObject):
         self._session_manager = SessionManager.getInstance()
         self._session_manager.initialize()
 
-        if self._session_manager.getAccessToken():
-            if self.isValidtoken():
-                self.getCurrentUser()
+        if self._session_manager.getAccessToken() and self.isValidtoken():
+            self.getCurrentUser()
 
     @pyqtProperty(str, notify=authStateChanged)
     def email(self):
