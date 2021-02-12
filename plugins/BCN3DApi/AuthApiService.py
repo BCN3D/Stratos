@@ -1,5 +1,5 @@
 from PyQt5.QtCore import QObject, pyqtSlot, pyqtProperty, pyqtSignal
-
+from cura.OAuth2.Models import UserProfile
 from UM.Message import Message
 
 from .SessionManager import SessionManager
@@ -29,9 +29,11 @@ class AuthApiService(QObject):
     def email(self):
         return self._email
 
-    @pyqtProperty(str, notify=authStateChanged)
+    @pyqtProperty("QVariantMap", notify=authStateChanged)
     def profile(self):
-        return self._profile
+        if not self._profile:
+            return None
+        return self._profile.__dict__
 
     @pyqtProperty(bool, notify=authStateChanged)
     def isLoggedIn(self):
@@ -43,7 +45,7 @@ class AuthApiService(QObject):
         if 200 <= response.status_code < 300:
             current_user = response.json()
             self._email = current_user["email"]
-            self._profile = {"username": current_user["username"]}
+            self._profile = UserProfile(username = current_user["username"])
             self._is_logged_in = True
             self.authStateChanged.emit(True)
         else:

@@ -15,7 +15,7 @@ Item
     property bool emailErrorVisible: false
     property bool passwordErrorVisible: false
 
-    property var profile: Cura.AuthenticationService.username
+    property var profile: Cura.AuthenticationService.profile
     property var loggedIn: Cura.AuthenticationService.isLoggedIn
 
     height: signInButton.height > accountWidget.height ? signInButton.height : accountWidget.height
