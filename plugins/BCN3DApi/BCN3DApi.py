@@ -1,7 +1,12 @@
 from UM.Extension import Extension
 from PyQt5.QtQml import qmlRegisterSingletonType
+
+from cura.PrinterOutput.NetworkedPrinterOutputDevice import NetworkedPrinterOutputDevice
 from .AuthApiService import AuthApiService
 from .Bcn3dPrintersService import Bcn3dPrintersService
+
+from cura.CuraApplication import CuraApplication
+from .Device import Device
 
 
 class BCN3DApi(Extension):
@@ -12,6 +17,10 @@ class BCN3DApi(Extension):
         qmlRegisterSingletonType(AuthApiService, "Cura", 1, 1, "AuthenticationService", self.getAuthenticationService)
         qmlRegisterSingletonType(Bcn3dPrintersService, "Cura", 1, 0, "Bcn3dPrintersService", self.getBcn3dPrintersService)
 
+
+        discovered_printers_model = CuraApplication.getInstance().getDiscoveredPrintersModel()
+        discovered_printers_model.addDiscoveredPrinter("ip", "key", "name", self.callback, "machine_type", Device())
+
     def getAuthenticationService(self, *args):
         if self._authentication_service is None:
             self._authentication_service = AuthApiService.getInstance()
@@ -21,6 +30,9 @@ class BCN3DApi(Extension):
         if self._bcn3d_printer_service is None:
             self._bcn3d_printer_service = Bcn3dPrintersService.getInstance()
         return self._bcn3d_printer_service
+
+    def callback(self):
+        print("callback")
 
 
 

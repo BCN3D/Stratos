@@ -68,7 +68,7 @@ Item
             {
                 id: networkPrinterListView
                 anchors.fill: parent
-                model: contentLoader.enabled ? Cura.Bcn3dPrintersService.bcn3dPrinters: undefined
+                model: contentLoader.enabled ? CuraApplication.getDiscoveredPrintersModel().discoveredPrinters: undefined
 
                 section.property: "modelData.sectionName"
                 section.criteria: ViewSection.FullString
@@ -122,7 +122,7 @@ Item
 
                 delegate: Cura.MachineSelectorButton
                 {
-                    text: modelData.device.name
+                    text: "modelData.device.name"
 
                     width: networkPrinterListView.width
                     outputDevice: modelData.device
