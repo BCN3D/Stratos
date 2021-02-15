@@ -1,21 +1,20 @@
-from PyQt5.QtCore import pyqtSlot
-
-from UM.Settings.Models.DefinitionContainersModel import DefinitionContainersModel
+from PyQt5.QtCore import pyqtProperty, pyqtSignal, QObject
 
 from .DataApiService import DataApiService
 from .AuthApiService import AuthApiService
 
 
-class PrintersModel(DefinitionContainersModel):
+class Bcn3dPrintersService(QObject):
 
-    def __init__(self, parent=None):
-        super().__init__(parent)
+    def __init__(self):
+        super().__init__()
+        if Bcn3dPrintersService.__instance is not None:
+            raise ValueError("Duplicate singleton creation")
+
         self._data_api_service = DataApiService.getInstance()
 
-    @pyqtSlot()
-    def updateNetworkPrinters(self):
-        self.clear()
-        self._update()
+    @pyqtProperty("QVariantList")
+    def bcn3dPrinters(self):
         printers_list = []
         if AuthApiService.getInstance().isLoggedIn:
             printers = self._data_api_service.getPrinters()
@@ -28,6 +27,15 @@ class PrintersModel(DefinitionContainersModel):
                     "is_network_machine": True,
                     "serial_number": printer["serialNumber"]
                 }
-                printers_list.appendItem(item)
+                printers_list.append(item)
 
-            return printers_list
+        return printers_list
+
+    @classmethod
+    def getInstance(cls) -> "Bcn3dPrintersService":
+        if not cls.__instance:
+            cls.__instance = Bcn3dPrintersService()
+        return cls.__instance
+
+    __instance = None
+

@@ -68,7 +68,7 @@ Item
             {
                 id: networkPrinterListView
                 anchors.fill: parent
-                model: contentLoader.enabled ? CuraApplication.PrintersModel().updateNetworkPrinters: undefined
+                model: contentLoader.enabled ? Cura.Bcn3dPrintersService.bcn3dPrinters: undefined
 
                 section.property: "modelData.sectionName"
                 section.criteria: ViewSection.FullString
