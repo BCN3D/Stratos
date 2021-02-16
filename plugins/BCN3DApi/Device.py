@@ -1,11 +1,11 @@
 from PyQt5.QtCore import pyqtProperty, pyqtSlot
 
 from UM.Application import Application
-from UM.OutputDevice.OutputDevice import OutputDevice
 from UM.Message import Message
 
 from .DataApiService import DataApiService
 from cura.Settings.ExtruderManager import ExtruderManager
+from cura.PrinterOutput.NetworkedPrinterOutputDevice import NetworkedPrinterOutputDevice
 
 import tempfile
 import os
@@ -16,11 +16,11 @@ from UM.i18n import i18nCatalog
 catalog = i18nCatalog("cura")
 
 
-class Device(OutputDevice):
-    def __init__(self):
-        super().__init__("cloud")
+class Device(NetworkedPrinterOutputDevice):
+    def __init__(self, name: str):
+        super().__init__(device_id="device_id", address="address", properties=[])
 
-        self.setName(catalog.i18nc("@item:inmenu", "Cloud"))
+        self._name = name
         self.setShortDescription(catalog.i18nc("@action:button Preceded by 'Ready to'.", "Send to Printer"))
         self.setDescription(catalog.i18nc("@info:tooltip", "Send to Printer"))
         self.setIconName("cloud")
@@ -94,4 +94,4 @@ class Device(OutputDevice):
     @pyqtProperty(str, constant=True)
     def name(self) -> str:
         """Name of the printer (as returned from the ZeroConf properties)"""
-        return "hola"
+        return self._name

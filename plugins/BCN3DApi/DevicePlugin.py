@@ -7,6 +7,7 @@ from .AuthApiService import AuthApiService
 from .Device import Device
 
 from UM.i18n import i18nCatalog
+
 catalog = i18nCatalog("cura")
 
 

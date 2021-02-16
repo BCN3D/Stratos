@@ -122,7 +122,7 @@ Item
 
                 delegate: Cura.MachineSelectorButton
                 {
-                    text: "modelData.device.name"
+                    text: modelData.device.name
 
                     width: networkPrinterListView.width
                     outputDevice: modelData.device
