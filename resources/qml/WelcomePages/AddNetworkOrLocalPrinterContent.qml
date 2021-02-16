@@ -58,7 +58,7 @@ Item
 
                 onRefreshButtonClicked:
                 {
-                    UM.OutputDeviceManager.startDiscovery()
+                    Cura.AuthenticationService.refreshPrinters()
                 }
 
                 onAddByIpButtonClicked:

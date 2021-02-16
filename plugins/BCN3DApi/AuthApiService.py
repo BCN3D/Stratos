@@ -3,7 +3,7 @@ from cura.OAuth2.Models import UserProfile
 from UM.Message import Message
 
 from .SessionManager import SessionManager
-from .PrintersManager import addPrinters
+from .PrintersManager import addPrinters, resetPrinters
 from .http_helper import get, post
 
 
@@ -98,10 +98,15 @@ class AuthApiService(QObject):
             self._profile = None
             self._is_logged_in = False
             self.authStateChanged.emit(False)
-            # resetPrinters
+            resetPrinters()
             return True
         else:
             return False
+
+    @pyqtSlot()
+    def refreshPrinters(self):
+        resetPrinters()
+        addPrinters()
 
     @classmethod
     def getInstance(cls) -> "AuthApiService":
