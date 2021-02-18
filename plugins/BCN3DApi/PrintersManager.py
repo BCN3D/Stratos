@@ -28,6 +28,10 @@ def _createMachine(device_id: str) -> None:
     if not new_machine:
         Logger.log("e", "Failed creating a new machine")
         return
+    new_machine.setMetaDataEntry("is_network_machine", True)
+    new_machine.setMetaDataEntry("serial_number", device_id)
     CuraApplication.getInstance().getMachineManager().setActiveMachine(new_machine.getId())
+
+
 
 

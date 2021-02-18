@@ -1,5 +1,6 @@
 from PyQt5.QtCore import pyqtProperty, pyqtSlot
 
+from cura.CuraApplication import CuraApplication
 from UM.Application import Application
 from UM.Message import Message
 
@@ -64,7 +65,7 @@ class Device(NetworkedPrinterOutputDevice):
                     return
 
         self.writeStarted.emit(self)
-        active_build_plate = Application.getInstance().getBuildPlateModel().activeBuildPlate
+        active_build_plate = CuraApplication.getInstance().getMultiBuildPlateModel().activeBuildPlate
         self._gcode = getattr(Application.getInstance().getController().getScene(), "gcode_dict")[active_build_plate]
         gcode = self._joinGcode()
         temp_file = tempfile.NamedTemporaryFile(delete=False)

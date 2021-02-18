@@ -29,7 +29,7 @@ class DevicePlugin(OutputDevicePlugin):
     def _authStateChanged(self, logged_in):
         self._is_logged_in = logged_in
         if self._is_logged_in and self._supports_cloud_connection:
-            self.getOutputDeviceManager().addOutputDevice(Device())
+            self.getOutputDeviceManager().addOutputDevice(Device(""))
         else:
             self.stop()
 
@@ -40,6 +40,6 @@ class DevicePlugin(OutputDevicePlugin):
             self._supports_cloud_connection = Util.parseBool(self._global_stack.getMetaDataEntry("is_network_machine"))
 
             if self._supports_cloud_connection and self._is_logged_in:
-                self.getOutputDeviceManager().addOutputDevice(Device())
+                self.getOutputDeviceManager().addOutputDevice(Device(""))
             else:
                 self.stop()
