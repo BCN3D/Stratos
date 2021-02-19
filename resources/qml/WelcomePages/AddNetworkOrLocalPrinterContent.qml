@@ -58,7 +58,7 @@ Item
 
                 onRefreshButtonClicked:
                 {
-                    Cura.AuthenticationService.refreshPrinters()
+                    Cura.PrintersManagerService.refreshPrinters()
                 }
 
                 onAddByIpButtonClicked:

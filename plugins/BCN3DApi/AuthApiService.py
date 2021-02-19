@@ -3,7 +3,6 @@ from cura.OAuth2.Models import UserProfile
 from UM.Message import Message
 
 from .SessionManager import SessionManager
-from .PrintersManager import addPrinters, resetPrinters
 from .http_helper import get, post
 
 
@@ -24,7 +23,6 @@ class AuthApiService(QObject):
 
         if self._session_manager.getAccessToken() and self.isValidtoken():
             self.getCurrentUser()
-            addPrinters()
 
     @pyqtProperty(str, notify=authStateChanged)
     def email(self):
@@ -58,12 +56,11 @@ class AuthApiService(QObject):
         if 200 <= response.status_code < 300:
             return True
         else:
-            data = {"refresh_token": self._session_manager.getRefreshToken()}
+            data = {"refreshToken": self._session_manager.getRefreshToken()}
             refresh_response = post(self.api_url + "/refresh_token", data)
             if 200 <= refresh_response.status_code < 300:
                 refresh_response_message = refresh_response.json()
                 self._session_manager.setAccessToken(refresh_response_message["accessToken"])
-                self._session_manager.setRefreshToken(refresh_response_message["refreshToken"])
                 return True
             else:
                 return False
@@ -83,7 +80,6 @@ class AuthApiService(QObject):
             message.show()
             self._session_manager.storeSession()
             self.getCurrentUser()
-            addPrinters()
             return 200
         else:
             return response.status_code
@@ -98,15 +94,9 @@ class AuthApiService(QObject):
             self._profile = None
             self._is_logged_in = False
             self.authStateChanged.emit(False)
-            resetPrinters()
             return True
         else:
             return False
-
-    @pyqtSlot()
-    def refreshPrinters(self):
-        resetPrinters()
-        addPrinters()
 
     @classmethod
     def getInstance(cls) -> "AuthApiService":
