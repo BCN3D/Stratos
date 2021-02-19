@@ -22,6 +22,7 @@ class DevicePlugin(OutputDevicePlugin):
     def start(self):
         AuthApiService.getInstance().authStateChanged.connect(self._authStateChanged)
         Application.getInstance().globalContainerStackChanged.connect(self._globalStackChanged)
+        self._globalStackChanged()
 
     def stop(self):
         self.getOutputDeviceManager().removeOutputDevice("cloud")

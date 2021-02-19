@@ -19,7 +19,7 @@ catalog = i18nCatalog("cura")
 
 class Device(NetworkedPrinterOutputDevice):
     def __init__(self, name: str):
-        super().__init__(device_id="device_id", address="address", properties=[])
+        super().__init__(device_id="cloud", address="address", properties=[])
 
         self._name = name
         self.setShortDescription(catalog.i18nc("@action:button Preceded by 'Ready to'.", "Send to Printer"))
