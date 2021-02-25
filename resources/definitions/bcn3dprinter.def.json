@@ -76,7 +76,7 @@
           "type": "bool",
           "default_value": true,
           "value": "retraction_hop_enabled",
-          "enabled": "retraction_hop_enabled and machine_extruder_count > 1 and print_mode == 'dual' or  print_mode == 'singleT0' or  print_mode == 'singleT1'and prime_tower_enable",
+          "enabled": "retraction_hop_enabled and machine_extruder_count > 1 and print_mode == 'dual' or print_mode == 'singleT0' or print_mode == 'singleT1' and prime_tower_enable",
           "settable_per_mesh": false,
           "settable_per_extruder": true,
           "comments": "BCN3D Setting"
@@ -110,7 +110,7 @@
           "description": "After the machine switched from one extruder to the other, the build plate is lowered to create clearance between the nozzle and the print. This prevents the nozzle from leaving oozed material on the outside of a print.",
           "type": "bool",
           "default_value": true,
-          "enabled": "retraction_hop_enabled and machine_extruder_count > 1 and print_mode == 'dual'",
+          "enabled": "retraction_hop_enabled and machine_extruder_count > 1 and print_mode == 'dual' or print_mode == 'singleT0' or print_mode == 'singleT1'",
           "settable_per_mesh": false,
           "settable_per_extruder": true
         },
@@ -230,7 +230,7 @@
           "default_value": 2.5,
           "minimum_value": "0",
           "maximum_value_warning": "50",
-          "enabled": "purge_in_bucket and not smart_purge and print_mode == 'dual'",
+          "enabled": "purge_in_bucket and not smart_purge and print_mode == 'dual' or print_mode == 'singleT0' or print_mode == 'singleT1'",
           "settable_per_extruder": true,
           "comments": "BCN3D setting"
         },
@@ -253,7 +253,7 @@
           "description": "Make the purged distance variable according to idle time.",
           "type": "bool",
           "default_value": false,
-          "enabled": "purge_in_bucket and print_mode == 'dual'",
+          "enabled": "purge_in_bucket and print_mode == 'dual' or print_mode == 'singleT0' or print_mode == 'singleT1'",
           "settable_per_extruder": true,
           "comments": "BCN3D setting",
           "children": {
@@ -267,7 +267,7 @@
               "maximum_value": "smart_purge_maximum_purge_distance",
               "minimum_value_warning": "0",
               "maximum_value_warning": "50",
-              "enabled": "smart_purge and purge_in_bucket and print_mode == 'dual'",
+              "enabled": "smart_purge and purge_in_bucket and print_mode == 'dual' or print_mode == 'singleT0' or print_mode == 'singleT1'",
               "settable_per_extruder": true,
               "comments": "BCN3D setting"
             },
@@ -280,7 +280,7 @@
               "minimum_value": "smart_purge_minimum_purge_distance",
               "minimum_value_warning": "0",
               "maximum_value_warning": "50",
-              "enabled": "smart_purge and purge_in_bucket and print_mode == 'dual'",
+              "enabled": "smart_purge and purge_in_bucket and print_mode == 'dual' or print_mode == 'singleT0' or print_mode == 'singleT1'",
               "settable_per_extruder": true,
               "comments": "BCN3D setting"
             },
@@ -293,7 +293,7 @@
               "minimum_value": "0",
               "minimum_value_warning": "0",
               "maximum_value_warning": "50",
-              "enabled": "smart_purge and purge_in_bucket and print_mode == 'dual'",
+              "enabled": "smart_purge and purge_in_bucket and print_mode == 'dual' or print_mode == 'singleT0' or print_mode == 'singleT1'",
               "settable_per_extruder": true,
               "comments": "BCN3D setting"
             },
@@ -391,7 +391,7 @@
           "description": "GCode to enable selected print mode.",
           "type": "str",
           "default_value": "",
-          "value": "'' if print_mode == 'dual' or  print_mode == 'singleT0' or  print_mode == 'singleT1'else 'M605 S6 \\t\\t;enable mirror mode' if print_mode == 'mirror' else 'M605 S5 \\t\\t;enable duplication mode'",
+          "value": "'' if print_mode == 'dual' or print_mode == 'singleT0' or print_mode == 'singleT1' else 'M605 S6 \\t\\t;enable mirror mode' if print_mode == 'mirror' else 'M605 S5 \\t\\t;enable duplication mode'",
           "enabled": false,
           "settable_per_extruder": false,
           "comments": "BCN3D setting"

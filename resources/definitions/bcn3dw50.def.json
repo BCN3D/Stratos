@@ -30,7 +30,7 @@
             "value": false
         },
         "clone_cool_fan": {
-            "dual_value": "print_mode == 'dual' or  print_mode == 'singleT0' or  print_mode == 'singleT1' and extruderValue(0, 'cool_fan_enabled') and extruderValue(1, 'cool_fan_enabled')",
+            "dual_value": "print_mode == 'dual' or print_mode == 'singleT0' or print_mode == 'singleT1' and extruderValue(0, 'cool_fan_enabled') and extruderValue(1, 'cool_fan_enabled')",
             "reset_on_used_extruders_change": true,
             "dual_enabled": true
         },
@@ -76,7 +76,7 @@
         "material_bed_temp_wait": { "value": true },
         "machine_center_is_zero": { "default_value": false },
         "machine_depth": { "default_value":  300 },
-        "machine_disallowed_areas": { "value": "[] if print_mode == 'dual' or  print_mode == 'singleT0' or  print_mode == 'singleT1'  else [[[-(abs(machine_head_with_fans_polygon[0][0]) + abs(machine_head_with_fans_polygon[2][0])) / 2, machine_depth / 2], [-(abs(machine_head_with_fans_polygon[0][0]) + abs(machine_head_with_fans_polygon[2][0])) / 2, -machine_depth / 2], [machine_width / 2, -machine_depth / 2], [machine_width / 2, machine_depth / 2]]] if print_mode == 'mirror' else [[[0, machine_depth / 2], [0, -machine_depth / 2], [machine_width / 2, -machine_depth / 2], [machine_width / 2, machine_depth / 2]]]" },
+        "machine_disallowed_areas": { "value": "[] if print_mode == 'dual' or print_mode == 'singleT0' or print_mode == 'singleT1' else [[[-(abs(machine_head_with_fans_polygon[0][0]) + abs(machine_head_with_fans_polygon[2][0])) / 2, machine_depth / 2], [-(abs(machine_head_with_fans_polygon[0][0]) + abs(machine_head_with_fans_polygon[2][0])) / 2, -machine_depth / 2], [machine_width / 2, -machine_depth / 2], [machine_width / 2, machine_depth / 2]]] if print_mode == 'mirror' else [[[0, machine_depth / 2], [0, -machine_depth / 2], [machine_width / 2, -machine_depth / 2], [machine_width / 2, machine_depth / 2]]]" },
         "machine_end_gcode": { "default_value": "M104 S0 T0               ;left extruder heater off\nM104 S0 T1               ;right extruder heater off\nM140 S0                  ;heated bed heater off\nM204 S{machine_acceleration} ;set default acceleration\nM205 X{machine_max_jerk_xy} Y{machine_max_jerk_xy} ;set default jerk\nG91                      ;relative positioning\nG1 Z+0.5 E-5 Y+10 F12000 ;move Z up a bit and retract filament\nG28 X0 Y0                ;move X/Y to min endstops so the head is out of the way\nM84                      ;steppers off\nG90                      ;absolute positioning\n" },
         "machine_heated_bed": { "default_value": true },
         "machine_heated_build_volume": { "value": true },
@@ -109,7 +109,7 @@
             "dual_value":  "'all_at_once'"
         },
         "purge_in_bucket": {
-            "enabled": "print_mode == 'dual' or  print_mode == 'singleT0' or  print_mode == 'singleT1'",
+            "enabled": "print_mode == 'dual' or print_mode == 'singleT0' or print_mode == 'singleT1'",
             "value": true
         },
         "purge_speed": { "value": "round(max(40 * (machine_nozzle_size / material_diameter) ** 2, machine_nozzle_size * layer_height * speed_infill / (math.pi * ((material_diameter / 2) ** 2))), 2)" },
@@ -189,7 +189,7 @@
         "wall_0_inset": { "value": 0 },
         "wall_line_width": { "value": "line_width" },
         "wall_line_width_x": { "value": "line_width - 0.05" },
-        "z_seam_x": { "value": "int(machine_width/2.) if print_mode == 'dual' or  print_mode == 'singleT0' or  print_mode == 'singleT1' else int((machine_width/2.)/2.) if print_mode == 'duplication' else int((machine_width/2. - 54/2)/2.)" },
+        "z_seam_x": { "value": "int(machine_width/2.) if print_mode == 'dual' or print_mode == 'singleT0' or print_mode == 'singleT1' else int((machine_width/2.)/2.) if print_mode == 'duplication' else int((machine_width/2. - 54/2)/2.)" },
         "z_seam_y": { "value": "machine_depth" }
     }
 }
