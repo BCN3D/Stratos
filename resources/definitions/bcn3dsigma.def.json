@@ -21,7 +21,7 @@
         "machine_width": { "default_value": 210 },
         "machine_depth": { "default_value": 297 },
         "machine_height": { "default_value": 210 },
-        "machine_disallowed_areas": { "value": "[] if print_mode == 'regular' else [[[-(abs(machine_head_with_fans_polygon[0][0]) + abs(machine_head_with_fans_polygon[2][0])) / 2, machine_depth / 2], [-(abs(machine_head_with_fans_polygon[0][0]) + abs(machine_head_with_fans_polygon[2][0])) / 2, -machine_depth / 2], [machine_width / 2, -machine_depth / 2], [machine_width / 2, machine_depth / 2]]] if print_mode == 'mirror' else [[[0, machine_depth / 2], [0, -machine_depth / 2], [machine_width / 2, -machine_depth / 2], [machine_width / 2, machine_depth / 2]]]" },
+        "machine_disallowed_areas": { "value": "[] if print_mode == 'dual' or  print_mode == 'singleT0' or  print_mode == 'singleT1'else [[[-(abs(machine_head_with_fans_polygon[0][0]) + abs(machine_head_with_fans_polygon[2][0])) / 2, machine_depth / 2], [-(abs(machine_head_with_fans_polygon[0][0]) + abs(machine_head_with_fans_polygon[2][0])) / 2, -machine_depth / 2], [machine_width / 2, -machine_depth / 2], [machine_width / 2, machine_depth / 2]]] if print_mode == 'mirror' else [[[0, machine_depth / 2], [0, -machine_depth / 2], [machine_width / 2, -machine_depth / 2], [machine_width / 2, machine_depth / 2]]]" },
         "machine_heated_bed": { "default_value": true },
         "machine_center_is_zero": { "default_value": false },
         "machine_max_feedrate_x": { "default_value": 200 },
@@ -59,7 +59,7 @@
         "skin_angles": { "value": "[45, -45]" },
         "wall_0_inset": { "value": 0 },
         "optimize_wall_printing_order": { "value": true },
-        "z_seam_x": { "value": "int(machine_width/2.) if print_mode == 'regular' else int((machine_width/2.)/2.) if print_mode == 'duplication' else int((machine_width/2. - 54/2)/2.)" },
+        "z_seam_x": { "value": "int(machine_width/2.) if print_mode == 'dual' or  print_mode == 'singleT0' or  print_mode == 'singleT1'else int((machine_width/2.)/2.) if print_mode == 'duplication' else int((machine_width/2. - 54/2)/2.)" },
         "z_seam_y": { "value": "machine_depth" },
         "infill_pattern": { "value": "'grid'" },
         "infill_overlap": { "value": 15 },
@@ -147,7 +147,7 @@
         "cool_fan_enabled": { "value": true },
         "clone_cool_fan":
         {
-            "dual_value": "print_mode == 'regular' and extruderValue(0, 'cool_fan_enabled') and extruderValue(1, 'cool_fan_enabled')",
+            "dual_value": "(print_mode == 'dual' or  print_mode == 'singleT0' or  print_mode == 'singleT1') and extruderValue(0, 'cool_fan_enabled') and extruderValue(1, 'cool_fan_enabled')",
             "reset_on_used_extruders_change": true,
             "dual_enabled": true
         },
@@ -198,7 +198,7 @@
         "purge_speed": { "value": "round(max(40 * (machine_nozzle_size / material_diameter) ** 2, machine_nozzle_size * layer_height * speed_infill / (math.pi * ((material_diameter / 2) ** 2))), 2)" },
         "purge_in_bucket":
         {
-            "enabled": "print_mode == 'regular'",
+            "enabled": "print_mode == 'dual'",
             "value": true
         },
         "avoid_grinding_filament":

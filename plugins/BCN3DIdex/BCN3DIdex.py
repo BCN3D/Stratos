@@ -53,24 +53,45 @@ class BCN3DIdex(Extension):
             print_mode = self._global_container_stack.getProperty("print_mode", "value")
             left_extruder = self._global_container_stack.extruderList[0]
             right_extruder = self._global_container_stack.extruderList[1]
-            if print_mode != "regular":
-                if not left_extruder.isEnabled:
-                    # Force the left extruder to be enabled on mirror/duplication modes
-                    self._application.getMachineManager().setExtruderEnabled(0, True)
-                self._application.getMachineManager().setExtruderEnabled(1, False)
-                right_extruder.enabledChanged.connect(self._onEnabledChanged)
 
-                for node in DepthFirstIterator(self._application.getController().getScene().getRoot()):
-                    if not isinstance(node, CuraSceneNode) or not node.isSelectable():
-                        continue
-                    node.callDecoration("setActiveExtruder", left_extruder.getId())
-            else:
-                try:
-                    right_extruder.enabledChanged.disconnect(self._onEnabledChanged)
-                except Exception:
-                    # Just in case the connection didn't exists
-                    pass
+            if print_mode == "singleTo":
+                self._application.getMachineManager().setExtruderEnabled(0, True)
+                self._application.getMachineManager().setExtruderEnabled(1, False)
+
+            elif print_mode == "singleT1":
+                self._application.getMachineManager().setExtruderEnabled(0, False)
                 self._application.getMachineManager().setExtruderEnabled(1, True)
+
+            elif print_mode == "dual":
+                self._application.getMachineManager().setExtruderEnabled(0, True)
+                self._application.getMachineManager().setExtruderEnabled(1, True)
+
+            else:
+                self._application.getMachineManager().setExtruderEnabled(0, True)
+                self._application.getMachineManager().setExtruderEnabled(1, False)
+
+
+
+
+
+            # if print_mode != "regular":
+            #     if not left_extruder.isEnabled:
+            #         # Force the left extruder to be enabled on mirror/duplication modes
+            #         self._application.getMachineManager().setExtruderEnabled(0, True)
+            #     self._application.getMachineManager().setExtruderEnabled(1, False)
+            #     right_extruder.enabledChanged.connect(self._onEnabledChanged)
+            #
+            #     for node in DepthFirstIterator(self._application.getController().getScene().getRoot()):
+            #         if not isinstance(node, CuraSceneNode) or not node.isSelectable():
+            #             continue
+            #         node.callDecoration("setActiveExtruder", left_extruder.getId())
+            # else:
+            #     try:
+            #         right_extruder.enabledChanged.disconnect(self._onEnabledChanged)
+            #     except Exception:
+            #         # Just in case the connection didn't exists
+            #         pass
+            #     self._application.getMachineManager().setExtruderEnabled(1, True)
 
     def _onEnabledChanged(self):
         print_mode = self._global_container_stack.getProperty("print_mode", "value")
