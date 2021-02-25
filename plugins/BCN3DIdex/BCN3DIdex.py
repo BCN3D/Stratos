@@ -54,6 +54,9 @@ class BCN3DIdex(Extension):
             left_extruder = self._global_container_stack.extruderList[0]
             right_extruder = self._global_container_stack.extruderList[1]
 
+            self._application.getMachineManager().setExtruderEnabled(0, False)
+            self._application.getMachineManager().setExtruderEnabled(1, False)
+
             if print_mode == "singleT0":
                 self._application.getMachineManager().setExtruderEnabled(0, True)
                 self._application.getMachineManager().setExtruderEnabled(1, False)
@@ -69,6 +72,7 @@ class BCN3DIdex(Extension):
             else:
                 self._application.getMachineManager().setExtruderEnabled(0, True)
                 self._application.getMachineManager().setExtruderEnabled(1, False)
+
 
 
 
