@@ -1,11 +1,6 @@
-import collections
-import json
-import os.path
-
 from typing import List, Optional, Any, Dict
 
 from UM.Extension import Extension
-from UM.Logger import Logger
 
 from cura.CuraApplication import CuraApplication
 from UM.i18n import i18nCatalog
@@ -51,7 +46,6 @@ class BCN3DIdex(Extension):
 
             self._application.getMachineManager().setExtruderEnabled(0, False)
             self._application.getMachineManager().setExtruderEnabled(1, False)
-
 
             if print_mode == "singleT0":
                 self._application.getMachineManager().setExtruderEnabled(0, True)
