@@ -4,7 +4,8 @@
 from PyQt5.QtCore import QObject, QUrl
 from PyQt5.QtGui import QDesktopServices
 from typing import List, cast
-
+import math
+from UM.Application import Application
 from UM.Event import CallFunctionEvent
 from UM.FlameProfiler import pyqtSlot
 from UM.Math.Vector import Vector
@@ -62,17 +63,27 @@ class CuraActions(QObject):
         operation = GroupedOperation()
         for node in Selection.getAllSelectedObjects():
             current_node = node
-            parent_node = current_node.getParent()
-            while parent_node and parent_node.callDecoration("isGroup"):
-                current_node = parent_node
-                parent_node = current_node.getParent()
+            while current_node.getParent() and current_node.getParent().callDecoration("isGroup"):
+                current_node = current_node.getParent()
 
-            #   This was formerly done with SetTransformOperation but because of
-            #   unpredictable matrix deconstruction it was possible that mirrors
-            #   could manifest as rotations. Centering is therefore done by
-            #   moving the node to negative whatever its position is:
-            center_operation = TranslateOperation(current_node, -current_node._position)
+            vector = current_node._position
+        
+            print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
+            if print_mode == "duplication" or print_mode == "mirror":
+                machine_width = Application.getInstance().getGlobalContainerStack().getProperty("machine_width",
+                                                                                                "value")
+                center = -machine_width / 4
+                if print_mode == "mirror":
+                    machine_head_with_fans_polygon = Application.getInstance().getGlobalContainerStack().getProperty(
+                        "machine_head_with_fans_polygon", "value")
+                    machine_head_size = math.fabs(
+                        machine_head_with_fans_polygon[0][0] - machine_head_with_fans_polygon[2][0])
+                    center -= machine_head_size / 4
+                vector = Vector(current_node._position.x - center, current_node._position.y, current_node._position.z)
+
+            center_operation = TranslateOperation(current_node, -vector)
             operation.addOperation(center_operation)
+            # node.setPosition(vector)
         operation.push()
 
     @pyqtSlot(int)
