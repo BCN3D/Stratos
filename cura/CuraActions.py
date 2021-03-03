@@ -63,21 +63,20 @@ class CuraActions(QObject):
         operation = GroupedOperation()
         for node in Selection.getAllSelectedObjects():
             current_node = node
-            while current_node.getParent() and current_node.getParent().callDecoration("isGroup"):
-                current_node = current_node.getParent()
+            parent_node = current_node.getParent()
+            while parent_node and parent_node.callDecoration("isGroup"):
+                current_node = parent_node
+                parent_node = current_node.getParent()
 
             vector = current_node._position
-        
+
             print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
             if print_mode == "duplication" or print_mode == "mirror":
-                machine_width = Application.getInstance().getGlobalContainerStack().getProperty("machine_width",
-                                                                                                "value")
+                machine_width = Application.getInstance().getGlobalContainerStack().getProperty("machine_width", "value")
                 center = -machine_width / 4
                 if print_mode == "mirror":
-                    machine_head_with_fans_polygon = Application.getInstance().getGlobalContainerStack().getProperty(
-                        "machine_head_with_fans_polygon", "value")
-                    machine_head_size = math.fabs(
-                        machine_head_with_fans_polygon[0][0] - machine_head_with_fans_polygon[2][0])
+                    machine_head_with_fans_polygon = Application.getInstance().getGlobalContainerStack().getProperty("machine_head_with_fans_polygon", "value")
+                    machine_head_size = math.fabs(machine_head_with_fans_polygon[0][0] - machine_head_with_fans_polygon[2][0])
                     center -= machine_head_size / 4
                 vector = Vector(current_node._position.x - center, current_node._position.y, current_node._position.z)
 
