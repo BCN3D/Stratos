@@ -1,7 +1,7 @@
 # Copyright (c) 2020 Ultimaker B.V.
 # Cura is released under the terms of the LGPLv3 or higher.
 from typing import Optional
-
+from UM.Application import Application
 from UM.Decorators import deprecated
 from UM.Scene.Iterator.DepthFirstIterator import DepthFirstIterator
 from UM.Logger import Logger
@@ -144,8 +144,19 @@ class Arrange:
         """Fill priority, center is best. Lower value is better. """
 
         # Square distance: creates a more round shape
+        offset = 0
+        print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
+        if print_mode != "dual":
+            offset = self._offset_x / 2
+            if print_mode == "mirror":
+                machine_head_with_fans_polygon = Application.getInstance().getGlobalContainerStack().getProperty(
+                    "machine_head_with_fans_polygon", "value")
+                machine_head_size = abs(machine_head_with_fans_polygon[0][0] - machine_head_with_fans_polygon[2][0])
+                offset += machine_head_size / 4
+
         self._priority = numpy.fromfunction(
-            lambda j, i: (self._offset_x - i) ** 2 + (self._offset_y - j) ** 2, self._shape, dtype=numpy.int32)
+            lambda i, j: (self._offset_y - i) ** 2 + (self._offset_x - j - int(offset)) ** 2, self.shape,
+            dtype=numpy.int32)
         self._priority_unique_values = numpy.unique(self._priority)
         self._priority_unique_values.sort()
 
