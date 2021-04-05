@@ -28,9 +28,9 @@ Item
 
         spacing: UM.Theme.getSize("default_margin").height
 
-        Row // Mesh type buttons
+        Row
         {
-            id: meshTypeButtons
+            id: duplicationButtons
             spacing: UM.Theme.getSize("default_margin").width
             Button
             {
@@ -47,7 +47,7 @@ Item
             }
             Button
             {
-                id: normalButton
+                id: singleT0Button
                 text: catalog.i18nc("@label", "singleT0")
                 iconSource: UM.Theme.getIcon("pos_normal");
                 property bool needBorder: true
@@ -61,7 +61,7 @@ Item
 
             Button
             {
-                id: supportMeshButton
+                id: singleT1Button
                 text: catalog.i18nc("@label", "singleT1")
                 iconSource: UM.Theme.getIcon("pos_print_as_support");
                 property bool needBorder: true
@@ -75,8 +75,8 @@ Item
 
             Button
             {
-                id: overlapMeshButton
-                text: catalog.i18nc("@label", CuraActions.setExtruderForSelection(model.id))
+                id: dualButton
+                text: catalog.i18nc("@label", "Dual")
                 iconSource: UM.Theme.getIcon("pos_modify_overlaps");
                 property bool needBorder: true
                 onClicked:{
@@ -89,7 +89,7 @@ Item
 
             Button
             {
-                id: antiOverhangMeshButton
+                id: mirrorButton
                 text:  catalog.i18nc("@label", "Mirror")
                 iconSource: UM.Theme.getIcon("pos_modify_dont_support_overlap");
                 property bool needBorder: true
@@ -105,7 +105,7 @@ Item
 
         Label
         {
-            id: meshTypeLabel
+            id: printModeLabel
             font: UM.Theme.getFont("default")
             color: UM.Theme.getColor("text")
             height: UM.Theme.getSize("setting").height
