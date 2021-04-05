@@ -1,0 +1,8 @@
+{
+    "name": "BCN3DPrintModesTool",
+    "author": "BCN3D",
+    "version": "1.0.0",
+    "description": "BCN3D Print Modes Tool",
+    "api": "7.4.0",
+    "i18n-catalog": "cura"
+}

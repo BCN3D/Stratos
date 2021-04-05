@@ -1,8 +1,10 @@
 from typing import List, Optional, Any, Dict
 
 from UM.Extension import Extension
+from cura import CuraActions
 
 from cura.CuraApplication import CuraApplication
+from cura.Settings.ExtruderManager import ExtruderManager
 from UM.i18n import i18nCatalog
 
 i18n_catalog = i18nCatalog("BCN3DIdex")
@@ -12,6 +14,7 @@ class BCN3DIdex(Extension):
     def __init__(self) -> None:
         super().__init__()
 
+        self._curaActions = CuraActions.CuraActions()
         self._application = CuraApplication.getInstance()
         self._i18n_catalog = None  # type: Optional[i18nCatalog]
         self._global_container_stack = self._application.getGlobalContainerStack()
@@ -46,14 +49,30 @@ class BCN3DIdex(Extension):
 
             self._application.getMachineManager().setExtruderEnabled(0, False)
             self._application.getMachineManager().setExtruderEnabled(1, False)
-
+            used_extruders = ExtruderManager.getInstance().getUsedExtruderStacks()
             if print_mode == "singleT0":
                 self._application.getMachineManager().setExtruderEnabled(0, True)
                 self._application.getMachineManager().setExtruderEnabled(1, False)
+                # for extruder in used_extruders:
+                #     extruder_id = extruder.getId()
+                #     self._curaActions.setExtruderForSelection(extruder_id)
 
             elif print_mode == "singleT1":
                 self._application.getMachineManager().setExtruderEnabled(0, False)
                 self._application.getMachineManager().setExtruderEnabled(1, True)
+                # for extruder in used_extruders:
+                #     extruder_id = extruder.getId()
+                #     self._curaActions.setExtruderForSelection(extruder_id)
+                # #     # CuraActions.setExtruderForSelection(extruder_id)
+                #     print(extruder_id)
+
+
+                # extruderManager.setActiveExtruderIndex(1)
+                # extruder_id = ExtruderManager.getInstance().extruderIds["1"]
+                # print(extruder_id)
+                # CuraActions.setExtruderForSelection(extruder_id)
+                # used_extruder = self._global_container_stack.extruders()
+                # print(self.extruderManager.extruderIds["1"])
 
             elif print_mode == "dual":
                 self._application.getMachineManager().setExtruderEnabled(0, True)

@@ -1,10 +1,13 @@
 from PyQt5.QtCore import QObject, pyqtSlot
+
+from UM.Operations.GroupedOperation import GroupedOperation
 from cura.CuraApplication import CuraApplication
 
 from  .AuthApiService import AuthApiService
 from .DataApiService import DataApiService
 from .Device import Device
-
+from cura.Settings.ExtruderManager import ExtruderManager
+from cura import CuraActions
 from UM.Logger import Logger
 from cura.Settings.CuraStackBuilder import CuraStackBuilder
 
@@ -14,11 +17,26 @@ class PrintersManager(QObject):
         super().__init__()
         if PrintersManager.__instance is not None:
             raise ValueError("Duplicate singleton creation")
-
+        self._curaActions = CuraActions.CuraActions()
         self._cura_application = CuraApplication.getInstance()
         self._data_api_service = DataApiService.getInstance()
-
+        self._application = CuraApplication.getInstance()
+        self._global_container_stack = self._application.getGlobalContainerStack()
+        self._onGlobalContainerStackChanged()
         AuthApiService.getInstance().authStateChanged.connect(self._authStateChanged)
+
+        self._global_container_stack = self._application.getGlobalContainerStack()
+        self._onGlobalContainerStackChanged()
+
+    def _onGlobalContainerStackChanged(self):
+        print("onglobla container stack chanded")
+        self._global_container_stack = self._application.getGlobalContainerStack()
+
+        if self._global_container_stack:
+            self._global_container_stack.propertyChanged.connect(self._onPropertyChanged)
+
+            # Calling _onPropertyChanged as an initialization
+            self._onPropertyChanged("print_mode", "value")
 
     def initialize(self):
         self._addPrinters()
@@ -71,6 +89,45 @@ class PrintersManager(QObject):
 
     __instance = None
 
+    @pyqtSlot(str)
+    def setPrintMode(self, print_mode: str):
+        self._global_container_stack = self._application.getGlobalContainerStack()
 
+        if print_mode == "singleT0":
+            self._global_container_stack.setProperty("print_mode", "value", "singleT0")
+            # used_extruders = ExtruderManager.getInstance().getUsedExtruderStacks()
+            # for extruder in used_extruders:
+            #     extruder_id = extruder.getId()
+            #     self._curaActions.setExtruderForSelection(extruder_id)
+            # self._curaActions.setExtruderForSelection("bcn3dw50_extruder_left  # 2")
+
+        elif print_mode == "singleT1":
+            self._global_container_stack.setProperty("print_mode", "value", "singleT1")
+            # used_extruders = ExtruderManager.getInstance().getUsedExtruderStacks()
+            # for extruder in used_extruders:
+            #     extruder_id = extruder.getId()
+            #     self._curaActions.setExtruderForSelection(extruder_id)
+            # self._curaActions.setExtruderForSelection("bcn3dw50_extruder_right  # 2")
+            #  CuraActions.setExtruderForSelection("bcn3dw50_extruder_right  # 2")
+        elif print_mode == "dual":
+            # used_extruders = ExtruderManager.getInstance().getUsedExtruderStacks()
+            # for extruder in used_extruders:
+            #     extruder_id = extruder.getId()
+            #     self._curaActions.setExtruderForSelection(extruder_id)
+            self._global_container_stack.setProperty("print_mode", "value", "dual")
+
+        elif print_mode == "mirror":
+            # used_extruders = ExtruderManager.getInstance().getUsedExtruderStacks()
+            # for extruder in used_extruders:
+            #     extruder_id = extruder.getId()
+            #     self._curaActions.setExtruderForSelection(extruder_id)
+            self._global_container_stack.setProperty("print_mode", "value", "mirror")
+
+        elif print_mode == "duplication":
+            # used_extruders = ExtruderManager.getInstance().getUsedExtruderStacks()
+            # for extruder in used_extruders:
+            #     extruder_id = extruder.getId()
+            #     self._curaActions.setExtruderForSelection(extruder_id)
+            self._global_container_stack.setProperty("print_mode", "value", "duplication")
 
 
