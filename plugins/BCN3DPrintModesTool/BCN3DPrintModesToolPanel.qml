@@ -17,7 +17,7 @@ Item
     height: childrenRect.height
 
 
-
+    property var extrudersModel: CuraApplication.getExtrudersModel()
     UM.I18nCatalog { id: catalog; name: "cura"}
 
     Column
@@ -36,10 +36,11 @@ Item
             {
                 id: duplication
                 text: catalog.i18nc("@label", "duplication")
-                iconSource: UM.Theme.getIcon("pos_normal");
+                iconSource: UM.Theme.getIcon("duplication");
                 property bool needBorder: true
                 onClicked:{
                  Cura.PrintersManagerService.setPrintMode("duplication")
+                 CuraActions.setExtruderForSelection(extrudersModel.getItem(0).id)
                  CuraActions.centerSelection();
                 }
                 style: UM.Theme.styles.tool_button;
@@ -49,10 +50,11 @@ Item
             {
                 id: singleT0Button
                 text: catalog.i18nc("@label", "singleT0")
-                iconSource: UM.Theme.getIcon("pos_normal");
+                iconSource: UM.Theme.getIcon("singleT0");
                 property bool needBorder: true
                 onClicked: {
                  Cura.PrintersManagerService.setPrintMode("singleT0");
+                 CuraActions.setExtruderForSelection(extrudersModel.getItem(0).id)
                  CuraActions.centerSelection();
                     }
                 style: UM.Theme.styles.tool_button;
@@ -63,10 +65,11 @@ Item
             {
                 id: singleT1Button
                 text: catalog.i18nc("@label", "singleT1")
-                iconSource: UM.Theme.getIcon("pos_print_as_support");
+                iconSource: UM.Theme.getIcon("singleT1");
                 property bool needBorder: true
                 onClicked:{
                  Cura.PrintersManagerService.setPrintMode("singleT1")
+                 CuraActions.setExtruderForSelection(extrudersModel.getItem(1).id)
                  CuraActions.centerSelection();
                 }
                 style: UM.Theme.styles.tool_button;
@@ -77,7 +80,7 @@ Item
             {
                 id: dualButton
                 text: catalog.i18nc("@label", "Dual")
-                iconSource: UM.Theme.getIcon("pos_modify_overlaps");
+                iconSource: UM.Theme.getIcon("dual");
                 property bool needBorder: true
                 onClicked:{
                  Cura.PrintersManagerService.setPrintMode("dual")
@@ -91,10 +94,11 @@ Item
             {
                 id: mirrorButton
                 text:  catalog.i18nc("@label", "Mirror")
-                iconSource: UM.Theme.getIcon("pos_modify_dont_support_overlap");
+                iconSource: UM.Theme.getIcon("mirror2");
                 property bool needBorder: true
                 onClicked:{
                  Cura.PrintersManagerService.setPrintMode("mirror")
+                 CuraActions.setExtruderForSelection(extrudersModel.getItem(0).id)
                  CuraActions.centerSelection();
                 }
                 style: UM.Theme.styles.tool_button;
