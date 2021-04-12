@@ -32,25 +32,25 @@ Item
         {
             id: duplicationButtons
             spacing: UM.Theme.getSize("default_margin").width
-            Button
+              Button
             {
-                id: duplication
-                text: catalog.i18nc("@label", "duplication")
-                iconSource: UM.Theme.getIcon("duplication");
+                id: dualButton
+                text: catalog.i18nc("@label", "Dual")
+                iconSource: UM.Theme.getIcon("dualicon");
                 property bool needBorder: true
                 onClicked:{
-                 Cura.PrintersManagerService.setPrintMode("duplication")
+                 Cura.PrintersManagerService.setPrintMode("dual")
                  CuraActions.setExtruderForSelection(extrudersModel.getItem(0).id)
                  CuraActions.centerSelection();
                 }
                 style: UM.Theme.styles.tool_button;
                 z: 5
             }
-            Button
+             Button
             {
                 id: singleT0Button
-                text: catalog.i18nc("@label", "singleT0")
-                iconSource: UM.Theme.getIcon("singleT0");
+                text: catalog.i18nc("@label", "Single 1")
+                iconSource: UM.Theme.getIcon("single1");
                 property bool needBorder: true
                 onClicked: {
                  Cura.PrintersManagerService.setPrintMode("singleT0");
@@ -64,8 +64,8 @@ Item
             Button
             {
                 id: singleT1Button
-                text: catalog.i18nc("@label", "singleT1")
-                iconSource: UM.Theme.getIcon("singleT1");
+                text: catalog.i18nc("@label", "Single 2")
+                iconSource: UM.Theme.getIcon("single2");
                 property bool needBorder: true
                 onClicked:{
                  Cura.PrintersManagerService.setPrintMode("singleT1")
@@ -75,26 +75,25 @@ Item
                 style: UM.Theme.styles.tool_button;
                 z: 3
             }
-
-            Button
+             Button
             {
-                id: dualButton
-                text: catalog.i18nc("@label", "Dual")
-                iconSource: UM.Theme.getIcon("dual");
+                id: duplication
+                text: catalog.i18nc("@label", "Duplication")
+                iconSource: UM.Theme.getIcon("duplicationicon");
                 property bool needBorder: true
                 onClicked:{
-                 Cura.PrintersManagerService.setPrintMode("dual")
+                 Cura.PrintersManagerService.setPrintMode("duplication")
+                 CuraActions.setExtruderForSelection(extrudersModel.getItem(0).id)
                  CuraActions.centerSelection();
                 }
                 style: UM.Theme.styles.tool_button;
                 z: 2
             }
-
             Button
             {
                 id: mirrorButton
                 text:  catalog.i18nc("@label", "Mirror")
-                iconSource: UM.Theme.getIcon("mirror2");
+                iconSource: UM.Theme.getIcon("mirroricon");
                 property bool needBorder: true
                 onClicked:{
                  Cura.PrintersManagerService.setPrintMode("mirror")
@@ -104,7 +103,6 @@ Item
                 style: UM.Theme.styles.tool_button;
                 z: 1
             }
-
         }
 
         Label

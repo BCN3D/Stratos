@@ -15,7 +15,7 @@ def getMetaData():
             "description": i18n_catalog.i18nc("@info:tooltip", "Configure Per Model Settings"),
             "icon": "tool_icon.svg",
             "tool_panel": "PerObjectSettingsPanel.qml",
-            "weight": 3
+            "weight": 5
         },
     }
 
