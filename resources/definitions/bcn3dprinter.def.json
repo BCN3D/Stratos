@@ -192,8 +192,8 @@
             "dual": "Dual",
             "mirror": "Mirror",
             "duplication": "Duplication",
-            "singleT0": "Single T0",
-            "singleT1": "Single T1"
+            "singleT0": "Single 1",
+            "singleT1": "Single 2"
           },
           "default_value": "dual",
           "enabled": true,
