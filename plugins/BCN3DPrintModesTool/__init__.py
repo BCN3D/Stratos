@@ -11,7 +11,7 @@ def getMetaData():
         "tool": {
             "name": i18n_catalog.i18nc("@label", "BCN3D Print Modes Tool"),
             "description": i18n_catalog.i18nc("@info:tooltip", "BCN3D Print Modes Tool"),
-            "icon": "bcn3dprintmodesicon.svg",
+            "icon": "allmodes.svg",
             "tool_panel": "BCN3DPrintModesToolPanel.qml",
             "weight": 3
         },
