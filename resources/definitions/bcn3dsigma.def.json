@@ -52,7 +52,6 @@
         "wall_line_width_x": { "value": "line_width - 0.05" },
         "infill_line_width": { "value": "machine_nozzle_size" },
         "support_line_width": { "value": "infill_line_width" },
-        "prime_tower_line_width": { "value": "machine_nozzle_size if not prime_tower_enable else (prime_tower_wall_thickness / 2 if prime_tower_wall_thickness <= round(2 * (min(extruderValues('machine_nozzle_size')) + (max(extruderValues('machine_nozzle_size')) - min(extruderValues('machine_nozzle_size'))) / 2), 2) else machine_nozzle_size)" },
         "initial_layer_line_width_factor": { "value": 120 },
         "prime_tower_closest_to": { "default_value": "top" },
         "top_bottom_pattern": { "value": "'zigzag'" },
