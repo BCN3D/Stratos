@@ -53,26 +53,10 @@ class BCN3DIdex(Extension):
             if print_mode == "singleT0":
                 self._application.getMachineManager().setExtruderEnabled(0, True)
                 self._application.getMachineManager().setExtruderEnabled(1, False)
-                # for extruder in used_extruders:
-                #     extruder_id = extruder.getId()
-                #     self._curaActions.setExtruderForSelection(extruder_id)
 
             elif print_mode == "singleT1":
                 self._application.getMachineManager().setExtruderEnabled(0, False)
                 self._application.getMachineManager().setExtruderEnabled(1, True)
-                # for extruder in used_extruders:
-                #     extruder_id = extruder.getId()
-                #     self._curaActions.setExtruderForSelection(extruder_id)
-                # #     # CuraActions.setExtruderForSelection(extruder_id)
-                #     print(extruder_id)
-
-
-                # extruderManager.setActiveExtruderIndex(1)
-                # extruder_id = ExtruderManager.getInstance().extruderIds["1"]
-                # print(extruder_id)
-                # CuraActions.setExtruderForSelection(extruder_id)
-                # used_extruder = self._global_container_stack.extruders()
-                # print(self.extruderManager.extruderIds["1"])
 
             elif print_mode == "dual":
                 self._application.getMachineManager().setExtruderEnabled(0, True)

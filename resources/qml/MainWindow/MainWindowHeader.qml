@@ -138,6 +138,31 @@ Item
             }
         }
     }
+    Controls2.Button
+    {
+        id: supportbutton
+        text: catalog.i18nc("@action:button", "Support")
+        height: Math.round(0.5 * UM.Theme.getSize("main_window_header").height)
+
+        hoverEnabled: false
+        onClicked: Qt.openUrlExternally("https://support.bcn3d.com/knowledge");
+        background: Rectangle
+        {
+            radius: UM.Theme.getSize("action_button_radius").width
+            color: supportbutton.hovered ? UM.Theme.getColor("main_window_header_background") : UM.Theme.getColor("primary_text")
+            border.width: UM.Theme.getSize("default_lining").width
+            border.color: UM.Theme.getColor("primary_text")
+        }
+
+
+        anchors
+        {
+            right: marketplaceButton.left
+            rightMargin: UM.Theme.getSize("default_margin").width
+            verticalCenter: parent.verticalCenter
+        }
+
+    }
 
     AccountWidget
     {
