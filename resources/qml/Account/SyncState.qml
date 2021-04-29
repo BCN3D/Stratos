@@ -115,7 +115,7 @@ Row // Sync state icon + message
         Label
         {
             id: accountSyncButton
-            text: catalog.i18nc("@button", "Check for account updates")
+            text: catalog.i18nc("@button", "Refresh")
             color: UM.Theme.getColor("text_link")
             font: UM.Theme.getFont("medium")
             renderType: Text.NativeRendering
@@ -127,7 +127,7 @@ Row // Sync state icon + message
             MouseArea
             {
                 anchors.fill: parent
-                onClicked: Cura.API.account.sync(true)
+                onClicked: Cura.PrintersManagerService.refreshPrinters()
                 hoverEnabled: true
                 onEntered: accountSyncButton.font.underline = true
                 onExited: accountSyncButton.font.underline = false

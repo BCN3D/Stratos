@@ -74,40 +74,19 @@ Column
             {
                 id: syncRow
             }
-            Label
-            {
-                id: lastSyncLabel
-                renderType: Text.NativeRendering
-                text: catalog.i18nc("@label The argument is a timestamp", "Last update: %1").arg(Cura.API.account.lastSyncDateTime)
-                font: UM.Theme.getFont("default")
-                color: UM.Theme.getColor("text_medium")
-            }
+
         }
     }
 
-    Rectangle
-    {
-        width: parent.width
-        color: UM.Theme.getColor("lining")
-        height: UM.Theme.getSize("default_lining").height
-    }
-    Cura.TertiaryButton
-    {
-        id: cloudButton
-        width: UM.Theme.getSize("account_button").width
-        height: UM.Theme.getSize("account_button").height
-        text: "Ultimaker Digital Factory"
-        onClicked: Qt.openUrlExternally(CuraApplication.ultimakerDigitalFactoryUrl)
-        fixedWidthMode: false
-    }
+
 
     Cura.TertiaryButton
     {
         id: accountButton
         width: UM.Theme.getSize("account_button").width
         height: UM.Theme.getSize("account_button").height
-        text: catalog.i18nc("@button", "Ultimaker Account")
-        onClicked: Qt.openUrlExternally(CuraApplication.ultimakerCloudAccountRootUrl)
+        text: catalog.i18nc("@button", "BCN3D Account ")
+        onClicked: Qt.openUrlExternally("https://cloud.bcn3d.com/user/settings")
         fixedWidthMode: false
     }
 
