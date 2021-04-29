@@ -145,7 +145,7 @@ Item
         height: Math.round(0.5 * UM.Theme.getSize("main_window_header").height)
 
         hoverEnabled: false
-        onClicked: Qt.openUrlExternally("https://support.bcn3d.com/knowledge");
+        onClicked: Qt.openUrlExternally("https://3d.bcn3d.com/chatbot");
         background: Rectangle
         {
             radius: UM.Theme.getSize("action_button_radius").width
