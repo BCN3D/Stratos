@@ -78,7 +78,7 @@ Item
     Action
     {
         id: showTroubleShootingAction
-        onTriggered: Qt.openUrlExternally("https://ultimaker.com/en/troubleshooting")
+        onTriggered: Qt.openUrlExternally("https://support.bcn3d.com/knowledge/tips")
         text: catalog.i18nc("@action:inmenu", "Show Online Troubleshooting Guide");
     }
 
@@ -164,7 +164,7 @@ Item
     Action
     {
         id: preferencesAction
-        text: catalog.i18nc("@action:inmenu", "Configure Cura...")
+        text: catalog.i18nc("@action:inmenu", "Configure Stratos...")
         iconName: "configure"
     }
 
@@ -236,14 +236,14 @@ Item
         text: catalog.i18nc("@action:inmenu menubar:help", "Show Online &Documentation");
         iconName: "help-contents";
         shortcut: StandardKey.Help;
-        onTriggered: CuraActions.openDocumentation();
+        onTriggered: Qt.openUrlExternally("https://support.bcn3d.com/knowledge/bcn3d-cura-user-manual")
     }
 
     Action {
         id: reportBugAction;
         text: catalog.i18nc("@action:inmenu menubar:help", "Report a &Bug");
         iconName: "tools-report-bug";
-        onTriggered: CuraActions.openBugReportPage();
+        onTriggered: Qt.openUrlExternally("https://support.bcn3d.com/knowledge/kb-tickets/new?hsLang=en")
     }
 
     Action
