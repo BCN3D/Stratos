@@ -1641,8 +1641,8 @@ msgstr "Utwórz nowy"
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFReader/WorkspaceDialog.qml:74
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Dialogs/WorkspaceSummaryDialog.qml:69
 msgctxt "@action:title"
-msgid "Summary - Cura Project"
-msgstr "Podsumowanie - Projekt Cura"
+msgid "Summary - Stratos Project"
+msgstr "Podsumowanie - Projekt Stratos"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFReader/WorkspaceDialog.qml:96
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Dialogs/WorkspaceSummaryDialog.qml:93
@@ -3190,7 +3190,7 @@ msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/UserOperations.qml:109
 msgctxt "@button"
-msgid "Ultimaker Account"
+msgid "BCN3D Account"
 msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/UserOperations.qml:125
@@ -3320,8 +3320,8 @@ msgstr "Widok z prawej strony"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:167
 msgctxt "@action:inmenu"
-msgid "Configure Cura..."
-msgstr "Konfiguruj Cura..."
+msgid "Configure Stratos..."
+msgstr "Konfiguruj Stratos..."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:174
 msgctxt "@action:inmenu menubar:printer"
@@ -3588,8 +3588,8 @@ msgstr "Kompletne rozwiązanie do druku przestrzennego."
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Dialogs/AboutDialog.qml:85
 msgctxt "@info:credit"
 msgid ""
-"Cura is developed by Ultimaker B.V. in cooperation with the community.\n"
-"Cura proudly uses the following open source projects:"
+"BCN3D Stratos is developed by BCN3D Technologies based on the open source project Cura developed by Ultimaker B.V. in cooperation with the community.\n"
+"Stratos proudly uses the following open source projects:"
 msgstr ""
 "Cura jest rozwijana przez firmę Ultimaker B.V. we współpracy ze społecznością.\n"
 "Cura z dumą korzysta z następujących projektów open source:"
@@ -5291,7 +5291,7 @@ msgstr "Połącz"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:43
 msgctxt "@label"
-msgid "Ultimaker Account"
+msgid "BCN3D Account"
 msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:84
@@ -5395,8 +5395,8 @@ msgstr "Rozpocznij"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/WhatsNewContent.qml:24
 msgctxt "@label"
-msgid "What's new in Ultimaker Cura"
-msgstr "Co nowego w Ultimaker Cura"
+msgid "What's new in BCN3D Stratos"
+msgstr "Co nowego w BCN3D Stratos"
 
 #: ModelChecker/plugin.json
 msgctxt "description"

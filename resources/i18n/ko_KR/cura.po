@@ -1576,8 +1576,8 @@ msgstr "새로 만들기"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFReader/WorkspaceDialog.qml:74 /home/trin/Gedeeld/Projects/Cura/resources/qml/Dialogs/WorkspaceSummaryDialog.qml:69
 msgctxt "@action:title"
-msgid "Summary - Cura Project"
-msgstr "요약 - Cura 프로젝트"
+msgid "Summary - Stratos Project"
+msgstr "요약 - Stratos 프로젝트"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFReader/WorkspaceDialog.qml:96 /home/trin/Gedeeld/Projects/Cura/resources/qml/Dialogs/WorkspaceSummaryDialog.qml:93
 msgctxt "@action:label"
@@ -3069,8 +3069,8 @@ msgstr "마지막 업데이트: %1"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/UserOperations.qml:109
 msgctxt "@button"
-msgid "Ultimaker Account"
-msgstr "Ultimaker 계정"
+msgid "BCN3D Account"
+msgstr "BCN3D 계정"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/UserOperations.qml:125
 msgctxt "@button"
@@ -3199,8 +3199,8 @@ msgstr "오른쪽에서 보기"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:167
 msgctxt "@action:inmenu"
-msgid "Configure Cura..."
-msgstr "Cura 구성 ..."
+msgid "Configure Stratos..."
+msgstr "Stratos 구성 ..."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:174
 msgctxt "@action:inmenu menubar:printer"
@@ -3458,8 +3458,8 @@ msgstr "3D 프린팅을 위한 엔드 투 엔트 솔루션."
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Dialogs/AboutDialog.qml:85
 msgctxt "@info:credit"
 msgid ""
-"Cura is developed by Ultimaker B.V. in cooperation with the community.\n"
-"Cura proudly uses the following open source projects:"
+"BCN3D Stratos is developed by BCN3D Technologies based on the open source project Cura developed by Ultimaker B.V. in cooperation with the community.\n"
+"Stratos proudly uses the following open source projects:"
 msgstr ""
 "Cura는 커뮤니티와 공동으로 Ultimaker B.V.에 의해 개발되었습니다.\n"
 "Cura는 다음의 오픈 소스 프로젝트를 사용합니다:"
@@ -5139,8 +5139,8 @@ msgstr "연결"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:43
 msgctxt "@label"
-msgid "Ultimaker Account"
-msgstr "Ultimaker 계정"
+msgid "BCN3D Account"
+msgstr "BCN3D 계정"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:84
 msgctxt "@text"
@@ -5241,8 +5241,8 @@ msgstr "시작하기"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/WhatsNewContent.qml:24
 msgctxt "@label"
-msgid "What's new in Ultimaker Cura"
-msgstr "Ultimaker Cura의 새로운 기능"
+msgid "What's new in BCN3D Stratos"
+msgstr "BCN3D Stratos의 새로운 기능"
 
 #: ModelChecker/plugin.json
 msgctxt "description"

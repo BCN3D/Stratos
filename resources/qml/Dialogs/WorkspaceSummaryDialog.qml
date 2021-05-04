@@ -66,7 +66,7 @@ UM.Dialog
         {
             id: mainHeading
             width: parent.width
-            text: catalog.i18nc("@action:title", "Summary - Cura Project")
+            text: catalog.i18nc("@action:title", "Summary - Stratos Project")
             font.pointSize: 18
             anchors.top: parent.top
         }

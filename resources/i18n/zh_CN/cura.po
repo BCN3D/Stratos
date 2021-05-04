@@ -3187,8 +3187,8 @@ msgstr "上次更新时间：%1"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/UserOperations.qml:109
 msgctxt "@button"
-msgid "Ultimaker Account"
-msgstr "Ultimaker 帐户"
+msgid "BCN3D Account"
+msgstr "BCN3D 帐户"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/UserOperations.qml:125
 msgctxt "@button"
@@ -3317,8 +3317,8 @@ msgstr "右视图"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:167
 msgctxt "@action:inmenu"
-msgid "Configure Cura..."
-msgstr "配置 Cura..."
+msgid "Configure Stratos..."
+msgstr "配置 Stratos..."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:174
 msgctxt "@action:inmenu menubar:printer"
@@ -3582,8 +3582,8 @@ msgstr "熔丝 3D 打印技术的的端对端解决方案。"
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Dialogs/AboutDialog.qml:85
 msgctxt "@info:credit"
 msgid ""
-"Cura is developed by Ultimaker B.V. in cooperation with the community.\n"
-"Cura proudly uses the following open source projects:"
+"BCN3D Stratos is developed by BCN3D Technologies based on the open source project Cura developed by Ultimaker B.V. in cooperation with the community.\n"
+"Stratos proudly uses the following open source projects:"
 msgstr ""
 "Cura 由 Ultimaker B.V. 与社区合作开发。\n"
 "Cura 使用以下开源项目："
@@ -5280,8 +5280,8 @@ msgstr "连接"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:43
 msgctxt "@label"
-msgid "Ultimaker Account"
-msgstr "Ultimaker 帐户"
+msgid "BCN3D Account"
+msgstr "BCN3D 帐户"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:84
 msgctxt "@text"
@@ -5384,8 +5384,8 @@ msgstr "开始"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/WhatsNewContent.qml:24
 msgctxt "@label"
-msgid "What's new in Ultimaker Cura"
-msgstr "Ultimaker Cura 新增功能"
+msgid "What's new in BCN3D Stratos"
+msgstr "BCN3D Stratos 新增功能"
 
 #: ModelChecker/plugin.json
 msgctxt "description"

@@ -115,7 +115,7 @@ Row // Sync state icon + message
         Label
         {
             id: accountSyncButton
-            text: catalog.i18nc("@button", "Refresh")
+            text: catalog.i18nc("@button", "Check for account updates")
             color: UM.Theme.getColor("text_link")
             font: UM.Theme.getFont("medium")
             renderType: Text.NativeRendering

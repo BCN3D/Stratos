@@ -1640,8 +1640,8 @@ msgstr ""
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFReader/WorkspaceDialog.qml:74
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Dialogs/WorkspaceSummaryDialog.qml:69
 msgctxt "@action:title"
-msgid "Summary - Cura Project"
-msgstr "Összegzés - Cura Project"
+msgid "Summary - Stratos Project"
+msgstr "Összegzés - Stratos Project"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFReader/WorkspaceDialog.qml:96
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Dialogs/WorkspaceSummaryDialog.qml:93
@@ -3189,7 +3189,7 @@ msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/UserOperations.qml:109
 msgctxt "@button"
-msgid "Ultimaker Account"
+msgid "BCN3D Account"
 msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/UserOperations.qml:125
@@ -3319,8 +3319,8 @@ msgstr "Jobb oldalnézet"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:167
 msgctxt "@action:inmenu"
-msgid "Configure Cura..."
-msgstr "Cura beállítása..."
+msgid "Configure Stratos..."
+msgstr "Stratos beállítása..."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:174
 msgctxt "@action:inmenu menubar:printer"
@@ -3587,8 +3587,8 @@ msgstr "Teljes körű megoldás az olvadószálas 3D-s nyomtatáshoz."
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Dialogs/AboutDialog.qml:85
 msgctxt "@info:credit"
 msgid ""
-"Cura is developed by Ultimaker B.V. in cooperation with the community.\n"
-"Cura proudly uses the following open source projects:"
+"BCN3D Stratos is developed by BCN3D Technologies based on the open source project Cura developed by Ultimaker B.V. in cooperation with the community.\n"
+"Stratos proudly uses the following open source projects:"
 msgstr "A Cura-t az Ultimaker B.V fejlesztette ki a közösséggel együttműködésben. A Cura büszkén használja a következő nyílt forráskódú projekteket:"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Dialogs/AboutDialog.qml:135
@@ -5288,7 +5288,7 @@ msgstr "Csatlakozás"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:43
 msgctxt "@label"
-msgid "Ultimaker Account"
+msgid "BCN3D Account"
 msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:84
@@ -5392,8 +5392,8 @@ msgstr "Kezdj hozzá"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/WhatsNewContent.qml:24
 msgctxt "@label"
-msgid "What's new in Ultimaker Cura"
-msgstr "Újdonságok az Ultimaker Cura-ban"
+msgid "What's new in BCN3D Stratos"
+msgstr "Újdonságok az BCN3D Stratos-ban"
 
 #: ModelChecker/plugin.json
 msgctxt "description"
