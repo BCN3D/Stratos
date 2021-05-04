@@ -186,26 +186,14 @@ Item
 
         Cura.SecondaryButton
         {
-            id: addPrinterByIpButton
-            anchors.left: refreshButton.right
-            anchors.leftMargin: UM.Theme.getSize("default_margin").width
-            anchors.verticalCenter: parent.verticalCenter
-            text: catalog.i18nc("@label", "Add printer by IP")
-            height: UM.Theme.getSize("message_action_button").height
-            onClicked: base.addByIpButtonClicked()
-        }
-
-        Cura.SecondaryButton
-        {
             id: addCloudPrinterButton
-            anchors.left: addPrinterByIpButton.right
+            anchors.left: refreshButton.right
             anchors.leftMargin: UM.Theme.getSize("default_margin").width
             anchors.verticalCenter: parent.verticalCenter
             text: catalog.i18nc("@label", "Add cloud printer")
             height: UM.Theme.getSize("message_action_button").height
             onClicked: {
-                CuraApplication.getDiscoveredCloudPrintersModel().clear()
-                base.addCloudPrinterButtonClicked()
+               onClicked: Qt.openUrlExternally("https://cloud.bcn3d.com")
             }
         }
 
