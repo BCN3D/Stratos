@@ -38,19 +38,7 @@ Item
             }
         }
 
-        ToolboxTabButton
-        {
-            id: materialsTabButton
-            text: catalog.i18nc("@title:tab", "Materials")
-            active: toolbox.viewCategory == "material" && enabled
-            enabled: !toolbox.isDownloading && toolbox.viewPage != "loading" && toolbox.viewPage != "errored"
-            onClicked:
-            {
-                toolbox.filterModelByProp("authors", "package_types", "material")
-                toolbox.viewCategory = "material"
-                toolbox.viewPage = "overview"
-            }
-        }
+
 
         ToolboxTabButton
         {
