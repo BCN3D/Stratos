@@ -239,7 +239,7 @@ Item
                 onClicked:
                 {
                     // open the troubleshooting URL with web browser
-                    const url = "https://ultimaker.com/in/cura/troubleshooting/network"
+                    const url = "https://support.bcn3d.com/knowledge/tips"
                     Qt.openUrlExternally(url)
                 }
                 onEntered:
