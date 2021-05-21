@@ -66,31 +66,7 @@ Item
     }
 
 
-    UM.TooltipArea
-    {
-        id: webMarketplaceButtonTooltipArea
-        width: childrenRect.width
-        height: parent.height
-        text: catalog.i18nc("@info:tooltip", "Go to Web Marketplace")
-        anchors
-        {
-            right: parent.right
-            rightMargin: UM.Theme.getSize("default_margin").width
-            verticalCenter: parent.verticalCenter
-        }
-        onClicked: Qt.openUrlExternally(toolbox.getWebMarketplaceUrl("plugins"))
-        UM.RecolorImage
-        {
-            id: cloudMarketplaceButton
-            source: "../../images/shop.svg"
-            color: UM.Theme.getColor(webMarketplaceButtonTooltipArea.containsMouse ? "primary" : "text")
-            height: parent.height / 2
-            width: height
-            anchors.verticalCenter: parent.verticalCenter
-            sourceSize.width: width
-            sourceSize.height: height
-        }
-    }
+
 
     ToolboxShadow
     {
