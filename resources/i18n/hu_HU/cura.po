@@ -202,8 +202,8 @@ msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:122
 msgctxt "@action:button"
-msgid "Send crash report to Ultimaker"
-msgstr "Hibajelentés küldése az Ultimaker -nek"
+msgid "Send crash report to BCN3D"
+msgstr "Hibajelentés küldése az BCN3D -nek"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:125
 msgctxt "@action:button"
@@ -228,11 +228,11 @@ msgstr "Összeomlás jelentés"
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:190
 msgctxt "@label crash message"
 msgid ""
-"<p><b>A fatal error has occurred in Cura. Please send us this Crash Report to fix the problem</p></b>\n"
+"<p><b>A fatal error has occurred in Stratos. Please send us this Crash Report to fix the problem</p></b>\n"
 "            <p>Please use the \"Send report\" button to post a bug report automatically to our servers</p>\n"
 "        "
 msgstr ""
-"<p><b>Végzetes hiba történt Cura-ban. Kérjük, küld el nekünk az összeomlás jelentését, hogy javítani tudjuk a hibát.</p></b>\n"
+"<p><b>Végzetes hiba történt Stratos-ban. Kérjük, küld el nekünk az összeomlás jelentését, hogy javítani tudjuk a hibát.</p></b>\n"
 "            <p>Kérjük használd a \"Jelentés küldés\" gombot a hibajelentés postázásához,  így az automatikusan a szerverünkre kerül.</p>\n"
 "        "
 
@@ -247,13 +247,13 @@ msgid "Unknown"
 msgstr "Ismeretlen"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:228
-msgctxt "@label Cura version number"
-msgid "Cura version"
-msgstr "Cura verzió"
+msgctxt "@label Stratos version number"
+msgid "Stratos version"
+msgstr "Stratos verzió"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:229
 msgctxt "@label"
-msgid "Cura language"
+msgid "Stratos language"
 msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:230
@@ -1804,8 +1804,8 @@ msgstr "A biztonsági mentés helyreállítás előtt a Cura -t újra kell indí
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/components/BackupListItemDetails.qml:21
 msgctxt "@backuplist:label"
-msgid "Cura Version"
-msgstr "Cura verzió"
+msgid "Stratos Version"
+msgstr "Stratos verzió"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/components/BackupListItemDetails.qml:29
 msgctxt "@backuplist:label"
@@ -2389,8 +2389,8 @@ msgstr "További információ a névtelen adatgyűjtésről"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/SliceInfoPlugin/MoreInfoWindow.qml:74
 msgctxt "@text:window"
-msgid "Ultimaker Cura collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:"
-msgstr "Az Ultimaker Cura névtelen adatokat gyűjt a nyomtatási minőség és a felhasználói élmény javítása érdekében. Az alábbiakban található egy példa az összes megosztott adatra:"
+msgid "Stratos collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:"
+msgstr "Az Stratos névtelen adatokat gyűjt a nyomtatási minőség és a felhasználói élmény javítása érdekében. Az alábbiakban található egy példa az összes megosztott adatra:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/SliceInfoPlugin/MoreInfoWindow.qml:110
 msgctxt "@text:window"
@@ -2578,7 +2578,7 @@ msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/CompatibilityDialog.qml:97
 msgctxt "@label"
-msgid "The following packages can not be installed because of an incompatible Cura version:"
+msgid "The following packages can not be installed because of an incompatible Stratos version:"
 msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/ToolboxConfirmUninstallResetDialog.qml:20
@@ -4244,7 +4244,7 @@ msgstr "Kamera középre, mikor az elem ki van választva"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:383
 msgctxt "@info:tooltip"
-msgid "Should the default zoom behavior of cura be inverted?"
+msgid "Should the default zoom behavior of Stratos be inverted?"
 msgstr "Megfordítsuk-e az alapértelmezett Zoom viselkedését?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:388
@@ -4309,7 +4309,7 @@ msgstr "A rétegnézet kompatibilis módjának kényszerítése (újraindítás 
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:498
 msgctxt "@info:tooltip"
-msgid "Should Cura open at the location it was closed?"
+msgid "Should Stratos open at the location it was closed?"
 msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:503
@@ -4458,7 +4458,7 @@ msgstr "Magán"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:790
 msgctxt "@info:tooltip"
-msgid "Should Cura check for updates when the program is started?"
+msgid "Should Stratos check for updates when the program is started?"
 msgstr "A Cura-nak ellenőriznie kell-e a frissítéseket a program indításakor?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:795
@@ -4468,8 +4468,8 @@ msgstr "Keressen frissítéseket az induláskor"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:805
 msgctxt "@info:tooltip"
-msgid "Should anonymous data about your print be sent to Ultimaker? Note, no models, IP addresses or other personally identifiable information is sent or stored."
-msgstr "Elküldjük a nyomtatott adatokat név nélkül az Ultimaker-nek?Semmilyen személyes infromáció, IP cím vagy azonosító nem kerül elküldésre."
+msgid "Should anonymous data about your print be sent to BCN3D? Note, no models, IP addresses or other personally identifiable information is sent or stored."
+msgstr "Elküldjük a nyomtatott adatokat név nélkül az BCN3D-nek?Semmilyen személyes infromáció, IP cím vagy azonosító nem kerül elküldésre."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:810
 msgctxt "@option:check"

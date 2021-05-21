@@ -188,13 +188,13 @@ msgstr "Cura başlatılamıyor"
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:113
 msgctxt "@label crash message"
 msgid ""
-"<p><b>Oops, Ultimaker Cura has encountered something that doesn't seem right.</p></b>\n"
+"<p><b>Oops, Stratos has encountered something that doesn't seem right.</p></b>\n"
 "                    <p>We encountered an unrecoverable error during start up. It was possibly caused by some incorrect configuration files. We suggest to backup and reset your configuration.</p>\n"
 "                    <p>Backups can be found in the configuration folder.</p>\n"
 "                    <p>Please send us this Crash Report to fix the problem.</p>\n"
 "                "
 msgstr ""
-"<p><b>Ultimaker Cura doğru görünmeyen bir şeyle karşılaştı.</p></b>\n"
+"<p><b>Stratos doğru görünmeyen bir şeyle karşılaştı.</p></b>\n"
 "                    <p>Başlatma esnasında kurtarılamaz bir hata ile karşılaştık. Muhtemelen bazı hatalı yapılandırma dosyalarından kaynaklanıyordu. Yapılandırmanızı yedekleyip sıfırlamanızı öneriyoruz.</p>\n"
 "                    <p>Yedekler yapılandırma klasöründe bulunabilir.</p>\n"
 "                    <p>Sorunu düzeltmek için lütfen bu Çökme Raporunu bize gönderin.</p>\n"
@@ -202,7 +202,7 @@ msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:122
 msgctxt "@action:button"
-msgid "Send crash report to Ultimaker"
+msgid "Send crash report to BCN3D"
 msgstr "Çökme raporunu Ultimaker’a gönder"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:125
@@ -228,11 +228,11 @@ msgstr "Çökme Raporu"
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:190
 msgctxt "@label crash message"
 msgid ""
-"<p><b>A fatal error has occurred in Cura. Please send us this Crash Report to fix the problem</p></b>\n"
+"<p><b>A fatal error has occurred in Stratos. Please send us this Crash Report to fix the problem</p></b>\n"
 "            <p>Please use the \"Send report\" button to post a bug report automatically to our servers</p>\n"
 "        "
 msgstr ""
-"<p><b>Cura’da onarılamaz bir hata oluştu. Lütfen sorunu çözmek için bize Çökme Raporunu gönderin</p></b>\n"
+"<p><b>Stratos’da onarılamaz bir hata oluştu. Lütfen sorunu çözmek için bize Çökme Raporunu gönderin</p></b>\n"
 "            <p>Sunucularımıza otomatik olarak bir hata raporu yüklemek için lütfen \"Rapor gönder\" düğmesini kullanın</p>\n"
 "        "
 
@@ -247,14 +247,14 @@ msgid "Unknown"
 msgstr "Bilinmiyor"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:228
-msgctxt "@label Cura version number"
-msgid "Cura version"
-msgstr "Cura sürümü"
+msgctxt "@label Stratos version number"
+msgid "Stratos version"
+msgstr "Stratos sürümü"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:229
 msgctxt "@label"
-msgid "Cura language"
-msgstr "Cura dili"
+msgid "Stratos language"
+msgstr "Stratos dili"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:230
 msgctxt "@label"
@@ -753,8 +753,8 @@ msgstr "Proje Dosyası Açılamıyor"
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFReader/ThreeMFWorkspaceReader.py:686
 #, python-brace-format
 msgctxt "@info:error Don't translate the XML tag <filename>!"
-msgid "Project file <filename>{0}</filename> is made using profiles that are unknown to this version of Ultimaker Cura."
-msgstr "<filename>{0}</filename> proje dosyası, Ultimaker Cura'nın bu sürümünde bilinmeyen profiller kullanılarak yapılmış."
+msgid "Project file <filename>{0}</filename> is made using profiles that are unknown to this version of Stratos."
+msgstr "<filename>{0}</filename> proje dosyası, Stratos'nın bu sürümünde bilinmeyen profiller kullanılarak yapılmış."
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFReader/WorkspaceDialog.py:203
 msgctxt "@title:tab"
@@ -1809,8 +1809,8 @@ msgstr "Yedeklemeniz geri yüklenmeden öne Cura’yı yeniden başlatmalısın�
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/components/BackupListItemDetails.qml:21
 msgctxt "@backuplist:label"
-msgid "Cura Version"
-msgstr "Cura Sürümü"
+msgid "Stratos Version"
+msgstr "Stratos Sürümü"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/components/BackupListItemDetails.qml:29
 msgctxt "@backuplist:label"
@@ -2394,8 +2394,8 @@ msgstr "Anonim veri toplama hakkında daha fazla bilgi"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/SliceInfoPlugin/MoreInfoWindow.qml:74
 msgctxt "@text:window"
-msgid "Ultimaker Cura collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:"
-msgstr "Ultimaker Cura, yazdırma kalitesini ve kullanıcı deneyimini iyileştirmek için anonim veri toplar. Aşağıda, paylaşılan tüm verilerin bir örneği verilmiştir:"
+msgid "Stratos collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:"
+msgstr "Stratos, yazdırma kalitesini ve kullanıcı deneyimini iyileştirmek için anonim veri toplar. Aşağıda, paylaşılan tüm verilerin bir örneği verilmiştir:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/SliceInfoPlugin/MoreInfoWindow.qml:110
 msgctxt "@text:window"
@@ -2583,8 +2583,8 @@ msgstr "Aşağıdaki paketler eklenecek:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/CompatibilityDialog.qml:97
 msgctxt "@label"
-msgid "The following packages can not be installed because of an incompatible Cura version:"
-msgstr "Aşağıdaki paketler uyumsuz Cura sürümü nedeniyle yüklenemiyor:"
+msgid "The following packages can not be installed because of an incompatible Stratos version:"
+msgstr "Aşağıdaki paketler uyumsuz Stratos sürümü nedeniyle yüklenemiyor:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/ToolboxConfirmUninstallResetDialog.qml:20
 msgctxt "@title:window"
@@ -4255,8 +4255,8 @@ msgstr "Öğeyi seçince kamerayı ortalayın"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:383
 msgctxt "@info:tooltip"
-msgid "Should the default zoom behavior of cura be inverted?"
-msgstr "Cura’nın varsayılan yakınlaştırma davranışı tersine çevrilsin mi?"
+msgid "Should the default zoom behavior of Stratos be inverted?"
+msgstr "Stratos’nın varsayılan yakınlaştırma davranışı tersine çevrilsin mi?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:388
 msgctxt "@action:button"
@@ -4320,7 +4320,7 @@ msgstr "Katman görünümünü uyumluluk moduna zorla (yeniden başlatma gerekir
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:498
 msgctxt "@info:tooltip"
-msgid "Should Cura open at the location it was closed?"
+msgid "Should Stratos open at the location it was closed?"
 msgstr "Cura kapatıldığı yerden mi başlatılsın?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:503
@@ -4469,7 +4469,7 @@ msgstr "Gizlilik"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:790
 msgctxt "@info:tooltip"
-msgid "Should Cura check for updates when the program is started?"
+msgid "Should Stratos check for updates when the program is started?"
 msgstr "Cura, program başladığında güncellemeleri kontrol etmeli mi?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:795
@@ -4479,8 +4479,8 @@ msgstr "Başlangıçta güncellemeleri kontrol edin"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:805
 msgctxt "@info:tooltip"
-msgid "Should anonymous data about your print be sent to Ultimaker? Note, no models, IP addresses or other personally identifiable information is sent or stored."
-msgstr "Yazdırmanızdaki anonim veriler Ultimaker’a gönderilmeli mi? Unutmayın; hiçbir model, IP adresi veya diğer kişiye özgü bilgiler gönderilmez veya saklanmaz."
+msgid "Should anonymous data about your print be sent to BCN3D? Note, no models, IP addresses or other personally identifiable information is sent or stored."
+msgstr "Yazdırmanızdaki anonim veriler BCN3D’a gönderilmeli mi? Unutmayın; hiçbir model, IP adresi veya diğer kişiye özgü bilgiler gönderilmez veya saklanmaz."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:810
 msgctxt "@option:check"
@@ -5329,13 +5329,13 @@ msgstr "Atla"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:24
 msgctxt "@label"
-msgid "Help us to improve Ultimaker Cura"
-msgstr "Ultimaker Cura'yı geliştirmemiz yardım edin"
+msgid "Help us to improve Stratos"
+msgstr "Stratos'yı geliştirmemiz yardım edin"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:57
 msgctxt "@text"
-msgid "Ultimaker Cura collects anonymous data to improve print quality and user experience, including:"
-msgstr "Ultimaker Cura, yazdırma kalitesini ve kullanıcı deneyimini iyileştirmek için anonim veri toplar. Bu veriler aşağıdakileri içerir:"
+msgid "Stratos collects anonymous data to improve print quality and user experience, including:"
+msgstr "Stratos, yazdırma kalitesini ve kullanıcı deneyimini iyileştirmek için anonim veri toplar. Bu veriler aşağıdakileri içerir:"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:71
 msgctxt "@text"
@@ -5359,8 +5359,8 @@ msgstr "Yazdırma ayarları"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:102
 msgctxt "@text"
-msgid "Data collected by Ultimaker Cura will not contain any personal information."
-msgstr "Ultimaker Cura tarafından toplanan veriler herhangi bir kişisel bilgi içermeyecektir."
+msgid "Data collected by Stratos will not contain any personal information."
+msgstr "Stratos tarafından toplanan veriler herhangi bir kişisel bilgi içermeyecektir."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:103
 msgctxt "@text"

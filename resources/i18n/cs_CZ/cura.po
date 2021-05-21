@@ -189,13 +189,13 @@ msgstr "Cura nelze spustit"
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:113
 msgctxt "@label crash message"
 msgid ""
-"<p><b>Oops, Ultimaker Cura has encountered something that doesn't seem right.</p></b>\n"
+"<p><b>Oops, Stratos has encountered something that doesn't seem right.</p></b>\n"
 "                    <p>We encountered an unrecoverable error during start up. It was possibly caused by some incorrect configuration files. We suggest to backup and reset your configuration.</p>\n"
 "                    <p>Backups can be found in the configuration folder.</p>\n"
 "                    <p>Please send us this Crash Report to fix the problem.</p>\n"
 "                "
 msgstr ""
-"<p> <b> Jejda, Ultimaker Cura narazil na něco, co se nezdá být v pořádku. </p> </b>\n"
+"<p> <b> Jejda, Stratos narazil na něco, co se nezdá být v pořádku. </p> </b>\n"
 "                     <p> Během spouštění jsme zaznamenali neodstranitelnou chybu. Bylo to pravděpodobně způsobeno některými nesprávnými konfiguračními soubory. Doporučujeme zálohovat a resetovat vaši konfiguraci. </p>\n"
 "                     <p> Zálohy najdete v konfigurační složce. </p>\n"
 "                     <p> Za účelem vyřešení problému nám prosím pošlete tento záznam pádu. </p>\n"
@@ -203,8 +203,8 @@ msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:122
 msgctxt "@action:button"
-msgid "Send crash report to Ultimaker"
-msgstr "Poslat záznam o pádu do Ultimakeru"
+msgid "Send crash report to BCN3D"
+msgstr "Poslat záznam o pádu do BCN3D"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:125
 msgctxt "@action:button"
@@ -229,11 +229,11 @@ msgstr "Záznam pádu"
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:190
 msgctxt "@label crash message"
 msgid ""
-"<p><b>A fatal error has occurred in Cura. Please send us this Crash Report to fix the problem</p></b>\n"
+"<p><b>A fatal error has occurred in Stratos. Please send us this Crash Report to fix the problem</p></b>\n"
 "            <p>Please use the \"Send report\" button to post a bug report automatically to our servers</p>\n"
 "        "
 msgstr ""
-"<p> <b> V Cuře došlo k závažné chybě. Zašlete nám prosím tento záznam pádu k vyřešení problému </p> </b>\n"
+"<p> <b> V BCN3D došlo k závažné chybě. Zašlete nám prosím tento záznam pádu k vyřešení problému </p> </b>\n"
 "             <p> Použijte tlačítko „Odeslat zprávu“ k automatickému odeslání hlášení o chybě na naše servery </p>\n"
 "        "
 
@@ -243,18 +243,18 @@ msgid "System information"
 msgstr "Systémové informace"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:207
-msgctxt "@label unknown version of Cura"
+msgctxt "@label unknown version of Stratos"
 msgid "Unknown"
 msgstr "Neznámý"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:228
-msgctxt "@label Cura version number"
-msgid "Cura version"
-msgstr "Verze Cura"
+msgctxt "@label Stratos version number"
+msgid "Stratos version"
+msgstr "Verze Stratos"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:229
 msgctxt "@label"
-msgid "Cura language"
+msgid "Stratos language"
 msgstr "Jazyk Cura"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:230
@@ -1811,13 +1811,13 @@ msgstr "Obnovit zálohu"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/components/BackupListItem.qml:109
 msgctxt "@dialog:info"
-msgid "You will need to restart Cura before your backup is restored. Do you want to close Cura now?"
+msgid "You will need to restart Stratos before your backup is restored. Do you want to close Stratos now?"
 msgstr "Před obnovením zálohy budete muset restartovat Curu. Chcete nyní Curu zavřít?"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/components/BackupListItemDetails.qml:21
 msgctxt "@backuplist:label"
-msgid "Cura Version"
-msgstr "Cura verze"
+msgid "Stratos Version"
+msgstr "Stratos verze"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/components/BackupListItemDetails.qml:29
 msgctxt "@backuplist:label"
@@ -1841,8 +1841,8 @@ msgstr "Zásuvné moduly"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/main.qml:25
 msgctxt "@title:window"
-msgid "Cura Backups"
-msgstr "Cura zálohy"
+msgid "Stratos Backups"
+msgstr "Stratos zálohy"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/pages/BackupsPage.qml:28
 msgctxt "@title"
@@ -2402,8 +2402,8 @@ msgstr "Další informace o anonymním shromažďování údajů"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/SliceInfoPlugin/MoreInfoWindow.qml:74
 msgctxt "@text:window"
-msgid "Ultimaker Cura collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:"
-msgstr "Ultimaker Cura shromažďuje anonymní data za účelem zlepšení kvality tisku a uživatelského komfortu. Níže uvádíme příklad všech sdílených dat:"
+msgid "Stratos collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:"
+msgstr "Stratos shromažďuje anonymní data za účelem zlepšení kvality tisku a uživatelského komfortu. Níže uvádíme příklad všech sdílených dat:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/SliceInfoPlugin/MoreInfoWindow.qml:110
 msgctxt "@text:window"
@@ -2591,8 +2591,8 @@ msgstr "Následující balíčky byly přidány:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/CompatibilityDialog.qml:97
 msgctxt "@label"
-msgid "The following packages can not be installed because of an incompatible Cura version:"
-msgstr "Následující balíčky nelze nainstalovat z důvodu nekompatibilní verze Cura:"
+msgid "The following packages can not be installed because of an incompatible Stratos version:"
+msgstr "Následující balíčky nelze nainstalovat z důvodu nekompatibilní verze Stratos:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/ToolboxConfirmUninstallResetDialog.qml:20
 msgctxt "@title:window"
@@ -4270,8 +4270,8 @@ msgstr "Vycentrovat kameru pokud je vybrána položka"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:383
 msgctxt "@info:tooltip"
-msgid "Should the default zoom behavior of cura be inverted?"
-msgstr "Mělo by být výchozí chování přiblížení u cury invertováno?"
+msgid "Should the default zoom behavior of Stratos be inverted?"
+msgstr "Mělo by být výchozí chování přiblížení u Stratos invertováno?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:388
 msgctxt "@action:button"
@@ -4335,7 +4335,7 @@ msgstr "Vynutit režim kompatibility zobrazení vrstev (vyžaduje restart)"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:498
 msgctxt "@info:tooltip"
-msgid "Should Cura open at the location it was closed?"
+msgid "Should Stratos open at the location it was closed?"
 msgstr "Měla by se Cura otevřít v místě, kde byla uzavřena?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:503
@@ -4484,7 +4484,7 @@ msgstr "Soukromí"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:790
 msgctxt "@info:tooltip"
-msgid "Should Cura check for updates when the program is started?"
+msgid "Should Stratos check for updates when the program is started?"
 msgstr "Měla by Cura zkontrolovat aktualizace při spuštění programu?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:795
@@ -4494,8 +4494,8 @@ msgstr "Zkontrolovat aktualizace při zapnutí"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:805
 msgctxt "@info:tooltip"
-msgid "Should anonymous data about your print be sent to Ultimaker? Note, no models, IP addresses or other personally identifiable information is sent or stored."
-msgstr "Měla by být anonymní data o vašem tisku zaslána společnosti Ultimaker? Upozorňujeme, že nejsou odesílány ani ukládány žádné modely, adresy IP ani jiné osobní údaje."
+msgid "Should anonymous data about your print be sent to BCN3D? Note, no models, IP addresses or other personally identifiable information is sent or stored."
+msgstr "Měla by být anonymní data o vašem tisku zaslána společnosti BCN3D? Upozorňujeme, že nejsou odesílány ani ukládány žádné modely, adresy IP ani jiné osobní údaje."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:810
 msgctxt "@option:check"

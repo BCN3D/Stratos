@@ -380,7 +380,7 @@ UM.PreferencesPage
             {
                 width: childrenRect.width;
                 height: childrenRect.height;
-                text: catalog.i18nc("@info:tooltip", "Should the default zoom behavior of cura be inverted?")
+                text: catalog.i18nc("@info:tooltip", "Should the default zoom behavior of Stratos be inverted?")
 
                 CheckBox
                 {
@@ -787,7 +787,7 @@ UM.PreferencesPage
             {
                 width: childrenRect.width
                 height: visible ? childrenRect.height : 0
-                text: catalog.i18nc("@info:tooltip","Should Cura check for updates when the program is started?")
+                text: catalog.i18nc("@info:tooltip","Should Stratos check for updates when the program is started?")
 
                 CheckBox
                 {
@@ -802,7 +802,7 @@ UM.PreferencesPage
             {
                 width: childrenRect.width
                 height: visible ? childrenRect.height : 0
-                text: catalog.i18nc("@info:tooltip","Should anonymous data about your print be sent to Ultimaker? Note, no models, IP addresses or other personally identifiable information is sent or stored.")
+                text: catalog.i18nc("@info:tooltip","Should anonymous data about your print be sent to BCN3D? Note, no models, IP addresses or other personally identifiable information is sent or stored.")
 
                 CheckBox
                 {

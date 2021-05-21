@@ -168,13 +168,13 @@ msgstr "Cura kan niet worden gestart"
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:113
 msgctxt "@label crash message"
 msgid ""
-"<p><b>Oops, Ultimaker Cura has encountered something that doesn't seem right.</p></b>\n"
+"<p><b>Oops, Stratos has encountered something that doesn't seem right.</p></b>\n"
 "                    <p>We encountered an unrecoverable error during start up. It was possibly caused by some incorrect configuration files. We suggest to backup and reset your configuration.</p>\n"
 "                    <p>Backups can be found in the configuration folder.</p>\n"
 "                    <p>Please send us this Crash Report to fix the problem.</p>\n"
 "                "
 msgstr ""
-"<p><b>Oeps, Ultimaker Cura heeft een probleem gedetecteerd.</p></b>\n"
+"<p><b>Oeps, Stratos heeft een probleem gedetecteerd.</p></b>\n"
 "                    <p>Tijdens het opstarten is een onherstelbare fout opgetreden. Deze fout is mogelijk veroorzaakt door enkele onjuiste configuratiebestanden. Het wordt aanbevolen een back-up te maken en de standaardinstelling van uw configuratie te herstellen.</p>\n"
 "                    <p>Back-ups bevinden zich in de configuratiemap.</p>\n"
 "                    <p>Stuur ons dit crashrapport om het probleem op te lossen.</p>\n"
@@ -182,7 +182,7 @@ msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:122
 msgctxt "@action:button"
-msgid "Send crash report to Ultimaker"
+msgid "Send crash report to BCN3D"
 msgstr "Het crashrapport naar Ultimaker verzenden"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:125
@@ -208,11 +208,11 @@ msgstr "Crashrapport"
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:190
 msgctxt "@label crash message"
 msgid ""
-"<p><b>A fatal error has occurred in Cura. Please send us this Crash Report to fix the problem</p></b>\n"
+"<p><b>A fatal error has occurred in Stratos. Please send us this Crash Report to fix the problem</p></b>\n"
 "            <p>Please use the \"Send report\" button to post a bug report automatically to our servers</p>\n"
 "        "
 msgstr ""
-"<p><b>Er is een fatale fout opgetreden in Cura. Stuur ons het crashrapport om het probleem op te lossen</p></b>\n"
+"<p><b>Er is een fatale fout opgetreden in Stratos. Stuur ons het crashrapport om het probleem op te lossen</p></b>\n"
 "            <p>Druk op de knop \"Rapport verzenden\" om het foutenrapport automatisch naar onze servers te verzenden</p>\n"
 "        "
 
@@ -222,19 +222,19 @@ msgid "System information"
 msgstr "Systeeminformatie"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:207
-msgctxt "@label unknown version of Cura"
+msgctxt "@label unknown version of Stratos"
 msgid "Unknown"
 msgstr "Onbekend"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:228
-msgctxt "@label Cura version number"
-msgid "Cura version"
-msgstr "Cura-versie"
+msgctxt "@label Stratos version number"
+msgid "Stratos version"
+msgstr "Stratos-versie"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:229
 msgctxt "@label"
-msgid "Cura language"
-msgstr "Taal van Cura"
+msgid "Stratos language"
+msgstr "Taal van Stratos"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:230
 msgctxt "@label"
@@ -1736,8 +1736,8 @@ msgstr "U moet Cura opnieuw starten voordat uw back-up wordt hersteld. Wilt u Cu
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/components/BackupListItemDetails.qml:21
 msgctxt "@backuplist:label"
-msgid "Cura Version"
-msgstr "Cura-versie"
+msgid "Stratos Version"
+msgstr "Stratos-versie"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/components/BackupListItemDetails.qml:29
 msgctxt "@backuplist:label"
@@ -2304,8 +2304,8 @@ msgstr "Meer informatie over anonieme gegevensverzameling"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/SliceInfoPlugin/MoreInfoWindow.qml:74
 msgctxt "@text:window"
-msgid "Ultimaker Cura collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:"
-msgstr "Ultimaker Cura verzamelt anonieme gegevens om de printkwaliteit en gebruikerservaring te verbeteren. Hieronder ziet u een voorbeeld van alle gegevens die worden gedeeld:"
+msgid "Stratos collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:"
+msgstr "Stratos verzamelt anonieme gegevens om de printkwaliteit en gebruikerservaring te verbeteren. Hieronder ziet u een voorbeeld van alle gegevens die worden gedeeld:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/SliceInfoPlugin/MoreInfoWindow.qml:110
 msgctxt "@text:window"
@@ -2484,8 +2484,8 @@ msgstr "De volgende packages worden toegevoegd:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/CompatibilityDialog.qml:97
 msgctxt "@label"
-msgid "The following packages can not be installed because of an incompatible Cura version:"
-msgstr "De volgende packages kunnen niet worden geïnstalleerd omdat de Cura-versie niet compatibel is:"
+msgid "The following packages can not be installed because of an incompatible Stratos version:"
+msgstr "De volgende packages kunnen niet worden geïnstalleerd omdat de Stratos-versie niet compatibel is:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/ToolboxConfirmUninstallResetDialog.qml:20
 msgctxt "@title:window"
@@ -4126,8 +4126,8 @@ msgstr "Camera centreren wanneer een item wordt geselecteerd"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:383
 msgctxt "@info:tooltip"
-msgid "Should the default zoom behavior of cura be inverted?"
-msgstr "Moet het standaard zoomgedrag van Cura worden omgekeerd?"
+msgid "Should the default zoom behavior of Stratos be inverted?"
+msgstr "Moet het standaard zoomgedrag van Stratos worden omgekeerd?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:388
 msgctxt "@action:button"
@@ -4191,7 +4191,7 @@ msgstr "Compatibiliteitsmodus voor laagweergave forceren (opnieuw opstarten vere
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:498
 msgctxt "@info:tooltip"
-msgid "Should Cura open at the location it was closed?"
+msgid "Should Stratos open at the location it was closed?"
 msgstr "Moet Cura openen op de locatie waar het gesloten werd?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:503
@@ -4339,7 +4339,7 @@ msgstr "Privacy"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:790
 msgctxt "@info:tooltip"
-msgid "Should Cura check for updates when the program is started?"
+msgid "Should Stratos check for updates when the program is started?"
 msgstr "Moet Cura op updates controleren wanneer het programma wordt gestart?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:795
@@ -4349,8 +4349,8 @@ msgstr "Bij starten op updates controleren"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:805
 msgctxt "@info:tooltip"
-msgid "Should anonymous data about your print be sent to Ultimaker? Note, no models, IP addresses or other personally identifiable information is sent or stored."
-msgstr "Mogen anonieme gegevens over uw print naar Ultimaker worden verzonden? Opmerking: er worden geen modellen, IP-adressen of andere persoonlijk identificeerbare gegevens verzonden of opgeslagen."
+msgid "Should anonymous data about your print be sent to BCN3D? Note, no models, IP addresses or other personally identifiable information is sent or stored."
+msgstr "Mogen anonieme gegevens over uw print naar BCN3D worden verzonden? Opmerking: er worden geen modellen, IP-adressen of andere persoonlijk identificeerbare gegevens verzonden of opgeslagen."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:810
 msgctxt "@option:check"
@@ -5424,8 +5424,8 @@ msgstr "Afbeeldinglezer"
 
 #: LegacyProfileReader/plugin.json
 msgctxt "description"
-msgid "Provides support for importing profiles from legacy Cura versions."
-msgstr "Biedt ondersteuning voor het importeren van profielen uit oudere Cura-versies."
+msgid "Provides support for importing profiles from legacy Stratos versions."
+msgstr "Biedt ondersteuning voor het importeren van profielen uit oudere Stratos-versies."
 
 #: LegacyProfileReader/plugin.json
 msgctxt "name"

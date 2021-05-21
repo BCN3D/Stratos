@@ -168,13 +168,13 @@ msgstr "Cura no puede iniciarse"
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:113
 msgctxt "@label crash message"
 msgid ""
-"<p><b>Oops, Ultimaker Cura has encountered something that doesn't seem right.</p></b>\n"
+"<p><b>Oops, Stratos has encountered something that doesn't seem right.</p></b>\n"
 "                    <p>We encountered an unrecoverable error during start up. It was possibly caused by some incorrect configuration files. We suggest to backup and reset your configuration.</p>\n"
 "                    <p>Backups can be found in the configuration folder.</p>\n"
 "                    <p>Please send us this Crash Report to fix the problem.</p>\n"
 "                "
 msgstr ""
-"<p><b>¡Vaya! Ultimaker Cura ha encontrado un error.</p></b>\n"
+"<p><b>¡Vaya! Stratos ha encontrado un error.</p></b>\n"
 "                    <p>Hemos detectado un error irreversible durante el inicio, posiblemente como consecuencia de varios archivos de configuración erróneos. Le recomendamos que realice una copia de seguridad y que restablezca los ajustes.</p>\n"
 "                    <p>Las copias de seguridad se encuentran en la carpeta de configuración.</p>\n"
 "                    <p>Envíenos el informe de errores para que podamos solucionar el problema.</p>\n"
@@ -182,8 +182,8 @@ msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:122
 msgctxt "@action:button"
-msgid "Send crash report to Ultimaker"
-msgstr "Enviar informe de errores a Ultimaker"
+msgid "Send crash report to BCN3D"
+msgstr "Enviar informe de errores a BCN3D"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:125
 msgctxt "@action:button"
@@ -227,14 +227,14 @@ msgid "Unknown"
 msgstr "Desconocido"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:228
-msgctxt "@label Cura version number"
-msgid "Cura version"
-msgstr "Versión de Cura"
+msgctxt "@label Stratos version number"
+msgid "Stratos version"
+msgstr "Versión de Stratos"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:229
 msgctxt "@label"
-msgid "Cura language"
-msgstr "Idioma de Cura"
+msgid "Stratos language"
+msgstr "Idioma de Stratos"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:230
 msgctxt "@label"
@@ -1734,8 +1734,8 @@ msgstr "Deberá reiniciar Cura para restaurar su copia de seguridad. ¿Desea cer
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/components/BackupListItemDetails.qml:21
 msgctxt "@backuplist:label"
-msgid "Cura Version"
-msgstr "Versión de Cura"
+msgid "Stratos Version"
+msgstr "Versión de Stratos"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/components/BackupListItemDetails.qml:29
 msgctxt "@backuplist:label"
@@ -2302,8 +2302,8 @@ msgstr "Más información sobre la recopilación de datos anónimos"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/SliceInfoPlugin/MoreInfoWindow.qml:74
 msgctxt "@text:window"
-msgid "Ultimaker Cura collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:"
-msgstr "Ultimaker Cura recopila datos anónimos para mejorar la calidad de impresión y la experiencia de usuario. A continuación, hay un ejemplo de todos los datos que se comparten:"
+msgid "Stratos collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:"
+msgstr "Stratos recopila datos anónimos para mejorar la calidad de impresión y la experiencia de usuario. A continuación, hay un ejemplo de todos los datos que se comparten:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/SliceInfoPlugin/MoreInfoWindow.qml:110
 msgctxt "@text:window"
@@ -2482,8 +2482,8 @@ msgstr "Se añadirán los siguientes paquetes:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/CompatibilityDialog.qml:97
 msgctxt "@label"
-msgid "The following packages can not be installed because of an incompatible Cura version:"
-msgstr "Los siguientes paquetes no se pueden instalar debido a una versión no compatible de Cura:"
+msgid "The following packages can not be installed because of an incompatible Stratos version:"
+msgstr "Los siguientes paquetes no se pueden instalar debido a una versión no compatible de Stratos:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/ToolboxConfirmUninstallResetDialog.qml:20
 msgctxt "@title:window"
@@ -4124,8 +4124,8 @@ msgstr "Centrar cámara cuando se selecciona elemento"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:383
 msgctxt "@info:tooltip"
-msgid "Should the default zoom behavior of cura be inverted?"
-msgstr "¿Se debería invertir el comportamiento predeterminado del zoom de cura?"
+msgid "Should the default zoom behavior of Stratos be inverted?"
+msgstr "¿Se debería invertir el comportamiento predeterminado del zoom de Stratos?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:388
 msgctxt "@action:button"
@@ -4189,7 +4189,7 @@ msgstr "Forzar modo de compatibilidad de la vista de capas (necesario reiniciar)
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:498
 msgctxt "@info:tooltip"
-msgid "Should Cura open at the location it was closed?"
+msgid "Should Stratos open at the location it was closed?"
 msgstr "¿Debería abrirse Cura en el lugar donde se cerró?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:503
@@ -4337,7 +4337,7 @@ msgstr "Privacidad"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:790
 msgctxt "@info:tooltip"
-msgid "Should Cura check for updates when the program is started?"
+msgid "Should Stratos check for updates when the program is started?"
 msgstr "¿Debe Cura buscar actualizaciones cuando se abre el programa?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:795
@@ -4347,8 +4347,8 @@ msgstr "Buscar actualizaciones al iniciar"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:805
 msgctxt "@info:tooltip"
-msgid "Should anonymous data about your print be sent to Ultimaker? Note, no models, IP addresses or other personally identifiable information is sent or stored."
-msgstr "¿Deben enviarse datos anónimos sobre la impresión a Ultimaker? Tenga en cuenta que no se envían ni almacenan modelos, direcciones IP ni otra información de identificación personal."
+msgid "Should anonymous data about your print be sent to BCN3D? Note, no models, IP addresses or other personally identifiable information is sent or stored."
+msgstr "¿Deben enviarse datos anónimos sobre la impresión a BCN3D? Tenga en cuenta que no se envían ni almacenan modelos, direcciones IP ni otra información de identificación personal."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:810
 msgctxt "@option:check"

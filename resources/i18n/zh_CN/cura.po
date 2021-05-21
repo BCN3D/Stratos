@@ -247,9 +247,9 @@ msgid "Unknown"
 msgstr "未知"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:228
-msgctxt "@label Cura version number"
-msgid "Cura version"
-msgstr "Cura 版本"
+msgctxt "@label Stratos version number"
+msgid "Stratos version"
+msgstr "Stratos 版本"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:229
 msgctxt "@label"
@@ -1801,8 +1801,8 @@ msgstr "您需要重新启动 Cura 才能恢复备份。您要立即关闭 Cura 
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/components/BackupListItemDetails.qml:21
 msgctxt "@backuplist:label"
-msgid "Cura Version"
-msgstr "Cura 版本"
+msgid "Stratos Version"
+msgstr "Stratos 版本"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/components/BackupListItemDetails.qml:29
 msgctxt "@backuplist:label"
@@ -2385,8 +2385,8 @@ msgstr "更多关于匿名数据收集的信息"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/SliceInfoPlugin/MoreInfoWindow.qml:74
 msgctxt "@text:window"
-msgid "Ultimaker Cura collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:"
-msgstr "为了改善打印质量和用户体验，Ultimaker Cura 会收集匿名数据。以下是所有数据分享的示例："
+msgid "Stratos collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:"
+msgstr "为了改善打印质量和用户体验，Stratos 会收集匿名数据。以下是所有数据分享的示例："
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/SliceInfoPlugin/MoreInfoWindow.qml:110
 msgctxt "@text:window"
@@ -2574,8 +2574,8 @@ msgstr "将添加以下程序包："
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/CompatibilityDialog.qml:97
 msgctxt "@label"
-msgid "The following packages can not be installed because of an incompatible Cura version:"
-msgstr "由于 Cura 版本不兼容，无法安装以下程序包："
+msgid "The following packages can not be installed because of an incompatible Stratos version:"
+msgstr "由于 Stratos 版本不兼容，无法安装以下程序包："
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/ToolboxConfirmUninstallResetDialog.qml:20
 msgctxt "@title:window"
@@ -4237,8 +4237,8 @@ msgstr "当项目被选中时，自动对中视角"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:383
 msgctxt "@info:tooltip"
-msgid "Should the default zoom behavior of cura be inverted?"
-msgstr "需要令 Cura 的默认缩放操作反转吗？"
+msgid "Should the default zoom behavior of Stratos be inverted?"
+msgstr "需要令 Stratos 的默认缩放操作反转吗？"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:388
 msgctxt "@action:button"
@@ -4302,7 +4302,7 @@ msgstr "强制层视图兼容模式（需要重新启动）"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:498
 msgctxt "@info:tooltip"
-msgid "Should Cura open at the location it was closed?"
+msgid "Should Stratos open at the location it was closed?"
 msgstr "Cura 是否应该在关闭的位置打开？"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:503
@@ -4451,7 +4451,7 @@ msgstr "隐私"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:790
 msgctxt "@info:tooltip"
-msgid "Should Cura check for updates when the program is started?"
+msgid "Should Stratos check for updates when the program is started?"
 msgstr "当 Cura 启动时，是否自动检查更新？"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:795
@@ -4461,8 +4461,8 @@ msgstr "启动时检查更新"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:805
 msgctxt "@info:tooltip"
-msgid "Should anonymous data about your print be sent to Ultimaker? Note, no models, IP addresses or other personally identifiable information is sent or stored."
-msgstr "您愿意将关于您的打印数据以匿名形式发送到 Ultimaker 吗？注意：我们不会记录/发送任何模型、IP 地址或其他私人数据。"
+msgid "Should anonymous data about your print be sent to BCN3D? Note, no models, IP addresses or other personally identifiable information is sent or stored."
+msgstr "您愿意将关于您的打印数据以匿名形式发送到 BCN3D 吗？注意：我们不会记录/发送任何模型、IP 地址或其他私人数据。"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:810
 msgctxt "@option:check"

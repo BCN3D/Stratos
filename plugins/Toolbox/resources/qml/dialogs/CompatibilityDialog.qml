@@ -94,7 +94,7 @@ UM.Dialog{
                 Label
                 {
                     font: UM.Theme.getFont("default")
-                    text: catalog.i18nc("@label", "The following packages can not be installed because of an incompatible Cura version:")
+                    text: catalog.i18nc("@label", "The following packages can not be installed because of an incompatible Stratos version:")
                     visible: subscribedPackagesModel.hasIncompatiblePackages
                     color: UM.Theme.getColor("text")
                     height: contentHeight + UM.Theme.getSize("default_margin").height

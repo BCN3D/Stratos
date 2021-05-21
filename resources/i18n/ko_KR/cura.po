@@ -168,13 +168,13 @@ msgstr "큐라를 시작할 수 없습니다"
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:113
 msgctxt "@label crash message"
 msgid ""
-"<p><b>Oops, Ultimaker Cura has encountered something that doesn't seem right.</p></b>\n"
+"<p><b>Oops, Stratos has encountered something that doesn't seem right.</p></b>\n"
 "                    <p>We encountered an unrecoverable error during start up. It was possibly caused by some incorrect configuration files. We suggest to backup and reset your configuration.</p>\n"
 "                    <p>Backups can be found in the configuration folder.</p>\n"
 "                    <p>Please send us this Crash Report to fix the problem.</p>\n"
 "                "
 msgstr ""
-"<p> <b> 죄송합니다, Ultimaker Cura가 정상적이지 않습니다. </ p> </ b>\n"
+"<p> <b> 죄송합니다, Stratos가 정상적이지 않습니다. </ p> </ b>\n"
 "                     <p> 시작할 때 복구 할 수없는 오류가 발생했습니다. 이 오류는 잘못된 구성 파일로 인해 발생할 수 있습니다. 설정을 백업하고 재설정하는 것이 좋습니다. </ p>\n"
 "                     <p> 백업은 설정 폴더에서 찾을 수 있습니다. </ p>\n"
 "                     <p> 문제를 해결하기 위해이 오류 보고서를 보내주십시오. </ p>\n"
@@ -182,7 +182,7 @@ msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:122
 msgctxt "@action:button"
-msgid "Send crash report to Ultimaker"
+msgid "Send crash report to BCN3D"
 msgstr "충돌 보고서를 Ultimaker에 보내기"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:125
@@ -208,7 +208,7 @@ msgstr "충돌 보고서"
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:190
 msgctxt "@label crash message"
 msgid ""
-"<p><b>A fatal error has occurred in Cura. Please send us this Crash Report to fix the problem</p></b>\n"
+"<p><b>A fatal error has occurred in Stratos. Please send us this Crash Report to fix the problem</p></b>\n"
 "            <p>Please use the \"Send report\" button to post a bug report automatically to our servers</p>\n"
 "        "
 msgstr ""
@@ -222,19 +222,19 @@ msgid "System information"
 msgstr "시스템 정보"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:207
-msgctxt "@label unknown version of Cura"
+msgctxt "@label unknown version of Stratos"
 msgid "Unknown"
 msgstr "알 수 없음"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:228
-msgctxt "@label Cura version number"
-msgid "Cura version"
-msgstr "Cura 버전"
+msgctxt "@label Stratos version number"
+msgid "Stratos version"
+msgstr "Stratos 버전"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:229
 msgctxt "@label"
-msgid "Cura language"
-msgstr "Cura 언어"
+msgid "Stratos language"
+msgstr "Stratos 언어"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:230
 msgctxt "@label"
@@ -1729,8 +1729,8 @@ msgstr "백업이 복원되기 전에 Cura를 다시 시작해야 합니다. 지
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/components/BackupListItemDetails.qml:21
 msgctxt "@backuplist:label"
-msgid "Cura Version"
-msgstr "Cura 버전"
+msgid "Stratos Version"
+msgstr "Stratos 버전"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/components/BackupListItemDetails.qml:29
 msgctxt "@backuplist:label"
@@ -2295,8 +2295,8 @@ msgstr "익명 데이터 수집에 대한 추가 정보"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/SliceInfoPlugin/MoreInfoWindow.qml:74
 msgctxt "@text:window"
-msgid "Ultimaker Cura collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:"
-msgstr "Ultimaker Cura는 인쇄 품질과 사용자 경험을 개선하기 위해 익명 데이터를 수집합니다. 공유되는 모든 데이터의 예는 다음과 같습니다:"
+msgid "Stratos collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:"
+msgstr "Stratos는 인쇄 품질과 사용자 경험을 개선하기 위해 익명 데이터를 수집합니다. 공유되는 모든 데이터의 예는 다음과 같습니다:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/SliceInfoPlugin/MoreInfoWindow.qml:110
 msgctxt "@text:window"
@@ -2475,8 +2475,8 @@ msgstr "다음 패키지가 추가됩니다:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/CompatibilityDialog.qml:97
 msgctxt "@label"
-msgid "The following packages can not be installed because of an incompatible Cura version:"
-msgstr "호환되지 않는 Cura 버전이기 때문에 다음 패키지를 설치할 수 없습니다:"
+msgid "The following packages can not be installed because of an incompatible Stratos version:"
+msgstr "호환되지 않는 Stratos 버전이기 때문에 다음 패키지를 설치할 수 없습니다:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/ToolboxConfirmUninstallResetDialog.qml:20
 msgctxt "@title:window"
@@ -4111,7 +4111,7 @@ msgstr "항목을 선택하면 카메라를 중앙에 위치"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:383
 msgctxt "@info:tooltip"
-msgid "Should the default zoom behavior of cura be inverted?"
+msgid "Should the default zoom behavior of Stratos be inverted?"
 msgstr "큐라의 기본 확대 동작을 반전시켜야 합니까?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:388
@@ -4176,7 +4176,7 @@ msgstr "레이어 뷰 호환성 모드로 전환 (다시 시작해야 함)"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:498
 msgctxt "@info:tooltip"
-msgid "Should Cura open at the location it was closed?"
+msgid "Should Stratos open at the location it was closed?"
 msgstr "닫힌 위치에서 Cura를 열어야 합니까?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:503
@@ -4324,7 +4324,7 @@ msgstr "보안"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:790
 msgctxt "@info:tooltip"
-msgid "Should Cura check for updates when the program is started?"
+msgid "Should Stratos check for updates when the program is started?"
 msgstr "Cura가 프로그램이 시작될 때 업데이트를 확인할까요?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:795
@@ -4334,8 +4334,8 @@ msgstr "시작시 업데이트 확인"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:805
 msgctxt "@info:tooltip"
-msgid "Should anonymous data about your print be sent to Ultimaker? Note, no models, IP addresses or other personally identifiable information is sent or stored."
-msgstr "프린터에 대한 익명의 데이터를 Ultimaker로 보낼까요? 모델, IP 주소 또는 기타 개인 식별 정보는 전송되거나 저장되지 않습니다."
+msgid "Should anonymous data about your print be sent to BCN3D? Note, no models, IP addresses or other personally identifiable information is sent or stored."
+msgstr "프린터에 대한 익명의 데이터를 BCN3D 보낼까요? 모델, IP 주소 또는 기타 개인 식별 정보는 전송되거나 저장되지 않습니다."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:810
 msgctxt "@option:check"

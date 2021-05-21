@@ -110,7 +110,7 @@ class CrashHandler:
         layout = QVBoxLayout(dialog)
 
         label = QLabel()
-        label.setText(catalog.i18nc("@label crash message", """<p><b>Oops, Ultimaker Cura has encountered something that doesn't seem right.</p></b>
+        label.setText(catalog.i18nc("@label crash message", """<p><b>Oops, Stratos has encountered something that doesn't seem right.</p></b>
                     <p>We encountered an unrecoverable error during start up. It was possibly caused by some incorrect configuration files. We suggest to backup and reset your configuration.</p>
                     <p>Backups can be found in the configuration folder.</p>
                     <p>Please send us this Crash Report to fix the problem.</p>
@@ -119,7 +119,7 @@ class CrashHandler:
         layout.addWidget(label)
 
         # "send report" check box and show details
-        self._send_report_checkbox = QCheckBox(catalog.i18nc("@action:button", "Send crash report to Ultimaker"), dialog)
+        self._send_report_checkbox = QCheckBox(catalog.i18nc("@action:button", "Send crash report to BCN3D"), dialog)
         self._send_report_checkbox.setChecked(True)
 
         show_details_button = QPushButton(catalog.i18nc("@action:button", "Show detailed crash report"), dialog)
@@ -225,8 +225,8 @@ class CrashHandler:
         except:
             self.data["plugins"] = {"[FAILED]": "0.0.0"}
 
-        crash_info = "<b>" + catalog.i18nc("@label Cura version number", "Cura version") + ":</b> " + str(self.cura_version) + "<br/>"
-        crash_info += "<b>" + catalog.i18nc("@label", "Cura language") + ":</b> " + str(self.cura_locale) + "<br/>"
+        crash_info = "<b>" + catalog.i18nc("@label Stratos version number", "Stratos version") + ":</b> " + str(self.cura_version) + "<br/>"
+        crash_info += "<b>" + catalog.i18nc("@label", "Stratos language") + ":</b> " + str(self.cura_locale) + "<br/>"
         crash_info += "<b>" + catalog.i18nc("@label", "OS language") + ":</b> " + str(self.data["locale_os"]) + "<br/>"
         crash_info += "<b>" + catalog.i18nc("@label Type of platform", "Platform") + ":</b> " + str(platform.platform()) + "<br/>"
         crash_info += "<b>" + catalog.i18nc("@label", "Qt version") + ":</b> " + str(QT_VERSION_STR) + "<br/>"

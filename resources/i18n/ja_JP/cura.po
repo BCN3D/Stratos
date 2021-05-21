@@ -188,13 +188,13 @@ msgstr "Curaを開始できません"
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:113
 msgctxt "@label crash message"
 msgid ""
-"<p><b>Oops, Ultimaker Cura has encountered something that doesn't seem right.</p></b>\n"
+"<p><b>Oops, Stratos has encountered something that doesn't seem right.</p></b>\n"
 "                    <p>We encountered an unrecoverable error during start up. It was possibly caused by some incorrect configuration files. We suggest to backup and reset your configuration.</p>\n"
 "                    <p>Backups can be found in the configuration folder.</p>\n"
 "                    <p>Please send us this Crash Report to fix the problem.</p>\n"
 "                "
 msgstr ""
-"<p><b>申し訳ありません。Ultimaker Cura で何らかの不具合が生じています。</p></b>\n"
+"<p><b>申し訳ありません。Stratos で何らかの不具合が生じています。</p></b>\n"
 "                    <p>開始時に回復不能のエラーが発生しました。不適切なファイル設定が原因の可能性があります。バックアップを実行してからリセットしてください。</p>\n"
 "                    <p>バックアップは、設定フォルダに保存されます。</p>\n"
 "                    <p>問題解決のために、このクラッシュ報告をお送りください。</p>\n"
@@ -202,8 +202,8 @@ msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:122
 msgctxt "@action:button"
-msgid "Send crash report to Ultimaker"
-msgstr "クラッシュ報告をUltimakerに送信する"
+msgid "Send crash report to BCN3D"
+msgstr "クラッシュ報告をBCN3Dに送信する"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:125
 msgctxt "@action:button"
@@ -228,7 +228,7 @@ msgstr "クラッシュ報告"
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:190
 msgctxt "@label crash message"
 msgid ""
-"<p><b>A fatal error has occurred in Cura. Please send us this Crash Report to fix the problem</p></b>\n"
+"<p><b>A fatal error has occurred in Stratos. Please send us this Crash Report to fix the problem</p></b>\n"
 "            <p>Please use the \"Send report\" button to post a bug report automatically to our servers</p>\n"
 "        "
 msgstr ""
@@ -242,19 +242,19 @@ msgid "System information"
 msgstr "システム情報"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:207
-msgctxt "@label unknown version of Cura"
+msgctxt "@label unknown version of Stratos"
 msgid "Unknown"
 msgstr "不明"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:228
-msgctxt "@label Cura version number"
-msgid "Cura version"
-msgstr "Curaバージョン"
+msgctxt "@label Stratos version number"
+msgid "Stratos version"
+msgstr "Stratosバージョン"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:229
 msgctxt "@label"
-msgid "Cura language"
-msgstr "Cura言語"
+msgid "Stratos language"
+msgstr "Stratos"
 
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:230
 msgctxt "@label"
@@ -752,8 +752,8 @@ msgstr "プロジェクトファイルを開けません"
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFReader/ThreeMFWorkspaceReader.py:686
 #, python-brace-format
 msgctxt "@info:error Don't translate the XML tag <filename>!"
-msgid "Project file <filename>{0}</filename> is made using profiles that are unknown to this version of Ultimaker Cura."
-msgstr "プロジェクトファイル<filename>{0}</filename>はこのバージョンのUltimaker Curaでは認識できないプロファイルを使用して作成されています。"
+msgid "Project file <filename>{0}</filename> is made using profiles that are unknown to this version of Stratos."
+msgstr "プロジェクトファイル<filename>{0}</filename>はこのバージョンのStratosでは認識できないプロファイルを使用して作成されています。"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFReader/WorkspaceDialog.py:203
 msgctxt "@title:tab"
@@ -1805,8 +1805,8 @@ msgstr "バックアップをリストアする前に Cura を再起動する必
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/components/BackupListItemDetails.qml:21
 msgctxt "@backuplist:label"
-msgid "Cura Version"
-msgstr "Cura バージョン"
+msgid "Stratos Version"
+msgstr "Stratos バージョン"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/CuraDrive/src/qml/components/BackupListItemDetails.qml:29
 msgctxt "@backuplist:label"
@@ -2388,8 +2388,8 @@ msgstr "匿名データの収集に関する詳細"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/SliceInfoPlugin/MoreInfoWindow.qml:74
 msgctxt "@text:window"
-msgid "Ultimaker Cura collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:"
-msgstr "Ultimaker Cura は、印刷品質とユーザーエクスペリエンスを向上させるために匿名データを収集します。以下は、共有されるすべてのデータの例です："
+msgid "Stratos collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:"
+msgstr "Stratos は、印刷品質とユーザーエクスペリエンスを向上させるために匿名データを収集します。以下は、共有されるすべてのデータの例です："
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/SliceInfoPlugin/MoreInfoWindow.qml:110
 msgctxt "@text:window"
@@ -2577,7 +2577,7 @@ msgstr "次のパッケージが追加されます:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/CompatibilityDialog.qml:97
 msgctxt "@label"
-msgid "The following packages can not be installed because of an incompatible Cura version:"
+msgid "The following packages can not be installed because of an incompatible Stratos version:"
 msgstr "次のパッケージは、Curaバージョンに互換性がないため、インストールできません:"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/ToolboxConfirmUninstallResetDialog.qml:20
@@ -4244,7 +4244,7 @@ msgstr "アイテムを選択するとカメラが中心にきます"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:383
 msgctxt "@info:tooltip"
-msgid "Should the default zoom behavior of cura be inverted?"
+msgid "Should the default zoom behavior of Stratos be inverted?"
 msgstr "Curaのデフォルトのズーム機能は変更できるべきか？"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:388
@@ -4309,7 +4309,7 @@ msgstr "レイヤービューコンパティビリティモードを強制する
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:498
 msgctxt "@info:tooltip"
-msgid "Should Cura open at the location it was closed?"
+msgid "Should Stratos open at the location it was closed?"
 msgstr "Curaを終了した場所で開くようにしますか？"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:503
@@ -4458,7 +4458,7 @@ msgstr "プライバシー"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:790
 msgctxt "@info:tooltip"
-msgid "Should Cura check for updates when the program is started?"
+msgid "Should Stratos check for updates when the program is started?"
 msgstr "Curaのプログラム開始時にアップデートがあるかチェックしますか？"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:795
@@ -4468,8 +4468,8 @@ msgstr "スタート時にアップデートあるかどうかのチェック"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:805
 msgctxt "@info:tooltip"
-msgid "Should anonymous data about your print be sent to Ultimaker? Note, no models, IP addresses or other personally identifiable information is sent or stored."
-msgstr "プリンターの不明なデータをUltimakerにおくりますか？メモ、モデル、IPアドレス、個人的な情報は送信されたり保存されたりはしません。"
+msgid "Should anonymous data about your print be sent to BCN3D? Note, no models, IP addresses or other personally identifiable information is sent or stored."
+msgstr "プリンターの不明なデータをBCN3Dにおくりますか？メモ、モデル、IPアドレス、個人的な情報は送信されたり保存されたりはしません。"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:810
 msgctxt "@option:check"
@@ -5313,13 +5313,13 @@ msgstr "スキップ"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:24
 msgctxt "@label"
-msgid "Help us to improve Ultimaker Cura"
-msgstr "Ultimaker Cura の改善にご協力ください"
+msgid "Help us to improve Stratos"
+msgstr "Stratos の改善にご協力ください"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:57
 msgctxt "@text"
-msgid "Ultimaker Cura collects anonymous data to improve print quality and user experience, including:"
-msgstr "Ultimaker Cura は、印刷品質とユーザーエクスペリエンスを向上させるために以下の匿名データを収集します:"
+msgid "Stratos collects anonymous data to improve print quality and user experience, including:"
+msgstr "Stratos は、印刷品質とユーザーエクスペリエンスを向上させるために以下の匿名データを収集します:"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:71
 msgctxt "@text"
@@ -5343,8 +5343,8 @@ msgstr "プリント設定"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:102
 msgctxt "@text"
-msgid "Data collected by Ultimaker Cura will not contain any personal information."
-msgstr "Ultimaker Cura が収集したデータには個人データは含まれません。"
+msgid "Data collected by Stratos will not contain any personal information."
+msgstr "Stratos が収集したデータには個人データは含まれません。"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:103
 msgctxt "@text"
