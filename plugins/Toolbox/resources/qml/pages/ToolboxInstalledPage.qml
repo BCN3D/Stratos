@@ -75,58 +75,7 @@ ScrollView
             }
         }
 
-        Label
-        {
-            anchors
-            {
-                left: parent.left
-                right: parent.right
-                margins: parent.padding
-            }
-            text: catalog.i18nc("@title:tab", "Installed materials")
-            color: UM.Theme.getColor("text_medium")
-            font: UM.Theme.getFont("medium")
-            renderType: Text.NativeRendering
-        }
 
-        Rectangle
-        {
-            anchors
-            {
-                left: parent.left
-                right: parent.right
-                margins: parent.padding
-            }
-            id: installedMaterials
-            color: "transparent"
-            height: childrenRect.height + UM.Theme.getSize("default_margin").width
-            border.color: UM.Theme.getColor("lining")
-            border.width: UM.Theme.getSize("default_lining").width
-            Column
-            {
-                anchors
-                {
-                    top: parent.top
-                    right: parent.right
-                    left: parent.left
-                    margins: UM.Theme.getSize("default_margin").width
-                }
-                Repeater
-                {
-                    id: installedMaterialsList
-                    model: toolbox.materialsInstalledModel
-                    delegate: ToolboxInstalledTile { }
-                }
-            }
-            Label
-            {
-                visible: toolbox.materialsInstalledModel.count < 1
-                padding: UM.Theme.getSize("default_margin").width
-                text: catalog.i18nc("@info", "No material has been installed.")
-                font: UM.Theme.getFont("medium")
-                renderType: Text.NativeRendering
-            }
-        }
 
         Label
         {
