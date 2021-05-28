@@ -4,35 +4,17 @@
 import QtQuick 2.10
 import QtQuick.Controls 2.3
 
-import UM 1.3 as UM
+import UM 1.4 as UM
 import Cura 1.1 as Cura
+import '../Account'
 
 
-//
-// This component contains the content for the "Ultimaker Cloud" page of the welcome on-boarding process.
-//
 Item
 {
     UM.I18nCatalog { id: catalog; name: "cura" }
-
-    signal cloudPrintersDetected(bool newCloudPrintersDetected)
-
-    Component.onCompleted: CuraApplication.getDiscoveredCloudPrintersModel().cloudPrintersDetectedChanged.connect(cloudPrintersDetected)
-
-    onCloudPrintersDetected:
-    {
-        // When the user signs in successfully, it will be checked whether he/she has cloud printers connected to
-        // the account. If he/she does, then the welcome wizard will show a summary of the Cloud printers linked to the
-        // account. If there are no cloud printers, then proceed to the next page (if any)
-        if(newCloudPrintersDetected)
-        {
-            base.goToPage("add_cloud_printers")
-        }
-        else
-        {
-            base.showNextPage()
-        }
-    }
+    property int signInStatusCode: 200
+    property bool emailErrorVisible: false
+    property bool passwordErrorVisible: false
 
     Label
     {
@@ -40,7 +22,7 @@ Item
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
         horizontalAlignment: Text.AlignHCenter
-        text: catalog.i18nc("@label", "Ultimaker Account")
+        text: catalog.i18nc("@label", "BCN3D Account")
         color: UM.Theme.getColor("primary_button")
         font: UM.Theme.getFont("huge")
         renderType: Text.NativeRendering
@@ -69,24 +51,14 @@ Item
 
             spacing: 20 * screenScaleFactor
 
-            Image  // Cloud image
-            {
-                id: cloudImage
-                anchors.horizontalCenter: parent.horizontalCenter
-                source: UM.Theme.getImage("first_run_ultimaker_cloud")
-            }
+           // Image  // Cloud image comentada a espera de imagen final
+          //  {
+            //    id: cloudImage
+              //  anchors.horizontalCenter: parent.horizontalCenter
+               // source: UM.Theme.getImage("first_run_ultimaker_cloud")
+           // }
 
-            Label  // A title-ish text
-            {
-                id: highlightTextLabel
-                anchors.horizontalCenter: parent.horizontalCenter
-                horizontalAlignment: Text.AlignHCenter
-                text: catalog.i18nc("@text", "Your key to connected 3D printing")
-                textFormat: Text.RichText
-                color: UM.Theme.getColor("primary")
-                font: UM.Theme.getFont("medium")
-                renderType: Text.NativeRendering
-            }
+
 
             Label  // A number of text items
             {
@@ -98,13 +70,10 @@ Item
                     var full_text = ""
                     var t = ""
 
-                    t = catalog.i18nc("@text", "- Customize your experience with more print profiles and plugins")
-                    full_text += "<p>" + t + "</p>"
-
                     t = catalog.i18nc("@text", "- Stay flexible by syncing your setup and loading it anywhere")
                     full_text += "<p>" + t + "</p>"
 
-                    t = catalog.i18nc("@text", "- Increase efficiency with a remote workflow on Ultimaker printers")
+                    t = catalog.i18nc("@text", "- Increase efficiency with a remote workflow on BCN3D printers")
                     full_text += "<p>" + t + "</p>"
 
                     return full_text
@@ -115,37 +84,110 @@ Item
                 renderType: Text.NativeRendering
             }
 
-            // "Sign in" and "Create an account" exist inside the column
-            Cura.PrimaryButton
-            {
-                id: signInButton
-                height: createAccountButton.height
-                width: createAccountButton.width
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: catalog.i18nc("@button", "Sign in")
-                onClicked: Cura.API.account.login()
-                // Content Item is used in order to align the text inside the button. Without it, when resizing the
-                // button, the text will be aligned on the left
-                contentItem: Text {
-                    text: signInButton.text
-                    font: UM.Theme.getFont("medium")
-                    color: UM.Theme.getColor("primary_text")
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
+             Item
+    {
+        height: 50
+        width: 250
+        anchors.horizontalCenter: parent.horizontalCenter
+        TextField
+        {
+            id: email
+            text: emailText
+            anchors.horizontalCenter: parent.horizontalCenter
+            placeholderText: "Email"
+            onEditingFinished: {
+                if (text != "") emailErrorVisible = false
+                else emailErrorVisible = true
+            }
+        }
+        Label
+        {
+            id: emailError
+            anchors.left: email.left
+            anchors.top: email.bottom
+            horizontalAlignment: Text.AlignLeft
+            text: "Email is required"
+            color: "red"
+            visible: emailErrorVisible
+        }
+    }
+
+    Item
+    {
+        height: 50
+        width: 50
+        anchors.horizontalCenter: parent.horizontalCenter
+        TextField
+        {
+            id: password
+            text: passwordText
+            anchors.horizontalCenter: parent.horizontalCenter
+            placeholderText: "Password"
+            echoMode: TextInput.Password
+            onEditingFinished: {
+                if (text != "") passwordErrorVisible = false
+                else passwordErrorVisible = true
+            }
+        }
+        Label
+        {
+            id: passwordError
+            anchors.left: password.left
+            anchors.top: password.bottom
+            horizontalAlignment: Text.AlignLeft
+            text: "Password is required"
+            color: "red"
+            visible: passwordErrorVisible
+        }
+    }
+
+    Item
+    {
+        height: 12
+        width: 50
+        anchors.horizontalCenter: parent.horizontalCenter
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: signInStatusCode == 400 ? "Incorrect email or password" : signInStatusCode == -1 ? "Can't sign in. Check internet connection." : "Can't sign in. Something went wrong."
+            color: "red"
+            visible: signInStatusCode != 200
+        }
+    }
+
+    Cura.PrimaryButton
+    {
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: UM.Theme.getSize("account_button").width
+        height: UM.Theme.getSize("account_button").height
+        text: catalog.i18nc("@button", "Sign in")
+        onClicked: {
+        signInStatusCode = Cura.AuthenticationService.signIn(email.text, password.text)
+            if(signInStatusCode == 200) {
+                base.goToPage("AddLocalPrinterBCN3D")
+                // signInStatusCode = 200
             }
 
-            Cura.SecondaryButton
-            {
-                id: createAccountButton
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: catalog.i18nc("@button","Create account")
-                onClicked: Qt.openUrlExternally(CuraApplication.ultimakerCloudAccountRootUrl + "/app/create")
-            }
+        }
+        fixedWidthMode: true
+
+    }
+
+        Cura.SecondaryButton
+        {
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: UM.Theme.getSize("account_button").width
+            height: UM.Theme.getSize("account_button").height
+            text: catalog.i18nc("@button", "Create account")
+            onClicked: Qt.openUrlExternally("https://cloud.bcn3d.com")
+            fixedWidthMode: true
+        }
+
+
         }
 
 
     }
+
 
     // The "Skip" button exists on the bottom right
     Label

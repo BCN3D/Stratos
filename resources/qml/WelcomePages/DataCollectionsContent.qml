@@ -21,7 +21,7 @@ Item
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
         horizontalAlignment: Text.AlignHCenter
-        text: catalog.i18nc("@label", "Help us to improve Ultimaker Cura")
+        text: catalog.i18nc("@label", "Help us to improve BCN3D Stratos")
         color: UM.Theme.getColor("primary_button")
         font: UM.Theme.getFont("huge")
         renderType: Text.NativeRendering
@@ -54,7 +54,7 @@ Item
                 width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
                 horizontalAlignment: Text.AlignHCenter
-                text: catalog.i18nc("@text", "Ultimaker Cura collects anonymous data to improve print quality and user experience, including:")
+                text: catalog.i18nc("@text", "BCN3D Stratos collects anonymous data to improve print quality and user experience, including:")
                 wrapMode: Text.WordWrap
                 font: UM.Theme.getFont("medium")
                 color: UM.Theme.getColor("text")
@@ -99,7 +99,7 @@ Item
                 horizontalAlignment: Text.AlignHCenter
                 text:
                 {
-                    var t = catalog.i18nc("@text", "Data collected by Ultimaker Cura will not contain any personal information.")
+                    var t = catalog.i18nc("@text", "Data collected by Stratos will not contain any personal information.")
                     var t2 = catalog.i18nc("@text", "More information")
                     t += " <a href='https://notusedref'>" + t2 + "</a>"
                     return t

@@ -37,10 +37,10 @@ Item
             right: parent.right
         }
 
-        text: "<p><b>Disclaimer by Ultimaker</b></p>"
+        text: "<p><b>Disclaimer by BCN3D</b></p>"
             + "<p>Please read this disclaimer carefully.</p>"
-            + "<p>Except when otherwise stated in writing, Ultimaker provides any Ultimaker software or third party software \"As is\" without warranty of any kind. The entire risk as to the quality and performance of Ultimaker software is with you.</p>"
-            + "<p>Unless required by applicable law or agreed to in writing, in no event will Ultimaker be liable to you for damages, including any general, special, incidental, or consequential damages arising out of the use or inability to use any Ultimaker software or third party software.</p>"
+            + "<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat .</p>"
+            + "<p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis.</p>"
         textFormat: Text.RichText
         wrapMode: Text.WordWrap
         font: UM.Theme.getFont("medium")

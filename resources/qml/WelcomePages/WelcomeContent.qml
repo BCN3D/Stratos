@@ -26,7 +26,7 @@ Item
             id: titleLabel
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
-            text: catalog.i18nc("@label", "Welcome to Ultimaker Cura")
+            text: catalog.i18nc("@label", "Welcome to BCN3D Stratos")
             color: UM.Theme.getColor("primary_button")
             font: UM.Theme.getFont("huge")
             renderType: Text.NativeRendering
@@ -44,7 +44,7 @@ Item
             id: textLabel
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
-            text: catalog.i18nc("@text", "Please follow these steps to set up\nUltimaker Cura. This will only take a few moments.")
+            text: catalog.i18nc("@text", "Please follow these steps to set up\nStratos. This will only take a few moments.")
             font: UM.Theme.getFont("medium")
             color: UM.Theme.getColor("text")
             renderType: Text.NativeRendering

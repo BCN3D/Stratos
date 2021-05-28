@@ -203,6 +203,13 @@ class WelcomePagesModel(ListModel):
         return QUrl.fromLocalFile(Resources.getPath(CuraApplication.ResourceTypes.QmlFiles,
                                                     os.path.join("WelcomePages", page_filename)))
 
+        # Convenience function to get QUrl path to pages that's located in "resources/qml/WelcomePages".
+
+    def _getBuiltinAccountPath(self, page_filename: str) -> "QUrl":
+        from cura.CuraApplication import CuraApplication
+        return QUrl.fromLocalFile(Resources.getPath(CuraApplication.ResourceTypes.QmlFiles,
+                                                    os.path.join("Account", page_filename)))
+
     # FIXME: HACKs for optimization that we don't update the model every time the active machine gets changed.
     def _onActiveMachineChanged(self) -> None:
         self._application.getMachineManager().globalContainerChanged.disconnect(self._onActiveMachineChanged)
@@ -234,24 +241,27 @@ class WelcomePagesModel(ListModel):
 
         # All pages
         all_pages_list = [
-                          #   {"id": "welcome",
-                          #  "page_url": self._getBuiltinWelcomePagePath("WelcomeContent.qml"),
-                          #  },
-                          # {"id": "user_agreement",
-                          #  "page_url": self._getBuiltinWelcomePagePath("UserAgreementContent.qml"),
-                          #  },
-                          # {"id": "whats_new",
-                          #  "page_url": self._getBuiltinWelcomePagePath("WhatsNewContent.qml"),
-                          #  },
-                          # {"id": "data_collections",
-                          #  "page_url": self._getBuiltinWelcomePagePath("DataCollectionsContent.qml"),
-                          #  },
-                          # {"id": "cloud",
-                          #  "page_url": self._getBuiltinWelcomePagePath("CloudContent.qml"),
-                          #  "should_show_function": self.shouldShowCloudPage,
-                          #  },
+                            {"id": "welcome",
+                           "page_url": self._getBuiltinWelcomePagePath("WelcomeContent.qml"),
+                           },
+                          {"id": "user_agreement",
+                           "page_url": self._getBuiltinWelcomePagePath("UserAgreementContent.qml"),
+                           },
+                          {"id": "whats_new",
+                           "page_url": self._getBuiltinWelcomePagePath("WhatsNewContent.qml"),
+                           },
+                          {"id": "data_collections",
+                           "page_url": self._getBuiltinWelcomePagePath("DataCollectionsContent.qml"),
+                           },
+                            # {"id": "account",
+                           # "page_url": self._getBuiltinAccountPath("GeneralOperations.qml"),"next_page_id": "add_network_or_local_printer",
+                           # },
+                          {"id": "cloud",
+                           "page_url": self._getBuiltinWelcomePagePath("CloudContent.qml"),
+                           "should_show_function": self.shouldShowCloudPage,
+                           },
                           {"id": "add_network_or_local_printer",
-                           "page_url": self._getBuiltinWelcomePagePath("AddLocalPrinterBCN3D.qml"),
+                           "page_url": self._getBuiltinWelcomePagePath("AddNetworkOrLocalPrinterContent.qml"),
                            "next_page_id": "machine_actions",
                            },
                           # {"id": "add_printer_by_ip",
