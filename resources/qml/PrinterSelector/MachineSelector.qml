@@ -95,9 +95,17 @@ Cura.ExpandablePopup
             {
                 return UM.Theme.getIcon("printer_group")
             }
-            else if (isNetworkPrinter || isCloudRegistered)
+            else if (Cura.MachineManager.activeMachine.definition.name == "Sigma D25")
             {
-                return UM.Theme.getIcon("printer_single")
+                return UM.Theme.getIcon("Sigma_d25")
+            }
+            else if (Cura.MachineManager.activeMachine.definition.name == "Epsilon W50")
+            {
+                return UM.Theme.getIcon("Epsilon_w50")
+            }
+            else if (Cura.MachineManager.activeMachine.definition.name == "Epsilon W27")
+            {
+                return UM.Theme.getIcon("Epsilon_w27")
             }
             else
             {
