@@ -57,6 +57,7 @@ Item
     property alias marketplaceMaterials: marketplaceMaterialsAction;
 
     property alias preferences: preferencesAction;
+    property alias plugins: pluginsAction;
 
     property alias showProfileFolder: showProfileFolderAction;
     property alias documentation: documentationAction;
@@ -74,6 +75,13 @@ Item
 
     UM.I18nCatalog{id: catalog; name: "cura"}
 
+
+ Action
+    {
+        id: pluginsAction
+        onTriggered: Qt.openUrlExternally("https://support.bcn3d.com/knowledge/tips")
+        text: catalog.i18nc("@action:inmenu", "See plugins");
+    }
 
     Action
     {

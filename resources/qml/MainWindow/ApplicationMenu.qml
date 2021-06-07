@@ -55,6 +55,13 @@ Item
             id: extensionMenu
             title: catalog.i18nc("@title:menu menubar:toplevel", "E&xtensions")
 
+           MenuItem
+        {
+            text: "See installed plugins"
+            onTriggered: Cura.Actions.browsePackages.trigger()
+
+        }
+
             Instantiator
             {
                 id: extensions

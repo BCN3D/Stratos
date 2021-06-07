@@ -16,7 +16,7 @@ Window
 {
     id: base
     property var selection: null
-    title: catalog.i18nc("@title", "Marketplace")
+    title: catalog.i18nc("@title", "Plugins")
     modality: Qt.ApplicationModal
     flags: Qt.Dialog | Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowCloseButtonHint
 
@@ -68,11 +68,7 @@ Window
                 id: viewErrored
                 visible: toolbox.viewCategory !== "installed" && toolbox.viewPage === "errored"
             }
-            ToolboxDownloadsPage
-            {
-                id: viewDownloads
-                visible: toolbox.viewCategory !== "installed" && toolbox.viewPage === "overview"
-            }
+
             ToolboxDetailPage
             {
                 id: viewDetail

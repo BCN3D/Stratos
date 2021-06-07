@@ -24,30 +24,22 @@ Item
             leftMargin: UM.Theme.getSize("default_margin").width
         }
 
-        ToolboxTabButton
-        {
-            id: pluginsTabButton
-            text: catalog.i18nc("@title:tab", "Plugins")
-            active: toolbox.viewCategory == "plugin" && enabled
-            enabled: !toolbox.isDownloading && toolbox.viewPage != "loading" && toolbox.viewPage != "errored"
-            onClicked:
-            {
-                toolbox.filterModelByProp("packages", "type", "plugin")
-                toolbox.viewCategory = "plugin"
-                toolbox.viewPage = "overview"
-            }
-        }
-
-
 
         ToolboxTabButton
         {
             id: installedTabButton
             text: catalog.i18nc("@title:tab", "Installed")
-            active: toolbox.viewCategory == "installed"
+            active: enableButton()
             enabled: !toolbox.isDownloading
             onClicked: toolbox.viewCategory = "installed"
             width: UM.Theme.getSize("toolbox_header_tab").width + marketplaceNotificationIcon.width - UM.Theme.getSize("default_margin").width
+
+            function enableButton() {
+
+            toolbox.viewCategory = "installed"
+            return true
+            }
+
         }
 
 
