@@ -107,9 +107,13 @@ Cura.ExpandablePopup
             {
                 return UM.Theme.getIcon("Epsilon_w27")
             }
+            else if (Cura.MachineManager.activeMachine.definition.name == "Sigma R19")
+            {
+                return UM.Theme.getIcon("sigma")
+            }
             else
             {
-                return ""
+               return UM.Theme.getIcon("sigmax")
             }
         }
         font: UM.Theme.getFont("medium")
