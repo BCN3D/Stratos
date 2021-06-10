@@ -50,33 +50,33 @@
 
         <machine>
             <machine_identifier manufacturer="BCN3D Technologies" product="bcn3dw50" />
-            <hotend id="e3D - 0.4mm - Brass">
+            <hotend id="0.4mm">
                 <setting key="hardware compatible">no</setting>
             </hotend>
-            <hotend id="e3D - 0.6mm - Brass">
+            <hotend id="0.6mm">
                 <setting key="hardware compatible">no</setting>
             </hotend>
-            <hotend id="e3D - 0.6mm - NozzleX" />
-            <hotend id="e3D - 0.8mm - Brass">
+            <hotend id="Hotend X (0.6mm)" />
+            <hotend id="0.8mm">
                 <setting key="hardware compatible">no</setting>
             </hotend>
-            <hotend id="e3D - 1.0mm - Brass">
+            <hotend id="1.0mm">
                 <setting key="hardware compatible">no</setting>
             </hotend>
         </machine>
         <machine>
             <machine_identifier manufacturer="BCN3D Technologies" product="bcn3dw27" />
-            <hotend id="e3D - 0.4mm - Brass">
+            <hotend id="0.4mm">
                 <setting key="hardware compatible">no</setting>
             </hotend>
-            <hotend id="e3D - 0.6mm - Brass">
+            <hotend id="0.6mm">
                 <setting key="hardware compatible">no</setting>
             </hotend>
-            <hotend id="e3D - 0.6mm - NozzleX" />
-            <hotend id="e3D - 0.8mm - Brass">
+            <hotend id="Hotend X (0.6mm)" />
+            <hotend id="0.8mm">
                 <setting key="hardware compatible">no</setting>
             </hotend>
-            <hotend id="e3D - 1.0mm - Brass">
+            <hotend id="1.0mm">
                 <setting key="hardware compatible">no</setting>
             </hotend>
         </machine>
