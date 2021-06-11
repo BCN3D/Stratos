@@ -5188,8 +5188,8 @@ msgstr "Ayúdenos a mejorar Ultimaker Cura"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:57
 msgctxt "@text"
-msgid "Ultimaker Cura collects anonymous data to improve print quality and user experience, including:"
-msgstr "Ultimaker Cura recopila datos anónimos para mejorar la calidad de impresión y la experiencia de usuario, entre otros:"
+msgid "BCN3D Stratos collects anonymous data to improve print quality and user experience, including:"
+msgstr "BCN3D Stratos recopila datos anónimos para mejorar la calidad de impresión y la experiencia de usuario, entre otros:"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:71
 msgctxt "@text"

@@ -5315,7 +5315,7 @@ msgstr "帮助我们改进 Ultimaker Cura"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:57
 msgctxt "@text"
-msgid "Ultimaker Cura collects anonymous data to improve print quality and user experience, including:"
+msgid "Stratos collects anonymous data to improve print quality and user experience, including:"
 msgstr "为了改善打印质量和用户体验，Ultimaker Cura 会收集匿名数据，这些数据包括："
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:71

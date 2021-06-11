@@ -71,7 +71,7 @@ Window
                     left: parent.left
                     right: parent.right
                 }
-                text: catalog.i18nc("@text:window", "Ultimaker Cura collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:")
+                text: catalog.i18nc("@text:window", "Stratos collects anonymous data in order to improve the print quality and user experience. Below is an example of all the data that is shared:")
                 color: UM.Theme.getColor("text")
                 wrapMode: Text.WordWrap
                 renderType: Text.NativeRendering
