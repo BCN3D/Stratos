@@ -90,8 +90,7 @@ Item
         id: supportbutton
         text: catalog.i18nc("@action:button", "Support")
         height: Math.round(0.5 * UM.Theme.getSize("main_window_header").height)
-
-        hoverEnabled: false
+        hoverEnabled: true
         onClicked: Qt.openUrlExternally("https://3d.bcn3d.com/chatbot");
         background: Rectangle
         {
@@ -99,6 +98,16 @@ Item
             color: supportbutton.hovered ? UM.Theme.getColor("main_window_header_background") : UM.Theme.getColor("primary_text")
             border.width: UM.Theme.getSize("default_lining").width
             border.color: UM.Theme.getColor("primary_text")
+        }
+        contentItem: Label
+        {
+            id: label
+            text: supportbutton.text
+            font: UM.Theme.getFont("default")
+            color: supportbutton.hovered ? UM.Theme.getColor("primary_text") : UM.Theme.getColor("main_window_header_background")
+            width: contentWidth
+            verticalAlignment: Text.AlignVCenter
+            renderType: Text.NativeRendering
         }
 
 
