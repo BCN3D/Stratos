@@ -31,7 +31,7 @@ def getMetaData():
         metaData["workspace_writer"] = {
             "output": [{
                 "extension": workspace_extension,
-                "description": i18n_catalog.i18nc("@item:inlistbox", "Cura Project 3MF file"),
+                "description": i18n_catalog.i18nc("@item:inlistbox", "Stratos Project 3MF file"),
                 "mime_type": "application/vnd.ms-package.3dmanufacturing-3dmodel+xml",
                 "mode": ThreeMFWorkspaceWriter.ThreeMFWorkspaceWriter.OutputMode.BinaryMode
             }]

@@ -752,8 +752,8 @@ msgstr "Fichier 3MF"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFWriter/__init__.py:34
 msgctxt "@item:inlistbox"
-msgid "Cura Project 3MF file"
-msgstr "Projet Cura fichier 3MF"
+msgid "Stratos Project 3MF file"
+msgstr "Projet Stratos fichier 3MF"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/AMFReader/__init__.py:15
 msgctxt "@item:inlistbox"

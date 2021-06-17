@@ -800,8 +800,8 @@ msgstr "Plik 3MF"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFWriter/__init__.py:34
 msgctxt "@item:inlistbox"
-msgid "Cura Project 3MF file"
-msgstr "Plik Cura Project 3MF"
+msgid "Stratos Project 3MF file"
+msgstr "Plik Stratos Project 3MF"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/AMFReader/__init__.py:15
 msgctxt "@item:inlistbox"
