@@ -1379,36 +1379,35 @@ class CuraApplication(QtApplication):
     # Single build plate
     @pyqtSlot()
     def arrangeAll(self) -> None:
-        nodes_to_arrange = []
+
+        # This version of arrange work better with the new print_modes because we put the sliceable nodes to the array of fixed_ones
+
+        nodes = []
         active_build_plate = self.getMultiBuildPlateModel().activeBuildPlate
-        locked_nodes = []
+        fixed_nodes = []
+        scene = Application.getInstance().getController().getScene()
+        root = scene.getRoot()
+        for node_ in DepthFirstIterator(root):
+        # Only count sliceable objects
+            if node_.callDecoration("isSliceable"):
+                fixed_nodes.append(node_)
         for node in DepthFirstIterator(self.getController().getScene().getRoot()):
             if not isinstance(node, SceneNode):
                 continue
-
             if not node.getMeshData() and not node.callDecoration("isGroup"):
                 continue  # Node that doesnt have a mesh and is not a group.
-
-            parent_node = node.getParent()
-            if parent_node and parent_node.callDecoration("isGroup"):
+            if node.getParent() and node.getParent().callDecoration("isGroup"):
                 continue  # Grouped nodes don't need resetting as their parent (the group) is resetted)
-
             if not node.isSelectable():
                 continue  # i.e. node with layer data
-
             if not node.callDecoration("isSliceable") and not node.callDecoration("isGroup"):
                 continue  # i.e. node with layer data
-
             if node.callDecoration("getBuildPlateNumber") == active_build_plate:
                 # Skip nodes that are too big
-                bounding_box = node.getBoundingBox()
-                if bounding_box is None or bounding_box.width < self._volume.getBoundingBox().width or bounding_box.depth < self._volume.getBoundingBox().depth:
-                    # Arrange only the unlocked nodes and keep the locked ones in place
-                    if UM.Util.parseBool(node.getSetting(SceneNodeSettings.LockPosition)):
-                        locked_nodes.append(node)
-                    else:
-                        nodes_to_arrange.append(node)
-        self.arrange(nodes_to_arrange, locked_nodes)
+                if node.getBoundingBox().width < self._volume.getBoundingBox().width or node.getBoundingBox().depth < self._volume.getBoundingBox().depth:
+                    nodes.append(node)
+            arrange(nodes, Application.getInstance().getBuildVolume(),fixed_nodes,
+                    factor=10000, add_new_nodes_in_scene=True)
 
     def arrange(self, nodes: List[SceneNode], fixed_nodes: List[SceneNode]) -> None:
         """Arrange a set of nodes given a set of fixed nodes

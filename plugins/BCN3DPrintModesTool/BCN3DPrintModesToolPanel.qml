@@ -41,7 +41,6 @@ Item
                 onClicked:{
                  Cura.PrintersManagerService.setPrintMode("dual")
                  CuraActions.setExtruderForSelection(extrudersModel.getItem(0).id)
-                 CuraActions.centerSelection();
                 }
                 style: UM.Theme.styles.tool_button;
                 z: 5
@@ -55,7 +54,6 @@ Item
                 onClicked: {
                  Cura.PrintersManagerService.setPrintMode("singleT0");
                  CuraActions.setExtruderForSelection(extrudersModel.getItem(0).id)
-                 CuraActions.centerSelection();
                     }
                 style: UM.Theme.styles.tool_button;
                 z: 4
@@ -70,7 +68,6 @@ Item
                 onClicked:{
                  Cura.PrintersManagerService.setPrintMode("singleT1")
                  CuraActions.setExtruderForSelection(extrudersModel.getItem(1).id)
-                 CuraActions.centerSelection();
                 }
                 style: UM.Theme.styles.tool_button;
                 z: 3
@@ -85,6 +82,7 @@ Item
                  Cura.PrintersManagerService.setPrintMode("duplication")
                  CuraActions.setExtruderForSelection(extrudersModel.getItem(0).id)
                  CuraActions.centerSelection();
+                 Printer.arrangeAll();
                 }
                 style: UM.Theme.styles.tool_button;
                 z: 2
@@ -99,6 +97,7 @@ Item
                  Cura.PrintersManagerService.setPrintMode("mirror")
                  CuraActions.setExtruderForSelection(extrudersModel.getItem(0).id)
                  CuraActions.centerSelection();
+                 Printer.arrangeAll();
                 }
                 style: UM.Theme.styles.tool_button;
                 z: 1

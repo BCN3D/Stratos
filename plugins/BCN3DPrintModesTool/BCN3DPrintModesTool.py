@@ -54,11 +54,14 @@ class BCN3DPrintModesTool(Tool):
                 self._updateEnabled()
 
     def _updateEnabled(self):
+        """Enable plugin if we have > 1 nodes selectec,
+            if we want to disable it, we must change _single_model_selected to false
+               """
         selected_objects = Selection.getAllSelectedObjects()
         if len(selected_objects)> 1:
-            self._single_model_selected = False
+            self._single_model_selected = True
         elif len(selected_objects) == 1 and selected_objects[0].callDecoration("isGroup"):
-            self._single_model_selected = False # Group is selected, so tool needs to be disabled
+            self._single_model_selected = True # Group is selected, so tool needs to be disabled
         else:
             self._single_model_selected = True
         Application.getInstance().getController().toolEnabledChanged.emit(self._plugin_id, self._single_model_selected)
