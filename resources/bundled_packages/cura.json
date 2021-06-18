@@ -459,40 +459,6 @@
             }
         }
     },
-    "UFPReader": {
-        "package_info": {
-            "package_id": "UFPReader",
-            "package_type": "plugin",
-            "display_name": "UFP Reader",
-            "description": "Provides support for reading Ultimaker Format Packages.",
-            "package_version": "1.0.0",
-            "sdk_version": "7.4.0",
-            "website": "https://ultimaker.com",
-            "author": {
-                "author_id": "UltimakerPackages",
-                "display_name": "Ultimaker B.V.",
-                "email": "plugins@ultimaker.com",
-                "website": "https://ultimaker.com"
-            }
-        }
-    },
-    "UFPWriter": {
-        "package_info": {
-            "package_id": "UFPWriter",
-            "package_type": "plugin",
-            "display_name": "UFP Writer",
-            "description": "Provides support for writing Ultimaker Format Packages.",
-            "package_version": "1.0.1",
-            "sdk_version": "7.4.0",
-            "website": "https://ultimaker.com",
-            "author": {
-                "author_id": "UltimakerPackages",
-                "display_name": "Ultimaker B.V.",
-                "email": "plugins@ultimaker.com",
-                "website": "https://ultimaker.com"
-            }
-        }
-    },
     "VersionUpgrade21to22": {
         "package_info": {
             "package_id": "VersionUpgrade21to22",
