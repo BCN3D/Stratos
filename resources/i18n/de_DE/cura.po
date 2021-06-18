@@ -4231,8 +4231,8 @@ msgstr "Sollten Dateien vom Desktop oder von externen Anwendungen in derselben I
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:575
 msgctxt "@option:check"
-msgid "Use a single instance of Cura"
-msgstr "Eine einzelne Instanz von Cura verwenden"
+msgid "Use a single instance of Stratos"
+msgstr "Eine einzelne Instanz von Stratos verwenden"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:585
 msgctxt "@info:tooltip"

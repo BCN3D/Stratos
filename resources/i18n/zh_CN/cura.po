@@ -4340,8 +4340,8 @@ msgstr "应从桌面打开文件还是在同一 Cura 实例中打开外部应用
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:575
 msgctxt "@option:check"
-msgid "Use a single instance of Cura"
-msgstr "使用单个 Cura 实例"
+msgid "Use a single instance of Stratos"
+msgstr "使用单个 Stratos 实例"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:585
 msgctxt "@info:tooltip"

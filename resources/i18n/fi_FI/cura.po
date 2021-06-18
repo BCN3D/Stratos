@@ -4331,7 +4331,7 @@ msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:575
 msgctxt "@option:check"
-msgid "Use a single instance of Cura"
+msgid "Use a single instance of Stratos"
 msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:585

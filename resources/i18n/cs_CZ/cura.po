@@ -4373,8 +4373,8 @@ msgstr "Měli by se soubory z plochy, nebo externích aplikací otevírat ve ste
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:575
 msgctxt "@option:check"
-msgid "Use a single instance of Cura"
-msgstr "Používat pouze jednu instanci programu Cura"
+msgid "Use a single instance of Stratos"
+msgstr "Používat pouze jednu instanci programu Stratos"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:585
 msgctxt "@info:tooltip"

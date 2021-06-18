@@ -4358,8 +4358,8 @@ msgstr "L'apertura dei file dal desktop o da applicazioni esterne deve essere es
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:575
 msgctxt "@option:check"
-msgid "Use a single instance of Cura"
-msgstr "Utilizzare una singola istanza di Cura"
+msgid "Use a single instance of Stratos"
+msgstr "Utilizzare una singola istanza di Stratos"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:585
 msgctxt "@info:tooltip"

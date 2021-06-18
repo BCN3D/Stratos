@@ -4358,8 +4358,8 @@ msgstr "Masaüstünden veya harici uygulamalardan açılan dosyalar aynı Cura �
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:575
 msgctxt "@option:check"
-msgid "Use a single instance of Cura"
-msgstr "Tek bir Cura örneği kullan"
+msgid "Use a single instance of Stratos"
+msgstr "Tek bir Stratos örneği kullan"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:585
 msgctxt "@info:tooltip"

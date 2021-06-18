@@ -4229,8 +4229,8 @@ msgstr "L'ouverture de fichiers à partir du bureau ou d'applications externes d
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:575
 msgctxt "@option:check"
-msgid "Use a single instance of Cura"
-msgstr "Utiliser une seule instance de Cura"
+msgid "Use a single instance of Stratos"
+msgstr "Utiliser une seule instance de Stratos"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:585
 msgctxt "@info:tooltip"

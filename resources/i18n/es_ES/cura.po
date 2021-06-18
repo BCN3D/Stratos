@@ -4227,8 +4227,8 @@ msgstr "¿Debería abrir los archivos del escritorio o las aplicaciones externas
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:575
 msgctxt "@option:check"
-msgid "Use a single instance of Cura"
-msgstr "Utilizar una sola instancia de Cura"
+msgid "Use a single instance of Stratos"
+msgstr "Utilizar una sola instancia de Stratos"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:585
 msgctxt "@info:tooltip"

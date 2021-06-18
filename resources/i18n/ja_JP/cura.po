@@ -4347,8 +4347,8 @@ msgstr "デスクトップまたは外部アプリケーションから開いた
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:575
 msgctxt "@option:check"
-msgid "Use a single instance of Cura"
-msgstr "Curaの単一インスタンスを使用"
+msgid "Use a single instance of Stratos"
+msgstr "Stratosの単一インスタンスを使用"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:585
 msgctxt "@info:tooltip"

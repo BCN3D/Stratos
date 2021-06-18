@@ -4381,8 +4381,8 @@ msgstr "Открывать файлы с компьютера и из внешн
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:575
 msgctxt "@option:check"
-msgid "Use a single instance of Cura"
-msgstr "Использовать один экземпляр Cura"
+msgid "Use a single instance of Stratos"
+msgstr "Использовать один экземпляр Stratos"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:585
 msgctxt "@info:tooltip"
