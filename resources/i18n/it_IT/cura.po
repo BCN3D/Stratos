@@ -800,7 +800,7 @@ msgstr "File 3MF"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFWriter/__init__.py:34
 msgctxt "@item:inlistbox"
-msgid "Stratos Project 3MF file"
+msgid "BCN3D Stratos Project 3MF file"
 msgstr "File 3MF Progetto Stratos"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/AMFReader/__init__.py:15
@@ -1645,7 +1645,7 @@ msgstr "Crea nuovo"
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFReader/WorkspaceDialog.qml:74
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Dialogs/WorkspaceSummaryDialog.qml:69
 msgctxt "@action:title"
-msgid "Summary - Stratos Project"
+msgid "Summary - BCN3D Stratos Project"
 msgstr "Riepilogo - Stratos Cura"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFReader/WorkspaceDialog.qml:96
@@ -3327,8 +3327,8 @@ msgstr "Visualizzazione lato destro"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:167
 msgctxt "@action:inmenu"
-msgid "Configure Stratos..."
-msgstr "Configura Stratos..."
+msgid "Configure BCN3D Stratos..."
+msgstr "Configura BCN3D Stratos..."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:174
 msgctxt "@action:inmenu menubar:printer"
@@ -4358,8 +4358,8 @@ msgstr "L'apertura dei file dal desktop o da applicazioni esterne deve essere es
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:575
 msgctxt "@option:check"
-msgid "Use a single instance of Stratos"
-msgstr "Utilizzare una singola istanza di Stratos"
+msgid "Use a single instance of BCN3D Stratos"
+msgstr "Utilizzare una singola istanza di BCN3D Stratos"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:585
 msgctxt "@info:tooltip"

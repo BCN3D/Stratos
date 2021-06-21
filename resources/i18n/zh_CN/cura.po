@@ -799,7 +799,7 @@ msgstr "3MF 文件"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFWriter/__init__.py:34
 msgctxt "@item:inlistbox"
-msgid "Stratos Project 3MF file"
+msgid "BCN3D Stratos Project 3MF file"
 msgstr "Stratos 项目 3MF 文件"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/AMFReader/__init__.py:15
@@ -3317,8 +3317,8 @@ msgstr "右视图"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:167
 msgctxt "@action:inmenu"
-msgid "Configure Stratos..."
-msgstr "配置 Stratos..."
+msgid "Configure BCN3D Stratos..."
+msgstr "配置 BCN3D Stratos..."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:174
 msgctxt "@action:inmenu menubar:printer"
@@ -4340,8 +4340,8 @@ msgstr "应从桌面打开文件还是在同一 Cura 实例中打开外部应用
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:575
 msgctxt "@option:check"
-msgid "Use a single instance of Stratos"
-msgstr "使用单个 Stratos 实例"
+msgid "Use a single instance of BCN3D Stratos"
+msgstr "使用单个 BCN3D Stratos 实例"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:585
 msgctxt "@info:tooltip"

@@ -572,7 +572,7 @@ UM.PreferencesPage
                 CheckBox
                 {
                     id: singleInstanceCheckbox
-                    text: catalog.i18nc("@option:check","Use a single instance of Stratos")
+                    text: catalog.i18nc("@option:check","Use a single instance of BCN3D Stratos")
                     checked: boolCheck(UM.Preferences.getValue("cura/single_instance"))
                     onCheckedChanged: UM.Preferences.setValue("cura/single_instance", checked)
                 }

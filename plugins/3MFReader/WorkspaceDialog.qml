@@ -71,7 +71,7 @@ UM.Dialog
             Label
             {
                 id: titleLabel
-                text: catalog.i18nc("@action:title", "Summary - Stratos Project")
+                text: catalog.i18nc("@action:title", "Summary - BCN3D Stratos Project")
                 font.pointSize: 18
             }
             Rectangle

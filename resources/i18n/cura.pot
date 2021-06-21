@@ -198,7 +198,7 @@ msgstr ""
 #: /home/trin/Gedeeld/Projects/Cura/cura/CrashHandler.py:113
 msgctxt "@label crash message"
 msgid ""
-"<p><b>Oops, Stratos has encountered something that doesn't seem right."
+"<p><b>Oops, BCN3D Stratos has encountered something that doesn't seem right."
 "</p></b>\n"
 "                    <p>We encountered an unrecoverable error during start "
 "up. It was possibly caused by some incorrect configuration files. We suggest "
@@ -834,7 +834,7 @@ msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFWriter/__init__.py:34
 msgctxt "@item:inlistbox"
-msgid "Stratos Project 3MF file"
+msgid "BCN3D Stratos Project 3MF file"
 msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/AMFReader/__init__.py:15
@@ -1707,7 +1707,7 @@ msgstr ""
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFReader/WorkspaceDialog.qml:74
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Dialogs/WorkspaceSummaryDialog.qml:69
 msgctxt "@action:title"
-msgid "Summary - Stratos Project"
+msgid "Summary - BCN3D Stratos Project"
 msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/3MFReader/WorkspaceDialog.qml:96
@@ -3432,7 +3432,7 @@ msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:167
 msgctxt "@action:inmenu"
-msgid "Configure Stratos..."
+msgid "Configure BCN3D Stratos..."
 msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:174
@@ -4484,7 +4484,7 @@ msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:575
 msgctxt "@option:check"
-msgid "Use a single instance of Stratos"
+msgid "Use a single instance of BCN3D Stratos"
 msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Preferences/GeneralPage.qml:585

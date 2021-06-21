@@ -104,13 +104,13 @@ class CrashHandler:
         dialog = QDialog()
         dialog.setMinimumWidth(500)
         dialog.setMinimumHeight(170)
-        dialog.setWindowTitle(catalog.i18nc("@title:window", "Cura can't start"))
+        dialog.setWindowTitle(catalog.i18nc("@title:window", "BCN3D Stratos can't start"))
         dialog.finished.connect(self._closeEarlyCrashDialog)
 
         layout = QVBoxLayout(dialog)
 
         label = QLabel()
-        label.setText(catalog.i18nc("@label crash message", """<p><b>Oops, Stratos has encountered something that doesn't seem right.</p></b>
+        label.setText(catalog.i18nc("@label crash message", """<p><b>Oops, BCN3D Stratos has encountered something that doesn't seem right.</p></b>
                     <p>We encountered an unrecoverable error during start up. It was possibly caused by some incorrect configuration files. We suggest to backup and reset your configuration.</p>
                     <p>Backups can be found in the configuration folder.</p>
                     <p>Please send us this Crash Report to fix the problem.</p>
@@ -225,7 +225,7 @@ class CrashHandler:
         except:
             self.data["plugins"] = {"[FAILED]": "0.0.0"}
 
-        crash_info = "<b>" + catalog.i18nc("@label Stratos version number", "Stratos version") + ":</b> " + str(self.cura_version) + "<br/>"
+        crash_info = "<b>" + catalog.i18nc("@label BCN3D Stratos version number", "BCN3D Stratos version") + ":</b> " + str(self.cura_version) + "<br/>"
         crash_info += "<b>" + catalog.i18nc("@label", "Stratos language") + ":</b> " + str(self.cura_locale) + "<br/>"
         crash_info += "<b>" + catalog.i18nc("@label", "OS language") + ":</b> " + str(self.data["locale_os"]) + "<br/>"
         crash_info += "<b>" + catalog.i18nc("@label Type of platform", "Platform") + ":</b> " + str(platform.platform()) + "<br/>"
