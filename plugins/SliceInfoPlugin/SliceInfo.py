@@ -27,13 +27,13 @@ catalog = i18nCatalog("cura")
 
 
 class SliceInfo(QObject, Extension):
-    """This Extension runs in the background and sends several bits of information to the Ultimaker servers.
+    """This Extension runs in the background and sends several bits of information to the BCN3D servers.
 
     The data is only sent when the user in question gave permission to do so. All data is anonymous and
     no model files are being sent (Just a SHA256 hash of the model).
     """
 
-    info_url = "https://stats.ultimaker.com/api/cura"
+    info_url = ""
 
     def __init__(self, parent = None):
         QObject.__init__(self, parent)
