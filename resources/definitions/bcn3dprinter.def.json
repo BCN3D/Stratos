@@ -190,10 +190,10 @@
           "type": "enum",
           "options": {
             "dual": "Dual",
-            "mirror": "Mirror",
-            "duplication": "Duplication",
             "singleT0": "Single 1",
-            "singleT1": "Single 2"
+            "singleT1": "Single 2",
+            "duplication": "Duplication",
+            "mirror": "Mirror"
           },
           "default_value": "dual",
           "enabled": true,
