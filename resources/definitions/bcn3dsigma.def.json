@@ -28,12 +28,8 @@
         "machine_max_feedrate_y": { "default_value": 200 },
         "machine_max_feedrate_z": { "default_value": 12 },
         "machine_max_feedrate_e": { "default_value": 135 },
-        "print_sequence":
-        {
-            "enabled": true,
-            "dual_enabled": false,
-            "reset_on_used_extruders_change": true,
-            "dual_value":  "'all_at_once'"
+        "print_sequence": {
+            "enabled": "print_mode == 'singleT0' or print_mode == 'singleT1'"
         },
         "layer_height_0":
         {

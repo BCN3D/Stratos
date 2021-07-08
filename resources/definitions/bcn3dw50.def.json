@@ -103,10 +103,7 @@
         "ooze_shield_enabled": { "value": false },
         "optimize_wall_printing_order": { "value": true },
         "print_sequence": {
-            "enabled": true,
-            "dual_enabled": false,
-            "reset_on_used_extruders_change": true,
-            "dual_value":  "'all_at_once'"
+            "enabled": "print_mode == 'singleT0' or print_mode == 'singleT1'"
         },
         "purge_in_bucket": {
             "enabled": "print_mode == 'dual' or print_mode == 'singleT0' or print_mode == 'singleT1'",
