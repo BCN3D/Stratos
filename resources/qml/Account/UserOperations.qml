@@ -65,16 +65,10 @@ Column
             {
                 id: username
                 renderType: Text.NativeRendering
-                text: profile["username"]
+                text: profile["username"] + "       "
                 font: UM.Theme.getFont("large_bold")
                 color: UM.Theme.getColor("text")
             }
-
-            SyncState
-            {
-                id: syncRow
-            }
-
         }
     }
 
