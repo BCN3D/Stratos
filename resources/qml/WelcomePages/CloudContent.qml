@@ -51,15 +51,6 @@ Item
 
             spacing: 20 * screenScaleFactor
 
-           // Image  // Cloud image comentada a espera de imagen final
-          //  {
-            //    id: cloudImage
-              //  anchors.horizontalCenter: parent.horizontalCenter
-               // source: UM.Theme.getImage("first_run_ultimaker_cloud")
-           // }
-
-
-
             Label  // A number of text items
             {
                 id: textLabel
@@ -164,7 +155,6 @@ Item
         signInStatusCode = Cura.AuthenticationService.signIn(email.text, password.text)
             if(signInStatusCode == 200) {
                 base.goToPage("AddLocalPrinterBCN3D")
-                // signInStatusCode = 200
             }
 
         }
