@@ -15,7 +15,7 @@ Column
     {
         id: machinesImage
         anchors.horizontalCenter: parent.horizontalCenter
-        source: UM.Theme.getIcon("sign_in_to_cloud")
+        source: UM.Theme.getImage("first_run_welcome_cura")
         horizontalAlignment: Image.AlignHCenter
         verticalAlignment: Image.AlignVCenter
     }
