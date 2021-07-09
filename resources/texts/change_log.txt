@@ -1,15 +1,14 @@
 [1.0.0]
 
-* BETA Version
 
 * BCN3D Stratos is based on Ultimaker Cura 4.8
 
 
 
-- New plugin to enable the BCN3D IDEX system with Mirror and Duplication  print modes
+- New plugin to enable the BCN3D IDEX system with Mirror and Duplication print modes
 - New Single T1 and Single T2 print modes
-- Connect Stratos with the Cloud BCN3D and use your connected printers
+- Connect Stratos with the BCN3D Cloud  and use your connected printers
 - Improved UI
-- Improved general performance since Cura 3.4.2
+- Improved general performance since BCN3D Cura 3.4.3
 
 
