@@ -133,8 +133,8 @@ UM.Dialog
             Component.onCompleted:
             {
                 projectsModel.append({ name: "Stratos", description: catalog.i18nc("@label", "Graphical user interface"), license: "LGPLv3", url: "https://github.com/BCN3D/Stratos" });
-                projectsModel.append({ name: "Uranium", description: catalog.i18nc("@label", "Application framework"), license: "LGPLv3", url: "https://github.com/Ultimaker/Uranium" });
-                projectsModel.append({ name: "CuraEngine", description: catalog.i18nc("@label", "G-code generator"), license: "AGPLv3", url: "https://github.com/Ultimaker/CuraEngine" });
+                projectsModel.append({ name: "Uranium", description: catalog.i18nc("@label", "Application framework"), license: "LGPLv3", url: "https://github.com/BCN3D/Uranium-Stratos" });
+                projectsModel.append({ name: "CuraEngine", description: catalog.i18nc("@label", "G-code generator"), license: "AGPLv3", url: "https://github.com/BCN3D/StratosEngine" });
                 projectsModel.append({ name: "libArcus", description: catalog.i18nc("@label", "Interprocess communication library"), license: "LGPLv3", url: "https://github.com/Ultimaker/libArcus" });
 
                 projectsModel.append({ name: "Python", description: catalog.i18nc("@label", "Programming language"), license: "Python", url: "http://python.org/" });
