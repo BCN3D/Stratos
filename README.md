@@ -1,55 +1,20 @@
-Cura
+BCN3D Stratos
 ====
-Ultimaker Cura is a state-of-the-art slicer application to prepare your 3D models for printing with a 3D printer. With hundreds of settings and hundreds of community-managed print profiles, Ultimaker Cura is sure to lead your next project to a success.
 
-![Screenshot](screenshot.png)
+Slicing software specifically customized for our machines. Based on the open source project [Ultimaker/Cura](https://github.com/Ultimaker/Cura.git) developed by Ultimaker B.V. in cooperation with the community.
 
-Logging Issues
-------------
-For crashes and similar issues, please attach the following information:
+Huge improvement over the [old Cura](https://github.com/BCN3D/Cura). New look, new user experience, new features, easier to use, all latest [ProGen](https://www.bcn3dtechnologies.com/en/sigma-progen/) profiles included. And all the parameters are adjustable to get the best of your BCN3D machine.
 
-* (On Windows) The log as produced by dxdiag (start -> run -> dxdiag -> save output)
-* The Cura GUI log file, located at
-  * `%APPDATA%\cura\<Cura version>\cura.log` (Windows), or usually `C:\Users\\<your username>\AppData\Roaming\cura\<Cura version>\cura.log`
-  * `$USER/Library/Application Support/cura/<Cura version>/cura.log` (OSX)
-  * `$USER/.local/share/cura/<Cura version>/cura.log` (Ubuntu/Linux)
+We've added specific features and improved the slicing process.
 
-If the Cura user interface still starts, you can also reach this directory from the application menu in Help -> Show settings folder
+Custom features
+---
+- **Mirror and Duplication modes**: Unleash the full potential of your Sigmax. Choose new print modes to use both extruders at the same print. Cloning or mirroring the same model.
+- **Prevent grinding filament**: Another advantadge of the IDEX technology. Now you can define a maximum number of retractions to be executed at the same piece of filament, when this number is reached the hotend will prime the right amount in the container to allow the extruder work on a new and clean piece of filament.
+- **Heat only used hotends**: Winter is coming. Also for the unused hotend.
+- **Smart purge**: Prime oozed material in the container. And only when it's needed. And only the right amount.
+- **Reduce retraction**: Experimental feature to retract only on outer surface.
+- **New theme**: Yes!
+- **Custom fixes**: Adjusting temperature oscilation, zhops on tool changes and a few more. Specific for our IDEX machines.
 
-For additional support, you could also ask in the #cura channel on FreeNode IRC. For help with development, there is also the #cura-dev channel.
-
-Dependencies
-------------
-* [Uranium](https://github.com/Ultimaker/Uranium) Cura is built on top of the Uranium framework.
-* [CuraEngine](https://github.com/Ultimaker/CuraEngine) This will be needed at runtime to perform the actual slicing.
-* [fdm_materials](https://github.com/Ultimaker/fdm_materials) Required to load a printer that has swappable material profiles.
-* [PySerial](https://github.com/pyserial/pyserial) Only required for USB printing support.
-* [python-zeroconf](https://github.com/jstasiak/python-zeroconf) Only required to detect mDNS-enabled printers.
-
-Build scripts
--------------
-Please checkout [cura-build](https://github.com/Ultimaker/cura-build) for detailed building instructions.
-
-Running from Source
--------------
-Please check our [Wiki page](https://github.com/Ultimaker/Cura/wiki/Running-Cura-from-Source) for details about running Cura from source.
-
-Plugins
--------------
-Please check our [Wiki page](https://github.com/Ultimaker/Cura/wiki/Plugin-Directory) for details about creating and using plugins.
-
-Supported printers
--------------
-Please check our [Wiki page](https://github.com/Ultimaker/Cura/wiki/Adding-new-machine-profiles-to-Cura) for guidelines about adding support for new machines.
-
-Configuring Cura
-----------------
-Please check out [Wiki page](https://github.com/Ultimaker/Cura/wiki/Cura-Settings) about configuration options for developers.
-
-Translating Cura
-----------------
-Please check out [Wiki page](https://github.com/Ultimaker/Cura/wiki/Translating-Cura) about how to translate Cura into other languages.
-
-License
-----------------
-Cura is released under the terms of the LGPLv3 or higher. A copy of this license should be included with the software.
+For more information about Cura check the [Ultimaker/Cura](https://github.com/Ultimaker/Cura.git) repository.
