@@ -29,6 +29,7 @@
             "enabled": true,
             "value": false
         },
+        "gantry_height": { "value": 12 },
         "clone_cool_fan": {
             "dual_value": "print_mode == 'dual' or print_mode == 'singleT0' or print_mode == 'singleT1' and extruderValue(0, 'cool_fan_enabled') and extruderValue(1, 'cool_fan_enabled')",
             "reset_on_used_extruders_change": true,
