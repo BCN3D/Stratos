@@ -1,55 +1,67 @@
-Cura
-====
-Ultimaker Cura is a state-of-the-art slicer application to prepare your 3D models for printing with a 3D printer. With hundreds of settings and hundreds of community-managed print profiles, Ultimaker Cura is sure to lead your next project to a success.
+At BCN3D we work to provide customers with better solutions, especially those with advanced manufacturing needs within the 3D printing industry. Over the past year, our engineers have been hard at work on our latest passion project, putting their heart and soul into matching the high performance of our printers with an upgraded software tool to significantly improve the printing process of our users.
 
-![Screenshot](screenshot.png)
+BCN3D Stratos is a straightforward slicing software, designed for speed and efficiency while still ensuring top-quality prints for a powerful 3D printing process. The user-friendly interface is free and compatible with all BCN3D Sigma and Epsilon printers.
 
-Logging Issues
-------------
-For crashes and similar issues, please attach the following information:
+BCN3D Stratos is based on the open source project Ultimaker/Cura developed by Ultimaker B.V. in cooperation with the community.
+![Stratos](https://www.bcn3d.com/wp-content/uploads/2020/03/BCN3D-Cloud.svg)
 
-* (On Windows) The log as produced by dxdiag (start -> run -> dxdiag -> save output)
-* The Cura GUI log file, located at
-  * `%APPDATA%\cura\<Cura version>\cura.log` (Windows), or usually `C:\Users\\<your username>\AppData\Roaming\cura\<Cura version>\cura.log`
-  * `$USER/Library/Application Support/cura/<Cura version>/cura.log` (OSX)
-  * `$USER/.local/share/cura/<Cura version>/cura.log` (Ubuntu/Linux)
 
-If the Cura user interface still starts, you can also reach this directory from the application menu in Help -> Show settings folder
+# What’s new?
+## IDEX reaches its full potential
+BCN3D Stratos easily incorporates the benefits of the IDEX system: simply merge multi-material models, generate support structures or even cut down printing times by combining hotends with different nozzle sizes.
+![IDEX](https://www.bcn3d.com/wp-content/uploads/2020/03/BCN3D-Cloud.svg)
 
-For additional support, you could also ask in the #cura channel on FreeNode IRC. For help with development, there is also the #cura-dev channel.
+## New user interface
+The new BCN3D Stratos features a new user interface that streamlines the slicing experience for both casual and advanced users.
+![New user interface](https://www.bcn3d.com/wp-content/uploads/2020/03/BCN3D-Cloud.svg)
 
-Dependencies
-------------
-* [Uranium](https://github.com/Ultimaker/Uranium) Cura is built on top of the Uranium framework.
-* [CuraEngine](https://github.com/Ultimaker/CuraEngine) This will be needed at runtime to perform the actual slicing.
-* [fdm_materials](https://github.com/Ultimaker/fdm_materials) Required to load a printer that has swappable material profiles.
-* [PySerial](https://github.com/pyserial/pyserial) Only required for USB printing support.
-* [python-zeroconf](https://github.com/jstasiak/python-zeroconf) Only required to detect mDNS-enabled printers.
 
-Build scripts
--------------
-Please checkout [cura-build](https://github.com/Ultimaker/cura-build) for detailed building instructions.
+## Format file flexibility
+Importing your files to Stratos is intuitive and stress-free. Upload files of a broad range of formats swiftly through ways such as clicking on the folder icon to browse files, and dragging and dropping directly.
+![Format file flexibility](https://www.bcn3d.com/wp-content/uploads/2020/03/BCN3D-Cloud.svg)
 
-Running from Source
--------------
-Please check our [Wiki page](https://github.com/Ultimaker/Cura/wiki/Running-Cura-from-Source) for details about running Cura from source.
 
-Plugins
--------------
-Please check our [Wiki page](https://github.com/Ultimaker/Cura/wiki/Plugin-Directory) for details about creating and using plugins.
+## Mirror and duplication modes
+With a user-friendly tool and customizable settings, make use of the unique feature of controlling two print heads to double your productivity. It's now easier than ever to make the most of IDEX technology.
+![Mirror and duplication modes](https://www.bcn3d.com/wp-content/uploads/2020/03/BCN3D-Cloud.svg)
 
-Supported printers
--------------
-Please check our [Wiki page](https://github.com/Ultimaker/Cura/wiki/Adding-new-machine-profiles-to-Cura) for guidelines about adding support for new machines.
 
-Configuring Cura
-----------------
-Please check out [Wiki page](https://github.com/Ultimaker/Cura/wiki/Cura-Settings) about configuration options for developers.
 
-Translating Cura
-----------------
-Please check out [Wiki page](https://github.com/Ultimaker/Cura/wiki/Translating-Cura) about how to translate Cura into other languages.
+## Integrated printing profiles
+BCN3D Stratos works using validated printing profiles to increase the printing success rate. Just select the installed hotends and materials on the printer to get the right set of parameters. And, of course, expert users can still tweak more than 500 parameters.
+![Integrated printing profiles](https://www.bcn3d.com/wp-content/uploads/2020/03/BCN3D-Cloud.svg)
 
-License
-----------------
-Cura is released under the terms of the LGPLv3 or higher. A copy of this license should be included with the software.
+
+
+## New settings panel
+You can now drag the settings panel and position it anywhere on your screen. Simply double-click the header and the settings panel will return to the default position.
+![New settings panel](https://www.bcn3d.com/wp-content/uploads/2020/03/BCN3D-Cloud.svg)
+
+
+
+## Orthographic and perspective cameras
+You can now choose between orthographic and perspective camera views in BCN3D Stratos, allowing you to review your models the way you want.
+![Orthographic and perspective cameras](https://www.bcn3d.com/wp-content/uploads/2020/03/BCN3D-Cloud.svg)
+
+
+## Object list
+If you want to print multiple parts at the same time on the large build plate of the BCN3D Epsilon, the object list will save you time. The object list helps you easily identify models on your build plate based on their filename.
+![Objects list](https://www.bcn3d.com/wp-content/uploads/2020/03/BCN3D-Cloud.svg)
+
+
+## Align face to build plate
+Orient complex models by simply selecting a face of it to rest on the build plate.
+![Align face to build plate](https://www.bcn3d.com/wp-content/uploads/2020/03/BCN3D-Cloud.svg)
+
+
+## Infill options
+New infill options are available on BCN3D Stratos. With the new Gyroid infill, you can create lightweight parts with high resistance.
+![Infill options](https://www.bcn3d.com/wp-content/uploads/2020/03/BCN3D-Cloud.svg)
+
+
+## Remote printing connection
+Add a cloud printer and send your sliced models directly to your Sigma or Epsilon 3D printers through BCN3D Stratos.
+
+## Visualization options
+After slicing, Stratos offers a variety of preview types to ensure pinpoint accuracy. While Layer View provides visualization of each section of your print, X-ray View reveals internal parts and hidden geometries. Change the color scheme to examine every detail of travels, helpers, shell, and infill settings.
+![Visualization options](https://www.bcn3d.com/wp-content/uploads/2020/03/BCN3D-Cloud.svg)
