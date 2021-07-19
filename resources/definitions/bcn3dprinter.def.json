@@ -25,7 +25,6 @@
       "children": {
         "machine_gcode_flavor": { "default_value": "RepRap (Marlin/Sprinter)" },
         "machine_extruder_count": { "default_value": 2 },
-        "gantry_height": { "value": 210 },
         "machine_head_with_fans_polygon": { "default_value": [[-22, 60], [-22, -25], [27, 60], [27, -25]]}
       }
     },
