@@ -14,7 +14,7 @@ Before filing, PLEASE check if the issue already exists (either open or closed) 
 
 Also, please note the application version in the title of the issue. For example: "[3.2.1] Cannot connect to 3rd-party printer". Please do NOT write things like "Request:" or "[BUG]" in the title; this is what labels are for.
 
-Thank you for using Cura!
+Thank you for using BCN3D Stratos!
 -->
 
 **Application version**
@@ -24,7 +24,7 @@ Thank you for using Cura!
 (Information about the operating system the issue occurs on. Include at least the operating system and maybe GPU.)
 
 **Printer**
-(Which printer was selected in Cura?)
+(Which printer was selected in BCN3D Stratos?)
 
 **Reproduction steps**
 1. (Something you did.)
@@ -43,7 +43,7 @@ Thank you for using Cura!
 (For slicing bugs, provide a project which clearly shows the bug, by going to File->Save. For big files you may need to use WeTransfer or similar file sharing sites.)
 
 **Log file**
-(See https://github.com/Ultimaker/Cura#logging-issues to find the log file to upload, or copy a relevant snippet from it.)
+(See https://github.com/BCN3D/Stratos/wiki/Logging-Issues to find the log file to upload, or copy a relevant snippet from it.)
 
 **Additional information**
 (Extra information relevant to the issue.)
