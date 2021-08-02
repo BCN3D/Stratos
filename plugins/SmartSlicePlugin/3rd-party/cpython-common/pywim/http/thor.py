@@ -13,8 +13,6 @@ import time
 import urllib.parse
 import uuid
 
-from socketserver import ThreadingMixIn
-
 import pywim
 
 from pywim import WimObject, WimList
@@ -450,10 +448,6 @@ class Client:
         return Client._code_and_object(resp, Subscription)
 
 
-class _ThreadingHTTPServer(ThreadingMixIn, http.server.HTTPServer):
-    pass
-
-
 class OAuth2Handler:
     DEFAULT_PORTS = (47001, 47002, 47003)
 
@@ -496,10 +490,7 @@ class OAuth2Handler:
         redirect_handler_class = _make_local_redirect_handler_class(self)
 
         try:
-            if hasattr(http.server, 'ThreadingHTTPServer'):
-                self._server = http.server.ThreadingHTTPServer(('localhost', port), redirect_handler_class)
-            else:
-                self._server = _ThreadingHTTPServer(('localhost', port), redirect_handler_class)
+            self._server = http.server.ThreadingHTTPServer(('localhost', port), redirect_handler_class)
 
             thread = threading.Thread(target=self._server.serve_forever, name='SmartSliceOAuthHttpCallback')
             thread.start()
