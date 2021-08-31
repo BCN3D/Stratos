@@ -65,7 +65,7 @@ class DuplicatedNode(CuraSceneNode):
 
     def _onTransformationChanged(self, node):
         print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
-        if print_mode != "dual" or "singleT1" or "singleT0"  :
+        if print_mode != "dual" or "singleT1" or "singleT0":
             self.update()
 
     def _someParentChanged(self, node=None):

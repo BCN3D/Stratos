@@ -4,8 +4,9 @@ from typing import Optional
 
 from UM.Scene.SceneNode import SceneNode
 from UM.Operations import Operation
-
-
+from cura.Scene.DuplicatedNode import DuplicatedNode
+from cura.PrintModeManager import PrintModeManager
+from UM.Application import Application
 class SetParentOperation(Operation.Operation):
     """An operation that parents a scene node to another scene node."""
 
@@ -20,16 +21,34 @@ class SetParentOperation(Operation.Operation):
         self._node = node
         self._parent = parent_node
         self._old_parent = node.getParent() # To restore the previous parent in case of an undo.
+        self._scene_root = Application.getInstance().getController().getScene().getRoot()
+        self._print_mode_enabled = Application.getInstance().getGlobalContainerStack().getProperty("print_mode",
+                                                                                                   "enabled")
+        self._is_duplicated_node = type(node) == DuplicatedNode
 
     def undo(self) -> None:
         """Undoes the set-parent operation, restoring the old parent."""
+        if self._print_mode_enabled and self._is_duplicated_node:
+            self._fixAndSetParent(self._old_parent)
+            if type(self._parent) == DuplicatedNode:
+                if self._parent in PrintModeManager.getInstance().getDuplicatedNodes():
+                    PrintModeManager.getInstance().deleteDuplicatedNode(self._parent, False)
+            elif type(self._old_parent) == DuplicatedNode:
+                if self._old_parent not in PrintModeManager.getInstance().getDuplicatedNodes():
+                    PrintModeManager.getInstance().addDuplicatedNode(self._old_parent)
 
-        self._set_parent(self._old_parent)
+        else:
+            self._set_parent(self._old_parent)
 
-    def redo(self) -> None:
+    def redo(self, parent) -> None:
         """Re-applies the set-parent operation."""
-
-        self._set_parent(self._parent)
+        print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
+        if print_mode == "regular" and parent == self._scene_root:
+            self._set_parent(None)
+        elif print_mode != "regular" and parent is None:
+            self._set_parent(self._scene_root)
+        else:
+            self._set_parent(parent)
 
     def _set_parent(self, new_parent: Optional[SceneNode]) -> None:
         """Sets the parent of the node while applying transformations to the world-transform of the node stays the same.

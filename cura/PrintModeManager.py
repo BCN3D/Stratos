@@ -10,7 +10,7 @@ from cura.Scene.CuraSceneNode import CuraSceneNode
 from cura.Scene.DuplicatedNode import DuplicatedNode
 from cura.Settings.ExtruderManager import ExtruderManager
 from cura.Arranging.ShapeArray import ShapeArray
-
+from UM.Scene.Selection import Selection
 
 class PrintModeManager:
 
@@ -20,14 +20,12 @@ class PrintModeManager:
             raise ValueError("Duplicate singleton creation")
 
         PrintModeManager._instance = self
-
         self._duplicated_nodes = []
         self._scene = Application.getInstance().getController().getScene()
         application = cura.CuraApplication.CuraApplication.getInstance()
         self._global_stack = application.getGlobalContainerStack()
         # current_definition_id = self._global_stack.definition.getId()
         extruder_stack = application.getMachineManager().activeStack
-        print(extruder_stack)
         # extruder_stack.material.getMetaDataEntry("base_file")
         # old_material_id = extruder_stack[0].material.getMetaDataEntry("base_file")
         old_material_id = "BCN3D_Filaments_TOUGH-PLA_Black_bcn3dd25_e3D_-_0.4mm_-_Brass"
@@ -39,12 +37,11 @@ class PrintModeManager:
         self._global_stack = None
         Application.getInstance().globalContainerStackChanged.connect(self._onGlobalStackChanged)
         self._onGlobalStackChanged()
-
+        #
         self.printModeChanged.connect(self._onPrintModeChanged)
         self._onPrintModeChanged()
 
     def addDuplicatedNode(self, node):
-        print("addDuplicatedNode")
         if node not in self._duplicated_nodes:
             self._duplicated_nodes.append(node)
         for child in node.getChildren():
@@ -118,7 +115,8 @@ class PrintModeManager:
             # self._restoreSettingsValue()
             print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
             if print_mode != "singleT0" or "dual" or "singleT1":
-                nodes = self._scene.getRoot().getChildren()
+                # nodes = self._scene.getRoot().getChildren()
+                nodes = Selection.getAllSelectedObjects()
                 max_offset = 0
                 machine_head_with_fans_polygon = self._global_stack.getProperty("machine_head_with_fans_polygon", "value")
                 machine_head_size = abs(machine_head_with_fans_polygon[0][0] - machine_head_with_fans_polygon[2][0])
@@ -137,7 +135,7 @@ class PrintModeManager:
                     margin += machine_head_size/2
                 sliceable_nodes = []
                 for node in nodes:
-                    # self._setActiveExtruder(node)
+                    self._setActiveExtruder(node)
                     if (node.callDecoration("isSliceable") or node.callDecoration("isGroup") ) and not isinstance(node, DuplicatedNode):
                         sliceable_nodes.append(node)
                         offset_shape_arr, hull_shape_arr = ShapeArray.fromNode(node, 4)
@@ -148,6 +146,7 @@ class PrintModeManager:
                     position = node.getPosition()
                     offset = position.x - max_offset
                     node.setPosition(Vector(offset, position.y, position.z))
+                    self.renderDuplicatedNodes()
 
                 if self._old_material == "":
                     self._old_material = ExtruderManager.getInstance().getExtruderStack(1).material
@@ -160,7 +159,7 @@ class PrintModeManager:
             else:
                 self.removeDuplicatedNodes()
                 if self._old_material != "":
-                    ExtruderManager.getInstance().getExtruderStack(1).setMaterial(self._old_material)
+                    # ExtruderManager.getInstance().getExtruderStack(1).setMaterial(self._old_material)
                     self._old_material = ""
                     # Preferences.getInstance().setValue("cura/old_material", "")
 
@@ -173,11 +172,11 @@ class PrintModeManager:
                 elif container.getMetaDataEntry("type") == "variant":
                     ExtruderManager.getInstance().getExtruderStack(1).setVariant(container)
 
-    # def _setActiveExtruder(self, node):
-    #     if type(node) == CuraSceneNode:
-    #         node.callDecoration("setActiveExtruder", ExtruderManager.getInstance().getExtruderStack(0).getId())
-    #         for child in node.getChildren():
-    #             self._setActiveExtruder(child)
+    def _setActiveExtruder(self, node):
+        if type(node) == CuraSceneNode:
+            node.callDecoration("setActiveExtruder", ExtruderManager.getInstance().getExtruderStack(0).getId())
+            for child in node.getChildren():
+                self._setActiveExtruder(child)
 
     # def _restoreSettingsValue(self):
     #     for definition in self._global_stack.definition.findDefinitions(reset_on_print_mode_change = True):

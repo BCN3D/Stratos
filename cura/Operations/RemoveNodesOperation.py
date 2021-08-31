@@ -23,7 +23,7 @@ class RemoveNodesOperation(Operation):
     def undo(self):
         self._node_dup.node.setParent(self._parent)
         print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
-        if print_mode == "regular":
+        if print_mode == "dual" or "singleT0" or "singleT1":
             self._node_dup.setParent(None)
         else:
             self._node_dup.setParent(self._parent)

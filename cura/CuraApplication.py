@@ -116,6 +116,10 @@ from . import PlatformPhysics
 from . import PrintJobPreviewImageProvider
 from .AutoSave import AutoSave
 from .SingleInstance import SingleInstance
+from cura.Scene.DuplicatedNode import DuplicatedNode
+from . import PrintModeManager
+from cura.Operations.AddNodesOperation import AddNodesOperation
+
 if TYPE_CHECKING:
     from UM.Settings.EmptyInstanceContainer import EmptyInstanceContainer
 
@@ -821,6 +825,8 @@ class CuraApplication(QtApplication):
         self._add_printer_pages_model_without_cancel.initialize(cancellable = False)
         self._whats_new_pages_model.initialize()
 
+        self._print_mode_manager = PrintModeManager.PrintModeManager().getInstance()
+
         # Detect in which mode to run and execute that mode
         if self._is_headless:
             self.runWithoutGUI()
@@ -1518,6 +1524,24 @@ class CuraApplication(QtApplication):
         else:
             offset = Vector(0, 0, 0)
 
+        print_mode_enabled = self.getGlobalContainerStack().getProperty("print_mode", "enabled")
+        if print_mode_enabled:
+            print_mode = self.getGlobalContainerStack().getProperty("print_mode", "value")
+            if print_mode != "singleT0" or "singleT1" or "dual":
+                duplicated_group_node = DuplicatedNode(group_node, self.getController().getScene().getRoot())
+            else:
+                duplicated_group_node = DuplicatedNode(group_node)
+
+        op = GroupedOperation()
+        for node in Selection.getAllSelectedObjects():
+            if print_mode_enabled:
+                node_dup = self._print_mode_manager.getDuplicatedNode(node)
+                op.addOperation(SetParentOperation(node_dup, duplicated_group_node))
+
+            op.addOperation(SetParentOperation(node, group_node))
+
+        op.push()
+
         # Move each node to the same position.
         for mesh, node in zip(meshes, group_node.getChildren()):
             node.setTransformation(Matrix())
@@ -1609,6 +1633,26 @@ class CuraApplication(QtApplication):
             Selection.remove(node)
         Selection.add(group_node)
 
+        print_mode_enabled = self.getGlobalContainerStack().getProperty("print_mode", "enabled")
+        if print_mode_enabled:
+            print_mode = self.getGlobalContainerStack().getProperty("print_mode", "value")
+            if print_mode != "singleT0" or "singleT1" or "dual":
+                duplicated_group_node = DuplicatedNode(group_node, self.getController().getScene().getRoot())
+            else:
+                duplicated_group_node = DuplicatedNode(group_node)
+
+        op = GroupedOperation()
+        for node in Selection.getAllSelectedObjects():
+            if print_mode_enabled:
+                node_dup = self._print_mode_manager.getDuplicatedNode(node)
+                op.addOperation(SetParentOperation(node_dup, duplicated_group_node))
+
+            op.addOperation(SetParentOperation(node, group_node))
+
+        op.push()
+
+
+
     @pyqtSlot()
     def ungroupSelected(self) -> None:
         selected_objects = Selection.getAllSelectedObjects().copy()
@@ -1628,6 +1672,15 @@ class CuraApplication(QtApplication):
 
                     # Add all individual nodes to the selection
                     Selection.add(child)
+
+                print_mode_enabled = self.getGlobalContainerStack().getProperty("print_mode", "enabled")
+                if print_mode_enabled:
+                    duplicated_group_node = self._print_mode_manager.getDuplicatedNode(node)
+                    duplicated_group_parent = duplicated_group_node.getParent()
+                    duplicated_children = duplicated_group_node.getChildren().copy()
+                    for child in duplicated_children:
+                        op.addOperation(SetParentOperation(child, duplicated_group_parent))
+
 
                 op.push()
                 # Note: The group removes itself from the scene once all its children have left it,
@@ -1890,10 +1943,20 @@ class CuraApplication(QtApplication):
                 build_plate_decorator = BuildPlateDecorator(target_build_plate)
                 node.addDecorator(build_plate_decorator)
             build_plate_decorator.setBuildPlateNumber(target_build_plate)
+            #
+            # operation = AddSceneNodeOperation(node, scene.getRoot())
+            # operation.push()
+            #
 
-            operation = AddSceneNodeOperation(node, scene.getRoot())
-            operation.push()
+            # scene.sceneChanged.emit(node)
 
+            print_mode_enabled = self.getGlobalContainerStack().getProperty("print_mode", "enabled")
+            if print_mode_enabled:
+                node_dup = DuplicatedNode(node)
+                op = AddNodesOperation(node_dup, scene.getRoot())
+            else:
+                op = AddSceneNodeOperation(node, scene.getRoot())
+            op.push()
             node.callDecoration("setActiveExtruder", default_extruder_id)
             scene.sceneChanged.emit(node)
 

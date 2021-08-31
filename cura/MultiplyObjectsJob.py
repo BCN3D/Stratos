@@ -7,10 +7,14 @@ from typing import List
 from UM.Application import Application
 from UM.Job import Job
 from UM.Message import Message
+from UM.Operations.GroupedOperation import GroupedOperation
 from UM.Scene.Iterator.DepthFirstIterator import DepthFirstIterator
 from UM.Scene.SceneNode import SceneNode
 from UM.i18n import i18nCatalog
 from cura.Arranging.Nest2DArrange import arrange
+from cura.Scene.DuplicatedNode import DuplicatedNode
+from cura.Operations.AddNodesOperation import AddNodesOperation
+from UM.Operations.AddSceneNodeOperation import AddSceneNodeOperation
 
 i18n_catalog = i18nCatalog("cura")
 
@@ -67,6 +71,16 @@ class MultiplyObjectsJob(Job):
 
         found_solution_for_all = True
         if nodes:
+            op = GroupedOperation()
+            for new_node in nodes:
+                print_mode_enabled = Application.getInstance().getGlobalContainerStack().getProperty("print_mode",
+                                                                                                     "enabled")
+                if print_mode_enabled:
+                    node_dup = DuplicatedNode(new_node)
+                    op.addOperation(AddNodesOperation(node_dup, current_node.getParent()))
+                else:
+                    op.addOperation(AddSceneNodeOperation(new_node, current_node.getParent()))
+            op.push()
             found_solution_for_all = arrange(nodes, Application.getInstance().getBuildVolume(), fixed_nodes,
                                              factor = 10000, add_new_nodes_in_scene = True)
         status_message.hide()

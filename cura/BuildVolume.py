@@ -30,6 +30,7 @@ from cura.Settings.GlobalStack import GlobalStack
 from cura.Scene.CuraSceneNode import CuraSceneNode
 from cura.Settings.ExtruderManager import ExtruderManager
 
+from cura.PrintModeManager import PrintModeManager
 from PyQt5.QtCore import QTimer
 
 
@@ -296,6 +297,12 @@ class BuildVolume(SceneNode):
                     continue
 
                 node.setOutsideBuildArea(False)
+
+        print_mode = self._global_container_stack.getProperty("print_mode", "value")
+        if print_mode != "singleT0" or "singleT1" or "dual":
+            duplicated_nodes = PrintModeManager.getInstance().getDuplicatedNodes()
+            for node_dup in duplicated_nodes:
+                node_dup._outside_buildarea = node_dup.node._outside_buildarea
 
         # Group nodes should override the _outside_buildarea property of their children.
         for group_node in group_nodes:
