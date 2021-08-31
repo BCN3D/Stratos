@@ -254,9 +254,10 @@ class SceneNodeExtruder(TrackedProperty):
     def changed(self):
         active_extruder_index, specific_indices = self.value()
 
-        for key, value in self._specific_extruders.items():
-            if not key in specific_indices or value != specific_indices[key]:
-                return True
+        if specific_indices is not None:
+            for key, value in self._specific_extruders.items():
+                if not key in specific_indices or value != specific_indices[key]:
+                    return True
 
         return active_extruder_index != self._active_extruder_index
 
@@ -420,7 +421,7 @@ class Scene(TrackedProperty):
             if n in nodes:
                 continue
 
-            parent = self._parents[n] if self._parents[n] else self._root
+            parent = self._parents.get(n, self._root)
 
             if not scene.findObject(id(parent)):
                 self._root.addChild(parent)
@@ -434,7 +435,7 @@ class Scene(TrackedProperty):
             if n in self._nodes:
                 continue
 
-            parent = self._parents[n] if self._parents[n] else self._root
+            parent = self._parents.get(n, self._root)
             parent.removeChild(n)
 
     def changed(self):

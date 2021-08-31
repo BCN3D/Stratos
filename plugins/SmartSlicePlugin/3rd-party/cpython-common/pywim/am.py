@@ -2,6 +2,8 @@ import copy
 import math
 import enum
 
+from typing import List
+
 from . import WimObject, WimList, WimException
 
 class InfillType(enum.Enum):
@@ -11,6 +13,7 @@ class InfillType(enum.Enum):
     triangles = 2
     cubic = 3
     trihexagon = 4
+    lines = 5
 
 class Infill(WimObject):
     def __init__(self):
@@ -76,6 +79,13 @@ class Config(WimObject):
     def default_overlap(layer_height):
         return layer_height * (1.0 - math.pi / 4.0)
 
+    @staticmethod
+    def _format_cura_list(value: str) -> List[float]:
+        raw_angles = [a.strip() for a in value.strip('[]').split(',')]
+        raw_angles = filter(lambda x: x != '', raw_angles)
+        angles = [float(a) for a in raw_angles]
+        return angles
+
     def from_cura_setting(self, name, value, set_auxiliary=True):
 
         if name == 'infill_pattern':
@@ -89,10 +99,13 @@ class Config(WimObject):
             # infill pattern and we could be in the middle of processing multiple cura
             # settings and the infill pattern could be "on deck" to be changed
         elif name == 'infill_angles':
-            angles = value.strip('[]').split(',')
+            angles = self._format_cura_list(value)
+            if not angles:
+                self.infill.orientation = 45.0
+                return
             if len(angles) > 1:
                 raise WimException('Multiple infill angles are not supported: {}'.format(value))
-            self.infill.orientation = float(angles[0])
+            self.infill.orientation = angles[0]
         elif name == 'wall_line_count':
             self.walls = int(float(value))
         elif name == 'bottom_layers':
@@ -100,7 +113,11 @@ class Config(WimObject):
         elif name == 'top_layers':
             self.top_layers = int(float(value))
         elif name == 'skin_angles':
-            self.skin_orientations = [int(float(a)) for a in value.strip('[]').split(',')]
+            angles = self._format_cura_list(value)
+            if not angles:
+                self.skin_orientations = [45, 135]
+                return
+            self.skin_orientations = [int(a) for a in angles]
         elif set_auxiliary:
             self.auxiliary[name] = str(value)
 

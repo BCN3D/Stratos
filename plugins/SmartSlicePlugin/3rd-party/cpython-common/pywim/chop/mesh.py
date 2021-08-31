@@ -46,10 +46,10 @@ class Mesh(WimObject, threemf.mesh.Mesh):
 
         # Check for cura meta data
         for md in obj.metadata:
-            if not md.name.startswith('cura:'):
-                continue
-
-            name = md.name[5:]
+            if md.name.startswith('cura:'):
+                name = md.name[5:]
+            else:
+                name = md.name
 
             if name == 'infill_mesh':
                 if md.value.lower() == 'true':
@@ -89,7 +89,7 @@ class Mesh(WimObject, threemf.mesh.Mesh):
                 threemf.mesh.Triangle(t[0], t[1], t[2])
             )
 
-        m.transform = np.array(d['transform']).reshape(4, 4)
+        m.transform = np.array(d['transform'], dtype=float).reshape(4, 4)
 
         m.materials = MaterialNames.from_dict(d.get('materials', {}))
         m.type = MeshType[d.get('type', MeshType.normal.name)]

@@ -69,6 +69,8 @@ class Infill(UnitCell):
             return InfillTriangle(config.infill.density, config.layer_width)
         elif config.infill.pattern == am.InfillType.cubic:
             return InfillCubic(config.infill.density, config.layer_width, config.layer_height)
+        elif config.infill.pattern == am.InfillType.lines:
+            return InfillLines(config.infill.density, config.layer_width, config.layer_height)
 
         raise Exception('Unrecognized infill unit cell name: {}'.format(config.infill.pattern))
 
@@ -85,6 +87,11 @@ class InfillTriangle(Infill):
 class InfillCubic(Infill):
     def __init__(self, volume_fraction, layer_width, layer_height):
         super().__init__('infill_cubic', volume_fraction, layer_width, layer_height)
+        self.mesh_seed = 0.25
+
+class InfillLines(Infill):
+    def __init__(self, volume_fraction, layer_width, layer_height):
+        super().__init__('infill_lines', volume_fraction, layer_width, layer_height)
         self.mesh_seed = 0.25
 
 class JobMaterial(WimObject):

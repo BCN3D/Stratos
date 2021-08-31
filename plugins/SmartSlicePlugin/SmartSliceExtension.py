@@ -19,7 +19,8 @@ from UM.Message import Message
 
 from cura.CuraApplication import CuraApplication
 
-from .SmartSliceAuth import AuthConfiguration, IdentityProvider
+from .SmartSliceMetadata import PluginMetaData
+from .SmartSliceAuth import AuthConfiguration
 from .SmartSliceCloudConnector import SmartSliceCloudConnector
 from .SmartSliceCloudProxy import SmartSliceCloudProxy
 from .SmartSliceCloudStatus import SmartSliceCloudStatus
@@ -39,7 +40,7 @@ class SmartSliceExtension(Extension):
 
         self.metadata = PluginMetaData()
         self.preferences = Preferences()
-        self.url_handler = URLHandler()
+        self.url_handler = URLHandler(parent=None, metadata=self.metadata)
 
         # Proxy to the UI, and the cloud connector for the cloud
         self.proxy = SmartSliceCloudProxy(self.metadata, self.preferences)
@@ -136,7 +137,7 @@ class SmartSliceExtension(Extension):
         return mainApp.createQmlComponent(os.path.join(directory, dialog_qml), vars)
 
     def _aboutText(self):
-        about = "SmartSlice for Cura\n"
+        about = "SmartSlice for {}\n".format(self.metadata.client_name.capitalize())
         about += "Version: {}".format(self.metadata.version)
         return about
 
@@ -329,51 +330,3 @@ class SmartSliceExtension(Extension):
                 self._storage.getPluginMetadata(self.metadata.id).clear()
                 self.cloud.propertyHandler.resetProperties()
                 self.cloud.status = SmartSliceCloudStatus.Errors
-
-class PluginMetaData:
-    def __init__(self) -> None:
-        self.name = "SmartSlice Plugin"
-        self.id = "SmartSlicePlugin"
-        self.version = "N/A"
-        self.url = "https://api.smartslice.xyz"
-        self.account = "https://account.tetonsim.com"
-        self.cluster = None
-        self.auth_config = AuthConfiguration()
-
-        pluginMetaData = PluginMetaData.getMetadata()
-
-        if pluginMetaData:
-            self.name = pluginMetaData.get("name", self.name)
-            self.id = pluginMetaData.get("id", self.id)
-            self.version = pluginMetaData.get("version", self.version)
-            self.account = pluginMetaData.get("smartSliceAccount", self.account)
-
-            apiInfo = pluginMetaData.get("smartSliceApi", None)
-
-            if apiInfo:
-                self.url = apiInfo.get("url", self.url)
-                self.cluster = apiInfo.get("cluster", self.cluster)
-
-            auth = pluginMetaData.get('smartSliceAuth')
-
-            if auth:
-                basic_auth = auth.get('basicAuth', False)
-                client_id = auth.get('clientId', 'smartslice-cura')
-                redirect_ports = auth.get('redirectPorts')
-                oauth_basic = auth.get('oauthBasic', True)
-                oauth_providers = auth.get('oauthProviders', [])
-
-                self.auth_config = AuthConfiguration(
-                    basic_auth, client_id, redirect_ports, oauth_basic, oauth_providers
-                )
-
-    @staticmethod
-    def getMetadata() -> Dict[str, str]:
-        try:
-            plugin_json_path = os.path.dirname(os.path.abspath(__file__))
-            plugin_json_path = os.path.join(plugin_json_path, "plugin.json")
-            with open(plugin_json_path, "r") as f:
-                plugin_info = json.load(f)
-            return plugin_info
-        except:
-            return None

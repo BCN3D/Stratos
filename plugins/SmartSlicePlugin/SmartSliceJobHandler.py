@@ -5,7 +5,7 @@ import json
 import zipfile
 import re
 from string import Formatter
-from typing import Dict, Tuple, Optional
+from typing import Dict, List, Tuple, Optional
 
 import pywim
 import threemf
@@ -23,6 +23,7 @@ from UM.Signal import Signal
 
 from cura.Settings.ExtruderManager import ExtruderManager
 from cura.CuraApplication import CuraApplication
+from cura.Scene.CuraSceneNode import CuraSceneNode
 
 from .requirements_tool.SmartSliceRequirements import SmartSliceRequirements
 from .select_tool.SmartSliceSelectTool import SmartSliceSelectTool
@@ -44,6 +45,8 @@ i18n_catalog = i18nCatalog("smartslice")
     from the Cura meshes, slice settings, and requirements / use cases.
 
 """
+
+BuiltConfigs = Tuple[List[pywim.chop.mesh.Mesh], List[pywim.chop.machine.Extruder], pywim.am.Config]
 
 class SmartSliceJobHandler:
 
@@ -76,45 +79,70 @@ class SmartSliceJobHandler:
 
     # Builds and checks a SmartSlice job for errors based on current setup defined by the property handler
     # Will return the job, and a dictionary of error keys and associated error resolutions
-    def checkJob(self, writing_workspace=False, machine_name="printer", show_material_warnings=False) -> Tuple[pywim.smartslice.job.Job, Dict[str, str]]:
+    def checkJob(self, writing_workspace: bool=False, machine_name: str="printer", show_material_warnings: bool=False) -> Tuple[pywim.smartslice.job.Job, Dict[str, str]]:
+        printable_nodes = getPrintableNodes()
 
-        if len(getPrintableNodes()) == 0:
+        if len(printable_nodes) == 0:
             return None, {}
 
-        # Create a new instance of errors. We will use this to replace the old errors and
-        # emit a signal to replace them
-        errors = []
+        job = pywim.smartslice.job.Job()
+        cura_errors = []
+        app = CuraApplication.getInstance()
 
-        if len(getPrintableNodes()) != 1:
-            errors.append(pywim.smartslice.val.InvalidSetup(
+        active_machine = app.getMachineManager().activeMachine
+        if active_machine is None:
+            return job, {"No active printer", "Please select a printer"}
+
+        if len(printable_nodes) != 1:
+            cura_errors.append(pywim.smartslice.val.InvalidSetup(
                 "Invalid number of printable models on the build tray",
                 "Only 1 printable model is currently supported"
             ))
 
-        # We build a new job from scratch evertime - it's easier than trying to manage a whole bunch of changes
-        job = pywim.smartslice.job.Job()
+        normal_node = printable_nodes[0]
+        all_nodes = [normal_node] + getModifierMeshes()
 
-        app = CuraApplication.getInstance()
+        extruder_errors = self._validateExtruders(all_nodes, app, show_material_warnings)
 
-        active_machine = app.getMachineManager().activeMachine
+        material, material_errors = self._validateMaterial(normal_node, show_material_warnings)
+        if material:
+            job.bulk.add(material)
 
-        if active_machine is None:
-            return job, { "No active printer", "Please select a printer" }
+        all_meshes, extruders, global_print_config = self._buildConfigs(all_nodes, app)
 
-        # Normal mesh
-        normal_mesh = getPrintableNodes()[0]
+        self._setConfigs(all_meshes, global_print_config)
 
-        # Get all nodes to cycle through
-        nodes = [normal_mesh] + getModifierMeshes()
+        for mesh in all_meshes:
+            job.chop.meshes.add(mesh)
 
-        # Extruder Manager
-        extruderManager = app.getExtruderManager()
-        emActive = extruderManager._active_extruder_index
+        # Use Cases
+        smart_slice_scene_node = findChildSceneNode(normal_node, Root)
+        if smart_slice_scene_node:
+            job.chop.steps = smart_slice_scene_node.createSteps(transform_bcs=not writing_workspace)
 
-        # Extruder config
-        machine_extruder = [getNodeActiveExtruder(normal_mesh)]
-        extruders = [self._setExtruder(extruder_stack) for extruder_stack in machine_extruder]
+        # Requirements
+        req_tool = SmartSliceRequirements.getInstance()
+        job.optimization.min_safety_factor = req_tool.targetSafetyFactor
+        job.optimization.max_displacement = req_tool.maxDisplacement
 
+        # Slicer setup
+        printer = pywim.chop.machine.Printer(name=machine_name, extruders=extruders)
+        job.chop.slicer = pywim.chop.slicer.CuraEngine(config=global_print_config, printer=printer)
+
+        # Check the job and add the errors
+        pywim_errors = job.validate()
+        all_errors = (*cura_errors, *pywim_errors, *extruder_errors, *material_errors)
+
+        error_dict = {}
+        for error in all_errors:
+            error_dict[error.error()] = error.resolution()
+
+        return job, error_dict
+
+    def _buildConfigs(self, all_nodes: List[CuraSceneNode], app: CuraApplication) -> BuiltConfigs:
+        """
+        Build up global print config, extruder configs, and mesh configs.
+        """
         # Global print config -- assuming only 1 extruder is active for ALL meshes right now
         global_print_config = pywim.am.Config()
         global_print_config.layer_height = self._propertyHandler.getGlobalProperty("layer_height")
@@ -126,17 +154,13 @@ class SmartSliceJobHandler:
 
         global_print_config.auxiliary = self._getAuxDict(app.getGlobalContainerStack())
 
-        # Cycle through all of the meshes and check extruder
-        for node in nodes:
-            active_extruder = getNodeActiveExtruder(node)
+        # Extruder print config(s)
+        machine_extruder = [getNodeActiveExtruder(all_nodes[0])]
+        extruders = [self._setExtruder(extruder_stack) for extruder_stack in machine_extruder]
 
-            extruder_stack = node.callDecoration("getStack")
-            global_stack = app.getGlobalContainerStack()
-
-            # Sometimes the machine and extruder get set to None
-            if not active_extruder:
-                continue
-
+        # Mesh print config(s)
+        all_meshes = []
+        for node in all_nodes:
             # Build the data for SmartSlice error checking
             if node.callDecoration("isCuttingMesh"):
                 mesh = pywim.chop.mesh.Mesh(node.getName(), pywim.chop.mesh.MeshType.cutting)
@@ -145,68 +169,81 @@ class SmartSliceJobHandler:
             else:
                 mesh = pywim.chop.mesh.Mesh(node.getName(), pywim.chop.mesh.MeshType.normal)
 
+            extruder_stack = node.callDecoration("getStack")
             mesh.print_config.auxiliary = self._getAuxDict(extruder_stack)
-            job.chop.meshes.add(mesh)
 
-            # > https://github.com/Ultimaker/CuraEngine/blob/master/src/FffGcodeWriter.cpp#L402
-            # > https://github.com/Ultimaker/CuraEngine/blob/master/src/FffGcodeWriter.cpp#L366
+            all_meshes.append(mesh)
 
-            if mesh.type is pywim.chop.mesh.MeshType.normal:
-                print_config = global_print_config
+        return all_meshes, extruders, global_print_config
 
+    # > https://github.com/Ultimaker/CuraEngine/blob/master/src/FffGcodeWriter.cpp#L402
+    # > https://github.com/Ultimaker/CuraEngine/blob/master/src/FffGcodeWriter.cpp#L366
+    def _setConfigs(self, meshes: List[pywim.chop.mesh.Mesh], global_print_config: pywim.am.Config):
+        """
+        Set config attributes. The Job validation will handle the errors.
+        """
+        all_configs = [global_print_config] + [mesh.print_config for mesh in meshes]
+
+        for i, print_config in enumerate(all_configs):
+
+            if i == 0:
                 skin_angles = self._propertyHandler.getExtruderProperty("skin_angles")
                 infill_angles = self._propertyHandler.getExtruderProperty("infill_angles")
                 infill_pattern = self._propertyHandler.getExtruderProperty("infill_pattern")
-            else:
-                print_config = mesh.print_config
 
+            else:
                 skin_angles = print_config.auxiliary.get("skin_angles")
                 infill_angles = print_config.auxiliary.get("infill_angles")
                 infill_pattern = print_config.auxiliary.get("infill_pattern")
 
             # Skin angles
             parsed_skin_angles = []
-
-            if isinstance(skin_angles, str):
-                parsed_skin_angles = SettingFunction(skin_angles)(self._propertyHandler)
-
+            parsed_skin_angles = SettingFunction(skin_angles)(self._propertyHandler)
             if isinstance(parsed_skin_angles, list):
-                if not parsed_skin_angles:
-                    print_config.skin_orientations.extend((45, 135))
-                else:
-                    print_config.skin_orientations.extend(tuple(parsed_skin_angles))
+                if len(parsed_skin_angles) == 0:
+                    parsed_skin_angles = [45, 135]
 
-            else:
-                errors.append(pywim.smartslice.val.InvalidSetup(
-                    "Invalid <i>Top/Bottom Line Directions</i> for mesh <i>{}</i>: {}".format(mesh.name, skin_angles),
-                    "Enter a valid list of angles (e.g. [45, 135])"
-                ))
+                print_config.skin_orientations.extend(parsed_skin_angles)
 
             # Infill angles
             parsed_infill_angles = []
-
-            if isinstance(infill_angles, str):
-                parsed_infill_angles = SettingFunction(infill_angles)(self._propertyHandler)
-
+            parsed_infill_angles = SettingFunction(infill_angles)(self._propertyHandler)
             if isinstance(parsed_infill_angles, list):
-                if not parsed_infill_angles:
-                    print_config.infill.orientation = self.INFILL_DIRECTION
-                else:
+                if len(parsed_infill_angles) == 0:
+                    parsed_infill_angles = [self.INFILL_DIRECTION]
+                elif len(parsed_infill_angles) >= 1:
                     Logger.log("d", "Setting Infill angles: {}".format(parsed_infill_angles[0]))
                     Logger.log("w", "Ignoring the angles: {}".format(parsed_infill_angles[1:]))
-                    print_config.infill.orientation = parsed_infill_angles[0]
 
-            else:
-                errors.append(pywim.smartslice.val.InvalidSetup(
-                    "Invalid <i>Infill Line Directions</i> for mesh <i>{}</i>: {}".format(mesh.name, infill_angles),
-                    "Enter a valid list of an angle (e.g. [45])"
-                ))
+                print_config.infill.orientation = parsed_infill_angles[0]
 
             # Infill pattern
             if infill_pattern in self.INFILL_CURA_SMARTSLICE.keys():
                 print_config.infill.pattern = self.INFILL_CURA_SMARTSLICE[infill_pattern]
-            else:
-                print_config.infill.pattern = infill_pattern # The job validation will handle the error
+            elif i != 0:
+                print_config.infill.pattern = infill_pattern
+
+    def _validateExtruders(
+        self,
+        all_nodes: List[CuraSceneNode],
+        app: CuraApplication,
+        show_material_warnings: bool
+    ) -> List[pywim.smartslice.val.InvalidSetup]:
+        """
+        Validate extruders
+        """
+        errors = []
+
+        # Extruder Manager
+        extruderManager = app.getExtruderManager()
+        emActive = extruderManager._active_extruder_index
+
+        for node in all_nodes:
+            active_extruder = getNodeActiveExtruder(node)
+
+            # Sometimes the machine and extruder get set to None
+            if not active_extruder:
+                continue
 
             show_extruder_warnings = True
 
@@ -232,6 +269,8 @@ class SmartSliceJobHandler:
                 ))
 
             # Check the global stack for adhesion settings
+            global_stack = app.getGlobalContainerStack()
+
             if global_stack.getProperty(GlobalProperty.ADHESION_ENABLED, "value") != "none":
                 adhesion_extruder_check = all(map(lambda k : (int(active_extruder.getProperty(k, "value")) <= 0), GlobalProperty.ADHESION_EXTRUDER_KEYS))
                 if not ( int(active_extruder.getMetaDataEntry("position")) == 0 and int(emActive) == 0 and adhesion_extruder_check ) and show_extruder_warnings:
@@ -240,8 +279,19 @@ class SmartSliceJobHandler:
                         "Change active adhesion extruders to Extruder 1"
                     ))
 
-        # Check the material
-        machine_extruder = getNodeActiveExtruder(normal_mesh)
+        return errors
+
+    def _validateMaterial(
+        self,
+        normal_node: CuraSceneNode,
+        show_material_warnings: bool
+    ) -> Tuple[Optional[pywim.fea.model.Material], List[pywim.smartslice.val.InvalidSetup]]:
+        """
+        Validate the material is supported by SmartSlice
+        """
+        errors = []
+
+        machine_extruder = getNodeActiveExtruder(normal_node)
 
         if machine_extruder:
             guid = machine_extruder.material.getMetaData().get("GUID", "")
@@ -263,34 +313,12 @@ class SmartSliceJobHandler:
                 elif tested:
                     self._material_warning.hide()
 
-                job.bulk.add(
-                    pywim.fea.model.Material.from_dict(material)
-                )
+                return pywim.fea.model.Material.from_dict(material), errors
 
-        # Use Cases
-        smart_sliceScene_node = findChildSceneNode(getPrintableNodes()[0], Root)
-        if smart_sliceScene_node:
-            job.chop.steps = smart_sliceScene_node.createSteps(transform_bcs=not writing_workspace)
-
-        # Requirements
-        req_tool = SmartSliceRequirements.getInstance()
-        job.optimization.min_safety_factor = req_tool.targetSafetyFactor
-        job.optimization.max_displacement = req_tool.maxDisplacement
-
-        printer = pywim.chop.machine.Printer(name=machine_name, extruders=extruders)
-        job.chop.slicer = pywim.chop.slicer.CuraEngine(config=global_print_config, printer=printer)
-
-        # Check the job and add the errors
-        errors = errors + job.validate()
-
-        error_dict = {}
-        for err in errors:
-            error_dict[err.error()] = err.resolution()
-
-        return job, error_dict
+        return None, errors
 
     # Builds a complete SmartSlice job to be written to a 3MF
-    def buildJobFor3mf(self, writing_workspace=False, machine_name="printer") -> pywim.smartslice.job.Job:
+    def buildJobFor3mf(self, writing_workspace: bool=False, machine_name: str="printer") -> pywim.smartslice.job.Job:
 
         job, errors = self.checkJob(writing_workspace, machine_name)
 
@@ -468,12 +496,15 @@ class SmartSliceJobHandler:
     def _modifyInfillAnglesInSettingDict(self, settings):
         for key, value in settings.items():
             if key == "infill_angles":
+                parsed_infill_angles = []
                 if isinstance(value, str):
-                    value = SettingFunction(value)(self._propertyHandler)
-                if len(value) == 0:
-                    settings[key] = [self.INFILL_DIRECTION]
-                else:
-                    settings[key] = [value[0]]
+                    parsed_infill_angles = SettingFunction(value)(self._propertyHandler)
+
+                if isinstance(parsed_infill_angles, list):
+                    if len(parsed_infill_angles) == 0:
+                        settings[key] = [self.INFILL_DIRECTION]
+                    else:
+                        settings[key] = [parsed_infill_angles[0]]
 
         return settings
 

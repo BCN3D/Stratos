@@ -412,12 +412,12 @@ def from_fea(mesh : pywim.fea.model.Mesh, inc : pywim.fea.result.Increment, outp
 
     if 'node' in outputs:
         for res in inc.node_results:
-            print('\tTranslating {} Node Result'.format(res.name))
+            print('\t\tTranslating {} Node Result'.format(res.name))
             add_node_results(res)
 
     if 'element' in outputs:
         for res in inc.element_results:
-            print('\tTranslating {} Element Result'.format(res.name))
+            print('\t\tTranslating {} Element Result'.format(res.name))
             add_elem_results(res)
 
     '''
@@ -440,7 +440,7 @@ def from_fea(mesh : pywim.fea.model.Mesh, inc : pywim.fea.result.Increment, outp
                 print('\tRegion filter on {} gauss point result not supported, skipping this result'.format(res.name))
                 continue
 
-            print('\tTranslating {} Region Result By Element'.format(res.name))
+            print('\t\tTranslating {} Region Result By Element'.format(res.name))
             add_region_results_by_element(reg_result)
 
     if 'gauss_point' in outputs:
@@ -449,7 +449,7 @@ def from_fea(mesh : pywim.fea.model.Mesh, inc : pywim.fea.result.Increment, outp
             if res.name == 'material_type':
                 continue
 
-            print('\tTranslating {} Gauss Point Result'.format(res.name))
+            print('\t\tTranslating {} Gauss Point Result'.format(res.name))
             add_gp_results(res)
 
     return grid
@@ -468,14 +468,30 @@ def wim_result_to_vtu(db, mesh, dbname, outputs=None):
         outputs = ['node', 'element'] # Default to node and element results
 
     for step in db.steps:
-        print(step.name)
+        print('Step name: {}'.format(step.name))
 
         gridw = vtk.vtkXMLUnstructuredGridWriter()
 
         gridw.SetFileName('{}-{}.vtu'.format(dbname, step.name))
 
-        inc = step.increments[-1]
-        grid = from_fea(mesh=mesh, inc=inc, outputs=outputs)
+        gridw.SetNumberOfTimeSteps(len(step.increments))
 
-        gridw.SetInputData(grid)
-        gridw.Write()
+        print('Number of increments in {}: {}'.format(step.name, len(step.increments)))
+
+        master_grid = vtk.vtkUnstructuredGrid()
+        gridw.SetInputData(master_grid)
+
+        gridw.Start()
+
+        for count, inc in enumerate(step.increments):
+            print('\tIncrement: {}, Analysis time: {}'.format(count, inc.time))
+
+            grid = from_fea(mesh=mesh, inc=inc, outputs=outputs)
+
+            gridw.SetInputData(grid)
+            gridw.WriteNextTime(inc.time)
+
+            print('\n')
+
+        gridw.Stop()
+

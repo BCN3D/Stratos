@@ -201,13 +201,6 @@ def register(app):
         "AuthConfiguration"
     )
 
-    #qmlRegisterType(
-    #    OAuthState,
-    #    "SmartSlice",
-    #    1, 0,
-    #    "OAuthState"
-    #)
-
     qmlRegisterType(
         QUrl.fromLocalFile(os.path.join(directory, "stage", "ui", "SmartSliceWelcome.qml")),
         "SmartSlice",

@@ -461,6 +461,7 @@ class OAuth2Handler:
         UrlOpenFail = 1
         CodeInputRequired = 2
         Listening = 3
+        PageNotOpened = 4
 
     def __init__(self,
         client: Client,
@@ -521,7 +522,7 @@ class OAuth2Handler:
 
         return code, challenge.decode().strip('=')
 
-    def start(self, show_registration: bool = False, provider: Optional[str] = None) -> Tuple[State, Optional[str]]:
+    def start(self, register: bool = False, provider: Optional[str] = None, open_page: bool = True) -> Tuple[State, Optional[str]]:
         # Attempt to open a local http server to listen for the callback
         listening = False
 
@@ -538,7 +539,11 @@ class OAuth2Handler:
         if listening:
             success_state = OAuth2Handler.State.Listening
         else:
-            success_state = OAuth2Handler.State.CodeInputRequired
+            if open_page:
+                success_state = OAuth2Handler.State.CodeInputRequired
+            else:
+                return (OAuth2Handler.State.PageNotOpened, None)
+
             redirect_uri = self._client.address + '/oauth/code'
 
         self._redirect_uri = redirect_uri
@@ -559,8 +564,8 @@ class OAuth2Handler:
         if self._login_form_providers:
             query_params['providers'] = ','.join(self._login_form_providers)
 
-        if show_registration:
-            query_params['register'] = show_registration
+        if register:
+            query_params['register'] = register
 
         oauth_auth_url = self.thor_address() + \
             '/oauth/authorize?' + urllib.parse.urlencode(query_params)
@@ -607,6 +612,9 @@ class OAuth2Handler:
     def thor_address(self) -> str:
         return self._client.address
 
+    def state(self) -> str:
+        return self._state
+
 def _make_local_redirect_handler_class(handler: OAuth2Handler) -> Callable[[], http.server.BaseHTTPRequestHandler]:
     class _OAuthLocalRedirectHandler(http.server.BaseHTTPRequestHandler):
         def __init__(self, *args, **kwargs) -> None:
@@ -629,8 +637,11 @@ def _make_local_redirect_handler_class(handler: OAuth2Handler) -> Callable[[], h
                 if not code:
                     error = '"code" was missing from redirect URL'
 
-                #if not state:
-                #    error = '"state" was missing from redirect URL'
+                if not state:
+                    error = '"state" was missing from redirect URL'
+
+                if state != self.handler.state():
+                    error = '"state" does not match the provided state value'
 
             if error:
                 # If we have an error here then there's no reason to even try to

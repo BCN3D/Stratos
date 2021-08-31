@@ -1,4 +1,6 @@
-from .. import am
+from typing import Any, Optional
+
+from .. import am, chop
 import enum
 
 def convert(base, value):
@@ -44,6 +46,36 @@ def get_config_value(config, attr_name, level_modifier=None):
         return getattr(cur_lev, attr_name)
 
     return None
+
+def is_valid_curalist(cura_list: Any) -> bool:
+    if isinstance(cura_list, str):
+        is_brackets = cura_list.startswith('[') and cura_list.endswith(']')
+
+        if not is_brackets:
+            return False
+
+        list_values = cura_list.strip('][').split(',')
+        list_values = [value.strip() for value in list_values]
+
+        empty_cura_list = len(list_values) == 1 and list_values[0] == ''
+
+        if empty_cura_list:
+            return True
+
+        for value in list_values:
+            if value == '':
+                return False
+            if len(value) > 1 and value.startswith('0'):
+                return False
+
+        return True
+
+    elif isinstance(cura_list, list):
+        return True
+    elif cura_list is None:
+        return True
+    else:
+        return False
 
 class PrevalidationError:
     def __str__(self):
@@ -99,6 +131,22 @@ class OutOfBoundsPrintSetting(PrevalidationError):
 
     def resolution(self):
         return '<i>{}</i> must be between {} and {}.'.format(self.setting_name, self.min_value, self.max_value)
+
+class InvalidCuraListSetting(PrevalidationError):
+    '''
+    Error for when a Cura list was not able to be parsed correctly
+    '''
+    def __init__(self, mesh_name: str, setting_name: str, setting_value: str, setting_example: str):
+        self.mesh_name = mesh_name
+        self.setting_name = setting_name
+        self.setting_value = setting_value
+        self.setting_example = setting_example
+
+    def error(self) -> str:
+        return 'Invalid <i>{}</i> for mesh <i>{}</i>: {}'.format(self.setting_name, self.mesh_name, self.setting_value)
+
+    def resolution(self) -> str:
+        return '<i>{}</i> must be a valid list. (e.g. {})'.format(self.setting_name, self.setting_example)
 
 class ListLengthSetting(PrevalidationError):
     '''
@@ -206,6 +254,23 @@ class BoundsCheck(PrevalidationCheck):
             return OutOfBoundsPrintSetting(mesh.name, self.setting_name, self.min_value, self.max_value)
         else:
             return None
+
+class CuraListCheck(PrevalidationCheck):
+    '''
+    Class used to check if a Cura list was properly parsed
+    '''
+    def __init__(self, attr_name: str, setting_name: str, setting_example: str):
+        self.attr_name = attr_name
+        self.setting_name = setting_name
+        self.setting_example = setting_example
+
+    def check_error(self, mesh: chop.mesh.Mesh) -> Optional[InvalidCuraListSetting]:
+        mesh_value = get_config_value(mesh.print_config, self.attr_name)
+
+        if is_valid_curalist(mesh_value):
+            return None
+
+        return InvalidCuraListSetting(mesh.name, self.setting_name, mesh_value, self.setting_example)
 
 class ListLengthCheck(PrevalidationCheck):
     '''
@@ -339,6 +404,9 @@ STRICT_REQUIREMENTS = {
     CompatibilityCheck('wall_line_width', 'Wall Line Width', 'Line Width', 'layer_width'),
 
     BoundsCheck('density', 'Infill Density', min_value=20, max_value=100, level_modifier=['infill']),
+
+    CuraListCheck('skin_angles', 'Top/Bottom Line Directions', '[45, 135]'),
+    CuraListCheck('infill_angles', 'Infill Line Directions', '[45]'),
 
     ListLengthCheck('infill_angles', 'Number of Infill Line Directions', min_value=0, max_value=1),
 

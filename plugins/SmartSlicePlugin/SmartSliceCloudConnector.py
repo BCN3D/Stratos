@@ -7,7 +7,6 @@ import pywim  # @UnresolvedImport
 
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtCore import QUrl, QObject
-from PyQt5.QtGui import QDesktopServices
 
 from UM.i18n import i18nCatalog
 from UM.Application import Application
@@ -24,6 +23,7 @@ from .SmartSliceCloudProxy import SmartSliceCloudProxy
 from .SmartSlicePropertyHandler import SmartSlicePropertyHandler
 from .SmartSliceJobHandler import SmartSliceJobHandler
 from .SmartSlicePreferences import Preferences
+from .SmartSliceSubscriptionReminder import SmartSliceSubscriptionReminder
 from .stage.ui.ResultTable import ResultTableData
 
 from .requirements_tool.SmartSliceRequirements import SmartSliceRequirements
@@ -80,6 +80,8 @@ class SmartSliceCloudConnector(QObject):
 
         self.api_connection = SmartSliceAPIClient(self)
         self.api_connection.newLogin.connect(self._proxy.userLogin)
+
+        self.subscription_reminder = None #SmartSliceSubscriptionReminder(self.api_connection)
 
     onSmartSlicePrepared = pyqtSignal()
 
@@ -167,6 +169,8 @@ class SmartSliceCloudConnector(QObject):
         self.propertyHandler.cacheChanges() # Setup Cache
 
         Application.getInstance().getMachineManager().printerConnectedStatusChanged.connect(self._refreshMachine)
+
+        self.subscription_reminder = SmartSliceSubscriptionReminder(self.api_connection)
 
         if self.app_preferences.getPreference(Preferences.SaveDebug):
             self.debug_save_smartslice_package_message = Message(
@@ -456,43 +460,8 @@ class SmartSliceCloudConnector(QObject):
             self.addJob(pywim.smartslice.job.JobType.optimization)
             self._jobs[self._current_job].start()
 
-    def _checkSubscription(self, subscription):
-        if subscription.status == pywim.http.thor.Subscription.Status.inactive:
-            if subscription.trial_end > datetime.datetime(1900, 1, 1):
-                self._subscriptionMessages(self.SubscriptionTypes.trialExpired)
-                return False
-            else:
-                self._subscriptionMessages(self.SubscriptionTypes.subscriptionExpired)
-                return False
-
-        return True
-
-    def _subscriptionMessages(self, messageCode, prod=None):
-        notification_message = Message(lifetime=0)
-
-        if messageCode == self.SubscriptionTypes.trialExpired:
-            notification_message.setText(
-                i18n_catalog.i18nc("@info:status", "Your free trial has expired! Please subscribe to submit jobs.")
-            )
-        elif messageCode == self.SubscriptionTypes.subscriptionExpired:
-            notification_message.setText(
-                i18n_catalog.i18nc("@info:status", "Your subscription has expired! Please renew your subscription to submit jobs.")
-            )
-
-        notification_message.addAction(
-            action_id="subscribe_link",
-            name="<h3><b>Manage Subscription</b></h3>",
-            icon="",
-            description="Click here to subscribe!",
-            button_style=Message.ActionButtonStyle.LINK
-        )
-
-        notification_message.actionTriggered.connect(self._openSubscriptionPage)
-        notification_message.show()
-
-    def _openSubscriptionPage(self, msg, action):
-        if action in ("subscribe_link", "more_products_link"):
-            QDesktopServices.openUrl(QUrl(self.extension.url_handler.subscribe))
+    def _checkSubscription(self):
+        return self.subscription_reminder.check()
 
     '''
       Primary Button Actions:
@@ -505,16 +474,14 @@ class SmartSliceCloudConnector(QObject):
         if self.status in SmartSliceCloudStatus.busy():
             self._jobs[self._current_job].cancel()
         else:
-            self._subscription = self.api_connection.getSubscription()
-            if self._subscription is not None:
-                if self.status is SmartSliceCloudStatus.ReadyToVerify:
-                    if self._checkSubscription(self._subscription):
-                        self.doVerification()
-                elif self.status in SmartSliceCloudStatus.optimizable():
-                    if self._checkSubscription(self._subscription):
-                        self.doOptimization()
-                elif self.status is SmartSliceCloudStatus.Optimized:
-                    Application.getInstance().getController().setActiveStage("PreviewStage")
+            if self.status is SmartSliceCloudStatus.ReadyToVerify:
+                if self._checkSubscription():
+                    self.doVerification()
+            elif self.status in SmartSliceCloudStatus.optimizable():
+                if self._checkSubscription():
+                    self.doOptimization()
+            elif self.status is SmartSliceCloudStatus.Optimized:
+                Application.getInstance().getController().setActiveStage("PreviewStage")
 
     '''
       Secondary Button Actions:

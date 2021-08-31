@@ -1,4 +1,4 @@
-from typing import Tuple, Callable, List, Union
+from typing import Tuple, Callable, List, Optional, Union
 
 from enum import Enum
 import json
@@ -49,6 +49,7 @@ class SmartSliceAPIClient(QObject):
         self.connector = connector
         self.extension = connector.extension
         self._token = None
+        self._subscription = None # Optional[pywim.http.thor.Subscription]
         self._error_message = None
 
         self._number_of_timeouts = 20
@@ -207,6 +208,7 @@ class SmartSliceAPIClient(QObject):
     # Logout removes the current token, clears the last logged in username and signals the popup to reappear.
     def logout(self):
         self._token = None
+        self._subscription = None
         self._login_password = ""
         self._createTokenFile()
         self._preferences.setPreference(Preferences.Username, "")
@@ -219,7 +221,7 @@ class SmartSliceAPIClient(QObject):
         redirect_ports: List[int],
         login_form_basic: bool,
         login_form_providers: List[str],
-        register: bool
+        register: bool = False
     ) -> pywim.http.thor.OAuth2Handler.State:
 
         def callback(status: int, resp: Union[pywim.http.thor.ApiResult, pywim.http.thor.UserAuth]):
@@ -251,7 +253,7 @@ class SmartSliceAPIClient(QObject):
             login_form_providers=login_form_providers
         )
 
-        state, error = self._oauth_handler.start(show_registration=register)
+        state, error = self._oauth_handler.start(register=register, open_page=False)
 
         Logger.info("SmartSlice OAuth handler state: %s", state.name)
 
@@ -260,6 +262,26 @@ class SmartSliceAPIClient(QObject):
 
             self.authState = AuthState.OAuthError
             self.authError = error
+
+        if state == pywim.http.thor.OAuth2Handler.State.PageNotOpened:
+
+            error_message = Message()
+            error_message.setTitle("SmartSlice Login")
+            error_message.setText(i18n_catalog.i18nc(
+                "@info:status",
+                "We were unable to open the login page."
+            ))
+
+            error_message.addAction(
+                action_id="localhost_link",
+                name="<h3><b>Get Help</b></h3>",
+                icon="",
+                description="Click here to troubleshoot the issue.",
+                button_style=Message.ActionButtonStyle.LINK
+            )
+
+            error_message.actionTriggered.connect(self._openErrorGuide)
+            error_message.show()
 
         return state, error
 
@@ -298,17 +320,23 @@ class SmartSliceAPIClient(QObject):
         with open(self._token_file_path, "w") as token_file:
             json.dump(self._token, token_file)
 
-    def getSubscription(self):
+    def getSubscription(self, ignore_error: bool = False) -> Optional[pywim.http.thor.Subscription]:
+        if self._subscription:
+            return self._subscription
+
         api_code, api_result = self.executeApiCall(
             lambda: self._client.smartslice_subscription(),
             self.ConnectionErrorCodes.genericInternetConnectionError
         )
 
-        if api_code != 200:
-            self._handleThorErrors(api_code, api_result)
-            return None
+        if api_code == 200:
+            self._subscription = api_result
+        else:
+            if not ignore_error:
+                self._handleThorErrors(api_code, api_result)
+            self._subscription = None
 
-        return api_result
+        return self._subscription
 
     def cancelJob(self, job_id):
         api_code, api_result = self.executeApiCall(
@@ -435,6 +463,8 @@ class SmartSliceAPIClient(QObject):
     def _openErrorGuide(self, msg, action):
         if action in ("error_link"):
             QDesktopServices.openUrl(QUrl(self._url_handler.errorGuide))
+        elif action in ("localhost_link"):
+            QDesktopServices.openUrl(QUrl(self._url_handler.localhostError))
 
 
     # When something goes wrong with the API, the errors are sent here. The http_error_code is an int that indicates
@@ -448,7 +478,6 @@ class SmartSliceAPIClient(QObject):
 
         if http_error_code == 400:
             if returned_object.error.startswith("User\'s maximum job queue count reached"):
-                print(self._error_message.getActions())
                 self._error_message.setTitle("")
                 self._error_message.setText("You have exceeded the maximum allowable "
                                       "number of queued\n jobs. Please cancel a "

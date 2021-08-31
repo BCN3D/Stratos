@@ -80,6 +80,8 @@ class SmartSliceStage(CuraStage):
         # Triad at the corner of the build plate
         self._triad = Triad(parent=None)
 
+        self.smartSliceStageShown = Signal()
+
     @staticmethod
     def getInstance() -> "SmartSliceStage":
         return Application.getInstance().getController().getStage(
@@ -251,6 +253,8 @@ class SmartSliceStage(CuraStage):
             else:
                 proxy.stressOpacity = 0.5
                 proxy.deflectionOpacity = 1.0
+
+        self.smartSliceStageShown.emit()
 
     #   onStageDeselected:
     #       Sets attributes that allow the SmartSlice Stage to properly deactivate

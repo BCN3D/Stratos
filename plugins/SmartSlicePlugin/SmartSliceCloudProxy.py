@@ -181,7 +181,7 @@ class SmartSliceCloudProxy(QObject):
     unableToOptimizeStress = pyqtSignal()
     unableToOptimizeDisplacement = pyqtSignal()
 
-    def userLogin(self, login: bool=False):
+    def userLogin(self, login: bool=True):
         self.setIntroScreenVisibility(login)
         self.setWelcomeScreenVisibility(False)
 

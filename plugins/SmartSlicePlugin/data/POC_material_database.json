@@ -1,67 +1,19 @@
 {
   "materials": [
     {
-      "name": "BASF PAHT CF15_bulk",
-      "density": 1.234e-09,
-      "elastic": {
-        "type": "transverse_isotropic",
-        "Ea": 15048.192093573558,
-        "Et": 4286.860262522066,
-        "nuat": 0.35,
-        "nutt": 0.45,
-        "Gat": 2383.419567328618
-      },
-      "failure_yield": {
-        "type": "isotropic",
-        "T": 96.75215487058105,
-        "C": 96.75215487058105,
-        "S": 63.688782128634394
-      },
-      "fracture": {
-        "KIc": 14.096831165441747
-      },
-      "cura-tested-guid": [
-        "f227b737-cea5-401e-8d90-e669ce37348f",
-        "b0955e24-d5f2-4ed9-8231-29fc332b7df1"
-      ],
-      "cura-generic-guid": []
-    },
-    {
-      "name": "Jabil PETg_bulk",
-      "density": 1.24e-09,
+      "name": "Stratos ABS_bulk",
+      "density": 1.075e-09,
       "elastic": {
         "type": "isotropic",
-        "E": 1864.4422421567945,
+        "E": 1358.4626718377856,
         "nu": 0.35
       },
       "failure_yield": {
         "type": "von_mises",
-        "Sy": 30.47839715578538
+        "Sy": 16.384524567045375
       },
       "fracture": {
-        "KIc": 5.136757993840788
-      },
-      "cura-tested-guid": [
-        "3f55fd9e-8b22-5b64-8395-fee307599a79",
-        "f616b54e-1210-59c1-9b11-b686ace1e976",
-        "dfe42497-8734-5a0a-930d-5f02726e0f82"
-      ],
-      "cura-generic-guid": []
-    },
-    {
-      "name": "Ultimaker ABS_bulk",
-      "density": 1.1e-09,
-      "elastic": {
-        "type": "isotropic",
-        "E": 1897.2112912908854,
-        "nu": 0.35
-      },
-      "failure_yield": {
-        "type": "von_mises",
-        "Sy": 26.109190604573282
-      },
-      "fracture": {
-        "KIc": 6.777291197765712
+        "KIc": 4.807337528986552
       },
       "cura-tested-guid": [
         "8b911804-d64e-52b3-b786-db9a3f147662",
@@ -71,45 +23,19 @@
       "cura-generic-guid": []
     },
     {
-      "name": "Ultimaker GFF PA_bulk",
-      "density": 1.22e-09,
-      "elastic": {
-        "type": "transverse_isotropic",
-        "Ea": 4008.526610076467,
-        "Et": 2203.5237930695084,
-        "nuat": 0.35,
-        "nutt": 0.45,
-        "Gat": 1334.8618128709115
-      },
-      "failure_yield": {
-        "type": "isotropic",
-        "T": 39.65849489584871,
-        "C": 39.65849489584871,
-        "S": 28.16783481724099
-      },
-      "fracture": {
-        "KIc": 8.405610221631582
-      },
-      "cura-tested-guid": [
-        "137e9a95-7e6f-44a0-ae18-6c704283d8a5",
-        "f9912f41-0457-4371-b85f-f405cc050262"
-      ],
-      "cura-generic-guid": []
-    },
-    {
-      "name": "Ultimaker Nylon_bulk",
-      "density": 1.14e-09,
+      "name": "Stratos PA_bulk",
+      "density": 1.1e-09,
       "elastic": {
         "type": "isotropic",
-        "E": 2145.5455384018896,
+        "E": 2129.118594353765,
         "nu": 0.35
       },
       "failure_yield": {
         "type": "von_mises",
-        "Sy": 38.644147263633236
+        "Sy": 19.74626844261391
       },
       "fracture": {
-        "KIc": 10.736248289738784
+        "KIc": 5.842393630076964
       },
       "cura-tested-guid": [
         "ee757db6-d265-5f4f-99b3-9eddf349c4a2",
@@ -118,19 +44,67 @@
       "cura-generic-guid": []
     },
     {
-      "name": "Ultimaker PLA_bulk",
-      "density": 1.24e-09,
+      "name": "Stratos PAHT CF15_bulk",
+      "density": 1.233e-09,
+      "elastic": {
+        "type": "transverse_isotropic",
+        "Ea": 11629.28155944881,
+        "Et": 2434.584163095117,
+        "nuat": 0.35,
+        "nutt": 0.45,
+        "Gat": 2309.540573015876
+      },
+      "failure_yield": {
+        "type": "isotropic",
+        "T": 49.395759769908075,
+        "C": 49.395759769908075,
+        "S": 37.422399753322374
+      },
+      "fracture": {
+        "KIc": 3.2748370640022992
+      },
+      "cura-tested-guid": [
+        "f227b737-cea5-401e-8d90-e669ce37348f",
+        "b0955e24-d5f2-4ed9-8231-29fc332b7df1"
+      ],
+      "cura-generic-guid": []
+    },
+    {
+      "name": "Stratos PET-G_bulk",
+      "density": 1.27e-09,
       "elastic": {
         "type": "isotropic",
-        "E": 3643.4304151290944,
+        "E": 1954.3715420458204,
         "nu": 0.35
       },
       "failure_yield": {
         "type": "von_mises",
-        "Sy": 37.47005212363804
+        "Sy": 22.885310042513865
       },
       "fracture": {
-        "KIc": 11.441942258468924
+        "KIc": 6.831769189770296
+      },
+      "cura-tested-guid": [
+        "3f55fd9e-8b22-5b64-8395-fee307599a79",
+        "f616b54e-1210-59c1-9b11-b686ace1e976",
+        "dfe42497-8734-5a0a-930d-5f02726e0f82"
+      ],
+      "cura-generic-guid": []
+    },
+    {
+      "name": "Stratos PLA_bulk",
+      "density": 1.24e-09,
+      "elastic": {
+        "type": "isotropic",
+        "E": 3094.2572327500316,
+        "nu": 0.35
+      },
+      "failure_yield": {
+        "type": "von_mises",
+        "Sy": 29.364885777442492
+      },
+      "fracture": {
+        "KIc": 8.65294592734231
       },
       "cura-tested-guid": [
         "535bed75-220b-43b8-87a8-46cabec74904",
@@ -150,19 +124,45 @@
       "cura-generic-guid": []
     },
     {
-      "name": "Ultimaker Tough PLA_bulk",
-      "density": 1.22e-09,
+      "name": "Stratos PP GF30_bulk",
+      "density": 9.4e-10,
+      "elastic": {
+        "type": "transverse_isotropic",
+        "Ea": 11970.052012423746,
+        "Et": 1789.6060005007123,
+        "nuat": 0.35,
+        "nutt": 0.45,
+        "Gat": 559.3153086831838
+      },
+      "failure_yield": {
+        "type": "isotropic",
+        "T": 33.990769033585735,
+        "C": 33.990769033585735,
+        "S": 8.491262389156061
+      },
+      "fracture": {
+        "KIc": 2.710872113369642
+      },
+      "cura-tested-guid": [
+        "137e9a95-7e6f-44a0-ae18-6c704283d8a5",
+        "f9912f41-0457-4371-b85f-f405cc050262"
+      ],
+      "cura-generic-guid": []
+    },
+    {
+      "name": "Stratos Tough PLA_bulk",
+      "density": 1.21e-09,
       "elastic": {
         "type": "isotropic",
-        "E": 3007.070626108405,
+        "E": 2781.657471803238,
         "nu": 0.35
       },
       "failure_yield": {
         "type": "von_mises",
-        "Sy": 34.03645613971346
+        "Sy": 18.66457167508082
       },
       "fracture": {
-        "KIc": 11.211513252553326
+        "KIc": 4.115244829511291
       },
       "cura-tested-guid": [
         "393a863f-a3d1-4ff5-9aed-f2c098cd3844",

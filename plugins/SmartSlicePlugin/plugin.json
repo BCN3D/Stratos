@@ -2,7 +2,7 @@
   "name": "SmartSlice",
   "id": "SmartSlicePlugin",
   "author": "Teton Simulation, Inc.",
-  "version": "21.1.4",
+  "version": "21.1.9",
   "description": "Optimize and validate slice parameters to minimize print time while meeting end-use requirements.",
   "supported_sdk_versions": [
     "7.2.0",
@@ -12,7 +12,7 @@
   ],
   "i18n-catalog": "smartslice",
   "smartSliceApi": {
-    "url": "https://test.smartslice.xyz",
+    "url": "https://api.smartslice.xyz",
     "cluster": null
   },
   "smartSliceAccount": "https://account.tetonsim.com",
@@ -29,5 +29,11 @@
       "bcn3d"
     ]
   },
-  "buildNumber": 14
+  "smartSliceProductInfo": {
+    "clientName": "stratos",
+    "homePage": "https://tetonsim.com",
+    "helpPage": "https://help.tetonsim.com",
+    "helpEmail": "mailto:help@tetonsim.com"
+  },
+  "buildNumber": 24
 }
