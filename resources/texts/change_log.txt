@@ -1,10 +1,11 @@
 [1.1.0]
 
-
 - BVOH profiles for Sigma and SigmaX series
 - New Fine and Fast profiles for Epsilon W50/W27 and Sigma D25
 - Internal bug fixing
 - Fix 1.0mm hotend for SigmaX R19 and Sigma R19
+- Native integration with SmartSlice plugin, by Teton. The plugin has been adapted and fully validated to run smoothly within BCN3D ecosystem. It includes all the SmartSlice latest features, BCN3D materials library, and BCN3D SSO authentication.
+
 
 [1.0.0]
 
