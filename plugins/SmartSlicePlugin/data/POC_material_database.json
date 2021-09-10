@@ -1,0 +1,177 @@
+{
+  "materials": [
+    {
+      "name": "Stratos ABS_bulk",
+      "density": 1.075e-09,
+      "elastic": {
+        "type": "isotropic",
+        "E": 1358.4626718377856,
+        "nu": 0.35
+      },
+      "failure_yield": {
+        "type": "von_mises",
+        "Sy": 16.384524567045375
+      },
+      "fracture": {
+        "KIc": 4.807337528986552
+      },
+      "cura-tested-guid": [
+        "8b911804-d64e-52b3-b786-db9a3f147662",
+        "0c313108-583e-59ac-a584-728ba6d4f89c",
+        "a5fb3232-88cd-58fe-a358-cfa2b2555081"
+      ],
+      "cura-generic-guid": []
+    },
+    {
+      "name": "Stratos PA_bulk",
+      "density": 1.1e-09,
+      "elastic": {
+        "type": "isotropic",
+        "E": 2129.118594353765,
+        "nu": 0.35
+      },
+      "failure_yield": {
+        "type": "von_mises",
+        "Sy": 19.74626844261391
+      },
+      "fracture": {
+        "KIc": 5.842393630076964
+      },
+      "cura-tested-guid": [
+        "ee757db6-d265-5f4f-99b3-9eddf349c4a2",
+        "4b47e557-e413-5136-bda6-86af1802d7d2"
+      ],
+      "cura-generic-guid": []
+    },
+    {
+      "name": "Stratos PAHT CF15_bulk",
+      "density": 1.233e-09,
+      "elastic": {
+        "type": "transverse_isotropic",
+        "Ea": 11629.28155944881,
+        "Et": 2434.584163095117,
+        "nuat": 0.35,
+        "nutt": 0.45,
+        "Gat": 2309.540573015876
+      },
+      "failure_yield": {
+        "type": "isotropic",
+        "T": 49.395759769908075,
+        "C": 49.395759769908075,
+        "S": 37.422399753322374
+      },
+      "fracture": {
+        "KIc": 3.2748370640022992
+      },
+      "cura-tested-guid": [
+        "f227b737-cea5-401e-8d90-e669ce37348f",
+        "b0955e24-d5f2-4ed9-8231-29fc332b7df1"
+      ],
+      "cura-generic-guid": []
+    },
+    {
+      "name": "Stratos PET-G_bulk",
+      "density": 1.27e-09,
+      "elastic": {
+        "type": "isotropic",
+        "E": 1954.3715420458204,
+        "nu": 0.35
+      },
+      "failure_yield": {
+        "type": "von_mises",
+        "Sy": 22.885310042513865
+      },
+      "fracture": {
+        "KIc": 6.831769189770296
+      },
+      "cura-tested-guid": [
+        "3f55fd9e-8b22-5b64-8395-fee307599a79",
+        "f616b54e-1210-59c1-9b11-b686ace1e976",
+        "dfe42497-8734-5a0a-930d-5f02726e0f82"
+      ],
+      "cura-generic-guid": []
+    },
+    {
+      "name": "Stratos PLA_bulk",
+      "density": 1.24e-09,
+      "elastic": {
+        "type": "isotropic",
+        "E": 3094.2572327500316,
+        "nu": 0.35
+      },
+      "failure_yield": {
+        "type": "von_mises",
+        "Sy": 29.364885777442492
+      },
+      "fracture": {
+        "KIc": 8.65294592734231
+      },
+      "cura-tested-guid": [
+        "535bed75-220b-43b8-87a8-46cabec74904",
+        "bf1295fb-9f35-53f6-8528-6adf9b9f40c0",
+        "c679879f-e680-5b23-ac73-93c7770858bc",
+        "bd221a85-bae0-5193-9458-bb14d057ec80",
+        "99636c34-6d0e-52b5-846e-32031eca189c",
+        "46c60483-1fe0-5324-9f27-9677a027a9e7",
+        "31174c2b-0b8b-5447-9050-429fa0587d66",
+        "76a29c38-6e7b-5171-b2fb-d840c3e81401",
+        "c14dffb9-f60d-5437-a4e8-280204d8daed",
+        "0a06c57b-2a6e-544e-902f-7540dc63c66c",
+        "e0753352-7512-583e-a449-6404cc9eda57",
+        "96a2ae42-9120-5161-ba39-45a3237dd57a",
+        "1ec772d4-7d43-4092-98ad-bd6bdbe26565"
+      ],
+      "cura-generic-guid": []
+    },
+    {
+      "name": "Stratos PP GF30_bulk",
+      "density": 9.4e-10,
+      "elastic": {
+        "type": "transverse_isotropic",
+        "Ea": 11970.052012423746,
+        "Et": 1789.6060005007123,
+        "nuat": 0.35,
+        "nutt": 0.45,
+        "Gat": 559.3153086831838
+      },
+      "failure_yield": {
+        "type": "isotropic",
+        "T": 33.990769033585735,
+        "C": 33.990769033585735,
+        "S": 8.491262389156061
+      },
+      "fracture": {
+        "KIc": 2.710872113369642
+      },
+      "cura-tested-guid": [
+        "137e9a95-7e6f-44a0-ae18-6c704283d8a5",
+        "f9912f41-0457-4371-b85f-f405cc050262"
+      ],
+      "cura-generic-guid": []
+    },
+    {
+      "name": "Stratos Tough PLA_bulk",
+      "density": 1.21e-09,
+      "elastic": {
+        "type": "isotropic",
+        "E": 2781.657471803238,
+        "nu": 0.35
+      },
+      "failure_yield": {
+        "type": "von_mises",
+        "Sy": 18.66457167508082
+      },
+      "fracture": {
+        "KIc": 4.115244829511291
+      },
+      "cura-tested-guid": [
+        "393a863f-a3d1-4ff5-9aed-f2c098cd3844",
+        "7e08b320-57ea-4574-98f9-d13e0f899caa",
+        "8520a389-d556-4f68-9b2b-46efe9acfcbb",
+        "62d0d1ff-89f8-45b7-9a1e-880311733adc",
+        "c6d933e9-c9d3-42d4-be7e-2175d747aec6"
+      ],
+      "cura-generic-guid": []
+    }
+  ]
+}

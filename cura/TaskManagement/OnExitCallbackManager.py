@@ -40,20 +40,23 @@ class OnExitCallbackManager:
     def triggerNextCallback(self) -> None:
         # Get the next callback and schedule that if
         this_callback = None
-        if self._current_callback_idx < len(self._on_exit_callback_list):
-            this_callback = self._on_exit_callback_list[self._current_callback_idx]
-            self._current_callback_idx += 1
+        try:
+            if self._current_callback_idx < len(self._on_exit_callback_list):
+                this_callback = self._on_exit_callback_list[self._current_callback_idx]
+                self._current_callback_idx += 1
 
-        if this_callback is not None:
-            Logger.log("d", "Scheduled the next on-app-exit callback [%s]", this_callback)
-            self._application.callLater(this_callback)
-        else:
-            Logger.log("d", "No more on-app-exit callbacks to process. Tell the app to exit.")
+            if this_callback is not None:
+                Logger.log("d", "Scheduled the next on-app-exit callback [%s]", this_callback)
+                self._application.callLater(this_callback)
+            else:
+                Logger.log("d", "No more on-app-exit callbacks to process. Tell the app to exit.")
 
-            self._is_all_checks_passed = True
+                self._is_all_checks_passed = True
 
-            # Tell the application to exit
-            self._application.callLater(self._application.closeApplication)
+                # Tell the application to exit
+                self._application.callLater(self._application.closeApplication)
+        except:
+            pass
 
     # This is the callback function which an on-exit callback should call when it finishes, it should provide the
     # "should_proceed" flag indicating whether this check has "passed", or in other words, whether quiting the

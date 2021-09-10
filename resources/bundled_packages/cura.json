@@ -509,6 +509,22 @@
                 "website": "https://ultimaker.com"
             }
         }
+    },
+    "SmartSlice": {
+        "package_info": {
+            "package_id": "SmartSlicePlugin",
+            "package_type": "plugin",
+            "display_name": "SmartSlice",
+            "description": "Optimize and validate slice parameters to minimize print time while meeting end-use requirements.",
+            "package_version": "21.1.4",
+            "sdk_version": "7",
+            "website": "https://www.tetonsim.com/smart-slice-for-cura",
+            "author": {
+                "author_id": "tetonsim",
+                "display_name": "Teton Simulation, Inc.",
+                "email": "info@tetonsim.com",
+                "website": "https://www.tetonsim.com"
+            }
+        }
     }
-
 }

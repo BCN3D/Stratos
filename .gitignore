@@ -15,6 +15,7 @@ LC_MESSAGES
 *.qmlc
 .mypy_cache
 .pytest_cache
+!plugins/SmartSlicePlugin/3rd-party/cpython-common/pywim/micro/build
 
 #MacOS
 .DS_Store
