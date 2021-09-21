@@ -1943,17 +1943,21 @@ class CuraApplication(QtApplication):
                 build_plate_decorator = BuildPlateDecorator(target_build_plate)
                 node.addDecorator(build_plate_decorator)
             build_plate_decorator.setBuildPlateNumber(target_build_plate)
-            #
-            # operation = AddSceneNodeOperation(node, scene.getRoot())
-            # operation.push()
-            #
 
-            # scene.sceneChanged.emit(node)
+            operation = AddSceneNodeOperation(node, scene.getRoot())
+            operation.push()
+
+
+            scene.sceneChanged.emit(node)
 
             print_mode_enabled = self.getGlobalContainerStack().getProperty("print_mode", "enabled")
             if print_mode_enabled:
                 node_dup = DuplicatedNode(node)
+                print("entrant a cura application linea 1956")
                 op = AddNodesOperation(node_dup, scene.getRoot())
+                op.redo()
+                op.push()
+                nodes_to_arrange.append(node_dup)
             else:
                 op = AddSceneNodeOperation(node, scene.getRoot())
             op.push()
@@ -2072,8 +2076,13 @@ class CuraApplication(QtApplication):
             op = GroupedOperation()
 
             for node in nodes:
-                from UM.Operations.RemoveSceneNodeOperation import RemoveSceneNodeOperation
-                op.addOperation(RemoveSceneNodeOperation(node))
+                print_mode_enabled = self.getGlobalContainerStack().getProperty("print_mode", "enabled")
+                node_dup = self._print_mode_manager.getDuplicatedNode(node)
+                if print_mode_enabled and node_dup:
+                    op.addOperation(RemoveNodesOperation(node_dup))
+                else:
+                    from UM.Operations.RemoveSceneNodeOperation import RemoveSceneNodeOperation
+                    op.addOperation(RemoveSceneNodeOperation(node))
 
                 # Reset the print information
                 self.getController().getScene().sceneChanged.emit(node)

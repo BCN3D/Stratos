@@ -7,6 +7,7 @@ from UM.Operations import Operation
 from cura.Scene.DuplicatedNode import DuplicatedNode
 from cura.PrintModeManager import PrintModeManager
 from UM.Application import Application
+
 class SetParentOperation(Operation.Operation):
     """An operation that parents a scene node to another scene node."""
 
@@ -22,8 +23,7 @@ class SetParentOperation(Operation.Operation):
         self._parent = parent_node
         self._old_parent = node.getParent() # To restore the previous parent in case of an undo.
         self._scene_root = Application.getInstance().getController().getScene().getRoot()
-        self._print_mode_enabled = Application.getInstance().getGlobalContainerStack().getProperty("print_mode",
-                                                                                                   "enabled")
+        self._print_mode_enabled = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "enabled")
         self._is_duplicated_node = type(node) == DuplicatedNode
 
     def undo(self) -> None:
@@ -40,12 +40,34 @@ class SetParentOperation(Operation.Operation):
         else:
             self._set_parent(self._old_parent)
 
-    def redo(self, parent) -> None:
-        """Re-applies the set-parent operation."""
+    # def redo(self, parent) -> None:
+    #     """Re-applies the set-parent operation."""
+    #     print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
+    #     if print_mode == "dual" or "singleT1" or "singleT0" and parent == self._scene_root:
+    #         self._set_parent(None)
+    #     elif print_mode != "dual" or "singleT1" or "singleT0" and parent is None:
+    #         self._set_parent(self._scene_root)
+    #     else:
+    #         self._set_parent(parent)
+    ##  Re-applies the set-parent operation.
+    def redo(self):
+        if self._print_mode_enabled and self._is_duplicated_node:
+            self._fixAndSetParent(self._parent)
+            if type(self._parent) == DuplicatedNode:
+                if self._parent not in PrintModeManager.getInstance().getDuplicatedNodes():
+                    PrintModeManager.getInstance().addDuplicatedNode(self._parent)
+            elif type(self._old_parent) == DuplicatedNode:
+                if self._old_parent in PrintModeManager.getInstance().getDuplicatedNodes():
+                    PrintModeManager.getInstance().deleteDuplicatedNode(self._old_parent, False)
+
+        else:
+            self._set_parent(self._parent)
+
+    def _fixAndSetParent(self, parent):
         print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
-        if print_mode == "regular" and parent == self._scene_root:
+        if print_mode == "dual" or "singleT1" or "singleT0" and parent == self._scene_root:
             self._set_parent(None)
-        elif print_mode != "regular" and parent is None:
+        elif print_mode != "dual" or "singleT1" or "singleT0" and parent is None:
             self._set_parent(self._scene_root)
         else:
             self._set_parent(parent)

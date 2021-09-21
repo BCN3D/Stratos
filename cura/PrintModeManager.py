@@ -73,10 +73,15 @@ class PrintModeManager:
         else:
             parent = self._scene.getRoot()
         op = AddSceneNodeOperation(node, parent)
+        print(node)
+        print(parent)
         op.redo()
         node.update()
+        print("final renderduplicated")
 
     def renderDuplicatedNodes(self):
+
+        print(len(self._duplicated_nodes))
         for node in self._duplicated_nodes:
             self.renderDuplicatedNode(node)
 
@@ -102,6 +107,7 @@ class PrintModeManager:
                     for node in self._scene.getRoot().getChildren():
                         if type(node) == CuraSceneNode:
                             self.addDuplicatedNode(DuplicatedNode(node, node.getParent()))
+                            print(len(self._duplicated_nodes))
                 self._onPrintModeChanged()
 
     printModeChanged = Signal()
@@ -146,7 +152,7 @@ class PrintModeManager:
                     position = node.getPosition()
                     offset = position.x - max_offset
                     node.setPosition(Vector(offset, position.y, position.z))
-                    self.renderDuplicatedNodes()
+                self.renderDuplicatedNodes()
 
                 if self._old_material == "":
                     self._old_material = ExtruderManager.getInstance().getExtruderStack(1).material
@@ -165,7 +171,7 @@ class PrintModeManager:
 
     def _materialChanged(self, container):
         print_mode = self._global_stack.getProperty("print_mode", "value")
-        if print_mode != "regular":
+        if print_mode != "singleT0" or "dual" or "singleT1":
             if self._global_stack:
                 if container.getMetaDataEntry("type") == "material":
                     ExtruderManager.getInstance().getExtruderStack(1).setMaterial(container)
@@ -177,7 +183,7 @@ class PrintModeManager:
             node.callDecoration("setActiveExtruder", ExtruderManager.getInstance().getExtruderStack(0).getId())
             for child in node.getChildren():
                 self._setActiveExtruder(child)
-
+    #
     # def _restoreSettingsValue(self):
     #     for definition in self._global_stack.definition.findDefinitions(reset_on_print_mode_change = True):
     #         Application.getInstance().getMachineManager().clearUserSettingAllCurrentStacks(definition.key)
