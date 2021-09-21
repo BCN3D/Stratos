@@ -138,8 +138,8 @@ class CuraSceneNode(SceneNode):
     def __deepcopy__(self, memo: Dict[int, object]) -> "CuraSceneNode":
         """Taken from SceneNode, but replaced SceneNode with CuraSceneNode"""
 
-        copy = CuraSceneNode()  # Setting override will be added later
-        copy.setTransformation(self.getLocalTransformation())
+        copy = CuraSceneNode(no_setting_override = True)  # Setting override will be added later
+        copy.setTransformation(self.getLocalTransformation(copy= False))
         copy.setMeshData(self._mesh_data)
         copy.setVisible(cast(bool, deepcopy(self._visible, memo)))
         copy._selectable = cast(bool, deepcopy(self._selectable, memo))
