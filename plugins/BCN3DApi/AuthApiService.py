@@ -1,13 +1,18 @@
 from PyQt5.QtCore import QObject, pyqtSlot, pyqtProperty, pyqtSignal
 from cura.OAuth2.Models import UserProfile
 from UM.Message import Message
+from UM.Logger import Logger
+
 
 from .SessionManager import SessionManager
 from .http_helper import get, post
 
 
 class AuthApiService(QObject):
-    api_url = "https://api.bcn3d.com/auth"
+    api_url = "http://api.bcn3d.test/v2"
+    client_id = 'd223803f-0361-44cc-a028-64355bd8e9d0'
+    scope = 'all'
+    grant_type = 'password'
     authStateChanged = pyqtSignal(bool, arguments=["isLoggedIn"])
 
     def __init__(self):
@@ -68,10 +73,14 @@ class AuthApiService(QObject):
     @pyqtSlot(str, str, result=int)
     def signIn(self, email, password):
         self._email = email
-        data = {"email": email, "password": password}
-        response = post(self.api_url + "/sign_in", data)
+        data = {"email": email, "password": password, "client_id" : self.client_id, "grant_type" : self.grant_type, "scope" : self.scope}
+        #Logger.log("i", "signing in")
+        print("A ver por aquí")
+        response = post(self.api_url + "/token", data)
         if 200 <= response.status_code < 300:
+            print(response)
             response_message = response.json()
+            print(response_message)
             self._session_manager.setAccessToken(response_message["accessToken"])
             self._session_manager.setRefreshToken(response_message["refreshToken"])
             self._is_logged_in = True
@@ -82,21 +91,30 @@ class AuthApiService(QObject):
             self.getCurrentUser()
             return 200
         else:
+            print(response)
+            print(response.status_code)
             return response.status_code
 
     @pyqtSlot(result=bool)
     def signOut(self):
-        headers = {"Authorization": "Bearer {}".format(self._session_manager.getAccessToken())}
-        response = post(self.api_url + "/sign_out", {}, headers)
-        if 200 <= response.status_code < 300:
-            self._session_manager.clearSession()
-            self._email = None
-            self._profile = None
-            self._is_logged_in = False
-            self.authStateChanged.emit(False)
-            return True
-        else:
-            return False
+        print("signOut")
+        self._session_manager.clearSession()
+        self._email = None
+        self._profile = None
+        self._is_logged_in = False
+        self.authStateChanged.emit(False)
+        return True
+        #headers = {"Authorization": "Bearer {}".format(self._session_manager.getAccessToken())}
+        #response = post(self.api_url + "/sign_out", {}, headers)
+        #if 200 <= response.status_code < 300:
+            #self._session_manager.clearSession()
+            #self._email = None
+            #self._profile = None
+            #self._is_logged_in = False
+            #self.authStateChanged.emit(False)
+            #return True
+        #else:
+            #return False
 
     @classmethod
     def getInstance(cls) -> "AuthApiService":
