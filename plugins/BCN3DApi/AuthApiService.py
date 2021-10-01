@@ -9,7 +9,7 @@ from .http_helper import get, post
 
 
 class AuthApiService(QObject):
-    api_url = "http://api.bcn3d.test/v2"
+    api_url = "http://api.astroprint.test/v2"
     client_id = 'd223803f-0361-44cc-a028-64355bd8e9d0'
     scope = 'all'
     grant_type = 'password'
@@ -26,7 +26,7 @@ class AuthApiService(QObject):
         self._session_manager = SessionManager.getInstance()
         self._session_manager.initialize()
 
-        if self._session_manager.getAccessToken() and self.isValidtoken():
+        if self._session_manager.getAccessToken():
             self.getCurrentUser()
 
     @pyqtProperty(str, notify=authStateChanged)
@@ -45,16 +45,21 @@ class AuthApiService(QObject):
 
     def getCurrentUser(self):
         headers = {"Authorization": "Bearer {}".format(self._session_manager.getAccessToken())}
-        response = get(self.api_url + "/user_data", headers=headers)
+        print("getCurrentUser")
+        print(headers)
+        response = get(self.api_url + "/me", headers=headers)
         if 200 <= response.status_code < 300:
             current_user = response.json()
             self._email = current_user["email"]
-            self._profile = UserProfile(username = current_user["username"])
+            self._profile = UserProfile(username = current_user["name"])
             self._is_logged_in = True
             self.authStateChanged.emit(True)
         else:
+            response_message = response.json()
+            print(response.status_code)
+            print(response_message)
             return {}
-
+    """
     def isValidtoken(self):
         headers = {"Authorization": "Bearer {}".format(self._session_manager.getAccessToken())}
         response = post(self.api_url + "/check_token", {}, headers)
@@ -65,15 +70,16 @@ class AuthApiService(QObject):
             refresh_response = post(self.api_url + "/refresh_token", data)
             if 200 <= refresh_response.status_code < 300:
                 refresh_response_message = refresh_response.json()
-                self._session_manager.setAccessToken(refresh_response_message["accessToken"])
+                self._session_manager.setAccessToken(refresh_response_message["access_token"])
                 return True
             else:
                 return False
+    """
 
     @pyqtSlot(str, str, result=int)
     def signIn(self, email, password):
         self._email = email
-        data = {"email": email, "password": password, "client_id" : self.client_id, "grant_type" : self.grant_type, "scope" : self.scope}
+        data = {"username": email, "password": password, "client_id" : self.client_id, "grant_type" : self.grant_type, "scope" : self.scope}
         #Logger.log("i", "signing in")
         print("A ver por aquí")
         response = post(self.api_url + "/token", data)
@@ -81,8 +87,8 @@ class AuthApiService(QObject):
             print(response)
             response_message = response.json()
             print(response_message)
-            self._session_manager.setAccessToken(response_message["accessToken"])
-            self._session_manager.setRefreshToken(response_message["refreshToken"])
+            self._session_manager.setAccessToken(response_message["access_token"])
+            self._session_manager.setRefreshToken(response_message["refresh_token"])
             self._is_logged_in = True
             self.authStateChanged.emit(True)
             message = Message("Go to Add Printer to see your printers registered to the cloud", title="Sign In successfully")
@@ -91,8 +97,9 @@ class AuthApiService(QObject):
             self.getCurrentUser()
             return 200
         else:
-            print(response)
+            response_message = response.json()
             print(response.status_code)
+            print(response_message)
             return response.status_code
 
     @pyqtSlot(result=bool)

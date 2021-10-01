@@ -42,6 +42,7 @@ class DataApiService:
             message.show()
 
     def getPrinters(self):
+        print("DataApiService getPrinters")
         if self._auth_api_service.isValidtoken():
             headers = {"Authorization": "Bearer {}".format(self._session_manager.getAccessToken())}
             response = get(self.data_api_url + "/printers", headers=headers)

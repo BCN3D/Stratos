@@ -50,6 +50,7 @@ class PrintersManager(QObject):
 
 
     def _addPrinters(self):
+        print("_addPrinters")
         printers = self._data_api_service.getPrinters()
         discovered_printers_model = self._cura_application.getDiscoveredPrintersModel()
         for printer in printers:
