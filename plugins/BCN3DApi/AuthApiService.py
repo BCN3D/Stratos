@@ -59,22 +59,6 @@ class AuthApiService(QObject):
             print(response.status_code)
             print(response_message)
             return {}
-    """
-    def isValidtoken(self):
-        headers = {"Authorization": "Bearer {}".format(self._session_manager.getAccessToken())}
-        response = post(self.api_url + "/check_token", {}, headers)
-        if 200 <= response.status_code < 300:
-            return True
-        else:
-            data = {"refreshToken": self._session_manager.getRefreshToken()}
-            refresh_response = post(self.api_url + "/refresh_token", data)
-            if 200 <= refresh_response.status_code < 300:
-                refresh_response_message = refresh_response.json()
-                self._session_manager.setAccessToken(refresh_response_message["access_token"])
-                return True
-            else:
-                return False
-    """
 
     @pyqtSlot(str, str, result=int)
     def signIn(self, email, password):
