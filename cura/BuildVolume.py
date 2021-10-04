@@ -10,6 +10,7 @@ from UM.Mesh.MeshData import MeshData
 from UM.Mesh.MeshBuilder import MeshBuilder
 
 from UM.Application import Application #To modify the maximum zoom level.
+from UM.Operations.GroupedOperation import GroupedOperation
 from UM.i18n import i18nCatalog
 from UM.Scene.Platform import Platform
 from UM.Scene.Iterator.BreadthFirstIterator import BreadthFirstIterator
@@ -251,8 +252,6 @@ class BuildVolume(SceneNode):
 
         root = self._application.getController().getScene().getRoot()
         nodes = cast(List[SceneNode], list(cast(Iterable, BreadthFirstIterator(root))))
-        print("len all nodes")
-        print(len(nodes))
         group_nodes = []  # type: List[SceneNode]
 
         build_volume_bounding_box = self.getBoundingBox()
@@ -267,7 +266,6 @@ class BuildVolume(SceneNode):
             return
 
         for node in nodes:
-            print(node)
             # Need to check group nodes later
             if node.callDecoration("isGroup"):
                 group_nodes.append(node)  # Keep list of affected group_nodes
@@ -300,34 +298,10 @@ class BuildVolume(SceneNode):
                     continue
 
                 node.setOutsideBuildArea(False)
-            # if node.callDecoration("isSliceable") or node.callDecoration("isGroup"):
-            #     node._outside_buildarea = False
-            #
-            #     bbox = node.getBoundingBox()
-            #
-            #     # Mark the node as outside the build volume if the bounding box test fails.
-            #     if build_volume_bounding_box.intersectsBox(bbox) != AxisAlignedBox.IntersectionResult.FullIntersection:
-            #         node._outside_buildarea = True
-            #
-            #         continue
-            #
-            #     convex_hull = node.callDecoration("getConvexHull")
-            #     if convex_hull:
-            #         if not convex_hull.isValid():
-            #             return
-            #         # Check for collisions between disallowed areas and the object
-            #         for area in self.getDisallowedAreas():
-            #             overlap = convex_hull.intersectsPolygon(area)
-            #             if overlap is None:
-            #                 continue
-            #             node._outside_buildarea = True
-            #             continue
 
         print_mode = self._global_container_stack.getProperty("print_mode", "value")
-        if print_mode != "singleT0" or "singleT1" or "dual":
+        if print_mode not in ["singleT0", "singleT1", "dual"]:
             duplicated_nodes = PrintModeManager.getInstance().getDuplicatedNodes()
-            print("print len duplicated build volumne ")
-            print(len(duplicated_nodes))
             for node_dup in duplicated_nodes:
                 node_dup._outside_buildarea = node_dup.node._outside_buildarea
 

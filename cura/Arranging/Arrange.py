@@ -147,7 +147,7 @@ class Arrange:
         # Square distance: creates a more round shape
         offset = 0
         print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
-        if print_mode != "dual" or "singleT1" or "singleT0":
+        if print_mode not in ["singleT0", "singleT1", "dual"]:
             offset = self._offset_x / 2
             if print_mode == "mirror":
                 machine_head_with_fans_polygon = Application.getInstance().getGlobalContainerStack().getProperty(

@@ -36,7 +36,7 @@ class AddNodesOperation(Operation):
     def redo(self):
         self._node.setParent(self._parent)
         print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
-        if print_mode == "dual" or "singleT0" or "singleT1":
+        if print_mode in ["singleT0", "singleT1", "dual"]:
             self._node_dup.setParent(None)
         else:
             self._node_dup.setParent(self._parent)

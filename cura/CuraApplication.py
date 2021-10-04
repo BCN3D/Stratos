@@ -119,6 +119,7 @@ from .SingleInstance import SingleInstance
 from cura.Scene.DuplicatedNode import DuplicatedNode
 from . import PrintModeManager
 from cura.Operations.AddNodesOperation import AddNodesOperation
+from cura.Settings.SetObjectExtruderOperation import SetObjectExtruderOperation
 
 if TYPE_CHECKING:
     from UM.Settings.EmptyInstanceContainer import EmptyInstanceContainer
@@ -1527,7 +1528,7 @@ class CuraApplication(QtApplication):
         print_mode_enabled = self.getGlobalContainerStack().getProperty("print_mode", "enabled")
         if print_mode_enabled:
             print_mode = self.getGlobalContainerStack().getProperty("print_mode", "value")
-            if print_mode != "singleT0" or "singleT1" or "dual":
+            if print_mode not in ["singleT0","singleT1","dual"]:
                 duplicated_group_node = DuplicatedNode(group_node, self.getController().getScene().getRoot())
             else:
                 duplicated_group_node = DuplicatedNode(group_node)
@@ -1636,7 +1637,7 @@ class CuraApplication(QtApplication):
         print_mode_enabled = self.getGlobalContainerStack().getProperty("print_mode", "enabled")
         if print_mode_enabled:
             print_mode = self.getGlobalContainerStack().getProperty("print_mode", "value")
-            if print_mode != "singleT0" or "singleT1" or "dual":
+            if print_mode not in ["singleT0","singleT1","dual"]:
                 duplicated_group_node = DuplicatedNode(group_node, self.getController().getScene().getRoot())
             else:
                 duplicated_group_node = DuplicatedNode(group_node)
@@ -1953,7 +1954,6 @@ class CuraApplication(QtApplication):
             print_mode_enabled = self.getGlobalContainerStack().getProperty("print_mode", "enabled")
             if print_mode_enabled:
                 node_dup = DuplicatedNode(node)
-                print("entrant a cura application linea 1956")
                 op = AddNodesOperation(node_dup, scene.getRoot())
                 op.redo()
                 op.push()
@@ -2051,10 +2051,9 @@ class CuraApplication(QtApplication):
 
     @pyqtSlot()
     def deleteAll(self, only_selectable: bool = True) -> None:
+        self._print_mode_manager.removeDuplicatedNodes()
         super().deleteAll(only_selectable = only_selectable)
 
-        # Also remove nodes with LayerData
-        self._removeNodesWithLayerData(only_selectable = only_selectable)
 
     def _removeNodesWithLayerData(self, only_selectable: bool = True) -> None:
         Logger.log("i", "Clearing scene")

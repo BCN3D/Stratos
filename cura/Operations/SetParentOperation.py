@@ -65,9 +65,9 @@ class SetParentOperation(Operation.Operation):
 
     def _fixAndSetParent(self, parent):
         print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
-        if print_mode == "dual" or "singleT1" or "singleT0" and parent == self._scene_root:
+        if print_mode in ["dual", "singleT0", "singleT1"] and parent == self._scene_root:
             self._set_parent(None)
-        elif print_mode != "dual" or "singleT1" or "singleT0" and parent is None:
+        elif print_mode not in ["singleT0", "singleT1", "dual"] and parent is None:
             self._set_parent(self._scene_root)
         else:
             self._set_parent(parent)

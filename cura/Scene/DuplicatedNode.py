@@ -1,14 +1,16 @@
-from copy import deepcopy
 
 from UM.Math.Vector import Vector
 from UM.Operations.MirrorOperation import MirrorOperation
 from UM.Application import Application
+
 
 from cura.Scene.CuraSceneNode import CuraSceneNode
 from cura.Scene.BuildPlateDecorator import BuildPlateDecorator
 from cura.Settings.ExtruderManager import ExtruderManager
 from cura.Settings.SetObjectExtruderOperation import SetObjectExtruderOperation
 
+
+from copy import deepcopy
 
 class DuplicatedNode(CuraSceneNode):
 
@@ -37,7 +39,7 @@ class DuplicatedNode(CuraSceneNode):
         self.node.transformationChanged.connect(self._onTransformationChanged)
         self.node.parentChanged.connect(self._someParentChanged)
         self.parentChanged.connect(self._someParentChanged)
-        SetObjectExtruderOperation(self, ExtruderManager.getInstance().getExtruderStack(1).getId()).redo()
+        SetObjectExtruderOperation(self, ExtruderManager.getInstance().getExtruderStack(0).getId()).redo()
 
     def setSelectable(self, select: bool):
         self._selectable = False
@@ -65,7 +67,7 @@ class DuplicatedNode(CuraSceneNode):
 
     def _onTransformationChanged(self, node):
         print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
-        if print_mode != "dual" or "singleT1" or "singleT0":
+        if print_mode not in ["singleT0", "singleT1", "dual"]:
             self.update()
 
     def _someParentChanged(self, node=None):
