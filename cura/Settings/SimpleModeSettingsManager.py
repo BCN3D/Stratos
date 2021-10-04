@@ -35,7 +35,8 @@ class SimpleModeSettingsManager(QObject):
         global_stack = self._machine_manager.activeMachine
 
         # check user settings in the global stack
-        user_setting_keys.update(global_stack.userChanges.getAllKeys())
+        # user_setting_keys.update(global_stack.userChanges.getAllKeys())
+        user_setting_keys.update(set([property for property in global_stack.userChanges.getAllKeys() if property != "print_mode"]))
 
         # check user settings in the extruder stacks
         if global_stack.extruderList:

@@ -16,10 +16,12 @@ from UM.Operations.RemoveSceneNodeOperation import RemoveSceneNodeOperation
 from UM.Operations.TranslateOperation import TranslateOperation
 
 import cura.CuraApplication
+from cura.Operations.RemoveNodesOperation import RemoveNodesOperation
 from cura.Operations.SetParentOperation import SetParentOperation
 from cura.MultiplyObjectsJob import MultiplyObjectsJob
 from cura.Settings.SetObjectExtruderOperation import SetObjectExtruderOperation
 from cura.Settings.ExtruderManager import ExtruderManager
+from cura.PrintModeManager import PrintModeManager
 
 from cura.Operations.SetBuildPlateNumberOperation import SetBuildPlateNumberOperation
 
@@ -107,6 +109,10 @@ class CuraActions(QObject):
         op = GroupedOperation()
         nodes = Selection.getAllSelectedObjects()
         for node in nodes:
+            print_mode_enabled = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "enabled")
+            if print_mode_enabled:
+                node_dup = PrintModeManager.getInstance().getDuplicatedNode(node)
+                op.addOperation(RemoveNodesOperation(node_dup))
             op.addOperation(RemoveSceneNodeOperation(node))
             group_node = node.getParent()
             if group_node and group_node.callDecoration("isGroup") and group_node not in removed_group_nodes:

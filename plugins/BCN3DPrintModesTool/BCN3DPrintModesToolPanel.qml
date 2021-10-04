@@ -81,8 +81,7 @@ Item
                 onClicked:{
                  Cura.PrintersManagerService.setPrintMode("duplication")
                  CuraActions.setExtruderForSelection(extrudersModel.getItem(0).id)
-                 CuraActions.centerSelection();
-                 Printer.arrangeAll();
+
                 }
                 style: UM.Theme.styles.tool_button;
                 z: 2
@@ -96,8 +95,7 @@ Item
                 onClicked:{
                  Cura.PrintersManagerService.setPrintMode("mirror")
                  CuraActions.setExtruderForSelection(extrudersModel.getItem(0).id)
-                 CuraActions.centerSelection();
-                 Printer.arrangeAll();
+
                 }
                 style: UM.Theme.styles.tool_button;
                 z: 1

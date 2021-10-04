@@ -4,7 +4,6 @@ from UM.Extension import Extension
 from cura import CuraActions
 
 from cura.CuraApplication import CuraApplication
-from cura.Settings.ExtruderManager import ExtruderManager
 from UM.i18n import i18nCatalog
 
 i18n_catalog = i18nCatalog("BCN3DIdex")
@@ -49,7 +48,6 @@ class BCN3DIdex(Extension):
 
             self._application.getMachineManager().setExtruderEnabled(0, False)
             self._application.getMachineManager().setExtruderEnabled(1, False)
-            used_extruders = ExtruderManager.getInstance().getUsedExtruderStacks()
             if print_mode == "singleT0":
                 self._application.getMachineManager().setExtruderEnabled(0, True)
                 self._application.getMachineManager().setExtruderEnabled(1, False)

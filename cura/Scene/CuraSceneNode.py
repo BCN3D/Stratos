@@ -24,7 +24,7 @@ class CuraSceneNode(SceneNode):
         super().__init__(parent = parent, visible = visible, name = name)
         if not no_setting_override:
             self.addDecorator(SettingOverrideDecorator())  # Now we always have a getActiveExtruderPosition, unless explicitly disabled
-        self._outside_buildarea = False
+        self._outside_buildarea = True
 
     def setOutsideBuildArea(self, new_value: bool) -> None:
         self._outside_buildarea = new_value
@@ -33,7 +33,11 @@ class CuraSceneNode(SceneNode):
         return self._outside_buildarea or self.callDecoration("getBuildPlateNumber") < 0
 
     def isVisible(self) -> bool:
-        return super().isVisible() and self.callDecoration("getBuildPlateNumber") == cura.CuraApplication.CuraApplication.getInstance().getMultiBuildPlateModel().activeBuildPlate
+        print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
+        if print_mode == "duplication" or print_mode == "mirror":
+            return True
+        else:
+            return super().isVisible() and self.callDecoration("getBuildPlateNumber") == cura.CuraApplication.CuraApplication.getInstance().getMultiBuildPlateModel().activeBuildPlate
 
     def isSelectable(self) -> bool:
         return super().isSelectable() and self.callDecoration("getBuildPlateNumber") == cura.CuraApplication.CuraApplication.getInstance().getMultiBuildPlateModel().activeBuildPlate
@@ -138,7 +142,8 @@ class CuraSceneNode(SceneNode):
     def __deepcopy__(self, memo: Dict[int, object]) -> "CuraSceneNode":
         """Taken from SceneNode, but replaced SceneNode with CuraSceneNode"""
 
-        copy = CuraSceneNode(no_setting_override = True)  # Setting override will be added later
+        # copy = CuraSceneNode(no_setting_override = True)  # Setting override will be added later
+        copy = CuraSceneNode()  # Setting override will be added later
         copy.setTransformation(self.getLocalTransformation(copy= False))
         copy.setMeshData(self._mesh_data)
         copy.setVisible(cast(bool, deepcopy(self._visible, memo)))
