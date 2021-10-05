@@ -41,18 +41,19 @@ class DataApiService:
     def getPrinters(self):
         print("DataApiService getPrinters")
         headers = {"authorization": "bearer {}".format(self._auth_api_service.getToken()), 'Content-Type' : 'application/x-www-form-urlencoded'}
-        print(headers)
         response = get(self.data_api_url + "/devices", headers=headers)
-        print(response.status_code)
         print(response.json())
         if 200 <= response.status_code < 300:
             return response.json()
         else:
             return []
 
-    def getPrinter(self, serial_number: str):
+    def getConnectedPrinter(self, serial_number: str):
+        print("getConnectedPrinter")
         headers = {"Authorization": "Bearer {}".format(self._auth_api_service.getToken())}
-        response = get(self.data_api_url + "/devices/" + serial_number, headers=headers)
+        response = get(self.data_api_url + "/devices/connected?serial_number=" + serial_number, headers=headers)
+        print(response.status_code)
+        print(response.json())
         if 200 <= response.status_code < 300:
             return response.json()
         else:

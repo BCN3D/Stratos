@@ -18,6 +18,7 @@ class AuthApiService(QObject):
 
     def __init__(self):
         super().__init__()
+        print("init AuthApiService")
         if AuthApiService.__instance is not None:
             raise ValueError("Duplicate singleton creation")
             
@@ -27,9 +28,7 @@ class AuthApiService(QObject):
         self._is_logged_in = False
         self._session_manager = SessionManager.getInstance()
         self._session_manager.initialize()
-        print("init AuthApiService")
-        print(self._session_manager.getAccessToken())
-        if self._session_manager.getAccessToken():
+        if self._session_manager.getAccessToken() and self.getToken():
             self.getCurrentUser()
 
     @pyqtProperty(str, notify=authStateChanged)
@@ -49,11 +48,7 @@ class AuthApiService(QObject):
     def getCurrentUser(self):
         print("getCurrentUser")
         headers = {"authorization": "bearer {}".format(self.getToken()), 'Content-Type' : 'application/x-www-form-urlencoded'}
-        print(headers)
-        print(self.api_url + "/accounts/me")
         response = get(self.api_url + "/accounts/me", headers=headers)
-        print(response.status_code)
-        print(response.json())
         if 200 <= response.status_code < 300:
             current_user = response.json()
             self._email = current_user["email"]
@@ -86,15 +81,15 @@ class AuthApiService(QObject):
             return response.status_code
 
     def refresh(self):
-        print("refresh")
+        print("refresh with refresh token")
         try:
-            response = post(
+            response = requests.post(
 				self.api_url + "/token",
 				data = {
 					"client_id": self.client_id,
 					"grant_type": "refresh_token",
 					"refresh_token": self._session_manager.getRefreshToken()
-					},
+					}
 			)
             response.raise_for_status()
             response_message = response.json()
@@ -103,6 +98,7 @@ class AuthApiService(QObject):
         except requests.exceptions.HTTPError as err:
             if err.response.status_code == 400 or err.response.status_code == 401:
                 Logger.log("e", "Unable to refresh token with error [%d]" % err.response.status_code)
+                print("Unable to refresh token with error [%d]" % err.response.status_code)
                 self.signOut()
 
     @pyqtSlot(result=bool)
@@ -117,17 +113,18 @@ class AuthApiService(QObject):
 
 
     def getToken(self):
-	    if self._session_manager.tokenIsExpired():
-		    with self.getTokenRefreshLock:
+        print("get Token()")
+        if self._session_manager.getAccessToken() and self._session_manager.tokenIsExpired():
+            with self.getTokenRefreshLock:
 				# We need to check again because there could be calls that were waiting on the lock for an active refresh.
 				# These calls should not have to refresh again as the token would be valid
-			    if self._session_manager.tokenIsExpired():
-				    self.refresh()
+                if self._session_manager.tokenIsExpired():
+                    self.refresh()
+            print("get token llama a get token")
+            return self.getToken()
 
-		    return self.getToken()
-
-	    else:
-		    return self._session_manager.getAccessToken()
+        else:
+            return self._session_manager.getAccessToken()
 
     @classmethod
     def getInstance(cls) -> "AuthApiService":

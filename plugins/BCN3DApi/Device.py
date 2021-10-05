@@ -43,8 +43,9 @@ class Device(NetworkedPrinterOutputDevice):
             self._progress_message.hide()
             Message("The selected printer doesn't support this feature.", title="Can't send gcode to printer").show()
             return
-        """"
-        printer = self._data_api_service.getPrinter(serial_number)
+        
+        printer = self._data_api_service.getConnectedPrinter(serial_number)
+        print(printer)
         if not printer:
             self._progress_message.hide()
             Message("The selected printer doesn't exist or you don't have permissions to print.",
@@ -54,6 +55,7 @@ class Device(NetworkedPrinterOutputDevice):
             self._progress_message.hide()
             Message("The selected printer isn't ready to print.", title="Can't send gcode to printer").show()
             return
+        """
         nozzles = printer.get("nozzles")
         materials = printer.get("materials")
         if nozzles and materials:
@@ -68,12 +70,13 @@ class Device(NetworkedPrinterOutputDevice):
                     return
         """
         print("start write")
-        self.writeStarted.emit(self)
+        #self.writeStarted.emit(self)
         active_build_plate = CuraApplication.getInstance().getMultiBuildPlateModel().activeBuildPlate
         self._gcode = getattr(Application.getInstance().getController().getScene(), "gcode_dict")[active_build_plate]
         gcode = self._joinGcode()
         temp_file = tempfile.NamedTemporaryFile(delete=False)
         temp_file.write(gcode.encode())
+        print("temp file name")
         temp_file_name = temp_file.name
         print(temp_file_name)
         temp_file.close()
@@ -82,10 +85,16 @@ class Device(NetworkedPrinterOutputDevice):
         with ZipFile(gcode_path, "w") as gcode_zip:
             gcode_zip.write(temp_file_name, arcname=file_name + ".gcode")
         print("sendGcode")
+        print("gcode_path")
+        print(gcode_path)
+        print("file_name_with_extension")
+        print(file_name_with_extension)
+        print("serial_number")
+        print(serial_number)
         self._data_api_service.sendGcode(gcode_path, file_name_with_extension, serial_number)
         os.remove(temp_file_name)
         os.remove(gcode_path)
-        self.writeFinished.emit()
+        #self.writeFinished.emit()
         self._progress_message.hide()
 
     def _joinGcode(self):
