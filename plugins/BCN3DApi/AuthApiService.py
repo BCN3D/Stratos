@@ -2,11 +2,12 @@ from PyQt5.QtCore import QObject, pyqtSlot, pyqtProperty, pyqtSignal
 from cura.OAuth2.Models import UserProfile
 from UM.Message import Message
 from UM.Logger import Logger
+import requests
 
 
 from .SessionManager import SessionManager
 from .http_helper import get, post
-
+from threading import Lock
 
 class AuthApiService(QObject):
     api_url = "http://api.astroprint.test/v2"
@@ -19,13 +20,15 @@ class AuthApiService(QObject):
         super().__init__()
         if AuthApiService.__instance is not None:
             raise ValueError("Duplicate singleton creation")
-
+            
+        self.getTokenRefreshLock = Lock()
         self._email = None
         self._profile = None
         self._is_logged_in = False
         self._session_manager = SessionManager.getInstance()
         self._session_manager.initialize()
-
+        print("init AuthApiService")
+        print(self._session_manager.getAccessToken())
         if self._session_manager.getAccessToken():
             self.getCurrentUser()
 
@@ -44,10 +47,13 @@ class AuthApiService(QObject):
         return self._is_logged_in
 
     def getCurrentUser(self):
-        headers = {"Authorization": "Bearer {}".format(self._session_manager.getAccessToken())}
         print("getCurrentUser")
+        headers = {"authorization": "bearer {}".format(self.getToken()), 'Content-Type' : 'application/x-www-form-urlencoded'}
         print(headers)
-        response = get(self.api_url + "/me", headers=headers)
+        print(self.api_url + "/accounts/me")
+        response = get(self.api_url + "/accounts/me", headers=headers)
+        print(response.status_code)
+        print(response.json())
         if 200 <= response.status_code < 300:
             current_user = response.json()
             self._email = current_user["email"]
@@ -55,36 +61,49 @@ class AuthApiService(QObject):
             self._is_logged_in = True
             self.authStateChanged.emit(True)
         else:
-            response_message = response.json()
-            print(response.status_code)
-            print(response_message)
             return {}
 
     @pyqtSlot(str, str, result=int)
     def signIn(self, email, password):
+        print("signIn")
         self._email = email
-        data = {"username": email, "password": password, "client_id" : self.client_id, "grant_type" : self.grant_type, "scope" : self.scope}
-        #Logger.log("i", "signing in")
-        print("A ver por aquí")
+        data = {"username": email, 
+                "password": password, 
+                "client_id" : self.client_id, 
+                "grant_type" : self.grant_type, 
+                "scope" : self.scope}
         response = post(self.api_url + "/token", data)
         if 200 <= response.status_code < 300:
-            print(response)
             response_message = response.json()
-            print(response_message)
-            self._session_manager.setAccessToken(response_message["access_token"])
-            self._session_manager.setRefreshToken(response_message["refresh_token"])
+            self._session_manager.setOuathToken(response_message)
             self._is_logged_in = True
             self.authStateChanged.emit(True)
             message = Message("Go to Add Printer to see your printers registered to the cloud", title="Sign In successfully")
             message.show()
-            self._session_manager.storeSession()
             self.getCurrentUser()
             return 200
         else:
-            response_message = response.json()
-            print(response.status_code)
-            print(response_message)
             return response.status_code
+
+    def refresh(self):
+        print("refresh")
+        try:
+            response = post(
+				self.api_url + "/token",
+				data = {
+					"client_id": self.client_id,
+					"grant_type": "refresh_token",
+					"refresh_token": self._session_manager.getRefreshToken()
+					},
+			)
+            response.raise_for_status()
+            response_message = response.json()
+            self._session_manager.setOuathToken(response_message)
+            Logger.log("i", "BCN3D Token refreshed.")
+        except requests.exceptions.HTTPError as err:
+            if err.response.status_code == 400 or err.response.status_code == 401:
+                Logger.log("e", "Unable to refresh token with error [%d]" % err.response.status_code)
+                self.signOut()
 
     @pyqtSlot(result=bool)
     def signOut(self):
@@ -95,17 +114,20 @@ class AuthApiService(QObject):
         self._is_logged_in = False
         self.authStateChanged.emit(False)
         return True
-        #headers = {"Authorization": "Bearer {}".format(self._session_manager.getAccessToken())}
-        #response = post(self.api_url + "/sign_out", {}, headers)
-        #if 200 <= response.status_code < 300:
-            #self._session_manager.clearSession()
-            #self._email = None
-            #self._profile = None
-            #self._is_logged_in = False
-            #self.authStateChanged.emit(False)
-            #return True
-        #else:
-            #return False
+
+
+    def getToken(self):
+	    if self._session_manager.tokenIsExpired():
+		    with self.getTokenRefreshLock:
+				# We need to check again because there could be calls that were waiting on the lock for an active refresh.
+				# These calls should not have to refresh again as the token would be valid
+			    if self._session_manager.tokenIsExpired():
+				    self.refresh()
+
+		    return self.getToken()
+
+	    else:
+		    return self._session_manager.getAccessToken()
 
     @classmethod
     def getInstance(cls) -> "AuthApiService":

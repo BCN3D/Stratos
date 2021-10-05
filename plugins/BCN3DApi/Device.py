@@ -22,8 +22,8 @@ class Device(NetworkedPrinterOutputDevice):
         super().__init__(device_id="cloud", address="address", properties=[])
 
         self._name = name
-        self.setShortDescription(catalog.i18nc("@action:button Preceded by 'Ready to'.", "Send to Printer"))
-        self.setDescription(catalog.i18nc("@info:tooltip", "Send to Printer"))
+        self.setShortDescription(catalog.i18nc("@action:button Preceded by 'Ready to'.", "Send to Cloud"))
+        self.setDescription(catalog.i18nc("@info:tooltip", "Send to Cloud"))
         self.setIconName("cloud")
 
         self._data_api_service = DataApiService.getInstance()
@@ -31,16 +31,19 @@ class Device(NetworkedPrinterOutputDevice):
         self._gcode = []
         self._writing = False
         self._compressing_gcode = False
+        print("device class")
         self._progress_message = Message("Sending the gcode to the printer",
-                                         title="Send to Printer", dismissable=False, progress=-1)
+                                         title="Send to Cloud", dismissable=False, progress=-1)
 
     def requestWrite(self, nodes, file_name=None, limit_mimetypes=False, file_handler=None, **kwargs):
+        print("requestWrite")
         self._progress_message.show()
         serial_number = Application.getInstance().getGlobalContainerStack().getMetaDataEntry("serial_number")
         if not serial_number:
             self._progress_message.hide()
             Message("The selected printer doesn't support this feature.", title="Can't send gcode to printer").show()
             return
+        """"
         printer = self._data_api_service.getPrinter(serial_number)
         if not printer:
             self._progress_message.hide()
@@ -63,7 +66,8 @@ class Device(NetworkedPrinterOutputDevice):
                     Message("The selected printer has a different configuration.",
                             title="Configuration mismatch").show()
                     return
-
+        """
+        print("start write")
         self.writeStarted.emit(self)
         active_build_plate = CuraApplication.getInstance().getMultiBuildPlateModel().activeBuildPlate
         self._gcode = getattr(Application.getInstance().getController().getScene(), "gcode_dict")[active_build_plate]
@@ -71,11 +75,13 @@ class Device(NetworkedPrinterOutputDevice):
         temp_file = tempfile.NamedTemporaryFile(delete=False)
         temp_file.write(gcode.encode())
         temp_file_name = temp_file.name
+        print(temp_file_name)
         temp_file.close()
         file_name_with_extension = file_name + ".gcode.zip"
         gcode_path = os.path.join(tempfile.gettempdir(), file_name_with_extension)
         with ZipFile(gcode_path, "w") as gcode_zip:
             gcode_zip.write(temp_file_name, arcname=file_name + ".gcode")
+        print("sendGcode")
         self._data_api_service.sendGcode(gcode_path, file_name_with_extension, serial_number)
         os.remove(temp_file_name)
         os.remove(gcode_path)

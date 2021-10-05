@@ -6,7 +6,8 @@ from .http_helper import get, post
 
 
 class DataApiService:
-    data_api_url = "https://api.bcn3d.com/data"
+    #data_api_url = "https://api.bcn3d.com/data"
+    data_api_url = "http://api.astroprint.test/v2"
 
     def __init__(self):
         super().__init__()
@@ -14,11 +15,10 @@ class DataApiService:
             raise ValueError("Duplicate singleton creation")
 
         DataApiService._instance = self
-        self._session_manager = SessionManager.getInstance()
         self._auth_api_service = AuthApiService.getInstance()
 
     def sendGcode(self, gcode_path, gcode_name, serial_number):
-        headers = {"Authorization": "Bearer {}".format(self._session_manager.getAccessToken())}
+        headers = {"Authorization": "Bearer {}".format(self._auth_api_service.getToken())}
         files = {"file": (gcode_path, open(gcode_path, "rb"))}
         data = {"serialNumber": serial_number, "fileName": gcode_name}
         response = post(self.data_api_url + "/gcodes", data, headers)
@@ -40,15 +40,18 @@ class DataApiService:
 
     def getPrinters(self):
         print("DataApiService getPrinters")
-        headers = {"Authorization": "Bearer {}".format(self._session_manager.getAccessToken())}
+        headers = {"authorization": "bearer {}".format(self._auth_api_service.getToken()), 'Content-Type' : 'application/x-www-form-urlencoded'}
+        print(headers)
         response = get(self.data_api_url + "/devices", headers=headers)
+        print(response.status_code)
+        print(response.json())
         if 200 <= response.status_code < 300:
             return response.json()
         else:
             return []
 
     def getPrinter(self, serial_number: str):
-        headers = {"Authorization": "Bearer {}".format(self._session_manager.getAccessToken())}
+        headers = {"Authorization": "Bearer {}".format(self._auth_api_service.getToken())}
         response = get(self.data_api_url + "/devices/" + serial_number, headers=headers)
         if 200 <= response.status_code < 300:
             return response.json()
