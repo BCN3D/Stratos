@@ -19,8 +19,6 @@ class SessionManager:
     def initialize(self):
         self._preferences.addPreference(self.bcn3d_auth_data_key, "{}")
         auth_data = json.loads(self._preferences.getValue(self.bcn3d_auth_data_key))
-        print("SessionManager initialize data:")
-        print(auth_data)
         self._access_token = auth_data.get("access_token")
         self._refresh_token = auth_data.get("refresh_token")
         self._last_request = auth_data.get("last_request")
@@ -53,7 +51,6 @@ class SessionManager:
         return (self._expires - int(time.time()) < 60)
 
     def storeSession(self):
-        print("storeSession")
         self._preferences.setValue(self.bcn3d_auth_data_key, json.dumps(
             {
                 "access_token": self._access_token, 
@@ -62,10 +59,8 @@ class SessionManager:
                 "expires" : self._expires
             }
         ))
-        print(json.loads(self._preferences.getValue(self.bcn3d_auth_data_key)))
 
     def clearSession(self):
-        print("clear Sesion")
         self._access_token = None
         self._refresh_token = None
         self._last_request = None

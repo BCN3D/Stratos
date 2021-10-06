@@ -18,7 +18,6 @@ class AuthApiService(QObject):
 
     def __init__(self):
         super().__init__()
-        print("init AuthApiService")
         if AuthApiService.__instance is not None:
             raise ValueError("Duplicate singleton creation")
             
@@ -46,7 +45,6 @@ class AuthApiService(QObject):
         return self._is_logged_in
 
     def getCurrentUser(self):
-        print("getCurrentUser")
         headers = {"authorization": "bearer {}".format(self.getToken()), 'Content-Type' : 'application/x-www-form-urlencoded'}
         response = get(self.api_url + "/accounts/me", headers=headers)
         if 200 <= response.status_code < 300:
@@ -60,7 +58,6 @@ class AuthApiService(QObject):
 
     @pyqtSlot(str, str, result=int)
     def signIn(self, email, password):
-        print("signIn")
         self._email = email
         data = {"username": email, 
                 "password": password, 
@@ -81,7 +78,7 @@ class AuthApiService(QObject):
             return response.status_code
 
     def refresh(self):
-        print("refresh with refresh token")
+        Logger.log("i", "BCN3D Token expired, refreshed.")
         try:
             response = requests.post(
 				self.api_url + "/token",
@@ -98,12 +95,10 @@ class AuthApiService(QObject):
         except requests.exceptions.HTTPError as err:
             if err.response.status_code == 400 or err.response.status_code == 401:
                 Logger.log("e", "Unable to refresh token with error [%d]" % err.response.status_code)
-                print("Unable to refresh token with error [%d]" % err.response.status_code)
                 self.signOut()
 
     @pyqtSlot(result=bool)
     def signOut(self):
-        print("signOut")
         self._session_manager.clearSession()
         self._email = None
         self._profile = None
@@ -113,14 +108,12 @@ class AuthApiService(QObject):
 
 
     def getToken(self):
-        print("get Token()")
         if self._session_manager.getAccessToken() and self._session_manager.tokenIsExpired():
             with self.getTokenRefreshLock:
 				# We need to check again because there could be calls that were waiting on the lock for an active refresh.
 				# These calls should not have to refresh again as the token would be valid
                 if self._session_manager.tokenIsExpired():
                     self.refresh()
-            print("get token llama a get token")
             return self.getToken()
 
         else:

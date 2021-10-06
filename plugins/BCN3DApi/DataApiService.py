@@ -17,43 +17,31 @@ class DataApiService:
         DataApiService._instance = self
         self._auth_api_service = AuthApiService.getInstance()
 
-    def sendGcode(self, gcode_path, gcode_name, serial_number):
+    def sendGcode(self, gcode_path, gcode_name):
         headers = {"Authorization": "Bearer {}".format(self._auth_api_service.getToken())}
         files = {"file": (gcode_path, open(gcode_path, "rb"))}
-        data = {"serialNumber": serial_number, "fileName": gcode_name}
-        response = post(self.data_api_url + "/gcodes", data, headers)
+        data = {"setup": "{name : %s}" % gcode_name}
+        response = post(self.data_api_url + "/printfiles", data, headers, files)
         if 200 <= response.status_code < 300:
-            response_message = response.json()
-            presigned_url = response_message["url"]
-            fields = response_message["fields"]
-            response2 = post(presigned_url, fields, files=files)
-            if 200 <= response2.status_code < 300:
-                message = Message("The gcode has been sent to the cloud successfully", title="Gcode sent")
-                message.show()
-            else:
-                message = Message("There was an error sending the gcode to the cloud", title="Gcode sent error")
-                message.show()
+            #response_message = response.json()
+            message = Message("The gcode has been sent to the cloud successfully", title="Gcode sent")
+            message.show()
         else:
             message = Message("There was an error sending the gcode to the cloud", title="Gcode sent error")
             message.show()
 
 
     def getPrinters(self):
-        print("DataApiService getPrinters")
         headers = {"authorization": "bearer {}".format(self._auth_api_service.getToken()), 'Content-Type' : 'application/x-www-form-urlencoded'}
         response = get(self.data_api_url + "/devices", headers=headers)
-        print(response.json())
         if 200 <= response.status_code < 300:
             return response.json()
         else:
             return []
 
     def getConnectedPrinter(self, serial_number: str):
-        print("getConnectedPrinter")
         headers = {"Authorization": "Bearer {}".format(self._auth_api_service.getToken())}
         response = get(self.data_api_url + "/devices/connected?serial_number=" + serial_number, headers=headers)
-        print(response.status_code)
-        print(response.json())
         if 200 <= response.status_code < 300:
             return response.json()
         else:
