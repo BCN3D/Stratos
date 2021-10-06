@@ -22,8 +22,8 @@ class Device(NetworkedPrinterOutputDevice):
         super().__init__(device_id="cloud", address="address", properties=[])
 
         self._name = name
-        self.setShortDescription(catalog.i18nc("@action:button Preceded by 'Ready to'.", "Send to Cloud"))
-        self.setDescription(catalog.i18nc("@info:tooltip", "Send to Cloud"))
+        self.setShortDescription(catalog.i18nc("@action:button Preceded by 'Ready to'.", "Send to printer"))
+        self.setDescription(catalog.i18nc("@info:tooltip", "Send to printer"))
         self.setIconName("cloud")
 
         self._data_api_service = DataApiService.getInstance()
@@ -32,7 +32,7 @@ class Device(NetworkedPrinterOutputDevice):
         self._writing = False
         self._compressing_gcode = False
         self._progress_message = Message("Sending the gcode to the printer",
-                                         title="Send to Cloud", dismissable=False, progress=-1)
+                                         title="Send to printer", dismissable=False, progress=-1)
 
     def requestWrite(self, nodes, file_name=None, limit_mimetypes=False, file_handler=None, **kwargs):
         self._progress_message.show()
@@ -42,7 +42,14 @@ class Device(NetworkedPrinterOutputDevice):
             Message("The selected printer doesn't support this feature.", title="Can't send gcode to printer").show()
             return
         
-        printer = self._data_api_service.getConnectedPrinter(serial_number)
+        connectedPrinters = self._data_api_service.getConnectedPrinter()
+        printer = None
+        
+        for p in connectedPrinters['data']:
+            if p['serialNumber'] == serial_number:
+                printer = p
+                break
+        
         if not printer:
             self._progress_message.hide()
             Message("The selected printer doesn't exist or you don't have permissions to print.",
@@ -65,7 +72,7 @@ class Device(NetworkedPrinterOutputDevice):
         gcode_path = os.path.join(tempfile.gettempdir(), file_name_with_extension)
         with ZipFile(gcode_path, "w") as gcode_zip:
             gcode_zip.write(temp_file_name, arcname=file_name + ".gcode")
-        self._data_api_service.sendGcode(gcode_path, file_name_with_extension)
+        self._data_api_service.sendGcode(gcode_path, file_name_with_extension, printer['id'])
         os.remove(temp_file_name)
         os.remove(gcode_path)
         #self.writeFinished.emit()
