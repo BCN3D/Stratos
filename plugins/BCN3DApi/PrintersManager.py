@@ -89,6 +89,13 @@ class PrintersManager(QObject):
 
     __instance = None
 
+ # Function to set the state checked inside the qml of the plugin
+    @pyqtSlot(result = str)
+    def getPrintMode(self):
+        self._global_container_stack = self._application.getGlobalContainerStack()
+        print_mode = self._global_container_stack.getProperty("print_mode", "value")
+        return print_mode
+
     @pyqtSlot(str)
     def setPrintMode(self, print_mode: str):
         self._global_container_stack = self._application.getGlobalContainerStack()

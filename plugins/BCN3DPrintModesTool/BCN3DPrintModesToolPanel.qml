@@ -38,6 +38,8 @@ Item
                 text: catalog.i18nc("@label", "Dual")
                 iconSource: UM.Theme.getIcon("dualicon");
                 property bool needBorder: true
+                checkable: true
+                checked: Cura.PrintersManagerService.getPrintMode() == "dual"
                 onClicked:{
                  Cura.PrintersManagerService.setPrintMode("dual")
                  CuraActions.setExtruderForSelection(extrudersModel.getItem(0).id)
@@ -51,6 +53,8 @@ Item
                 text: catalog.i18nc("@label", "Single 1")
                 iconSource: UM.Theme.getIcon("single1");
                 property bool needBorder: true
+                checkable: true
+                checked: Cura.PrintersManagerService.getPrintMode() == "singleT0"
                 onClicked: {
                  Cura.PrintersManagerService.setPrintMode("singleT0");
                  CuraActions.setExtruderForSelection(extrudersModel.getItem(0).id)
@@ -65,6 +69,8 @@ Item
                 text: catalog.i18nc("@label", "Single 2")
                 iconSource: UM.Theme.getIcon("single2");
                 property bool needBorder: true
+                checkable: true
+                checked: Cura.PrintersManagerService.getPrintMode() == "singleT1"
                 onClicked:{
                  Cura.PrintersManagerService.setPrintMode("singleT1")
                  CuraActions.setExtruderForSelection(extrudersModel.getItem(1).id)
@@ -78,6 +84,8 @@ Item
                 text: catalog.i18nc("@label", "Duplication")
                 iconSource: UM.Theme.getIcon("duplicationicon");
                 property bool needBorder: true
+                checkable: true
+                checked: Cura.PrintersManagerService.getPrintMode() == "duplication"
                 onClicked:{
                  Cura.PrintersManagerService.setPrintMode("duplication")
                  CuraActions.setExtruderForSelection(extrudersModel.getItem(0).id)
@@ -92,6 +100,8 @@ Item
                 text:  catalog.i18nc("@label", "Mirror")
                 iconSource: UM.Theme.getIcon("mirroricon");
                 property bool needBorder: true
+                checkable: true
+                checked: Cura.PrintersManagerService.getPrintMode() == "mirror"
                 onClicked:{
                  Cura.PrintersManagerService.setPrintMode("mirror")
                  CuraActions.setExtruderForSelection(extrudersModel.getItem(0).id)
