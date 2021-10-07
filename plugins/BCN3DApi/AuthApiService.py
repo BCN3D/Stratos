@@ -14,6 +14,7 @@ from threading import Lock
 class AuthApiService(QObject):
     api_url = None
     client_id = None
+    app_secret = None
     scope = 'all'
     grant_type = 'password'
     authStateChanged = pyqtSignal(bool, arguments=["isLoggedIn"])
@@ -30,6 +31,7 @@ class AuthApiService(QObject):
                     metadata = json.loads(f.read())
                     self.api_url = metadata["api_url"]
                     self.client_id = metadata["client_id"]
+                    self.app_secret = metadata["app_secret"]
                 except json.decoder.JSONDecodeError:
                     # Not throw new exceptions
                     Logger.logException("e", "Failed to parse config.json for plugin")
