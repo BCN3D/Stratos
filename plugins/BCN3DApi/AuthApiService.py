@@ -3,6 +3,8 @@ from cura.OAuth2.Models import UserProfile
 from UM.Message import Message
 from UM.Logger import Logger
 import requests
+import os
+import json
 
 
 from .SessionManager import SessionManager
@@ -10,8 +12,8 @@ from .http_helper import get, post
 from threading import Lock
 
 class AuthApiService(QObject):
-    api_url = "http://api.astroprint.test/v2"
-    client_id = 'd223803f-0361-44cc-a028-64355bd8e9d0'
+    api_url = None
+    client_id = None
     scope = 'all'
     grant_type = 'password'
     authStateChanged = pyqtSignal(bool, arguments=["isLoggedIn"])
@@ -20,7 +22,20 @@ class AuthApiService(QObject):
         super().__init__()
         if AuthApiService.__instance is not None:
             raise ValueError("Duplicate singleton creation")
-            
+
+        json_metadata_file = os.path.join("plugins/BCN3DApi/local", "config.json")
+        try:
+            with open(json_metadata_file, "r", encoding = "utf-8") as f:
+                try:
+                    metadata = json.loads(f.read())
+                    self.api_url = metadata["api_url"]
+                    self.client_id = metadata["client_id"]
+                except json.decoder.JSONDecodeError:
+                    # Not throw new exceptions
+                    Logger.logException("e", "Failed to parse config.json for plugin")
+        except:
+            Logger.log("e", "IOError error loading config.yaml.")
+
         self.getTokenRefreshLock = Lock()
         self._email = None
         self._profile = None
