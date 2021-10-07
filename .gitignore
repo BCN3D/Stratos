@@ -16,6 +16,7 @@ LC_MESSAGES
 .mypy_cache
 .pytest_cache
 !plugins/SmartSlicePlugin/3rd-party/cpython-common/pywim/micro/build
+plugins/BCN3DApi/local
 
 #MacOS
 .DS_Store

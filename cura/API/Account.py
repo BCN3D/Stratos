@@ -75,6 +75,7 @@ class Account(QObject):
         self._oauth_root = UltimakerCloudConstants.CuraCloudAccountAPIRoot
 
         self._oauth_settings = OAuth2Settings(
+            ##UPDATE THIS BETTER
             OAUTH_SERVER_URL= self._oauth_root,
             CALLBACK_PORT=self._callback_port,
             CALLBACK_URL="http://localhost:{}/callback".format(self._callback_port),

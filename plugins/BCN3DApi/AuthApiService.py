@@ -1,13 +1,22 @@
 from PyQt5.QtCore import QObject, pyqtSlot, pyqtProperty, pyqtSignal
 from cura.OAuth2.Models import UserProfile
 from UM.Message import Message
+from UM.Logger import Logger
+import requests
+import os
+import json
+
 
 from .SessionManager import SessionManager
 from .http_helper import get, post
-
+from threading import Lock
 
 class AuthApiService(QObject):
-    api_url = "https://api.bcn3d.com/auth"
+    api_url = None
+    client_id = None
+    app_secret = None
+    scope = 'all'
+    grant_type = 'password'
     authStateChanged = pyqtSignal(bool, arguments=["isLoggedIn"])
 
     def __init__(self):
@@ -15,13 +24,27 @@ class AuthApiService(QObject):
         if AuthApiService.__instance is not None:
             raise ValueError("Duplicate singleton creation")
 
+        json_metadata_file = os.path.join("plugins/BCN3DApi/local", "config.json")
+        try:
+            with open(json_metadata_file, "r", encoding = "utf-8") as f:
+                try:
+                    metadata = json.loads(f.read())
+                    self.api_url = metadata["api_url"]
+                    self.client_id = metadata["client_id"]
+                    self.app_secret = metadata["app_secret"]
+                except json.decoder.JSONDecodeError:
+                    # Not throw new exceptions
+                    Logger.logException("e", "Failed to parse config.json for plugin")
+        except:
+            Logger.log("e", "IOError error loading config.yaml.")
+
+        self.getTokenRefreshLock = Lock()
         self._email = None
         self._profile = None
         self._is_logged_in = False
         self._session_manager = SessionManager.getInstance()
         self._session_manager.initialize()
-
-        if self._session_manager.getAccessToken() and self.isValidtoken():
+        if self._session_manager.getAccessToken() and self.getToken():
             self.getCurrentUser()
 
     @pyqtProperty(str, notify=authStateChanged)
@@ -39,64 +62,79 @@ class AuthApiService(QObject):
         return self._is_logged_in
 
     def getCurrentUser(self):
-        headers = {"Authorization": "Bearer {}".format(self._session_manager.getAccessToken())}
-        response = get(self.api_url + "/user_data", headers=headers)
+        headers = {"authorization": "bearer {}".format(self.getToken()), 'Content-Type' : 'application/x-www-form-urlencoded'}
+        response = get(self.api_url + "/accounts/me", headers=headers)
         if 200 <= response.status_code < 300:
             current_user = response.json()
             self._email = current_user["email"]
-            self._profile = UserProfile(username = current_user["username"])
+            self._profile = UserProfile(username = current_user["name"])
             self._is_logged_in = True
             self.authStateChanged.emit(True)
         else:
             return {}
 
-    def isValidtoken(self):
-        headers = {"Authorization": "Bearer {}".format(self._session_manager.getAccessToken())}
-        response = post(self.api_url + "/check_token", {}, headers)
-        if 200 <= response.status_code < 300:
-            return True
-        else:
-            data = {"refreshToken": self._session_manager.getRefreshToken()}
-            refresh_response = post(self.api_url + "/refresh_token", data)
-            if 200 <= refresh_response.status_code < 300:
-                refresh_response_message = refresh_response.json()
-                self._session_manager.setAccessToken(refresh_response_message["accessToken"])
-                return True
-            else:
-                return False
-
     @pyqtSlot(str, str, result=int)
     def signIn(self, email, password):
         self._email = email
-        data = {"email": email, "password": password}
-        response = post(self.api_url + "/sign_in", data)
+        data = {"username": email, 
+                "password": password, 
+                "client_id" : self.client_id, 
+                "grant_type" : self.grant_type, 
+                "scope" : self.scope}
+        response = post(self.api_url + "/token", data)
         if 200 <= response.status_code < 300:
             response_message = response.json()
-            self._session_manager.setAccessToken(response_message["accessToken"])
-            self._session_manager.setRefreshToken(response_message["refreshToken"])
+            self._session_manager.setOuathToken(response_message)
             self._is_logged_in = True
             self.authStateChanged.emit(True)
             message = Message("Go to Add Printer to see your printers registered to the cloud", title="Sign In successfully")
             message.show()
-            self._session_manager.storeSession()
             self.getCurrentUser()
             return 200
         else:
             return response.status_code
 
+    def refresh(self):
+        Logger.log("i", "BCN3D Token expired, refreshed.")
+        try:
+            response = requests.post(
+				self.api_url + "/token",
+				data = {
+					"client_id": self.client_id,
+					"grant_type": "refresh_token",
+					"refresh_token": self._session_manager.getRefreshToken()
+					}
+			)
+            response.raise_for_status()
+            response_message = response.json()
+            self._session_manager.setOuathToken(response_message)
+            Logger.log("i", "BCN3D Token refreshed.")
+        except requests.exceptions.HTTPError as err:
+            if err.response.status_code == 400 or err.response.status_code == 401:
+                Logger.log("e", "Unable to refresh token with error [%d]" % err.response.status_code)
+                self.signOut()
+
     @pyqtSlot(result=bool)
     def signOut(self):
-        headers = {"Authorization": "Bearer {}".format(self._session_manager.getAccessToken())}
-        response = post(self.api_url + "/sign_out", {}, headers)
-        if 200 <= response.status_code < 300:
-            self._session_manager.clearSession()
-            self._email = None
-            self._profile = None
-            self._is_logged_in = False
-            self.authStateChanged.emit(False)
-            return True
+        self._session_manager.clearSession()
+        self._email = None
+        self._profile = None
+        self._is_logged_in = False
+        self.authStateChanged.emit(False)
+        return True
+
+
+    def getToken(self):
+        if self._session_manager.getAccessToken() and self._session_manager.tokenIsExpired():
+            with self.getTokenRefreshLock:
+				# We need to check again because there could be calls that were waiting on the lock for an active refresh.
+				# These calls should not have to refresh again as the token would be valid
+                if self._session_manager.tokenIsExpired():
+                    self.refresh()
+            return self.getToken()
+
         else:
-            return False
+            return self._session_manager.getAccessToken()
 
     @classmethod
     def getInstance(cls) -> "AuthApiService":

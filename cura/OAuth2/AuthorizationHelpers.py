@@ -61,10 +61,10 @@ class AuthorizationHelpers:
         Logger.log("d", "Refreshing the access token.")
         data = {
             "client_id": self._settings.CLIENT_ID if self._settings.CLIENT_ID is not None else "",
-            "redirect_uri": self._settings.CALLBACK_URL if self._settings.CALLBACK_URL is not None else "",
+            ##"redirect_uri": self._settings.CALLBACK_URL if self._settings.CALLBACK_URL is not None else "",
             "grant_type": "refresh_token",
             "refresh_token": refresh_token,
-            "scope": self._settings.CLIENT_SCOPES if self._settings.CLIENT_SCOPES is not None else "",
+            ##"scope": self._settings.CLIENT_SCOPES if self._settings.CLIENT_SCOPES is not None else "",
         }
         try:
             return self.parseTokenResponse(requests.post(self._token_url, data = data))  # type: ignore
