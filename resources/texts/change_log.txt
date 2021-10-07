@@ -1,3 +1,13 @@
+[1.2.0]
+
+- Integration with the new BCN3D Cloud
+- New visualization of the Mirror and Duplication modes in the build plate
+- Refine visibility of the print mode selected on the BCN3D Print Mode Tool plugin
+- Fix problem with the Start Purge Speed
+- The size of the Epsilon bed files has been reduced
+
+
+
 [1.1.0]
 
 - BVOH profiles for Sigma and SigmaX series
