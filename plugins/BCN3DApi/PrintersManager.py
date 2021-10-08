@@ -53,7 +53,7 @@ class PrintersManager(QObject):
         printers = self._data_api_service.getPrinters()
         discovered_printers_model = self._cura_application.getDiscoveredPrintersModel()
         for printer in printers:
-            discovered_printers_model.addDiscoveredPrinter(printer["serialnumber"], printer["serialnumber"], printer["printername"], self._createMachine, printer["printermodel"], Device(printer["printername"]))
+            discovered_printers_model.addDiscoveredPrinter(printer["serialnumber"], printer["serialnumber"], printer["printername"], self._createMachine, "Epsilon W50", Device(printer["printername"]))
 
     def _resetPrinters(self):
         discovered_printers_model = self._cura_application.getDiscoveredPrintersModel()

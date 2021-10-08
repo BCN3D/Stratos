@@ -1525,23 +1525,6 @@ class CuraApplication(QtApplication):
         else:
             offset = Vector(0, 0, 0)
 
-        print_mode_enabled = self.getGlobalContainerStack().getProperty("print_mode", "enabled")
-        if print_mode_enabled:
-            print_mode = self.getGlobalContainerStack().getProperty("print_mode", "value")
-            if print_mode not in ["singleT0","singleT1","dual"]:
-                duplicated_group_node = DuplicatedNode(group_node, self.getController().getScene().getRoot())
-            else:
-                duplicated_group_node = DuplicatedNode(group_node)
-
-        op = GroupedOperation()
-        for node in Selection.getAllSelectedObjects():
-            if print_mode_enabled:
-                node_dup = self._print_mode_manager.getDuplicatedNode(node)
-                op.addOperation(SetParentOperation(node_dup, duplicated_group_node))
-
-            op.addOperation(SetParentOperation(node, group_node))
-
-        op.push()
 
         # Move each node to the same position.
         for mesh, node in zip(meshes, group_node.getChildren()):
@@ -1626,13 +1609,7 @@ class CuraApplication(QtApplication):
             if parent is not None and parent in selected_nodes and not parent.callDecoration("isGroup"):
                 Selection.remove(node)
 
-        # Move selected nodes into the group-node
-        Selection.applyOperation(SetParentOperation, group_node)
 
-        # Deselect individual nodes and select the group-node instead
-        for node in group_node.getChildren():
-            Selection.remove(node)
-        Selection.add(group_node)
 
         print_mode_enabled = self.getGlobalContainerStack().getProperty("print_mode", "enabled")
         if print_mode_enabled:
@@ -1652,6 +1629,10 @@ class CuraApplication(QtApplication):
 
         op.push()
 
+        # Deselect individual nodes and select the group-node instead
+        for node in group_node.getChildren():
+            Selection.remove(node)
+        Selection.add(group_node)
 
 
     @pyqtSlot()
@@ -1674,14 +1655,13 @@ class CuraApplication(QtApplication):
                     # Add all individual nodes to the selection
                     Selection.add(child)
 
-                print_mode_enabled = self.getGlobalContainerStack().getProperty("print_mode", "enabled")
-                if print_mode_enabled:
+                print_mode = self.getGlobalContainerStack().getProperty("print_mode", "value")
+                if print_mode not in ["singleT0", "singleT1", "dual"]:
                     duplicated_group_node = self._print_mode_manager.getDuplicatedNode(node)
                     duplicated_group_parent = duplicated_group_node.getParent()
                     duplicated_children = duplicated_group_node.getChildren().copy()
                     for child in duplicated_children:
                         op.addOperation(SetParentOperation(child, duplicated_group_parent))
-
 
                 op.push()
                 # Note: The group removes itself from the scene once all its children have left it,

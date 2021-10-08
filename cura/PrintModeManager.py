@@ -25,15 +25,11 @@ class PrintModeManager:
         application = cura.CuraApplication.CuraApplication.getInstance()
         self._global_stack = application.getGlobalContainerStack()
 
-        old_material_id = "BCN3D_Filaments_TOUGH-PLA_Black_bcn3dd25_e3D_-_0.4mm_-_Brass"
-
         if self._global_stack is not None:
             self._global_stack.setProperty("print_mode", "value", "singleT0")
             for node in Selection.getAllSelectedObjects():
                 node.setSetting("print_mode", "singleT0")
-                # SetObjectExtruderOperation(node, used_extruders[0].getId())
-                # for child in node.getAllChildren():
-                #     SetObjectExtruderOperation(child, used_extruders[0].getId())
+
 
         Application.getInstance().globalContainerStackChanged.connect(self._onGlobalStackChanged)
         self._onGlobalStackChanged()

@@ -109,8 +109,8 @@ class CuraActions(QObject):
         op = GroupedOperation()
         nodes = Selection.getAllSelectedObjects()
         for node in nodes:
-            print_mode_enabled = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "enabled")
-            if print_mode_enabled:
+            print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
+            if print_mode not in ["singleT0", "singleT1", "dual"]:
                 node_dup = PrintModeManager.getInstance().getDuplicatedNode(node)
                 op.addOperation(RemoveNodesOperation(node_dup))
             op.addOperation(RemoveSceneNodeOperation(node))
