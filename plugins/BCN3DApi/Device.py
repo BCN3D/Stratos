@@ -64,17 +64,12 @@ class Device(NetworkedPrinterOutputDevice):
         active_build_plate = CuraApplication.getInstance().getMultiBuildPlateModel().activeBuildPlate
         self._gcode = getattr(Application.getInstance().getController().getScene(), "gcode_dict")[active_build_plate]
         gcode = self._joinGcode()
-        temp_file = tempfile.NamedTemporaryFile(delete=False)
-        temp_file.write(gcode.encode())
-        temp_file_name = temp_file.name
-        temp_file.close()
         file_name_with_extension = file_name + ".gcode"
-        gcode_path = os.path.join(tempfile.gettempdir(), file_name_with_extension)
-        with ZipFile(gcode_path, "w") as gcode_zip:
-            gcode_zip.write(temp_file_name, arcname=file_name + ".gcode")
-        self._data_api_service.sendGcode(gcode_path, file_name_with_extension, printer['id'])
-        os.remove(temp_file_name)
-        os.remove(gcode_path)
+        with open(file_name_with_extension, "w") as gcode_file:
+            gcode_file.write(gcode)
+        self._data_api_service.sendGcode(file_name_with_extension, file_name_with_extension, printer['id'])
+        gcode_file.close()
+        os.remove(file_name_with_extension)
         #self.writeFinished.emit()
         self._progress_message.hide()
 
