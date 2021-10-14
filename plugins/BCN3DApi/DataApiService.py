@@ -15,9 +15,9 @@ class DataApiService:
         DataApiService._instance = self
         self._auth_api_service = AuthApiService.getInstance()
 
-    def sendGcode(self, gcode_path, gcode_name, printerId):
+    def sendGcode(self, gcode, gcode_name, printerId):
         headers = {"Authorization": "Bearer {}".format(self._auth_api_service.getToken())}
-        files = {"file": (gcode_path, open(gcode_path, "rb"))}
+        files = {"file": (gcode_name, gcode)}
         data = {"setup": "{name : %s}" % gcode_name}
         response = post(self._auth_api_service.api_url + "/printfiles", data, headers, files)
         if 200 <= response.status_code < 300:
