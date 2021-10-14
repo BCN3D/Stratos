@@ -1,4 +1,4 @@
-[1.2.1]
+[1.2.2]
 
 - Integration with the new BCN3D Cloud
 - New visualization of the Mirror and Duplication modes in the build plate
