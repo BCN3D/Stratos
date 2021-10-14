@@ -8,9 +8,6 @@ from .DataApiService import DataApiService
 from cura.Settings.ExtruderManager import ExtruderManager
 from cura.PrinterOutput.NetworkedPrinterOutputDevice import NetworkedPrinterOutputDevice
 
-import tempfile
-import os
-from zipfile import ZipFile
 
 from UM.i18n import i18nCatalog
 
