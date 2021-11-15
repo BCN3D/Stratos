@@ -36,7 +36,7 @@ class AuthApiService(QObject):
                     # Not throw new exceptions
                     Logger.logException("e", "Failed to parse config.json for plugin")
         except:
-            Logger.log("e", "IOError error loading config.json")
+            Logger.log("e", "IOError error loading config.json, remember adding the file during the compilation")
 
         self.getTokenRefreshLock = Lock()
         self._email = None
