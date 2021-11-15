@@ -6,15 +6,14 @@ import requests
 import os
 import json
 
-
 from .SessionManager import SessionManager
 from .http_helper import get, post
 from threading import Lock
 
 class AuthApiService(QObject):
     api_url = "https://api.cloud.bcn3d.com/v2"
-    client_id = "e032d294cef848058ecc8ff2f90bdc01"
-    app_secret = "24c33b9c1af656a319bc1279dcbb046747629b0f0b1b7561e1eafc11fc0ff23f"
+    client_id = None
+    app_secret = None
     scope = 'all'
     grant_type = 'password'
     authStateChanged = pyqtSignal(bool, arguments=["isLoggedIn"])
@@ -24,19 +23,26 @@ class AuthApiService(QObject):
         if AuthApiService.__instance is not None:
             raise ValueError("Duplicate singleton creation")
 
-        # json_metadata_file = os.path.join("plugins/BCN3DApi/local", "config.json")
-        # try:
-        #     with open(json_metadata_file, "r", encoding = "utf-8") as f:
-        #         try:
-        #             metadata = json.loads(f.read())
-        #             self.api_url = metadata["api_url"]
-        #             self.client_id = metadata["client_id"]
-        #             self.app_secret = metadata["app_secret"]
-        #         except json.decoder.JSONDecodeError:
-        #             # Not throw new exceptions
-        #             Logger.logException("e", "Failed to parse config.json for plugin")
-        # except:
-        #     Logger.log("e", "IOError error loading config.yaml.")
+        if os.environ.client_id and os.environ.app_secret and os.environ.api_url:
+            Logger.log("i", "Loading api_url, client_id and app_secret from env")
+            self.client_id = os.environ.client_id
+            self.app_secret = os.environ.app_secret
+            self.api_url = os.environ.api_url
+        else:
+            json_metadata_file = os.path.join("plugins/BCN3DApi/local", "config.json")
+            try:
+                with open(json_metadata_file, "r", encoding = "utf-8") as f:
+                    try:
+                        metadata = json.loads(f.read())
+                        self.api_url = metadata["api_url"]
+                        self.client_id = metadata["client_id"]
+                        self.app_secret = metadata["app_secret"]
+                        Logger.log("i", "Loading api_url, client_id and app_secret from config.json")
+                    except json.decoder.JSONDecodeError:
+                        # Not throw new exceptions
+                        Logger.logException("e", "Failed to parse config.json for plugin")
+            except:
+                Logger.log("e", "IOError error loading config.json")
 
         self.getTokenRefreshLock = Lock()
         self._email = None
