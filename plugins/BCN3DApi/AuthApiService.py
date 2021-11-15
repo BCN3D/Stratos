@@ -23,26 +23,20 @@ class AuthApiService(QObject):
         if AuthApiService.__instance is not None:
             raise ValueError("Duplicate singleton creation")
 
-        if os.environ.client_id and os.environ.app_secret and os.environ.api_url:
-            Logger.log("i", "Loading api_url, client_id and app_secret from env")
-            self.client_id = os.environ.client_id
-            self.app_secret = os.environ.app_secret
-            self.api_url = os.environ.api_url
-        else:
-            json_metadata_file = os.path.join("plugins/BCN3DApi/local", "config.json")
-            try:
-                with open(json_metadata_file, "r", encoding = "utf-8") as f:
-                    try:
-                        metadata = json.loads(f.read())
-                        self.api_url = metadata["api_url"]
-                        self.client_id = metadata["client_id"]
-                        self.app_secret = metadata["app_secret"]
-                        Logger.log("i", "Loading api_url, client_id and app_secret from config.json")
-                    except json.decoder.JSONDecodeError:
-                        # Not throw new exceptions
-                        Logger.logException("e", "Failed to parse config.json for plugin")
-            except:
-                Logger.log("e", "IOError error loading config.json")
+        json_metadata_file = os.path.join("plugins/BCN3DApi/local", "config.json")
+        try:
+            with open(json_metadata_file, "r", encoding = "utf-8") as f:
+                try:
+                    metadata = json.loads(f.read())
+                    self.api_url = metadata["api_url"]
+                    self.client_id = metadata["client_id"]
+                    self.app_secret = metadata["app_secret"]
+                    Logger.log("i", "Loading api_url, client_id and app_secret from config.json")
+                except json.decoder.JSONDecodeError:
+                    # Not throw new exceptions
+                    Logger.logException("e", "Failed to parse config.json for plugin")
+        except:
+            Logger.log("e", "IOError error loading config.json")
 
         self.getTokenRefreshLock = Lock()
         self._email = None
