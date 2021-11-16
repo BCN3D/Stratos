@@ -11,6 +11,7 @@ from UM.Scene.SceneNode import SceneNode
 from cura.Arranging.ShapeArray import ShapeArray
 from cura.BuildVolume import BuildVolume
 from cura.Scene import ZOffsetDecorator
+from cura.Scene.DuplicatedNode import DuplicatedNode
 
 from collections import namedtuple
 
@@ -69,7 +70,7 @@ class Arrange:
             fixed_nodes = []
             for node_ in DepthFirstIterator(scene_root):
                 # Only count sliceable objects
-                if node_.callDecoration("isSliceable"):
+                if node_.callDecoration("isSliceable") and not isinstance(node_, DuplicatedNode):
                     fixed_nodes.append(node_)
 
         # Place all objects fixed nodes
@@ -146,7 +147,7 @@ class Arrange:
         # Square distance: creates a more round shape
         offset = 0
         print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
-        if print_mode != "dual":
+        if print_mode not in ["singleT0", "singleT1", "dual"]:
             offset = self._offset_x / 2
             if print_mode == "mirror":
                 machine_head_with_fans_polygon = Application.getInstance().getGlobalContainerStack().getProperty(

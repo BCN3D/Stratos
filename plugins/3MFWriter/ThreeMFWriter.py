@@ -14,7 +14,7 @@ from cura.CuraApplication import CuraApplication
 import Savitar
 
 import numpy
-
+from cura.Scene.DuplicatedNode import DuplicatedNode
 MYPY = False
 try:
     if not MYPY:
@@ -166,10 +166,11 @@ class ThreeMFWriter(MeshWriter):
             for node in nodes:
                 if node == root_node:
                     for root_child in node.getChildren():
-                        savitar_node = self._convertUMNodeToSavitarNode(root_child, transformation_matrix)
-                        if savitar_node:
-                            savitar_scene.addSceneNode(savitar_node)
-                else:
+                        if type(root_child) != DuplicatedNode:
+                            savitar_node = self._convertUMNodeToSavitarNode(root_child, transformation_matrix)
+                            if savitar_node:
+                                savitar_scene.addSceneNode(savitar_node)
+                elif type(node) != DuplicatedNode:
                     savitar_node = self._convertUMNodeToSavitarNode(node, transformation_matrix)
                     if savitar_node:
                         savitar_scene.addSceneNode(savitar_node)

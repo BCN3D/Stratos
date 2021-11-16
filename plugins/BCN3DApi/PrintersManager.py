@@ -53,7 +53,7 @@ class PrintersManager(QObject):
         printers = self._data_api_service.getPrinters()
         discovered_printers_model = self._cura_application.getDiscoveredPrintersModel()
         for printer in printers:
-            discovered_printers_model.addDiscoveredPrinter(printer["serialNumber"], printer["serialNumber"], printer["printerName"], self._createMachine, printer["printerModel"], Device(printer["printerName"]))
+            discovered_printers_model.addDiscoveredPrinter(printer["serialnumber"], printer["serialnumber"], printer["printername"], self._createMachine, printer["printerModel"], Device(printer["printername"]))
 
     def _resetPrinters(self):
         discovered_printers_model = self._cura_application.getDiscoveredPrintersModel()
@@ -88,6 +88,13 @@ class PrintersManager(QObject):
         return cls.__instance
 
     __instance = None
+
+ # Function to set the state checked inside the qml of the plugin
+    @pyqtSlot(result = str)
+    def getPrintMode(self):
+        self._global_container_stack = self._application.getGlobalContainerStack()
+        print_mode = self._global_container_stack.getProperty("print_mode", "value")
+        return print_mode
 
     @pyqtSlot(str)
     def setPrintMode(self, print_mode: str):

@@ -11,6 +11,7 @@ from UM.Scene.Iterator.BreadthFirstIterator import BreadthFirstIterator
 from UM.Math.Vector import Vector
 from UM.Scene.Selection import Selection
 from UM.Scene.SceneNodeSettings import SceneNodeSettings
+from cura.Scene.DuplicatedNode import DuplicatedNode
 
 from cura.Scene.ConvexHullDecorator import ConvexHullDecorator
 
@@ -68,7 +69,7 @@ class PlatformPhysics:
         # By shuffling the order of the nodes, this might happen a few times, but at some point it will resolve.
         random.shuffle(nodes)
         for node in nodes:
-            if node is root or not isinstance(node, SceneNode) or node.getBoundingBox() is None:
+            if node is root or not isinstance(node, SceneNode) or isinstance(node, DuplicatedNode) or node.getBoundingBox() is None:
                 continue
 
             bbox = node.getBoundingBox()
@@ -85,7 +86,7 @@ class PlatformPhysics:
                 node.addDecorator(ConvexHullDecorator())
 
             # only push away objects if this node is a printing mesh
-            if not node.callDecoration("isNonPrintingMesh") and Application.getInstance().getPreferences().getValue("physics/automatic_push_free"):
+            if not node.callDecoration("isNonPrintingMesh") and Application.getInstance().getPreferences().getValue("physics/automatic_push_free") and type(node) != DuplicatedNode:
                 # Do not move locked nodes
                 if node.getSetting(SceneNodeSettings.LockPosition):
                     continue

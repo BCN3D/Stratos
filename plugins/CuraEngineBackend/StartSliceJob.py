@@ -27,6 +27,7 @@ from UM.Settings.SettingRelation import RelationType
 from cura.CuraApplication import CuraApplication
 from cura.Scene.CuraSceneNode import CuraSceneNode
 from cura.OneAtATimeIterator import OneAtATimeIterator
+from cura.Scene.DuplicatedNode import DuplicatedNode
 from cura.Settings.ExtruderManager import ExtruderManager
 
 
@@ -299,7 +300,8 @@ class StartSliceJob(Job):
 
             for object in group:
                 mesh_data = object.getMeshData()
-                if mesh_data is None:
+                # We only want to slice the original node
+                if mesh_data is None or isinstance(object, DuplicatedNode):
                     continue
                 rot_scale = object.getWorldTransformation().getTransposed().getData()[0:3, 0:3]
                 translate = object.getWorldTransformation().getData()[:3, 3]
