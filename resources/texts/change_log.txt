@@ -1,7 +1,8 @@
 [1.3.0]
 
 
-- New Post Processing script "Pause at layer/Heigt" that allows to pause the printing at a certain layer or height.
+- New Post Processing script "Pause at Layer/Height" that allows to pause the printing at a certain layer or height
+- Internal bug fixing
 
 [1.2.2]
 
