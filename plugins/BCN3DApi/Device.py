@@ -9,7 +9,6 @@ from cura.Settings.ExtruderManager import ExtruderManager
 from cura.PrinterOutput.NetworkedPrinterOutputDevice import NetworkedPrinterOutputDevice
 
 
-
 from UM.i18n import i18nCatalog
 
 catalog = i18nCatalog("cura")
@@ -58,13 +57,13 @@ class Device(NetworkedPrinterOutputDevice):
             Message("The selected printer isn't ready to print.", title="Can't send gcode to printer").show()
             return
 
-        # self.writeStarted.emit(self)
+        #self.writeStarted.emit(self)
         active_build_plate = CuraApplication.getInstance().getMultiBuildPlateModel().activeBuildPlate
         self._gcode = getattr(Application.getInstance().getController().getScene(), "gcode_dict")[active_build_plate]
         gcode = self._joinGcode()
         file_name_with_extension = file_name + ".gcode"
         self._data_api_service.sendGcode(gcode, file_name_with_extension, printer['id'])
-        # self.writeFinished.emit()
+        #self.writeFinished.emit()
         self._progress_message.hide()
 
     def _joinGcode(self):

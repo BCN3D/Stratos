@@ -1,3 +1,17 @@
+[1.4.0]
+
+- Added profile compatibility for metal filled materials (Epsilon Series): Ultrafuse 316L and Ultrafuse 17-4 PH
+- Added profile compatibility for BCN3D Filaments PET CF15 (Epsilon Series)
+- Fixed profile compatibility for some materials
+- Internal bug fixing
+
+
+[1.3.0]
+
+- New Post Processing script "Pause at Height" that allows to pause the printing at a certain layer or height
+- Internal bug fixing
+
+
 [1.2.2]
 
 - Integration with the new BCN3D Cloud
@@ -5,7 +19,6 @@
 - Refine visibility of the print mode selected on the BCN3D Print Mode Tool plugin
 - Fix problem with the Start Purge Speed
 - The size of the Epsilon bed files has been reduced
-
 
 
 [1.1.0]
@@ -19,15 +32,10 @@
 
 [1.0.0]
 
-
 * BCN3D Stratos is based on Ultimaker Cura 4.8
-
-
 
 - New plugin to enable the BCN3D IDEX system with Mirror and Duplication print modes
 - New Single T1 and Single T2 print modes
 - Connect Stratos with the BCN3D Cloud  and use your connected printers
 - Improved UI
 - Improved general performance since BCN3D Cura 3.4.3
-
-
