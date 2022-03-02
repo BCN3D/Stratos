@@ -6,13 +6,12 @@ import requests
 import os
 import json
 
-
 from .SessionManager import SessionManager
 from .http_helper import get, post
 from threading import Lock
 
 class AuthApiService(QObject):
-    api_url = None
+    api_url = "https://api.cloud.bcn3d.com/v2"
     client_id = None
     app_secret = None
     scope = 'all'
@@ -24,19 +23,9 @@ class AuthApiService(QObject):
         if AuthApiService.__instance is not None:
             raise ValueError("Duplicate singleton creation")
 
-        json_metadata_file = os.path.join("plugins/BCN3DApi/local", "config.json")
-        try:
-            with open(json_metadata_file, "r", encoding = "utf-8") as f:
-                try:
-                    metadata = json.loads(f.read())
-                    self.api_url = metadata["api_url"]
-                    self.client_id = metadata["client_id"]
-                    self.app_secret = metadata["app_secret"]
-                except json.decoder.JSONDecodeError:
-                    # Not throw new exceptions
-                    Logger.logException("e", "Failed to parse config.json for plugin")
-        except:
-            Logger.log("e", "IOError error loading config.yaml.")
+        self.api_url = "https://api.cloud.bcn3d.com/v2"
+        self.client_id = "e032d294cef848058ecc8ff2f90bdc01"
+        self.app_secret = "24c33b9c1af656a319bc1279dcbb046747629b0f0b1b7561e1eafc11fc0ff23f"
 
         self.getTokenRefreshLock = Lock()
         self._email = None

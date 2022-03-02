@@ -4650,7 +4650,7 @@ msgstr "De huidige temperatuur van dit hotend."
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/PrinterOutput/ExtruderBox.qml:177
 msgctxt "@tooltip of temperature input"
 msgid "The temperature to pre-heat the hotend to."
-msgstr "De temperatuur waarnaar het hotend moet worden voorverwarmd."
+msgstr "De temperatuur waarnaar het Hotend M (0.4mm)oet worden voorverwarmd."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/PrinterOutput/ExtruderBox.qml:341 /home/trin/Gedeeld/Projects/Cura/resources/qml/PrinterOutput/HeatedBedBox.qml:332
 msgctxt "@button Cancel pre-heating"

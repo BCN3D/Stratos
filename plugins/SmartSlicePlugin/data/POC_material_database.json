@@ -70,6 +70,31 @@
       "cura-generic-guid": []
     },
     {
+      "name": "Stratos PET CF15_bulk",
+      "density": 1.233e-09,
+      "elastic": {
+        "type": "transverse_isotropic",
+        "Ea": 11629.28155944881,
+        "Et": 2434.584163095117,
+        "nuat": 0.35,
+        "nutt": 0.45,
+        "Gat": 2309.540573015876
+      },
+      "failure_yield": {
+        "type": "isotropic",
+        "T": 49.395759769908075,
+        "C": 49.395759769908075,
+        "S": 37.422399753322374
+      },
+      "fracture": {
+        "KIc": 3.2748370640022992
+      },
+      "cura-tested-guid": [
+        "3caaf191-00b9-406a-9c61-02a303e20104"
+      ],
+      "cura-generic-guid": []
+    },
+    {
       "name": "Stratos PET-G_bulk",
       "density": 1.27e-09,
       "elastic": {

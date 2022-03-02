@@ -1274,6 +1274,15 @@
                     "enabled": "wall_0_extruder_nr == wall_x_extruder_nr",
                     "settable_per_mesh": true
                 },
+                "alternate_wall_direction":
+                {
+                    "label": "Alternate Wall Direction",
+                    "description": "Alternate the direction in which the walls get printed between clockwise and counter-clockwise. The outer and inner walls are alternated and the alternation is flipped each layer. Enable this to reduce torsion warping.",
+                    "type": "bool",
+                    "default_value": false,
+                    "enabled": "wall_line_count > 0",
+                    "settable_per_mesh": true
+                },
                 "alternate_extra_perimeter":
                 {
                     "label": "Alternate Extra Wall",
@@ -1796,6 +1805,14 @@
                     "default_value": 0,
                     "enabled": "infill_pattern == 'grid' or infill_pattern == 'lines' or infill_pattern == 'triangles' or infill_pattern == 'cubic' or infill_pattern == 'tetrahedral' or infill_pattern == 'quarter_cubic' or infill_pattern == 'zigzag'",
                     "limit_to_extruder": "infill_extruder_nr",
+                    "settable_per_mesh": true
+                },
+                 "alternate_infill_direction":
+                {
+                    "label": "Alternate Infill Direction",
+                    "description": "Alternate the direction in which the infill get printed each layer. If consecutive layers differ significantly the printing direction is undetermined. Enable this to reduce torsion warping.",
+                    "type": "bool",
+                    "default_value": false,
                     "settable_per_mesh": true
                 },
                 "infill_randomize_start_location":
