@@ -1,3 +1,10 @@
+[1.5.0]
+
+- Performance improvements most noticeable when switching between IDEX printing modes
+- SmartSlice plugin not installed by default
+- Option to store the print file on the BCN3D Cloud library when printing it
+- Minor printing profile adjustments
+
 [1.4.0]
 
 - Added profile compatibility for metal filled materials (Epsilon Series): Ultrafuse 316L and Ultrafuse 17-4 PH
