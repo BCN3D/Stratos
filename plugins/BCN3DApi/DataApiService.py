@@ -15,16 +15,35 @@ class DataApiService:
         DataApiService._instance = self
         self._auth_api_service = AuthApiService.getInstance()
 
-    def sendGcode(self, gcode, gcode_name, printerId):
+    def sendGcode(self, gcode, gcode_name, printerId, save = False):
         headers = {"Authorization": "Bearer {}".format(self._auth_api_service.getToken())}
         files = {"file": (gcode_name, gcode)}
-        response = post(self._auth_api_service.api_url + "/devices/" + printerId + "/print", [], headers, files)
-        if 200 <= response.status_code < 300:
-            message = Message("The gcode has been sent to the cloud successfully", title="Gcode sent")
-            message.show()
-        else:
-            message = Message("There was an error sending the gcode to the cloud", title="Gcode sent error")
-            message.show()
+        if save:
+            data = {"setup": "{name : %s}" % gcode_name}
+            response = post(self._auth_api_service.api_url + "/printfiles", data, headers, files)
+            if 200 <= response.status_code < 300:
+                response_message = response.json()
+                print_file_id = response_message[0]["print_file_id"]
+                data = {"print_file_id" : print_file_id }
+                headers = {"Authorization": "Bearer {}".format(self._auth_api_service.getToken())}
+                response2 = post(self._auth_api_service.api_url + "/devices/" + printerId + "/print", data, headers)
+                if 200 <= response2.status_code < 300:
+                    message = Message("The gcode has been sent to the cloud and the printer successfully", title="Gcode sent")
+                    message.show()
+                else:
+                    message = Message("The gcode has been sent to the cloud successfully but there was an error sending the gcode to the printer", title="Gcode sent error")
+                    message.show()
+            else:
+                message = Message("There was an error sending the gcode to the cloud", title="Gcode sent error")
+                message.show()
+        else :
+            response = post(self._auth_api_service.api_url + "/devices/" + printerId + "/print", [], headers, files)
+            if 200 <= response.status_code < 300:
+                message = Message("The gcode has been sent to the printer successfully", title="Gcode sent")
+                message.show()
+            else:
+                message = Message("There was an error sending the gcode to the printer", title="Gcode sent error")
+                message.show()
 
 
     def getPrinters(self):

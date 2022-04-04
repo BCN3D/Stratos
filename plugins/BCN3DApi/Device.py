@@ -3,6 +3,8 @@ from PyQt5.QtCore import pyqtProperty, pyqtSlot
 from cura.CuraApplication import CuraApplication
 from UM.Application import Application
 from UM.Message import Message
+from UM.Logger import Logger
+
 
 from .DataApiService import DataApiService
 from cura.Settings.ExtruderManager import ExtruderManager
@@ -16,11 +18,18 @@ catalog = i18nCatalog("cura")
 
 class Device(NetworkedPrinterOutputDevice):
     def __init__(self, name: str):
-        super().__init__(device_id="cloud", address="address", properties=[])
+        id = "cloud"
+        if name == "cloud_save":
+            id = "cloud_save"
+
+        super().__init__(device_id=id, address="address", properties=[])
 
         self._name = name
-        self.setShortDescription(catalog.i18nc("@action:button Preceded by 'Ready to'.", "Send to printer"))
-        self.setDescription(catalog.i18nc("@info:tooltip", "Send to printer"))
+        message = "Send to printer"
+        if self._name == "cloud_save":
+            message = "Send to cloud and print"
+        self.setShortDescription(catalog.i18nc("@action:button Preceded by 'Ready to'.", message))
+        self.setDescription(catalog.i18nc("@info:tooltip", message))
         self.setIconName("cloud")
 
         self._data_api_service = DataApiService.getInstance()
@@ -62,7 +71,7 @@ class Device(NetworkedPrinterOutputDevice):
         self._gcode = getattr(Application.getInstance().getController().getScene(), "gcode_dict")[active_build_plate]
         gcode = self._joinGcode()
         file_name_with_extension = file_name + ".gcode"
-        self._data_api_service.sendGcode(gcode, file_name_with_extension, printer['id'])
+        self._data_api_service.sendGcode(gcode, file_name_with_extension, printer['id'], self._name == "cloud_save")
         #self.writeFinished.emit()
         self._progress_message.hide()
 

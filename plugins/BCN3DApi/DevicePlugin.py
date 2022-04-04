@@ -26,11 +26,13 @@ class DevicePlugin(OutputDevicePlugin):
 
     def stop(self):
         self.getOutputDeviceManager().removeOutputDevice("cloud")
+        self.getOutputDeviceManager().removeOutputDevice("cloud_save")
 
     def _authStateChanged(self, logged_in):
         self._is_logged_in = logged_in
         if self._is_logged_in and self._supports_cloud_connection:
             self.getOutputDeviceManager().addOutputDevice(Device(""))
+            self.getOutputDeviceManager().addOutputDevice(Device("cloud_save"))
         else:
             self.stop()
 
@@ -42,5 +44,6 @@ class DevicePlugin(OutputDevicePlugin):
 
             if self._supports_cloud_connection and self._is_logged_in:
                 self.getOutputDeviceManager().addOutputDevice(Device(""))
+                self.getOutputDeviceManager().addOutputDevice(Device("cloud_save"))
             else:
                 self.stop()
