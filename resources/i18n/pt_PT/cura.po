@@ -1085,6 +1085,16 @@ msgctxt "@action:button Preceded by 'Ready to'."
 msgid "Save to Removable Drive"
 msgstr "Guardar no Disco Externo"
 
+#: /home/trin/Gedeeld/Projects/Cura/plugins/BCN3DApi/Device.py.py:28
+msgctxt "@action:button"
+msgid "Send to printer"
+msgstr "Enviar para a impressora"
+
+#: /home/trin/Gedeeld/Projects/Cura/plugins/BCN3DApi/Device.py.py:30
+msgctxt "@action:button"
+msgid "Send to cloud and print"
+msgstr "Enviar para a nuvem e imprimir"
+
 #: /home/trin/Gedeeld/Projects/Cura/plugins/RemovableDriveOutputDevice/RemovableDriveOutputDevice.py:24
 #, python-brace-format
 msgctxt "@item:inlistbox"
@@ -2591,6 +2601,7 @@ msgstr "Descartar"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/CompatibilityDialog.qml:23
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:123
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:123
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/FirstStartMachineActionsContent.qml:77
 msgctxt "@button"
 msgid "Next"
@@ -3175,7 +3186,7 @@ msgctxt "@text"
 msgid ""
 "- Customize your experience with more print profiles and plugins\n"
 "- Stay flexible by syncing your setup and loading it anywhere\n"
-"- Increase efficiency with a remote workflow on Ultimaker printers"
+"- Increase efficiency with a remote workflow on BCN3D printers"
 msgstr ""
 "- Personalize a sua experiência com mais perfis e plug-ins de impressão\n"
 "- Mantenha a sua flexibilidade. Sincronize a sua configuração e carregue-a em qualquer local\n"
@@ -3217,9 +3228,9 @@ msgctxt "@label The argument is a timestamp"
 msgid "Last update: %1"
 msgstr "Atualização mais recente: %1"
 
-#: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/UserOperations.qml:109
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/UserOperations.qml:82
 msgctxt "@button"
-msgid "BCN3D Account"
+msgid "BCN3D Cloud"
 msgstr "Conta BCN3D"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/UserOperations.qml:125
@@ -3294,8 +3305,8 @@ msgstr "Cancelar"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:82
 msgctxt "@action:inmenu"
-msgid "Show Online Troubleshooting Guide"
-msgstr "Mostrar Guia de resolução de problemas online"
+msgid "BCN3D Knowledge base"
+msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:89
 msgctxt "@action:inmenu"
@@ -3394,8 +3405,8 @@ msgstr "Gerir Perfis..."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:236
 msgctxt "@action:inmenu menubar:help"
-msgid "Show Online &Documentation"
-msgstr "Mostrar &documentação online"
+msgid "BCN3D Stratos Introduction"
+msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:244
 msgctxt "@action:inmenu menubar:help"
@@ -3933,6 +3944,11 @@ msgstr "&Ajuda"
 msgctxt "@title:window"
 msgid "New project"
 msgstr "Novo projeto"
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/MainWindow/ApplicationMenu.qml:61
+msgctxt "@action:inmenu menubar:extensions"
+msgid "See installed plugins"
+msgstr "Ver plugins instalados"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/MainWindow/ApplicationMenu.qml:149
 msgctxt "@info:question"
@@ -5348,8 +5364,8 @@ msgstr "Ligar"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:43
 msgctxt "@label"
-msgid "BCN3D Account"
-msgstr "Conta BCN3D"
+msgid "BCN3D Cloud Account"
+msgstr "Conta BCN3D Cloud"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:84
 msgctxt "@text"
@@ -5368,7 +5384,7 @@ msgstr "Mantenha a sua flexibilidade. Sincronize a sua configuração e carregue
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:107
 msgctxt "@text"
-msgid "- Increase efficiency with a remote workflow on Ultimaker printers"
+msgid "- Increase efficiency with a remote workflow on BCN3D printers"
 msgstr "Aumente a eficiência com um fluxo de trabalho remoto nas impressoras Ultimaker"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:157
@@ -5378,8 +5394,8 @@ msgstr "Ignorar"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:24
 msgctxt "@label"
-msgid "Help us to improve Ultimaker Cura"
-msgstr "Ajude-nos a melhorar o Ultimaker Cura"
+msgid "Help us to improve BCN3D Stratos"
+msgstr "Ajude-nos a melhorar o BCN3D Stratos"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:57
 msgctxt "@text"
@@ -5408,13 +5424,48 @@ msgstr "Definições de impressão"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:102
 msgctxt "@text"
-msgid "Data collected by Ultimaker Cura will not contain any personal information."
-msgstr "Os dados recolhidos pelo Ultimaker Cura não conterão quaisquer informações pessoais."
+msgid "Data collected by BCN3D Stratos will not contain any personal information."
+msgstr "Os dados recolhidos pelo BCN3D Stratos não conterão quaisquer informações pessoais."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:103
 msgctxt "@text"
 msgid "More information"
 msgstr "Mais informações"
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:24
+msgctxt "@label"
+msgid "Tutorial: First Steps"
+msgstr "Tutorial: Primeiros passos"
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:57
+msgctxt "@text"
+msgid "In this video we provide a clear and simple explanation on everything you'll need to know to start slicing your 3D models with BCN3D Stratos."
+msgstr "Neste vídeo explicamos de forma clara e simples tudo o que é necessário saber para começar a laminar os seus modelos 3D com o BCN3D Stratos."
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:71
+msgctxt "@text"
+msgid "6 minute video"
+msgstr "Vídeo de 6 minutos"
+
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:106
+msgctxt "@text"
+msgid "Do you want to experiment beyond the standard mode?"
+msgstr "Quer experimentar mais para além do modo standard?"
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:83
+msgctxt "@text"
+msgid "Learn how to configure your printing parameters."
+msgstr "Aprenda a configurar os seus parâmetros de impressão."
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:121
+msgctxt "@text"
+msgid "BCN3D Stratos: Basic parameters"
+msgstr "BCN3D Stratos: Parâmetros básicos"
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:122msgctxt "@text"
+msgid "BCN3D Stratos: Advanced parameters"
+msgstr "BCN3D Stratos: Parâmetros avançados"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DropDownWidget.qml:93
 msgctxt "@label"
@@ -5433,17 +5484,17 @@ msgstr "Rejeitar e fechar"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/WelcomeContent.qml:29
 msgctxt "@label"
-msgid "Welcome to Ultimaker Cura"
-msgstr "Bem-vindo ao Ultimaker Cura"
+msgid "Welcome to BCN3D Stratos"
+msgstr "Bem-vindo ao BCN3D Stratos"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/WelcomeContent.qml:47
 msgctxt "@text"
 msgid ""
 "Please follow these steps to set up\n"
-"Ultimaker Cura. This will only take a few moments."
+"Stratos. This will only take a few moments."
 msgstr ""
 "Siga estes passos para configurar o\n"
-"Ultimaker Cura. Este processo deverá demorar apenas alguns momentos."
+"Stratos. Este processo deverá demorar apenas alguns momentos."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/WelcomeContent.qml:58
 msgctxt "@button"
@@ -6287,7 +6338,7 @@ msgstr "Vista Raio-X"
 #~ msgstr "O fluxo de trabalho de impressão 3D da próxima geração"
 
 #~ msgctxt "@text"
-#~ msgid "- Send print jobs to Ultimaker printers outside your local network"
+#~ msgid "- Send print jobs to BCN3D printers outside your local network"
 #~ msgstr "- Envie trabalhos de impressão para impressoras Ultimaker fora da sua rede local"
 
 #~ msgctxt "@text"
@@ -6312,7 +6363,7 @@ msgstr "Vista Raio-X"
 
 #~ msgctxt "@text"
 #~ msgid ""
-#~ "- Send print jobs to Ultimaker printers outside your local network\n"
+#~ "- Send print jobs to BCN3D printers outside your local network\n"
 #~ "- Store your Ultimaker Cura settings in the cloud for use anywhere\n"
 #~ "- Get exclusive access to print profiles from leading brands"
 #~ msgstr ""
@@ -7048,7 +7099,7 @@ msgstr "Vista Raio-X"
 
 #~ msgctxt "@text"
 #~ msgid ""
-#~ "- Send print jobs to Ultimaker printers outside your local network\n"
+#~ "- Send print jobs to BCN3D printers outside your local network\n"
 #~ "- Store your Ultimaker Cura settings in the cloud for use anywhere\n"
 #~ "- Get exclusive access to material profiles from leading brands"
 #~ msgstr ""

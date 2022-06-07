@@ -21,7 +21,7 @@ Menu
         model: activeMachine == null ? null : activeMachine.extruderList
         Menu
         {
-            title: modelData.name
+            title: catalog.i18nc("@label", "Extruder") + " " + (Number(modelData.position) + 1)
             property var extruder: (base.activeMachine === null) ? null : activeMachine.extruderList[model.index]
             NozzleMenu { title: Cura.MachineManager.activeDefinitionVariantsName; visible: Cura.MachineManager.activeMachine.hasVariants; extruderIndex: index }
             MaterialMenu

@@ -29,7 +29,7 @@
         "machine_max_feedrate_z": { "default_value": 12 },
         "machine_max_feedrate_e": { "default_value": 135 },
         "print_sequence": {
-            "enabled": "print_mode == 'singleT0' or print_mode == 'singleT1'"
+            "enabled": true
         },
         "layer_height_0":
         {

@@ -57,7 +57,7 @@ Item
 
            MenuItem
         {
-            text: "See installed plugins"
+            text: catalog.i18nc("@action:inmenu menubar:extensions", "See installed plugins")
             onTriggered: Cura.Actions.browsePackages.trigger()
 
         }

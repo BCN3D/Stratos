@@ -1073,6 +1073,16 @@ msgctxt "@action:button Preceded by 'Ready to'."
 msgid "Save to Removable Drive"
 msgstr "リムーバブルドライブに保存"
 
+#: /home/trin/Gedeeld/Projects/Cura/plugins/BCN3DApi/Device.py.py:28
+msgctxt "@action:button"
+msgid "Send to printer"
+msgstr ""
+
+#: /home/trin/Gedeeld/Projects/Cura/plugins/BCN3DApi/Device.py.py:30
+msgctxt "@action:button"
+msgid "Send to cloud and print"
+msgstr ""
+
 #: /home/trin/Gedeeld/Projects/Cura/plugins/RemovableDriveOutputDevice/RemovableDriveOutputDevice.py:24
 #, python-brace-format
 msgctxt "@item:inlistbox"
@@ -2565,6 +2575,7 @@ msgstr "無視"
 
 #: /home/trin/Gedeeld/Projects/Cura/plugins/Toolbox/resources/qml/dialogs/CompatibilityDialog.qml:23
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:123
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:123
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/FirstStartMachineActionsContent.qml:77
 msgctxt "@button"
 msgid "Next"
@@ -3146,7 +3157,7 @@ msgctxt "@text"
 msgid ""
 "- Customize your experience with more print profiles and plugins\n"
 "- Stay flexible by syncing your setup and loading it anywhere\n"
-"- Increase efficiency with a remote workflow on Ultimaker printers"
+"- Increase efficiency with a remote workflow on BCN3D printers"
 msgstr ""
 "- より多くのプリントプロファイルとプラグインを使用して作業をカスタマイズする\n"
 "- 設定を同期させ、どこにでも読み込めるようにすることで柔軟性を保つ\n"
@@ -3188,9 +3199,9 @@ msgctxt "@label The argument is a timestamp"
 msgid "Last update: %1"
 msgstr "最終更新：%1"
 
-#: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/UserOperations.qml:109
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/UserOperations.qml:82
 msgctxt "@button"
-msgid "BCN3D Account"
+msgid "BCN3D Cloud"
 msgstr "BCN3Dアカウント"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/UserOperations.qml:125
@@ -3265,8 +3276,8 @@ msgstr "キャンセル"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:82
 msgctxt "@action:inmenu"
-msgid "Show Online Troubleshooting Guide"
-msgstr "オンラインでトラブルシューティングガイドを表示する"
+msgid "BCN3D Knowledge base"
+msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:89
 msgctxt "@action:inmenu"
@@ -3365,8 +3376,8 @@ msgstr "プロファイルを管理する..."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:236
 msgctxt "@action:inmenu menubar:help"
-msgid "Show Online &Documentation"
-msgstr "オンラインドキュメントを表示する"
+msgid "BCN3D Stratos Introduction"
+msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Actions.qml:244
 msgctxt "@action:inmenu menubar:help"
@@ -3896,6 +3907,11 @@ msgstr "ヘルプ"
 msgctxt "@title:window"
 msgid "New project"
 msgstr "新しいプロジェクト"
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/MainWindow/ApplicationMenu.qml:61
+msgctxt "@action:inmenu menubar:extensions"
+msgid "See installed plugins"
+msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/MainWindow/ApplicationMenu.qml:149
 msgctxt "@info:question"
@@ -5283,7 +5299,7 @@ msgstr "接続"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:43
 msgctxt "@label"
-msgid "BCN3D Account"
+msgid "BCN3D Cloud Account"
 msgstr "BCN3Dアカウント"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:84
@@ -5303,7 +5319,7 @@ msgstr "- 設定を同期させ、どこにでも読み込めるようにする�
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:107
 msgctxt "@text"
-msgid "- Increase efficiency with a remote workflow on Ultimaker printers"
+msgid "- Increase efficiency with a remote workflow on BCN3D printers"
 msgstr "- Ultimakerプリンターのリモートワークフローを活用して効率を高める"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:157
@@ -5313,13 +5329,13 @@ msgstr "スキップ"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:24
 msgctxt "@label"
-msgid "Help us to improve Stratos"
-msgstr "Stratos の改善にご協力ください"
+msgid "Help us to improve BCN3D Stratos"
+msgstr "BCN3D Stratos の改善にご協力ください"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:57
 msgctxt "@text"
-msgid "Stratos collects anonymous data to improve print quality and user experience, including:"
-msgstr "Stratos は、印刷品質とユーザーエクスペリエンスを向上させるために以下の匿名データを収集します:"
+msgid "BCN3D Stratos collects anonymous data to improve print quality and user experience, including:"
+msgstr "BCN3D Stratos は、印刷品質とユーザーエクスペリエンスを向上させるために以下の匿名データを収集します:"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:71
 msgctxt "@text"
@@ -5343,13 +5359,47 @@ msgstr "プリント設定"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:102
 msgctxt "@text"
-msgid "Data collected by Stratos will not contain any personal information."
-msgstr "Stratos が収集したデータには個人データは含まれません。"
+msgid "Data collected by BCN3D Stratos will not contain any personal information."
+msgstr "BCN3D Stratos が収集したデータには個人データは含まれません。"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DataCollectionsContent.qml:103
 msgctxt "@text"
 msgid "More information"
 msgstr "詳細"
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:24
+msgctxt "@label"
+msgid "Tutorial: First Steps"
+msgstr "チュートリアル：まずはじめに"
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:57
+msgctxt "@text"
+msgid "In this video we provide a clear and simple explanation on everything you'll need to know to start slicing your 3D models with BCN3D Stratos."
+msgstr "このビデオではBCN3D Stratosを使って3Dモデル積層を始めるために必要なすべての情報を明確かつシンプルにお伝えします。"
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:71
+msgctxt "@text"
+msgid "6 minute video"
+msgstr "6分間のビデオ"
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:106
+msgctxt "@text"
+msgid "Do you want to experiment beyond the standard mode?"
+msgstr "スタンダードモード以上のことを試してみたいですか？"
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:83
+msgctxt "@text"
+msgid "Learn how to configure your printing parameters."
+msgstr "印刷パラメータの設定方法を知る"
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:121
+msgctxt "@text"
+msgid "BCN3D Stratos: Basic parameters"
+msgstr "BCN3D Stratos: 基本パラメータ"
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:122msgctxt "@text"
+msgid "BCN3D Stratos: Advanced parameters"
+msgstr "BCN3D Stratos: 詳細パラメータ"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DropDownWidget.qml:93
 msgctxt "@label"
@@ -5368,17 +5418,17 @@ msgstr "拒否して閉じる"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/WelcomeContent.qml:29
 msgctxt "@label"
-msgid "Welcome to Ultimaker Cura"
-msgstr "Ultimaker Cura にようこそ"
+msgid "Welcome to BCN3D Stratos"
+msgstr "BCN3D Stratos にようこそ"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/WelcomeContent.qml:47
 msgctxt "@text"
 msgid ""
 "Please follow these steps to set up\n"
-"Ultimaker Cura. This will only take a few moments."
+"Stratos. This will only take a few moments."
 msgstr ""
 "以下の手順で\n"
-"Ultimaker Cura を設定してください。数秒で完了します。"
+"Stratos を設定してください。数秒で完了します。"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/WelcomeContent.qml:58
 msgctxt "@button"
@@ -6216,7 +6266,7 @@ msgstr "透視ビュー"
 #~ msgstr "次世代 3D 印刷ワークフロー"
 
 #~ msgctxt "@text"
-#~ msgid "- Send print jobs to Ultimaker printers outside your local network"
+#~ msgid "- Send print jobs to BCN3D printers outside your local network"
 #~ msgstr "- 印刷ジョブをローカルネットワークの外から Ultimaker プリンターに送信します"
 
 #~ msgctxt "@text"
@@ -6237,7 +6287,7 @@ msgstr "透視ビュー"
 
 #~ msgctxt "@text"
 #~ msgid ""
-#~ "- Send print jobs to Ultimaker printers outside your local network\n"
+#~ "- Send print jobs to BCN3D printers outside your local network\n"
 #~ "- Store your Ultimaker Cura settings in the cloud for use anywhere\n"
 #~ "- Get exclusive access to print profiles from leading brands"
 #~ msgstr ""
@@ -6960,7 +7010,7 @@ msgstr "透視ビュー"
 
 #~ msgctxt "@text"
 #~ msgid ""
-#~ "- Send print jobs to Ultimaker printers outside your local network\n"
+#~ "- Send print jobs to BCN3D printers outside your local network\n"
 #~ "- Store your Ultimaker Cura settings in the cloud for use anywhere\n"
 #~ "- Get exclusive access to material profiles from leading brands"
 #~ msgstr ""

@@ -239,7 +239,7 @@ Item
                 onClicked:
                 {
                     // open the troubleshooting URL with web browser
-                    const url = "https://support.bcn3d.com/knowledge/tips"
+                    const url = "https://support.bcn3d.com/knowledge/network-requirements-bcn3d-cloud"
                     Qt.openUrlExternally(url)
                 }
                 onEntered:

@@ -39,6 +39,7 @@ from cura.Settings.cura_empty_instance_containers import (empty_definition_chang
                                                           empty_material_container, empty_quality_container,
                                                           empty_quality_changes_container, empty_intent_container)
 from cura.UltimakerCloud.UltimakerCloudConstants import META_UM_LINKED_TO_ACCOUNT
+from cura.Utils.Bcn3dExcludeInstances import countNonExcludedInstances
 
 from .CuraStackBuilder import CuraStackBuilder
 
@@ -163,10 +164,10 @@ class MachineManager(QObject):
                 self.numUserSettingsChanged.emit()
                 self._num_user_settings = 0
             return
-        num_user_settings = self._global_container_stack.getTop().getNumInstances()
+        num_user_settings = countNonExcludedInstances(self._global_container_stack.getTop())
         stacks = self._global_container_stack.extruderList
         for stack in stacks:
-            num_user_settings += stack.getTop().getNumInstances()
+            num_user_settings += countNonExcludedInstances(stack.getTop())
 
         if self._num_user_settings != num_user_settings:
             self._num_user_settings = num_user_settings

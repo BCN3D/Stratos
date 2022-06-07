@@ -3,6 +3,7 @@
 
 import QtQuick 2.1
 import QtQuick.Controls 1.1
+import QtQuick.Controls 2.15 as NewControls
 import QtQuick.Controls.Styles 1.1
 
 import UM 1.2 as UM
@@ -96,7 +97,7 @@ UM.PreferencesPage
             onTextChanged: definitionsModel.filter = {"i18n_label": "*" + text}
         }
 
-        ComboBox
+        NewControls.ComboBox
         {
             id: visibilityPreset
             width: 150 * screenScaleFactor
@@ -139,7 +140,7 @@ UM.PreferencesPage
             anchors
             {
                 top: filter.bottom;
-                topMargin: UM.Theme.getSize("default_margin").height
+                topMargin: UM.Theme.getSize("default_margin").height+10
                 left: parent.left;
                 right: parent.right;
                 bottom: parent.bottom;

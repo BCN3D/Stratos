@@ -120,6 +120,7 @@ from cura.Scene.DuplicatedNode import DuplicatedNode
 from . import PrintModeManager
 from cura.Operations.AddNodesOperation import AddNodesOperation
 from cura.Settings.SetObjectExtruderOperation import SetObjectExtruderOperation
+from cura.Utils.Bcn3dExcludeInstances import removeNonExcludedInstances
 
 if TYPE_CHECKING:
     from UM.Settings.EmptyInstanceContainer import EmptyInstanceContainer
@@ -708,8 +709,8 @@ class CuraApplication(QtApplication):
         global_stack = self.getGlobalContainerStack()
         if option == "discard":
             for extruder in global_stack.extruderList:
-                extruder.userChanges.clear()
-            global_stack.userChanges.clear()
+                removeNonExcludedInstances(extruder.userChanges)
+            removeNonExcludedInstances(global_stack.userChanges)
 
         # if the user decided to keep settings then the user settings should be re-calculated and validated for errors
         # before slicing. To ensure that slicer uses right settings values
@@ -1126,6 +1127,7 @@ class CuraApplication(QtApplication):
         qmlRegisterSingletonType(SimpleModeSettingsManager, "Cura", 1, 0, "SimpleModeSettingsManager", self.getSimpleModeSettingsManager)
         qmlRegisterSingletonType(MachineActionManager.MachineActionManager, "Cura", 1, 0, "MachineActionManager", self.getMachineActionManager)
 
+
         self.processEvents()
         qmlRegisterType(NetworkingUtil, "Cura", 1, 5, "NetworkingUtil")
         qmlRegisterType(WelcomePagesModel, "Cura", 1, 0, "WelcomePagesModel")
@@ -1395,35 +1397,36 @@ class CuraApplication(QtApplication):
     # Single build plate
     @pyqtSlot()
     def arrangeAll(self) -> None:
-
-        # This version of arrange work better with the new print_modes because we put the sliceable nodes to the array of fixed_ones
-
-        nodes = []
+        nodes_to_arrange = []
         active_build_plate = self.getMultiBuildPlateModel().activeBuildPlate
-        fixed_nodes = []
-        scene = Application.getInstance().getController().getScene()
-        root = scene.getRoot()
-        for node_ in DepthFirstIterator(root):
-        # Only count sliceable objects
-            if node_.callDecoration("isSliceable"):
-                fixed_nodes.append(node_)
+        locked_nodes = []
         for node in DepthFirstIterator(self.getController().getScene().getRoot()):
             if not isinstance(node, SceneNode):
                 continue
+
             if not node.getMeshData() and not node.callDecoration("isGroup"):
-                continue  # Node that doesnt have a mesh and is not a group.
-            if node.getParent() and node.getParent().callDecoration("isGroup"):
-                continue  # Grouped nodes don't need resetting as their parent (the group) is resetted)
+                continue  # Node that doesn't have a mesh and is not a group.
+
+            parent_node = node.getParent()
+            if parent_node and parent_node.callDecoration("isGroup"):
+                continue  # Grouped nodes don't need resetting as their parent (the group) is reset)
+
             if not node.isSelectable():
                 continue  # i.e. node with layer data
+
             if not node.callDecoration("isSliceable") and not node.callDecoration("isGroup"):
                 continue  # i.e. node with layer data
+
             if node.callDecoration("getBuildPlateNumber") == active_build_plate:
                 # Skip nodes that are too big
-                if node.getBoundingBox().width < self._volume.getBoundingBox().width or node.getBoundingBox().depth < self._volume.getBoundingBox().depth:
-                    nodes.append(node)
-            arrange(nodes, Application.getInstance().getBuildVolume(),fixed_nodes,
-                    factor=10000, add_new_nodes_in_scene=True)
+                bounding_box = node.getBoundingBox()
+                if bounding_box is None or bounding_box.width < self._volume.getBoundingBox().width or bounding_box.depth < self._volume.getBoundingBox().depth:
+                    # Arrange only the unlocked nodes and keep the locked ones in place
+                    if UM.Util.parseBool(node.getSetting(SceneNodeSettings.LockPosition)):
+                        locked_nodes.append(node)
+                    else:
+                        nodes_to_arrange.append(node)
+        self.arrange(nodes_to_arrange, locked_nodes)
 
     def arrange(self, nodes: List[SceneNode], fixed_nodes: List[SceneNode]) -> None:
         """Arrange a set of nodes given a set of fixed nodes
@@ -1516,12 +1519,8 @@ class CuraApplication(QtApplication):
 
         # Compute the center of the objects
         object_centers = []
-        # Forget about the translation that the original objects have
-        zero_translation = Matrix(data=numpy.zeros(3))
         for mesh, node in zip(meshes, group_node.getChildren()):
-            transformation = node.getLocalTransformation()
-            transformation.setTranslation(zero_translation)
-            transformed_mesh = mesh.getTransformed(transformation)
+            transformed_mesh = mesh.getTransformed(Matrix())  # Forget about the transformations that the original object had.
             center = transformed_mesh.getCenterPosition()
             if center is not None:
                 object_centers.append(center)
@@ -1534,10 +1533,9 @@ class CuraApplication(QtApplication):
         else:
             offset = Vector(0, 0, 0)
 
-
         # Move each node to the same position.
         for mesh, node in zip(meshes, group_node.getChildren()):
-            node.setTransformation(Matrix())
+            node.setTransformation(Matrix())  # Removes any changes in position and rotation.
             # Align the object around its zero position
             # and also apply the offset to center it inside the group.
             node.setPosition(-mesh.getZeroPosition() - offset)
@@ -1545,7 +1543,6 @@ class CuraApplication(QtApplication):
         # Use the previously found center of the group bounding box as the new location of the group
         group_node.setPosition(group_node.getBoundingBox().center)
         group_node.setName("MergedMesh")  # add a specific name to distinguish this node
-
 
     def updateOriginOfMergedMeshes(self, _):
         """Updates origin position of all merged meshes"""
@@ -1959,6 +1956,11 @@ class CuraApplication(QtApplication):
             arrange(nodes_to_arrange, self.getBuildVolume(), fixed_nodes)
         except:
             Logger.logException("e", "Failed to arrange the models")
+
+         # Ensure that we don't have any weird floaty objects (CURA-7855)
+        for node in nodes_to_arrange:
+            node.translate(Vector(0, -node.getBoundingBox().bottom, 0), SceneNode.TransformSpace.World)
+
         self.fileCompleted.emit(file_name)
 
     def addNonSliceableExtension(self, extension):

@@ -78,6 +78,9 @@
             <setting key="retraction amount">9</setting>
             <setting key="heated bed temperature">30</setting>
             <hotend id="0.4mm" />
+            <hotend id="Hotend M (0.4mm)">
+                <setting key="hardware compatible">no</setting>
+            </hotend>
             <hotend id="0.6mm" />
             <hotend id="Hotend X (0.6mm)">
                 <setting key="hardware compatible">no</setting>
@@ -91,6 +94,9 @@
             <setting key="retraction amount">9</setting>
             <setting key="heated bed temperature">30</setting>
             <hotend id="0.4mm" />
+            <hotend id="Hotend M (0.4mm)">
+                <setting key="hardware compatible">no</setting>
+            </hotend>
             <hotend id="0.6mm" />
             <hotend id="Hotend X (0.6mm)">
                 <setting key="hardware compatible">no</setting>

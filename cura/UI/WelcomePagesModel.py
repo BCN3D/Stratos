@@ -277,6 +277,9 @@ class WelcomePagesModel(ListModel):
                            "page_url": self._getBuiltinWelcomePagePath("FirstStartMachineActionsContent.qml"),
                            "should_show_function": self.shouldShowMachineActions,
                            },
+                           {"id": "first_steps",
+                            "page_url": self._getBuiltinWelcomePagePath("BCN3DFirstSteps.qml")
+                           },
                           ]
 
         pages_to_show = all_pages_list

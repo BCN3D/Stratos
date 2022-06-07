@@ -159,7 +159,8 @@ Item
                 CuraApplication.getDiscoveredPrintersModel().createMachineFromDiscoveredPrinter(networkPrinterItem)
 
                 // If we have created a machine, end the wizard (since this is the last page)
-                base.endWizard()
+                //base.endWizard()
+                base.showNextPage()
 
             }
             else
