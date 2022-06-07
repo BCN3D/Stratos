@@ -12,7 +12,7 @@ from UM.Settings.ContainerRegistry import ContainerRegistry
 from UM.i18n import i18nCatalog
 from UM.Settings.SettingFunction import SettingFunction
 from UM.Qt.ListModel import ListModel
-
+from cura.Utils.Bcn3dExcludeInstances import hidrateCategoryLabel
 
 class UserChangesModel(ListModel):
     KeyRole = Qt.UserRole + 1
@@ -130,7 +130,7 @@ class UserChangesModel(ListModel):
 
                 if category_label not in item_dict:
                     item_dict[category_label] = []
-                item_dict[category_label].append(item_to_add)
+                item_dict[category_label] = hidrateCategoryLabel(item_dict[category_label], item_to_add)
         for each_item_list in item_dict.values():
             item_list += each_item_list
         self.setItems(item_list)

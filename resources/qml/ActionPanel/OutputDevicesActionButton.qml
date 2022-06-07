@@ -40,7 +40,7 @@ Item
         {
             forceActiveFocus()
             widget.requestWriteToDevice()
-        }
+        }        
     }
 
     Cura.ActionButton

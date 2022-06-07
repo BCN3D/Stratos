@@ -79,6 +79,9 @@
             <setting key="build volume temperature">40</setting>
             <setting key="coasting enable">False</setting>
             <hotend id="0.4mm" />
+            <hotend id="Hotend M (0.4mm)">
+                <setting key="hardware compatible">no</setting>
+            </hotend>
             <hotend id="0.6mm" />
             <hotend id="Hotend X (0.6mm)">
                 <setting key="hardware compatible">no</setting>
@@ -92,6 +95,9 @@
             <setting key="build volume temperature">40</setting>
             <setting key="coasting enable">False</setting>
             <hotend id="0.4mm" />
+            <hotend id="Hotend M (0.4mm)">
+                <setting key="hardware compatible">no</setting>
+            </hotend>
             <hotend id="0.6mm" />
             <hotend id="Hotend X (0.6mm)">
                 <setting key="hardware compatible">no</setting>

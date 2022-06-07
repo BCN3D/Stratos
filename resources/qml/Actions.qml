@@ -86,8 +86,8 @@ Item
     Action
     {
         id: showTroubleShootingAction
-        onTriggered: Qt.openUrlExternally("https://support.bcn3d.com/knowledge/tips")
-        text: catalog.i18nc("@action:inmenu", "Show Online Troubleshooting Guide");
+        onTriggered: Qt.openUrlExternally("https://support.bcn3d.com/knowledge/slice-bcn3d-stratos")
+        text: catalog.i18nc("@action:inmenu", "BCN3D Knowledge base");
     }
 
     Action
@@ -241,10 +241,10 @@ Item
     Action
     {
         id: documentationAction;
-        text: catalog.i18nc("@action:inmenu menubar:help", "Show Online &Documentation");
+        text: catalog.i18nc("@action:inmenu menubar:help", "BCN3D Stratos Introduction");
         iconName: "help-contents";
         shortcut: StandardKey.Help;
-        onTriggered: Qt.openUrlExternally("https://support.bcn3d.com/knowledge/bcn3d-cura-user-manual")
+        onTriggered: Qt.openUrlExternally("https://support.bcn3d.com/knowledge/bcn3d-stratos-introduction")
     }
 
     Action {

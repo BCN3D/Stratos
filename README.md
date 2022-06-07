@@ -75,5 +75,15 @@ After slicing, Stratos offers a variety of preview types to ensure pinpoint accu
 
 ![Visualization options](https://www.bcn3d.com/wp-content/uploads/2021/07/Image-12-1-600x318.jpg)
 
+# Development
+## Translation files
+To convert .po files to .mo, run this in the root of /Stratos-intern and copy the generated resources/i18n folder in the same place where Stratos keep the .po files (Stratos-internt/resources/i18n) keeping the existing .po files.
 
+* You need to have a folder named **Uranium** containing the Uranium-Stratos repository at the same level as this repository.
+
+```shell
+mkdir build && cd build
+cmake ..
+make
+```
 

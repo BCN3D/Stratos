@@ -2,6 +2,7 @@
 // Cura is released under the terms of the LGPLv3 or higher.
 
 import QtQuick 2.1
+import QtQuick.Controls 2.15 as NewControls
 import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
 import QtQuick.Controls.Styles 1.1
@@ -148,9 +149,10 @@ UM.PreferencesPage
                     text: "Language:" //Don't translate this, to make it easier to find the language drop-down if you can't read the current language.
                 }
 
-                ComboBox
+                NewControls.ComboBox
                 {
                     id: languageComboBox
+                    textRole: "text"
                     model: ListModel
                     {
                         id: languageList
@@ -193,20 +195,16 @@ UM.PreferencesPage
                             }
                         }
                     }
-                    onActivated: UM.Preferences.setValue("general/language", model.get(index).code)
-
-                    Component.onCompleted:
+                     onActivated:
                     {
-                        // Because ListModel is stupid and does not allow using qsTr() for values.
-                        for(var i = 0; i < languageList.count; ++i)
+                        if (model.get(index).code != "")
                         {
-                            languageList.setProperty(i, "text", catalog.i18n(languageList.get(i).text));
+                            UM.Preferences.setValue("general/language", model.get(index).code);
                         }
-
-                        // Glorious hack time. ComboBox does not update the text properly after changing the
-                        // model. So change the indices around to force it to update.
-                        currentIndex += 1;
-                        currentIndex -= 1;
+                        else
+                        {
+                            currentIndex = setCurrentIndex();
+                        }
                     }
                 }
 
@@ -229,10 +227,10 @@ UM.PreferencesPage
                     text: catalog.i18nc("@label","Theme:")
                 }
 
-                ComboBox
+                NewControls.ComboBox
                 {
                     id: themeComboBox
-
+                    textRole: "text"
                     model: ListModel
                     {
                         id: themeList
@@ -276,6 +274,14 @@ UM.PreferencesPage
 
                 }
             }
+
+              Item
+            {
+                //: Spacer
+                height: UM.Theme.getSize("default_margin").height
+                width: UM.Theme.getSize("default_margin").width
+            }
+
 
             Label
             {
@@ -519,9 +525,10 @@ UM.PreferencesPage
                     {
                         text: catalog.i18nc("@window:text", "Camera rendering:")
                     }
-                    ComboBox
+                    NewControls.ComboBox
                     {
                         id: cameraComboBox
+                        textRole: "text"
 
                         model: ListModel
                         {
@@ -657,7 +664,6 @@ UM.PreferencesPage
                 width: childrenRect.width
                 height: childrenRect.height
                 text: catalog.i18nc("@info:tooltip", "Default behavior when opening a project file")
-
                 Column
                 {
                     spacing: 4 * screenScaleFactor
@@ -667,10 +673,11 @@ UM.PreferencesPage
                         text: catalog.i18nc("@window:text", "Default behavior when opening a project file: ")
                     }
 
-                    ComboBox
+                    NewControls.ComboBox
                     {
                         id: choiceOnOpenProjectDropDownButton
                         width: 200 * screenScaleFactor
+                        textRole: "text"
 
                         model: ListModel
                         {
@@ -733,10 +740,11 @@ UM.PreferencesPage
                         text: catalog.i18nc("@window:text", "Default behavior for changed setting values when switching to a different profile: ")
                     }
 
-                    ComboBox
+                    NewControls.ComboBox
                     {
                         id: choiceOnProfileOverrideDropDownButton
                         width: 200 * screenScaleFactor
+                        textRole: "text"
 
                         model: ListModel
                         {

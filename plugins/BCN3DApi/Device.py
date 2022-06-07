@@ -25,9 +25,9 @@ class Device(NetworkedPrinterOutputDevice):
         super().__init__(device_id=id, address="address", properties=[])
 
         self._name = name
-        message = "Send to printer"
+        message = catalog.i18nc("@action:button", "Send to printer") 
         if self._name == "cloud_save":
-            message = "Send to cloud and print"
+            message = catalog.i18nc("@action:button", "Send to cloud and print")
         self.setShortDescription(catalog.i18nc("@action:button Preceded by 'Ready to'.", message))
         self.setDescription(catalog.i18nc("@info:tooltip", message))
         self.setIconName("cloud")
@@ -66,13 +66,13 @@ class Device(NetworkedPrinterOutputDevice):
             Message("The selected printer isn't ready to print.", title="Can't send gcode to printer").show()
             return
 
-        #self.writeStarted.emit(self)
+        self.writeStarted.emit(self)
         active_build_plate = CuraApplication.getInstance().getMultiBuildPlateModel().activeBuildPlate
         self._gcode = getattr(Application.getInstance().getController().getScene(), "gcode_dict")[active_build_plate]
         gcode = self._joinGcode()
         file_name_with_extension = file_name + ".gcode"
         self._data_api_service.sendGcode(gcode, file_name_with_extension, printer['id'], self._name == "cloud_save")
-        #self.writeFinished.emit()
+        self.writeFinished.emit()
         self._progress_message.hide()
 
     def _joinGcode(self):

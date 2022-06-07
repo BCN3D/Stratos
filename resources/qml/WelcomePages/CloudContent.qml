@@ -22,7 +22,7 @@ Item
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
         horizontalAlignment: Text.AlignHCenter
-        text: catalog.i18nc("@label", "BCN3D Account")
+        text: catalog.i18nc("@label", "BCN3D Cloud Account")
         color: UM.Theme.getColor("primary_button")
         font: UM.Theme.getFont("huge")
         renderType: Text.NativeRendering
@@ -154,7 +154,7 @@ Item
         onClicked: {
         signInStatusCode = Cura.AuthenticationService.signIn(email.text, password.text)
             if(signInStatusCode == 200) {
-                base.goToPage("AddLocalPrinterBCN3D")
+                base.showNextPage()
             }
 
         }

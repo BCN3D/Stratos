@@ -6,7 +6,7 @@
     "visible": false,
     "author": "BCN3D Technologies",
     "manufacturer": "BCN3D Technologies",
-    "preferred_material": "BCN3D_Filaments_PLA_Light_Blue",
+    "preferred_material": "generic_material",
     "preferred_variant_name": "0.4mm",
     "preferred_quality_type": "normal",
     "variants_name": "Hotend",
@@ -186,7 +186,7 @@
       "children": {
         "print_mode": {
           "label": "Print Mode",
-          "description": "Choose the print mode.",
+          "description": "Choose the print mode",
           "type": "enum",
           "options": {
             "dual": "Dual",

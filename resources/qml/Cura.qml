@@ -799,7 +799,7 @@ UM.MainWindow
             var path = UM.Resources.getPath(UM.Resources.Preferences, "");
             if(Qt.platform.os == "windows")
             {
-                path = path.replace(/\\/g,"/");
+                path = "file:///" + path.replace(/\\/g,"/");
             }
             Qt.openUrlExternally(path);
             if(Qt.platform.os == "linux")

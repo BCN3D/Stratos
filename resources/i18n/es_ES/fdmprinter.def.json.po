@@ -4353,6 +4353,41 @@ msgctxt "adhesion_type option none"
 msgid "None"
 msgstr "Ninguno"
 
+#: bcn3dprinter.def.json
+msgctxt "print_mode label"
+msgid "Print Mode"
+msgstr "Modo de impresión"
+
+#: bcn3dprinter.def.json
+msgctxt "print_mode description"
+msgid "Choose the print mode"
+msgstr "Selecciona un modo de impresión"
+
+#: bcn3dprinter.def.json
+msgctxt "print_mode option dual"
+msgid "Dual"
+msgstr "Dual"
+
+#: bcn3dprinter.def.json
+msgctxt "print_mode option singleT0"
+msgid "Single 1"
+msgstr "Extrusor 1"
+
+#: bcn3dprinter.def.json
+msgctxt "print_mode option singleT1"
+msgid "Single 2"
+msgstr "Extrusor 2"
+
+#: bcn3dprinter.def.json
+msgctxt "print_mode option duplication"
+msgid "Duplication"
+msgstr "Duplicación"
+
+#: bcn3dprinter.def.json
+msgctxt "print_mode option mirror"
+msgid "Mirror"
+msgstr "Espejo"
+
 #: fdmprinter.def.json
 msgctxt "adhesion_extruder_nr label"
 msgid "Build Plate Adhesion Extruder"

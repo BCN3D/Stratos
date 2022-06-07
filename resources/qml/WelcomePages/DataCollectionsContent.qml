@@ -9,7 +9,7 @@ import Cura 1.1 as Cura
 
 
 //
-// This component contains the content for the "Help us to improve Ultimaker Cura" page of the welcome on-boarding process.
+// This component contains the content for the "Help us to improve BCN3D Stratos" page of the welcome on-boarding process.
 //
 Item
 {
@@ -99,7 +99,7 @@ Item
                 horizontalAlignment: Text.AlignHCenter
                 text:
                 {
-                    var t = catalog.i18nc("@text", "Data collected by Stratos will not contain any personal information.")
+                    var t = catalog.i18nc("@text", "Data collected by BCN3D Stratos will not contain any personal information.")
                     var t2 = catalog.i18nc("@text", "More information")
                     t += " <a href='https://notusedref'>" + t2 + "</a>"
                     return t

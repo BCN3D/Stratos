@@ -2,7 +2,8 @@
 // Cura is released under the terms of the LGPLv3 or higher.
 
 import QtQuick 2.10
-import QtQuick.Controls 2.3
+import QtQuick.Controls 2.3 as NewControls
+import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 import QtQuick.Window 2.2
 
@@ -110,7 +111,7 @@ UM.Dialog
                     height: visible ? comboboxHeight : 0
                     visible: base.visible && machineResolveComboBox.model.count > 1
                     text: catalog.i18nc("@info:tooltip", "How should the conflict in the machine be resolved?")
-                    ComboBox
+                    NewControls.ComboBox
                     {
                         id: machineResolveComboBox
                         model: manager.updatableMachinesModel
@@ -217,7 +218,7 @@ UM.Dialog
                     height: visible ? comboboxHeight : 0
                     visible: manager.qualityChangesConflict
                     text: catalog.i18nc("@info:tooltip", "How should the conflict in the profile be resolved?")
-                    ComboBox
+                    NewControls.ComboBox
                     {
                         model: resolveStrategiesModel
                         textRole: "label"
@@ -323,7 +324,7 @@ UM.Dialog
                     height: visible ? comboboxHeight : 0
                     visible: manager.materialConflict
                     text: catalog.i18nc("@info:tooltip", "How should the conflict in the material be resolved?")
-                    ComboBox
+                    NewControls.ComboBox
                     {
                         model: resolveStrategiesModel
                         textRole: "label"

@@ -1,3 +1,13 @@
+[1.5.1]
+
+- Updated welcome wizard with more information for new users
+- Improve translations
+- Added new links to more detailed support information
+- Print modes now persist with material/hotend change
+- Printing profile adjustments
+- Fixed a problem that made it impossible to create custom materials for extruders X and M 
+- Fixed problem that prevented opening previously saved projects
+
 [1.5.0]
 
 - Performance improvements most noticeable when switching between IDEX printing modes

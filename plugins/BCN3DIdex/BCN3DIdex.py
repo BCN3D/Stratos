@@ -46,8 +46,6 @@ class BCN3DIdex(Extension):
                 # Just in case the connection didn't exists
                 pass
 
-            self._application.getMachineManager().setExtruderEnabled(0, False)
-            self._application.getMachineManager().setExtruderEnabled(1, False)
             if print_mode == "singleT0":
                 self._application.getMachineManager().setExtruderEnabled(0, True)
                 self._application.getMachineManager().setExtruderEnabled(1, False)
