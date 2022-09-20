@@ -27,11 +27,14 @@ set(CURA_CLOUD_API_VERSION "" CACHE STRING "Alternative Cura cloud API version")
 set(CURA_CLOUD_ACCOUNT_API_ROOT "" CACHE STRING "Alternative Cura cloud account API version")
 set(CURA_MARKETPLACE_ROOT "" CACHE STRING "Alternative Marketplace location")
 set(CURA_DIGITAL_FACTORY_URL "" CACHE STRING "Alternative Digital Factory location")
+set(BCN3D_API_CLIENT_ID "" CACHE STRING "Client ID used to connect to BCN3D cloud")
+set(BCN3D_API_APP_SECRET "" CACHE STRING "App Secret used to connect to BCN3D cloud")
 
 configure_file(${CMAKE_SOURCE_DIR}/cura.desktop.in ${CMAKE_BINARY_DIR}/cura.desktop @ONLY)
 
 configure_file(cura/CuraVersion.py.in CuraVersion.py @ONLY)
 
+configure_file(plugins/BCN3DApi/ApiData.json.in plugins/BCN3DApi/ApiData.json @ONLY)
 
 # FIXME: The new FindPython3 finds the system's Python3.6 reather than the Python3.5 that we built for Cura's environment.
 # So we're using the old method here, with FindPythonInterp for now.
@@ -63,6 +66,9 @@ install(DIRECTORY resources
         DESTINATION ${CMAKE_INSTALL_DATADIR}/cura)
 
 include(CuraPluginInstall)
+
+install(FILES ../Cura-build/plugins/BCN3DApi/ApiData.json 
+        DESTINATION lib${LIB_SUFFIX}/cura/plugins/BCN3DApi)
 
 if(NOT APPLE AND NOT WIN32)
     install(FILES cura_app.py

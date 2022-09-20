@@ -68,7 +68,7 @@ Item
 
         visible: loggedIn
 
-        text: profile["username"].charAt(0).toUpperCase()
+        text: profile["username"] ? profile["username"].charAt(0).toUpperCase() : null
 
         background: AvatarImage
         {

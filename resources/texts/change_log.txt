@@ -1,7 +1,14 @@
+[1.5.2]
+
+- Fixed an issue where Left-to-Right (LTR) languages would appear incorrectly
+- Fixed a problem that prevented from opening saved mirror and duplication projects
+- Improved several visual errors when using IDEX technology
+- Improved model reposition when using IDEX technology
+
 [1.5.1]
 
 - Updated welcome wizard with more information for new users
-- Improve translations
+- Improved translations
 - Added new links to more detailed support information
 - Print modes now persist with material/hotend change
 - Printing profile adjustments

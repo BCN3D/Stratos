@@ -74,7 +74,7 @@ def findNodePlacement(nodes_to_arrange: List["SceneNode"], build_volume: "BuildV
 
         if clipped_area.getPoints() is not None:  # numpy array has to be explicitly checked against None
             for point in clipped_area.getPoints():
-                converted_points.append(Point(point[0] * factor, point[1] * factor))
+                converted_points.append(Point(int(point[0] * factor), int(point[1] * factor)))
 
             disallowed_area = Item(converted_points)
             disallowed_area.markAsDisallowedAreaInBin(0)

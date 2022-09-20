@@ -24,7 +24,11 @@ SettingItem
         onActivated:
         {
             forceActiveFocus()
-            propertyProvider.setPropertyValue("value", definition.options[index].key)
+            if (propertyProvider.key == 'print_mode') {
+                Cura.PrintersManagerService.setPrintMode(definition.options[index].key)
+            } else {
+                propertyProvider.setPropertyValue("value", definition.options[index].key)
+            }
         }
 
         onActiveFocusChanged:

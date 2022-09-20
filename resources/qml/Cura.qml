@@ -88,7 +88,7 @@ UM.MainWindow
     {
         // This connection is used when there is no ActiveMachine and the user is logged in
         target: CuraApplication
-        onShowAddPrintersUncancellableDialog:
+        function onShowAddPrintersUncancellableDialog()
         {
             Cura.Actions.parent = backgroundItem
 
@@ -102,7 +102,7 @@ UM.MainWindow
     Connections
     {
         target: CuraApplication
-        onInitializationFinished:
+        function onInitializationFinished()
         {
             // Workaround silly issues with QML Action's shortcut property.
             //
@@ -482,19 +482,19 @@ UM.MainWindow
     Connections
     {
         target: Cura.Actions.preferences
-        onTriggered: preferences.visible = true
+        function onTriggered() {preferences.visible = true}
     }
 
     Connections
     {
         target: CuraApplication
-        onShowPreferencesWindow: preferences.visible = true
+        function onShowPreferencesWindow() {preferences.visible = true}
     }
 
     Connections
     {
         target: Cura.Actions.addProfile
-        onTriggered:
+        function onTriggered()
         {
             preferences.show();
             preferences.setPage(4);
@@ -506,7 +506,7 @@ UM.MainWindow
     Connections
     {
         target: Cura.Actions.configureMachines
-        onTriggered:
+        function onTriggered()
         {
             preferences.visible = true;
             preferences.setPage(2);
@@ -516,7 +516,7 @@ UM.MainWindow
     Connections
     {
         target: Cura.Actions.manageProfiles
-        onTriggered:
+        function onTriggered()
         {
             preferences.visible = true;
             preferences.setPage(4);
@@ -526,7 +526,7 @@ UM.MainWindow
     Connections
     {
         target: Cura.Actions.manageMaterials
-        onTriggered:
+        function onTriggered()
         {
             preferences.visible = true;
             preferences.setPage(3)
@@ -536,7 +536,7 @@ UM.MainWindow
     Connections
     {
         target: Cura.Actions.configureSettingVisibility
-        onTriggered:
+        function onTriggered()
         {
             preferences.visible = true;
             preferences.setPage(1);
@@ -561,7 +561,7 @@ UM.MainWindow
     Connections
     {
         target: Cura.MachineManager
-        onBlurSettings:
+        function onBlurSettings()
         {
             contentItem.forceActiveFocus()
         }
@@ -605,7 +605,7 @@ UM.MainWindow
     Connections
     {
         target: CuraApplication
-        onShowConfirmExitDialog:
+        function onShowConfirmExitDialog()
         {
             exitConfirmationDialog.text = message;
             exitConfirmationDialog.open();
@@ -615,19 +615,19 @@ UM.MainWindow
     Connections
     {
         target: Cura.Actions.quit
-        onTriggered: CuraApplication.checkAndExitApplication();
+        function onTriggered() {CuraApplication.checkAndExitApplication()}
     }
 
     Connections
     {
         target: Cura.Actions.toggleFullScreen
-        onTriggered: base.toggleFullscreen()
+        function onTriggered() {base.toggleFullscreen()}
     }
 
     Connections
     {
         target: Cura.Actions.exitFullScreen
-        onTriggered: base.exitFullscreen()
+        function onTriggered() {base.exitFullscreen()}
     }
 
     FileDialog
@@ -768,7 +768,7 @@ UM.MainWindow
     Connections
     {
         target: Cura.Actions.open
-        onTriggered: openDialog.open()
+        function onTriggered(){ openDialog.open() }
     }
 
     OpenFilesIncludingProjectsDialog
@@ -794,7 +794,7 @@ UM.MainWindow
     Connections
     {
         target: Cura.Actions.showProfileFolder
-        onTriggered:
+        function onTriggered()
         {
             var path = UM.Resources.getPath(UM.Resources.Preferences, "");
             if(Qt.platform.os == "windows")
@@ -826,7 +826,7 @@ UM.MainWindow
     Connections
     {
         target: CuraApplication
-        onShowMessageBox:
+        function onShowMessageBox(title, text, informativeText, detailedText, buttons, icon)
         {
             messageDialog.title = title
             messageDialog.text = text
@@ -838,17 +838,23 @@ UM.MainWindow
         }
     }
 
-    DiscardOrKeepProfileChangesDialog
+    Component
     {
-        id: discardOrKeepProfileChangesDialog
+        id: discardOrKeepProfileChangesDialogComponent
+        DiscardOrKeepProfileChangesDialog { }
+    }
+    Loader
+    {
+        id: discardOrKeepProfileChangesDialogLoader
     }
 
     Connections
     {
         target: CuraApplication
-        onShowDiscardOrKeepProfileChanges:
+        function onShowDiscardOrKeepProfileChanges()
         {
-            discardOrKeepProfileChangesDialog.show()
+            discardOrKeepProfileChangesDialogLoader.sourceComponent = discardOrKeepProfileChangesDialogComponent
+            discardOrKeepProfileChangesDialogLoader.item.show()
         }
     }
 
@@ -872,14 +878,13 @@ UM.MainWindow
     Connections
     {
         target: Cura.Actions.whatsNew
-        onTriggered: whatsNewDialog.show()
+        function onTriggered() { whatsNewDialog.show() }
     }
 
     Connections
     {
         target: Cura.Actions.addMachine
-        onTriggered:
-        {
+        function onTriggered() {
             // Make sure to show from the first page when the dialog shows up.
             addMachineDialog.resetModelState()
             addMachineDialog.show()
@@ -894,7 +899,7 @@ UM.MainWindow
     Connections
     {
         target: Cura.Actions.about
-        onTriggered: aboutDialog.visible = true;
+        function onTriggered() { aboutDialog.visible = true; }
     }
 
     Timer

@@ -1,10 +1,6 @@
 from PyQt5.QtCore import QObject, pyqtSlot
 
-import UM.Util
-from UM.Application import Application
-from UM.Scene.SceneNodeSettings import SceneNodeSettings
 from UM.Scene.Selection import Selection
-from cura.Arranging.Nest2DArrange import arrange
 from cura.CuraApplication import CuraApplication
 
 from  .AuthApiService import AuthApiService
@@ -22,25 +18,8 @@ class PrintersManager(QObject):
         self._cura_application = CuraApplication.getInstance()
         self._data_api_service = DataApiService.getInstance()
         self._application = CuraApplication.getInstance()
-        self._global_container_stack = self._application.getGlobalContainerStack()
-        self._onGlobalContainerStackChanged()
         AuthApiService.getInstance().authStateChanged.connect(self._authStateChanged)
 
-        self._global_container_stack = self._application.getGlobalContainerStack()
-        self._onGlobalContainerStackChanged()
-
-    def _onGlobalContainerStackChanged(self):
-        self._global_container_stack = self._application.getGlobalContainerStack()
-
-        if self._global_container_stack:
-            self._global_container_stack.propertyChanged.connect(self._onPropertyChanged)
-
-            # Calling _onPropertyChanged as an initialization
-            self._onPropertyChanged("print_mode", "value")
-
-    def initialize(self):
-        self._addPrinters()
-        return
 
     def _authStateChanged(self, logged_in):
         if logged_in:
@@ -98,6 +77,7 @@ class PrintersManager(QObject):
 
     @pyqtSlot(str)
     def setPrintMode(self, print_mode: str):
+        self._application.setPrintModeToLoad(print_mode)
         self._global_container_stack = self._application.getGlobalContainerStack()
         left_extruder = self._global_container_stack.extruderList[0]
         right_extruder = self._global_container_stack.extruderList[1]

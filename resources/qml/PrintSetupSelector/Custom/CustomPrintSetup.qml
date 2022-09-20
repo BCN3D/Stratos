@@ -222,6 +222,7 @@ Item
             model: extrudersModel
             delegate: UM.TabRowButton
             {
+                checkable: model.enabled //BCN3D
                 contentItem: Item
                 {
                     Cura.ExtruderIcon
@@ -244,7 +245,7 @@ Item
         Connections
         {
             target: Cura.ExtruderManager
-            onActiveExtruderChanged:
+            function onActiveExtruderChanged()
             {
                 tabBar.setCurrentIndex(Cura.ExtruderManager.activeExtruderIndex);
             }
@@ -256,7 +257,7 @@ Item
         Connections
         {
             target: repeater.model
-            onModelChanged:
+            function onModelChanged()
             {
                 tabBar.setCurrentIndex(Cura.ExtruderManager.activeExtruderIndex)
             }

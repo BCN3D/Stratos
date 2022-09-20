@@ -265,14 +265,16 @@ class SliceInfo(QObject, Extension):
 
             # Send the name of the output device type that is used.
             data["output_to"] = type(output_device).__name__
+            
+            """ BCN: Only send slice info when there is a info url to send to """
+            if self.info_url:
+                # Convert data to bytes
+                binary_data = json.dumps(data).encode("utf-8")
 
-            # Convert data to bytes
-            binary_data = json.dumps(data).encode("utf-8")
-
-            # Send slice info non-blocking
-            network_manager = self._application.getHttpRequestManager()
-            network_manager.post(self.info_url, data = binary_data,
-                                 callback = self._onRequestFinished, error_callback = self._onRequestError)
+                # Send slice info non-blocking
+                network_manager = self._application.getHttpRequestManager() 
+                network_manager.post(self.info_url, data = binary_data,
+                                    callback = self._onRequestFinished, error_callback = self._onRequestError) 
         except Exception:
             # We really can't afford to have a mistake here, as this would break the sending of g-code to a device
             # (Either saving or directly to a printer). The functionality of the slice data is not *that* important.

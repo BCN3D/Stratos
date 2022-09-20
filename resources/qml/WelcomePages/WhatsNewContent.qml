@@ -53,7 +53,7 @@ Item
         id: getStartedButton
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        text: base.currentItem.next_page_button_text
+        text: catalog.i18nc("@button", "Next")
         onClicked: base.showNextPage()
     }
 }

@@ -111,7 +111,7 @@ Button
     Connections
     {
         target: Cura.MachineManager
-        onOutputDevicesChanged: updatePrinterTypesFunction()
+        function onOutputDevicesChanged() { updatePrinterTypesFunction() }
     }
 
     Component.onCompleted: updatePrinterTypesFunction()

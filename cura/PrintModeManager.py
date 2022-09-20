@@ -10,6 +10,7 @@ from cura.Scene.DuplicatedNode import DuplicatedNode
 from cura.Settings.ExtruderManager import ExtruderManager
 from cura.Arranging.ShapeArray import ShapeArray
 from UM.Scene.Selection import Selection
+from UM.Logger import Logger
 
 
 class PrintModeManager:
@@ -24,13 +25,15 @@ class PrintModeManager:
         self._scene = Application.getInstance().getController().getScene()
         application = cura.CuraApplication.CuraApplication.getInstance()
         self._global_stack = application.getGlobalContainerStack()
-
+        self._last_mode = "singleT0"
         if self._global_stack is not None:
             self._global_stack.setProperty("print_mode", "value", "singleT0")
             for node in Selection.getAllSelectedObjects():
                 node.setSetting("print_mode", "singleT0")
+            self._last_mode = self._global_stack.getProperty("print_mode", "value")
 
-
+        #remember last mode and settings offset
+        self._last_max_offset = 0
         Application.getInstance().globalContainerStackChanged.connect(self._onGlobalStackChanged)
         self._onGlobalStackChanged()
         #
@@ -102,6 +105,7 @@ class PrintModeManager:
                 self._onPrintModeChanged()
 
     printModeChanged = Signal()
+    printModeApplied = Signal()
 
     def _onPropertyChanged(self, key, property_name):
         if key == "print_mode" and property_name == "value":
@@ -110,41 +114,44 @@ class PrintModeManager:
     def _onPrintModeChanged(self):
         if self._global_stack:
             print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
-            if print_mode not in ["singleT0", "singleT1", "dual"]:
-                nodes = self._scene.getRoot().getChildren()
-                max_offset = 0
-                machine_head_with_fans_polygon = self._global_stack.getProperty("machine_head_with_fans_polygon", "value")
-                machine_head_size = abs(machine_head_with_fans_polygon[0][0] - machine_head_with_fans_polygon[2][0])
-
-                adhesion_type = self._global_stack.getProperty("adhesion_type", "value")
-                if adhesion_type == "skirt":
-                    margin = self._global_stack.getProperty("skirt_gap", "value")
-                elif adhesion_type == "brim":
-                    margin = self._global_stack.getProperty("brim_width", "value")
-                elif adhesion_type == "raft":
-                    margin = self._global_stack.getProperty("raft_margin", "value")
-                else:
-                    margin = 0
-
-                if print_mode == "mirror":
-                    margin += machine_head_size/2
-                sliceable_nodes = []
-                for node in nodes:
-                    self._setActiveExtruder(node)
-                    if (node.callDecoration("isSliceable") or node.callDecoration("isGroup") ) and not isinstance(node, DuplicatedNode):
-                        sliceable_nodes.append(node)
-                        offset_shape_arr, hull_shape_arr = ShapeArray.fromNode(node, 4)
-                        position = node.getPosition()
-                        max_offset = max(abs(offset_shape_arr.offset_x) + position.x + margin, max_offset)
-
-                for node in sliceable_nodes:
+            machine_width = Application.getInstance().getGlobalContainerStack().getProperty("machine_width", "value")
+            nodes = self._scene.getRoot().getChildren()
+            #max_offset = 0
+            offset = 0
+            sceneNodes = 0
+            for node in nodes:
+                self._setActiveExtruder(node)
+                #We only want to model_plate_move sliceable or group nodes
+                if (node.callDecoration("isSliceable") or node.callDecoration("isGroup") ) and not isinstance(node, DuplicatedNode):
                     position = node.getPosition()
-                    offset = position.x - max_offset
-                    node.setPosition(Vector(offset, position.y, position.z))
-                self.renderDuplicatedNodes()
+                    if print_mode in ["mirror", "duplication"]:
+                        #we do not need to extend margin anymore due now is centerd on the ¨new¨bed and can not colapse
+                        if self._last_mode in ["mirror", "duplication"]:
+                            model_plate_proportion = 1
+                            model_plate_move = 0
+                        elif self._last_mode in ["singleT0", "singleT1", "dual"]:
+                            model_plate_proportion = 1/2
+                            model_plate_move = machine_width/4
+                        offset = position.x * model_plate_proportion - model_plate_move #- max_offset + self._last_max_offset
+                        #self._last_max_offset = max_offset
+                        self.renderDuplicatedNodes()
+                    elif print_mode in ["singleT0", "singleT1", "dual"]:
+                        if self._last_mode in ["mirror", "duplication"]:
+                            model_plate_proportion = 2
+                            model_plate_move = machine_width/4
+                        elif self._last_mode in ["singleT0", "singleT1", "dual"]:
+                            model_plate_proportion = 1
+                            model_plate_move = 0
+                        offset = ( position.x + model_plate_move) * model_plate_proportion #+ self._last_max_offset (on moves))
+                        #self._last_max_offset = 0
+                        self.removeDuplicatedNodes()
 
-            else:
-                self.removeDuplicatedNodes()
+                    sceneNodes += 1
+                    node.setPosition(Vector(offset, position.y, position.z))
+                
+            if sceneNodes > 0:
+                self._last_mode = print_mode
+
 
     def _setActiveExtruder(self, node):
         if type(node) == CuraSceneNode:

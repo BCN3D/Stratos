@@ -300,7 +300,7 @@ Item
                 Connections
                 {
                     target: UM.Preferences
-                    onPreferenceChanged:
+                    function onPreferenceChanged(preference)
                     {
                         if
                         (
@@ -342,8 +342,8 @@ Item
     {
         // Since it could be that the content is dynamically populated, we should also take these changes into account.
         target: content.contentItem
-        onWidthChanged: content.width = content.contentItem.width + 2 * content.padding
-        onHeightChanged:
+        function onWidthChanged() {content.width = content.contentItem.width + 2 * content.padding}
+        function onHeightChanged()
         {
             content.height = content.contentItem.height + 2 * content.padding
             contentContainer.height = contentHeader.height + content.height

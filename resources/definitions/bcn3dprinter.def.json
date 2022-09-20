@@ -6,7 +6,7 @@
     "visible": false,
     "author": "BCN3D Technologies",
     "manufacturer": "BCN3D Technologies",
-    "preferred_material": "generic_material",
+    "preferred_material": "generic_pla",
     "preferred_variant_name": "0.4mm",
     "preferred_quality_type": "normal",
     "variants_name": "Hotend",

@@ -93,7 +93,7 @@ Item
     Connections
     {
         target: CuraApplication
-        onAdditionalComponentsChanged: base.addAdditionalComponents()
+        function onAdditionalComponentsChanged(){ base.addAdditionalComponents() }
     }
 
     function addAdditionalComponents()

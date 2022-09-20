@@ -3051,7 +3051,49 @@ msgid ""
 msgstr ""
 "- Personnalisez votre expérience avec plus de profils d'impression et de plug-ins\n"
 "- Restez flexible en synchronisant votre configuration et en la chargeant n'importe où\n"
-"- Augmentez l'efficacité grâce à un flux de travail à distance sur les imprimantes Ultimaker"
+"- Augmentez l'efficacité grâce à un flux de travail à distance sur les imprimantes BCN3D"
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/GeneralOperations.qml:78
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:142
+msgctxt "@button"
+msgid "Email is required"
+msgstr ""
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/GeneralOperations.qml:78
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:142
+msgctxt "@button"
+msgid "Password"
+msgstr ""
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/GeneralOperations.qml:78
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:142
+msgctxt "@button"
+msgid "Password is required"
+msgstr ""
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/GeneralOperations.qml:78
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:142
+msgctxt "@button"
+msgid "Incorrect email or password"
+msgstr ""
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/GeneralOperations.qml:78
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:142
+msgctxt "@button"
+msgid "Can't sign in. Check internet connection"
+msgstr ""
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/GeneralOperations.qml:78
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:142
+msgctxt "@button"
+msgid "Can't sign in. Error loading api data"
+msgstr ""
+
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/GeneralOperations.qml:78
+#: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:142
+msgctxt "@button"
+msgid "Can't sign in. Something went wrong"
+msgstr ""
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/Account/GeneralOperations.qml:78 /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:142
 msgctxt "@button"
@@ -5194,7 +5236,7 @@ msgstr "- Restez flexible en synchronisant votre configuration et en la chargean
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:107
 msgctxt "@text"
 msgid "- Increase efficiency with a remote workflow on BCN3D printers"
-msgstr "- Augmentez l'efficacité avec un flux de travail à distance sur les imprimantes Ultimaker"
+msgstr "- Augmentez l'efficacité avec un flux de travail à distance sur les imprimantes BCN3D"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/CloudContent.qml:157
 msgctxt "@button"
@@ -5263,16 +5305,16 @@ msgstr "Souhaitez-vous expérimenter davantage que le mode standard ?"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:83
 msgctxt "@text"
-msgid "Learn how to configure your printing parameters."
+msgid "Learn how to configure your BCN3D Stratos printing parameters."
 msgstr "Découvrez comment configurer vos paramètres d'impression."
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:121
 msgctxt "@text"
-msgid "BCN3D Stratos: Basic parameters"
+msgid "Basic parameters"
 msgstr "BCN3D Stratos : Paramètres de base"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/BCN3DFirstSteps.qml:122msgctxt "@text"
-msgid "BCN3D Stratos: Advanced parameters"
+msgid "Advanced parameters"
 msgstr "BCN3D Stratos : Paramètres avancés"
 
 #: /home/trin/Gedeeld/Projects/Cura/resources/qml/WelcomePages/DropDownWidget.qml:93
