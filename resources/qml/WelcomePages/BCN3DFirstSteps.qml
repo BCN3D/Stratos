@@ -103,14 +103,13 @@ Item
                 width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
                 horizontalAlignment: Text.AlignHCenter
-                text: catalog.i18nc("@text", 'Do you want to experiment beyond the standard mode?') +  "\n" + catalog.i18nc("@text", 'Learn how to configure your printing parameters.')
+                text: catalog.i18nc("@text", 'Do you want to experiment beyond the standard mode?') +  "\n" + catalog.i18nc("@text", 'Learn how to configure your BCN3D Stratos printing parameters.') + ":"
                 wrapMode: Text.WordWrap
                 font: UM.Theme.getFont("medium")
                 color: UM.Theme.getColor("text")
                 renderType: Text.NativeRendering
             }
-
-                   Label
+            Label
             {
                 id: bottomLabel
                 width: parent.width
@@ -118,9 +117,9 @@ Item
                 horizontalAlignment: Text.AlignHCenter
                 text:
                 {
-                    var t1 = catalog.i18nc("@text", 'BCN3D Stratos: Basic parameters')
-                    var t2 = catalog.i18nc("@text", 'BCN3D Stratos: Advanced parameters')
-                    var t = " <a href='http://www.bcn3d.com/stratos_basic'>" + t1 + "</a> \n <a href='http://www.bcn3d.com/stratos_advanced'>" + t2 +"</a>"
+                    var t1 = catalog.i18nc("@text", 'Basic parameters')
+                    var t2 = catalog.i18nc("@text", 'Advanced parameters')
+                    var t = " <a href='http://www.bcn3d.com/stratos_basic'>-" + t1 + "</a>           <a href='http://www.bcn3d.com/stratos_advanced'>-" + t2 +"</a>"
                     return t
                 }
                 textFormat: Text.RichText
@@ -130,9 +129,14 @@ Item
                 linkColor: UM.Theme.getColor("text_link")
                 onLinkActivated: Qt.openUrlExternally(link)
                 renderType: Text.NativeRendering
-            }    
+            }       
         }
+        
     }
+
+    
+
+
 
     Cura.PrimaryButton
     {

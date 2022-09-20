@@ -83,7 +83,9 @@ To convert .po files to .mo, run this in the root of /Stratos-intern and copy th
 
 ```shell
 mkdir build && cd build
-cmake ..
+cmake -DCURA_BINARY_DATA_DIRECTORY=PATH_TO_stratos-binary-data ..
 make
 ```
 
+## Printer Structure
+<img src="https://user-images.githubusercontent.com/559677/185143887-8770519b-1b58-4be5-9a77-02ec91d4c239.jpg" alt="drawing" width="900"/>

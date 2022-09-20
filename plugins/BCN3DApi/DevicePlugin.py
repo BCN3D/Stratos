@@ -1,6 +1,7 @@
 from UM.Application import Application
 from UM.OutputDevice.OutputDevicePlugin import OutputDevicePlugin
 from UM import Util
+from .PrintersManager import PrintersManager
 
 from .AuthApiService import AuthApiService
 
@@ -16,6 +17,7 @@ class DevicePlugin(OutputDevicePlugin):
     def __init__(self):
         super().__init__()
         self._global_stack = None
+        self._printers_manager = None
         self._supports_cloud_connection = False
         self._is_logged_in = AuthApiService.getInstance().isLoggedIn
 
@@ -47,3 +49,8 @@ class DevicePlugin(OutputDevicePlugin):
                 self.getOutputDeviceManager().addOutputDevice(Device("cloud_save"))
             else:
                 self.stop()
+
+    def getPrintersManager(self, *args):
+        if self._printers_manager is None:
+            self._printers_manager = PrintersManager.getInstance()
+        return self._printers_manager

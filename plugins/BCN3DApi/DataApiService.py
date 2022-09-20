@@ -1,8 +1,8 @@
 from UM.Message import Message
 
 from .AuthApiService import AuthApiService
-from .SessionManager import SessionManager
 from .http_helper import get, post
+from UM.Logger import Logger
 
 
 class DataApiService:
@@ -32,9 +32,11 @@ class DataApiService:
                     message.show()
                 else:
                     message = Message("The gcode has been sent to the cloud successfully but there was an error sending the gcode to the printer", title="Gcode sent error")
+                    Logger.error("There was an error sending gcode to the printer: %s".format(response2.reason))
                     message.show()
             else:
                 message = Message("There was an error sending the gcode to the cloud", title="Gcode sent error")
+                Logger.error("There was an error sending gcode to cloud: %s" % response.reason)
                 message.show()
         else :
             response = post(self._auth_api_service.api_url + "/devices/" + printerId + "/print", [], headers, files)
@@ -52,6 +54,7 @@ class DataApiService:
         if 200 <= response.status_code < 300:
             return response.json()
         else:
+            Logger.error("There was an error getting printers: %s" % response.reason)
             return []
 
     def getConnectedPrinter(self):
@@ -60,6 +63,7 @@ class DataApiService:
         if 200 <= response.status_code < 300:
             return response.json()
         else:
+            Logger.error("There was an error getting connected printer: %s" % response.reason)
             return {}
 
     @classmethod

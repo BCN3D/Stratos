@@ -85,7 +85,7 @@ Item
             id: email
             text: emailText
             anchors.horizontalCenter: parent.horizontalCenter
-            placeholderText: "Email"
+            placeholderText: catalog.i18nc("@text", "Email")
             onEditingFinished: {
                 if (text != "") emailErrorVisible = false
                 else emailErrorVisible = true
@@ -97,7 +97,7 @@ Item
             anchors.left: email.left
             anchors.top: email.bottom
             horizontalAlignment: Text.AlignLeft
-            text: "Email is required"
+            text: catalog.i18nc("@text", "Email is required")
             color: "red"
             visible: emailErrorVisible
         }
@@ -113,7 +113,7 @@ Item
             id: password
             text: passwordText
             anchors.horizontalCenter: parent.horizontalCenter
-            placeholderText: "Password"
+            placeholderText: catalog.i18nc("@text", "Password")
             echoMode: TextInput.Password
             onEditingFinished: {
                 if (text != "") passwordErrorVisible = false
@@ -126,7 +126,7 @@ Item
             anchors.left: password.left
             anchors.top: password.bottom
             horizontalAlignment: Text.AlignLeft
-            text: "Password is required"
+            text: catalog.i18nc("@text", "Password is required")
             color: "red"
             visible: passwordErrorVisible
         }
@@ -139,7 +139,7 @@ Item
         anchors.horizontalCenter: parent.horizontalCenter
         Label {
             anchors.horizontalCenter: parent.horizontalCenter
-            text: signInStatusCode == 400 ? "Incorrect email or password" : signInStatusCode == -1 ? "Can't sign in. Check internet connection." : "Can't sign in. Something went wrong."
+            text: signInStatusCode == 400 ? catalog.i18nc("@text", "Incorrect email or password") : signInStatusCode == -1 ? catalog.i18nc("@text", "Can't sign in. Check internet connection") : signInStatusCode == -2 ? catalog.i18nc("@text", "Can't sign in. Error loading api data"): catalog.i18nc("@text", "Can't sign in. Something went wrong")
             color: "red"
             visible: signInStatusCode != 200
         }

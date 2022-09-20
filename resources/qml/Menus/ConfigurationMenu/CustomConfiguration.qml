@@ -118,7 +118,7 @@ Item
         Connections
         {
             target: Cura.ExtruderManager
-            onActiveExtruderChanged:
+            function onActiveExtruderChanged()
             {
                 tabBar.setCurrentIndex(Cura.ExtruderManager.activeExtruderIndex);
             }
@@ -139,7 +139,7 @@ Item
         Connections
         {
             target: repeater.model
-            onModelChanged:
+            function onModelChanged()
             {
                 tabBar.setCurrentIndex(Cura.ExtruderManager.activeExtruderIndex)
             }
@@ -231,7 +231,7 @@ Item
                         target: enabledCheckbox
                         property: "checked"
                         value: Cura.MachineManager.activeStack.isEnabled
-                        when: Cura.MachineManger.activeStack != null
+                        when: Cura.MachineManager.activeStack != null
                     }
 
                     /* Use a MouseArea to process the click on this checkbox.

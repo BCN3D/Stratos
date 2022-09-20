@@ -241,7 +241,7 @@ class WelcomePagesModel(ListModel):
 
         # All pages
         all_pages_list = [
-                            {"id": "welcome",
+                          {"id": "welcome",
                            "page_url": self._getBuiltinWelcomePagePath("WelcomeContent.qml"),
                            },
                           {"id": "user_agreement",

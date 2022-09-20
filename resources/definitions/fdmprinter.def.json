@@ -2177,7 +2177,7 @@
                     "minimum_value": "-273.15",
                     "minimum_value_warning": "0",
                     "maximum_value_warning": "285",
-                    "enabled": "machine_heated_build_volume",
+                    "enabled": false,
                     "settable_per_mesh": false,
                     "settable_per_extruder": false
                 },

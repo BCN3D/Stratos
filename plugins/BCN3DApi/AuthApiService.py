@@ -2,6 +2,7 @@ from PyQt5.QtCore import QObject, pyqtSlot, pyqtProperty, pyqtSignal
 from cura.OAuth2.Models import UserProfile
 from UM.Message import Message
 from UM.Logger import Logger
+from UM.PluginRegistry import PluginRegistry  # For path plugin's directory.
 import requests
 import os
 import json
@@ -11,10 +12,11 @@ from .http_helper import get, post
 from threading import Lock
 
 class AuthApiService(QObject):
-    api_url = "https://api.cloud.bcn3d.com/v2"
+    api_url = None
     client_id = None
     app_secret = None
-    scope = 'all'
+    scope = None
+    _session_manager = None
     grant_type = 'password'
     authStateChanged = pyqtSignal(bool, arguments=["isLoggedIn"])
 
@@ -23,20 +25,35 @@ class AuthApiService(QObject):
         if AuthApiService.__instance is not None:
             raise ValueError("Duplicate singleton creation")
 
-        self.api_url = "https://api.cloud.bcn3d.com/v2"
-        self.client_id = "e032d294cef848058ecc8ff2f90bdc01"
-        self.app_secret = "24c33b9c1af656a319bc1279dcbb046747629b0f0b1b7561e1eafc11fc0ff23f"
-
         self.getTokenRefreshLock = Lock()
         self._email = None
         self._profile = None
         self._is_logged_in = False
-        self._session_manager = SessionManager.getInstance()
-        self._session_manager.initialize()
-        if self._session_manager.getAccessToken() and self.getToken():
-            self.getCurrentUser()
-
-    @pyqtProperty(str, notify=authStateChanged)
+   
+    def startApi(self, firstRun = True):
+        apiData = None
+        pr = PluginRegistry.getInstance()
+        pluginPath = pr.getPluginPath("BCN3DApi")
+        try:
+            with open(os.path.join(pluginPath, "ApiData.json"), "r", encoding = "utf-8") as f:
+                apiData = json.load(f)
+        except IOError as e:
+            Logger.error("Could not open ApiData.json for reading: %s".format(str(e)))
+            return None
+        except Exception as e:
+            Logger.error("Could not parse ApiData.json: %s".format(str(e)))
+            return None
+        if apiData:
+            self.api_url = apiData['api_url']
+            self.client_id = apiData['client_id']
+            self.app_secret = apiData['app_secret']
+            self.scope = apiData['scope']
+            if not self._session_manager:
+                self._session_manager = SessionManager.getInstance()
+                self._session_manager.initialize()
+            if firstRun and self._session_manager.getAccessToken() and self.getToken():
+                self.getCurrentUser()
+    
     def email(self):
         return self._email
 
@@ -50,6 +67,9 @@ class AuthApiService(QObject):
     def isLoggedIn(self):
         return self._is_logged_in
 
+    def apiDataIsDefined(self):
+        return self.client_id and self.api_url
+
     def getCurrentUser(self):
         headers = {"authorization": "bearer {}".format(self.getToken()), 'Content-Type' : 'application/x-www-form-urlencoded'}
         response = get(self.api_url + "/accounts/me", headers=headers)
@@ -60,10 +80,15 @@ class AuthApiService(QObject):
             self._is_logged_in = True
             self.authStateChanged.emit(True)
         else:
+            Logger.error("Could not get current user: %s" % response.reason)
             return {}
 
     @pyqtSlot(str, str, result=int)
     def signIn(self, email, password):
+        if not self.apiDataIsDefined():
+            self.startApi(False)
+            if not self.apiDataIsDefined():
+                return -2
         self._email = email
         data = {"username": email, 
                 "password": password, 
@@ -81,6 +106,7 @@ class AuthApiService(QObject):
             self.getCurrentUser()
             return 200
         else:
+            Logger.error("Could not perform sing in: %s" % response.reason)
             return response.status_code
 
     def refresh(self):

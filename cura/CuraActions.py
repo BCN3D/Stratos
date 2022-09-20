@@ -112,7 +112,8 @@ class CuraActions(QObject):
             print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
             if print_mode not in ["singleT0", "singleT1", "dual"]:
                 node_dup = PrintModeManager.getInstance().getDuplicatedNode(node)
-                op.addOperation(RemoveNodesOperation(node_dup))
+                if(node_dup):
+                    op.addOperation(RemoveNodesOperation(node_dup))
             op.addOperation(RemoveSceneNodeOperation(node))
             group_node = node.getParent()
             if group_node and group_node.callDecoration("isGroup") and group_node not in removed_group_nodes:

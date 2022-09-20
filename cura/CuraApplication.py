@@ -50,6 +50,7 @@ from UM.i18n import i18nCatalog
 from cura import ApplicationMetadata
 from cura.API import CuraAPI
 from cura.API.Account import Account
+from cura.Operations.RemoveNodesOperation import RemoveNodesOperation
 from cura.Arranging.Arrange import Arrange
 from cura.Arranging.ArrangeObjectsAllBuildPlatesJob import ArrangeObjectsAllBuildPlatesJob
 from cura.Arranging.ArrangeObjectsJob import ArrangeObjectsJob
@@ -259,6 +260,9 @@ class CuraApplication(QtApplication):
         self._container_registry = None # type: CuraContainerRegistry
         from cura.CuraPackageManager import CuraPackageManager
         self._package_manager_class = CuraPackageManager
+
+        # Save the print mode to apply it when meshes have been properly loaded
+        self._print_mode_to_load = "singleT0"
 
     @pyqtProperty(str, constant=True)
     def ultimakerCloudApiRootUrl(self) -> str:
@@ -613,8 +617,8 @@ class CuraApplication(QtApplication):
         # the Global Stack to a QObject fails.
         # If instead we first take down the global stack, PyQt will just convert `None` to `null` which succeeds, and
         # the QML code then gets `null` as the global stack and can deal with that as it deems fit.
+        self._global_container_stack.setProperty("print_mode", "value", "singleT0")
         self.getMachineManager().setActiveMachine(None)
-
         main_window = self.getMainWindow()
         if main_window is not None:
             main_window.close()
@@ -669,6 +673,7 @@ class CuraApplication(QtApplication):
     @override(Application)
     def setGlobalContainerStack(self, stack: Optional["GlobalStack"]) -> None:
         self._setLoadingHint(self._i18n_catalog.i18nc("@info:progress", "Initializing Active Machine..."))
+        self.extractAndSavePrintMode(stack)
         super().setGlobalContainerStack(stack)
 
     showMessageBox = pyqtSignal(str,str, str, str, int, int,
@@ -741,6 +746,14 @@ class CuraApplication(QtApplication):
         if not self._enable_save:
             return
         ContainerRegistry.getInstance().saveContainer(stack)
+
+    def extractAndSavePrintMode(self, stack):
+        if stack:
+            self._print_mode_to_load = stack.getProperty("print_mode", "value")
+            stack.setProperty("print_mode", "value", "singleT0") # Set a default
+
+    def reset3MFPrintMode(self):
+        self._print_mode_to_load = "singleT0"
 
     @pyqtSlot(str, result = QUrl)
     def getDefaultPath(self, key):
@@ -984,6 +997,15 @@ class CuraApplication(QtApplication):
         if self._cura_formula_functions is None:
             self._cura_formula_functions = CuraFormulaFunctions(self)
         return self._cura_formula_functions
+
+    def getPrintModeToLoad(self)-> str:
+        return self._print_mode_to_load 
+    
+    def getPrintModeManager(self):
+        return self._print_mode_manager
+
+    def setPrintModeToLoad(self, value)-> str:
+        self._print_mode_to_load = value
 
     def getMachineErrorChecker(self, *args) -> MachineErrorChecker:
         return self._machine_error_checker
