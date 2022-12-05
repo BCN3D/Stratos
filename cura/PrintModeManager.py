@@ -111,48 +111,62 @@ class PrintModeManager:
         if key == "print_mode" and property_name == "value":
             self.printModeChanged.emit()
 
+    # Re-center and add/remove duplicated node
     def _onPrintModeChanged(self):
         if self._global_stack:
             print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
-            machine_width = Application.getInstance().getGlobalContainerStack().getProperty("machine_width", "value")
             nodes = self._scene.getRoot().getChildren()
-            #max_offset = 0
-            offset = 0
-            sceneNodes = 0
-            for node in nodes:
-                self._setActiveExtruder(node)
-                #We only want to model_plate_move sliceable or group nodes
-                if (node.callDecoration("isSliceable") or node.callDecoration("isGroup") ) and not isinstance(node, DuplicatedNode):
-                    position = node.getPosition()
-                    if print_mode in ["mirror", "duplication"]:
-                        #we do not need to extend margin anymore due now is centerd on the ¨new¨bed and can not colapse
-                        if self._last_mode in ["mirror", "duplication"]:
-                            model_plate_proportion = 1
-                            model_plate_move = 0
-                        elif self._last_mode in ["singleT0", "singleT1", "dual"]:
+            scene_nodes = 0
+            
+            # ::::: TO SINGLE :::::
+            if print_mode in ["singleT0", "singleT1", "dual"]:
+                if self._mesh_on_buildplate(nodes):
+                    self.removeDuplicatedNodes()
+                    cura.CuraApplication.CuraApplication.getInstance().arrangeAll()
+            
+            # ::::: TO MIRROR :::::
+            else:
+                machine_width = Application.getInstance().getGlobalContainerStack().getProperty("machine_width", "value")
+                offset = 0
+                for node in nodes:
+                    self._setActiveExtruder(node)
+                    if self._is_node_a_mesh(node):
+                        position = node.getPosition()
+                        
+                        # From Single
+                        if self._last_mode in ["singleT0", "singleT1", "dual"]:
                             model_plate_proportion = 1/2
                             model_plate_move = machine_width/4
-                        offset = position.x * model_plate_proportion - model_plate_move #- max_offset + self._last_max_offset
-                        #self._last_max_offset = max_offset
+                        
+                        # From Mirror
+                        elif self._last_mode in ["mirror", "duplication"]:
+                                model_plate_proportion = 1
+                                model_plate_move = 0
+                        
+                        # Set offset & duplicate
+                        offset = position.x * model_plate_proportion - model_plate_move
                         self.renderDuplicatedNodes()
-                    elif print_mode in ["singleT0", "singleT1", "dual"]:
-                        if self._last_mode in ["mirror", "duplication"]:
-                            model_plate_proportion = 2
-                            model_plate_move = machine_width/4
-                        elif self._last_mode in ["singleT0", "singleT1", "dual"]:
-                            model_plate_proportion = 1
-                            model_plate_move = 0
-                        offset = ( position.x + model_plate_move) * model_plate_proportion #+ self._last_max_offset (on moves))
-                        #self._last_max_offset = 0
-                        self.removeDuplicatedNodes()
+                    
+                        # Set position
+                        node.setPosition(Vector(offset, position.y, position.z))
 
-                    sceneNodes += 1
-                    node.setPosition(Vector(offset, position.y, position.z))
-                
-            if sceneNodes > 0:
+            # Set last print mode
+            if scene_nodes > 0:
                 self._last_mode = print_mode
 
+    # Check if there is a mesh (3D object) in the buildplate
+    def _mesh_on_buildplate(self, nodes):
+        mesh = False
+        for n in nodes:
+            if (n.callDecoration("isSliceable") or n.callDecoration("isGroup")) and not isinstance(n, DuplicatedNode):
+                mesh = True
+                break
+        return mesh
 
+    # Check if node is a mesh (3D object)
+    def _is_node_a_mesh(self, node):
+           return (node.callDecoration("isSliceable") or node.callDecoration("isGroup")) and not isinstance(node, DuplicatedNode)
+          
     def _setActiveExtruder(self, node):
         if type(node) == CuraSceneNode:
             node.callDecoration("setActiveExtruder", ExtruderManager.getInstance().getExtruderStack(0).getId())

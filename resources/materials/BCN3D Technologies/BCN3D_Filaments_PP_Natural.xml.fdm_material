@@ -74,6 +74,15 @@
            <hotend id="1.0mm" />
         </machine>
         <machine>
+           <machine_identifier manufacturer="BCN3D Technologies" product="bcn3dsigmaxr19" />
+           <hotend id="0.3mm" />
+           <hotend id="0.4mm" />
+           <hotend id="0.5mm - Hardened Steel" />
+           <hotend id="0.6mm" />
+           <hotend id="0.8mm" />
+           <hotend id="1.0mm" />
+        </machine>
+        <machine>
             <machine_identifier manufacturer="BCN3D Technologies" product="bcn3dw50" />
             <setting key="heated bed temperature">70</setting>
             <hotend id="0.4mm" />

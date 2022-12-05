@@ -139,7 +139,7 @@ Item
         anchors.horizontalCenter: parent.horizontalCenter
         Label {
             anchors.horizontalCenter: parent.horizontalCenter
-            text: signInStatusCode == 400 ? catalog.i18nc("@text", "Incorrect email or password") : signInStatusCode == -1 ? catalog.i18nc("@text", "Can't sign in. Check internet connection") : signInStatusCode == -2 ? catalog.i18nc("@text", "Can't sign in. Error loading api data"): catalog.i18nc("@text", "Can't sign in. Something went wrong")
+            text: signInStatusCode == 400 || signInStatusCode == 401 ? catalog.i18nc("@text", "Incorrect email or password") : signInStatusCode == -1 ? catalog.i18nc("@text", "Can't sign in. Check internet connection") : signInStatusCode == -2 ? catalog.i18nc("@text", "Can't sign in. Error loading api data"): catalog.i18nc("@text", "Can't sign in. Something went wrong")
             color: "red"
             visible: signInStatusCode != 200
         }

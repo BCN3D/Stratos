@@ -80,7 +80,9 @@ class AuthApiService(QObject):
             self._is_logged_in = True
             self.authStateChanged.emit(True)
         else:
-            Logger.error("Could not get current user: %s" % response.reason)
+            reason = "No reason provided" if not hasattr(response, 'reason') else response.reason
+
+            Logger.error("Could not get current user: %s" % reason)
             return {}
 
     @pyqtSlot(str, str, result=int)
@@ -106,7 +108,8 @@ class AuthApiService(QObject):
             self.getCurrentUser()
             return 200
         else:
-            Logger.error("Could not perform sing in: %s" % response.reason)
+            reason = "No reason provided" if not hasattr(response, 'reason') else response.reason
+            Logger.error("Could not perform sing in: %s" % reason)
             return response.status_code
 
     def refresh(self):

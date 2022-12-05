@@ -1,3 +1,12 @@
+[1.5.3]
+
+- Now Stratos will make sure you send the right gcode to the right printer, checking its material and nozzles
+- Fixed a problem that sometimes would cause multiply and arrange not working well
+- Fixed errors when adding a new STL into an existing mirror print mode scene
+- Fixed an issue where settings information were not displayed
+- Improved control errors when users couldn't log in to the cloud
+- Internal bug fixing
+
 [1.5.2]
 
 - Fixed an issue where Left-to-Right (LTR) languages would appear incorrectly

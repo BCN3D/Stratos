@@ -43,7 +43,7 @@
         "dual_pre_wipe": { "value": false },
         "fix_tool_change_travel": { "value": true },
         "gradual_support_infill_step_height": { "value": "max(5 * layer_height, 1)" },
-        "infill_before_walls": { "value": "infill_sparse_layer == 1" },
+        "infill_before_walls": { "value": false },
         "infill_line_width": { "value": "machine_nozzle_size" },
         "initial_layer_line_width_factor": { "value": 120 },
         "infill_overlap": { "value": 15 },
@@ -63,11 +63,9 @@
             "value": "min(extruderValues('machine_nozzle_size')) / 2"
         },
         "layer_start_x": {
-            "enabled": "start_layers_at_same_position",
             "value": "machine_width/2"
         },
         "layer_start_y": {
-            "enabled": "start_layers_at_same_position",
             "value": "machine_depth"
         },
         "line_width": { "value": "machine_nozzle_size" },
@@ -151,10 +149,6 @@
         "speed_travel_layer_0": { "value": "round(speed_travel * speed_layer_0 / speed_print, 1)" },
         "speed_wall_0": { "value": "speed_wall" },
         "speed_wall_x": { "value": "round(speed_print - (speed_print - speed_wall) / 2, 1)" },
-        "start_layers_at_same_position": {
-            "enabled": true,
-            "value": false
-        },
         "start_purge_distance": { "value": 10 },
         "support_angle": { "value": 60 },
         "support_bottom_distance": { "value": "layer_height" },

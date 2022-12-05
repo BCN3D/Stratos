@@ -1,0 +1,43 @@
+{
+  "printer_models": {
+    "040": "f769402e276e430cae45f2f02313c16c",
+    "050": "081008d67cbf45a4ac826f43b0248884",
+    "060": "d69fbd6ea1bd419dbef90a9d105dc644"
+  },
+  "extruder_model_diameters": {
+    "0.4": "619f60bab31247f0a4a77fb39193129c",
+    "0.4M": "07e97c210c644b348613e30b034fdbfe",
+    "0.5": "8b41c236440a4c1bb4863234858b0cda",
+    "0.6": "2965dc90923c4763a39080c6e79c972b",
+    "0.6X": "845e27c73b9540069dd5bcf6770b454a",
+    "0.8": "7eb46d68d070416e9d0399189c4c2cf4",
+    "1.0": "a088f37479704b57a61d47410bf0f538"
+  },
+  "extruder_model_materials": {
+    "TPU": "2e5b81fc86df4ca9aa7c7f7c169d002e",
+    "TOUGH_PLA": "618dedd4f81a4852a2f3427ba74d03c6",
+    "PVA": "eb4f299b4fb74478b531fecbe05491f5",
+    "PP_GF30": "80476d2c1f104c98bbac6d80a16fd41d",
+    "PP": "e180a19f934c4eef96db06b0e98d652c",
+    "PLA": "81fc6cec95f94f19a878883f0d2ca123",
+    "PETG": "fcb309d3d5634708a4a03f7bedf2f969",
+    "PAHT_CF15": "b1e227d3b9b24cd8ad2fa1617306df2c",
+    "PA": "fddd64391c6940d386433fdbb97bbcf0",
+    "BVOH": "da7478bbcdb54d2ab83ccba51e90fd03",
+    "ABS": "463116e5c0da4b48bc38e74212163f42",
+    "CUSTOM": "c29d221fbe13488aaf8c2a26b49b618c",
+    "PET_CF15": "d54cba13b99f433483e32615384ba2a3",
+    "316L": "00fd97e1f0f0467dbd5eaef8371637f3",
+    "174PH": "3f33e4b396ff4348b3edf4dc8dbe7bdf"
+  },
+  "variant_identifier": {
+    "040": "w50",
+    "050": "w27",
+    "060": "d25"
+  },
+  "product_identifier": {
+    "040": "epsilon",
+    "050": "epsilon",
+    "060": "sigma"
+  }
+}

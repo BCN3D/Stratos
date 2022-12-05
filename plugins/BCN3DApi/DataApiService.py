@@ -36,7 +36,8 @@ class DataApiService:
                     message.show()
             else:
                 message = Message("There was an error sending the gcode to the cloud", title="Gcode sent error")
-                Logger.error("There was an error sending gcode to cloud: %s" % response.reason)
+                reason = "No reason provided" if not hasattr(response, 'reason') else response.reason
+                Logger.error("There was an error sending gcode to cloud: %s" % reason)
                 message.show()
         else :
             response = post(self._auth_api_service.api_url + "/devices/" + printerId + "/print", [], headers, files)
@@ -54,7 +55,8 @@ class DataApiService:
         if 200 <= response.status_code < 300:
             return response.json()
         else:
-            Logger.error("There was an error getting printers: %s" % response.reason)
+            reason = "No reason provided" if not hasattr(response, 'reason') else response.reason
+            Logger.error("There was an error getting printers: %s" % reason)
             return []
 
     def getConnectedPrinter(self):
@@ -63,7 +65,8 @@ class DataApiService:
         if 200 <= response.status_code < 300:
             return response.json()
         else:
-            Logger.error("There was an error getting connected printer: %s" % response.reason)
+            reason = "No reason provided" if not hasattr(response, 'reason') else response.reason
+            Logger.error("There was an error getting connected printer: %s" % reason)
             return {}
 
     @classmethod

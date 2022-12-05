@@ -61,7 +61,7 @@
         "infill_overlap": { "value": 15 },
         "skin_overlap": { "value": 25 },
         "infill_wipe_dist": { "value": 0 },
-        "infill_before_walls": { "value": "infill_sparse_layer == 1" },
+        "infill_before_walls": { "value": false },
         "skin_preshrink": { "value": "expand_skins_expand_distance" },
         "material_initial_print_temperature": { "value": "material_print_temperature + 0 if material_flow_dependent_temperature else material_print_temperature" },
         "material_final_print_temperature": { "value": "material_print_temperature + -2.5 if material_flow_dependent_temperature else material_print_temperature" },
@@ -118,19 +118,12 @@
         "jerk_prime_tower": { "value": "jerk_wall" },
         "jerk_travel": { "value": "jerk_print if magic_spiralize else machine_max_jerk_xy" },
         "jerk_layer_0": { "value": "jerk_topbottom" },
-        "start_layers_at_same_position":
-        {
-            "enabled": true,
-            "value": false
-        },
         "layer_start_x":
         {
-            "enabled": "start_layers_at_same_position",
             "value": "machine_width/2"
         },
         "layer_start_y":
         {
-            "enabled": "start_layers_at_same_position",
             "value": "machine_depth"
         },
         "travel_avoid_other_parts": { "value": false },
