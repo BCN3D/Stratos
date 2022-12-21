@@ -1,3 +1,10 @@
+[1.5.4]
+
+- Stratos will now not allow you send gcode to a machine with all extruders empty
+- Fixed an error that prevented printing on printers with some materials
+- Printing profile adjustments
+- Internal bug fixing
+
 [1.5.3]
 
 - Now Stratos will make sure you send the right gcode to the right printer, checking its material and nozzles

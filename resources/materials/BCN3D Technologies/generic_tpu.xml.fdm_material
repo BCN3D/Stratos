@@ -48,18 +48,26 @@
         <machine>
             <machine_identifier manufacturer="BCN3D Technologies" product="bcn3dw50" />
             <hotend id="0.4mm" />
-            <hotend id="Hotend M (0.4mm)" />
+            <hotend id="Hotend M (0.4mm)">
+                <setting key="hardware compatible">no</setting>
+            </hotend>
             <hotend id="0.6mm" />
             <hotend id="Hotend X (0.6mm)" />
+                <setting key="hardware compatible">no</setting>
+            </hotend>
             <hotend id="0.8mm" />
             <hotend id="1.0mm" />
         </machine>
         <machine>
             <machine_identifier manufacturer="BCN3D Technologies" product="bcn3dw27" />
             <hotend id="0.4mm" />
-            <hotend id="Hotend M (0.4mm)" />
+            <hotend id="Hotend M (0.4mm)">
+                <setting key="hardware compatible">no</setting>
+            </hotend>
             <hotend id="0.6mm" />
             <hotend id="Hotend X (0.6mm)" />
+                <setting key="hardware compatible">no</setting>
+            </hotend>
             <hotend id="0.8mm" />
             <hotend id="1.0mm" />
         </machine>

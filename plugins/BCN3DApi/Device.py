@@ -143,6 +143,8 @@ class Device(NetworkedPrinterOutputDevice):
         return {"nozzle_id" : hotendId, "material_id" : materialId}
     
     def _compareToolsWithPrinterTools(self, tool0, printerTool0, tool1, printerTool1):
+        if not printerTool0 and not printerTool1:
+            return True
         if tool0 and printerTool0 and (tool0["nozzle_id"]!= printerTool0["nozzle_id"] or tool0["material_id"]!= printerTool0["material_id"]):
             return True
         if tool1 and printerTool1 and (tool1["nozzle_id"]!= printerTool1["nozzle_id"] or tool1["material_id"]!= printerTool1["material_id"]):
