@@ -1,3 +1,9 @@
+[1.5.5]
+
+- Fix an error with TPU material
+- Printing profile adjustments
+- Internal bug fixing
+
 [1.5.4]
 
 - Stratos will now not allow you send gcode to a machine with all extruders empty
