@@ -52,7 +52,7 @@
                 <setting key="hardware compatible">no</setting>
             </hotend>
             <hotend id="0.6mm" />
-            <hotend id="Hotend X (0.6mm)" />
+            <hotend id="Hotend X (0.6mm)">
                 <setting key="hardware compatible">no</setting>
             </hotend>
             <hotend id="0.8mm" />
@@ -65,7 +65,7 @@
                 <setting key="hardware compatible">no</setting>
             </hotend>
             <hotend id="0.6mm" />
-            <hotend id="Hotend X (0.6mm)" />
+            <hotend id="Hotend X (0.6mm)">
                 <setting key="hardware compatible">no</setting>
             </hotend>
             <hotend id="0.8mm" />
