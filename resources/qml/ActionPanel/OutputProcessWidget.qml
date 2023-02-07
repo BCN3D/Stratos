@@ -7,6 +7,7 @@ import QtQuick.Layouts 1.3
 
 import UM 1.1 as UM
 import Cura 1.0 as Cura
+import Cura 1.1 as CuraMode
 
 
 // This element contains all the elements the user needs to visualize the data
@@ -79,15 +80,16 @@ Column
                     var totalLengths = 0
                     var totalWeights = 0
                     var totalCosts = 0.0
+                    var idex = CuraMode.PrintersManagerService.getPrintMode() == "mirror" || CuraMode.PrintersManagerService.getPrintMode() == "duplication" ? 2 : 1
                     if (printMaterialLengths)
                     {
                         for(var index = 0; index < printMaterialLengths.length; index++)
                         {
                             if(printMaterialLengths[index] > 0)
                             {
-                                totalLengths += printMaterialLengths[index]
-                                totalWeights += Math.round(printMaterialWeights[index])
-                                var cost = printMaterialCosts[index] == undefined ? 0.0 : printMaterialCosts[index]
+                                totalLengths += printMaterialLengths[index] * idex
+                                totalWeights += Math.round(printMaterialWeights[index] * idex)
+                                var cost = printMaterialCosts[index] == undefined ? 0.0 : printMaterialCosts[index] * idex
                                 totalCosts += cost
                             }
                         }

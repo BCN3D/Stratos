@@ -325,6 +325,7 @@ class CuraApplication(QtApplication):
 
         self._preferences.addPreference("cura/single_instance", False)
         self._use_single_instance = self._preferences.getValue("cura/single_instance")
+        self._preferences.addPreference("cura/check_material_compatibility", True)
 
         self.__sendCommandToSingleInstance()
         self._initializeSettingDefinitions()

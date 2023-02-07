@@ -75,19 +75,18 @@ class Device(NetworkedPrinterOutputDevice):
                 print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
                 unMatchPrinter = False
                 for extruder in extruders:
-                    position = int(extruder.getMetaDataEntry("position", default = "0"))
-                    tool = printer["filament_extruders"]['tool{}'.format(position)]
-                    #if print_mode in ["singleT0", "dual", "mirror", "duplication"]:
-                    if tool and (position == 0) and print_mode in ["singleT0", "dual", "mirror", "duplication"]:
-                        printerTool0 = tool
-                        tool0 = self._setToolData(extruder)
-                        if print_mode in ["mirror", "duplication"]:
-                            tool1 = tool0
-                    if tool and (position == 1):
-                        printerTool1 = tool
-                        if print_mode in ["singleT1", "dual"]:
-                            tool1 = self._setToolData(extruder)
-                unMatchPrinter = self._compareToolsWithPrinterTools(tool0, printerTool0, tool1, printerTool1)
+                    if extruder.isEnabled:
+                        position = int(extruder.getMetaDataEntry("position", default = "0"))
+                        if position == 0:
+                            printerTool0 = printer["filament_extruders"]['tool0']
+                            tool0 = self._setToolData(extruder)
+                            if print_mode in ["mirror", "duplication"]:
+                                tool1 = tool0
+                        if position == 1:
+                            printerTool1 = printer["filament_extruders"]['tool1']
+                            if print_mode in ["singleT1", "dual"]:
+                                tool1 = self._setToolData(extruder)
+                unMatchPrinter = self._compareMismatchToolsAndPrinterTools(tool0, printerTool0, tool1, printerTool1)
                 if unMatchPrinter:
                     self._progress_message.hide()
                     Message("The materials or nozzles gcode don't match printer configuration", 
@@ -142,12 +141,13 @@ class Device(NetworkedPrinterOutputDevice):
         hotendId = self.get_extruder_model_id(hotend_type)
         return {"nozzle_id" : hotendId, "material_id" : materialId}
     
-    def _compareToolsWithPrinterTools(self, tool0, printerTool0, tool1, printerTool1):
+    def _compareMismatchToolsAndPrinterTools(self, tool0, printerTool0, tool1, printerTool1):
+        customId = self.get_material_id("CUSTOM")
         if not printerTool0 and not printerTool1:
             return True
-        if tool0 and printerTool0 and (tool0["nozzle_id"]!= printerTool0["nozzle_id"] or tool0["material_id"]!= printerTool0["material_id"]):
+        if tool0 and printerTool0 and (tool0["nozzle_id"]!= printerTool0["nozzle_id"] or (printerTool0["material_id"] != customId and tool0["material_id"]!= printerTool0["material_id"])):
             return True
-        if tool1 and printerTool1 and (tool1["nozzle_id"]!= printerTool1["nozzle_id"] or tool1["material_id"]!= printerTool1["material_id"]):
+        if tool1 and printerTool1 and (tool1["nozzle_id"]!= printerTool1["nozzle_id"] or (printerTool1["material_id"] != customId and tool1["material_id"]!= printerTool1["material_id"])):
             return True
         return False
     

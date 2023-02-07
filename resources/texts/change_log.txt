@@ -1,3 +1,14 @@
+[1.6.0]
+
+- New functionality to notify when 2 materials are incompatible. It can be disabled in preferences
+- Added material links with description and information for all BCN3D materials
+- Added information link that is displayed when a material is not compatible with a hotend or when materials, hotends and profiles are not compatible with each other
+- Stratos will now allow you send gcode with any material to a machine with a custom hotend
+- Fixed slice information when using IDEX technology
+- Improved cloud login control errors
+- Improved material selection
+- Internal bug fixing
+
 [1.5.5]
 
 - Fix an error with TPU material

@@ -40,6 +40,7 @@ from cura.Settings.cura_empty_instance_containers import (empty_definition_chang
                                                           empty_quality_changes_container, empty_intent_container)
 from cura.UltimakerCloud.UltimakerCloudConstants import META_UM_LINKED_TO_ACCOUNT
 from cura.Utils.Bcn3dExcludeInstances import countNonExcludedInstances
+from cura.Utils.Bcn3dUtils import checkMaterialcompability
 
 from .CuraStackBuilder import CuraStackBuilder
 
@@ -607,6 +608,7 @@ class MachineManager(QObject):
         active_quality_group = self.activeQualityGroup()
         if active_quality_group is None:
             return False
+        return checkMaterialcompability(active_quality_group, global_container_stack)
         return active_quality_group.is_available
 
 
@@ -1236,7 +1238,7 @@ class MachineManager(QObject):
 
     def _updateQualityWithMaterial(self, *args: Any) -> None:
         """Update current quality type and machine after setting material"""
-
+ 
         global_stack = self._application.getGlobalContainerStack()
         if global_stack is None:
             return

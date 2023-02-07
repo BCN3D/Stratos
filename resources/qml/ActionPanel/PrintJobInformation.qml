@@ -6,6 +6,7 @@ import QtQuick.Controls 2.1
 
 import UM 1.1 as UM
 import Cura 1.0 as Cura
+import Cura 1.1 as CuraMode
 
 Column
 {
@@ -165,6 +166,9 @@ Column
                     row.push(catalog.i18nc("@label g for grams", "%1g").arg(weights[index]))
                     row.push("%1 %2".arg(UM.Preferences.getValue("cura/currency")).arg(costs[index]))
                     result.push(row)
+                    if (CuraMode.PrintersManagerService.getPrintMode() == "mirror" || CuraMode.PrintersManagerService.getPrintMode() == "duplication"){
+                        result.push(row)
+                    }
                 }
 
                 return result

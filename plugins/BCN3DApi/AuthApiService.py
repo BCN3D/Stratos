@@ -91,9 +91,9 @@ class AuthApiService(QObject):
             self.startApi(False)
             if not self.apiDataIsDefined():
                 return -2
-        self._email = email
-        data = {"username": email, 
-                "password": password, 
+        self._email = email.strip()
+        data = {"username": self._email, 
+                "password": password.strip(), 
                 "client_id" : self.client_id, 
                 "grant_type" : self.grant_type, 
                 "scope" : self.scope}
