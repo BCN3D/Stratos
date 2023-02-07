@@ -774,6 +774,21 @@ UM.PreferencesPage
                         }
                         onActivated: UM.Preferences.setValue("cura/choice_on_profile_override", model.get(index).code)
                     }
+
+                    UM.TooltipArea
+                    {
+                        width: childrenRect.width
+                        height: childrenRect.height
+                        text: catalog.i18nc("@info:tooltip","Check material compatibility between materials, if the materials do not match, a warning will be displayed and our configuration of these cannot be used")
+
+                        CheckBox
+                        {
+                            id: selectModelsOnLoadCheckboxaa
+                            text: catalog.i18nc("@option:check","Check material compatibility")
+                            checked: boolCheck(UM.Preferences.getValue("cura/check_material_compatibility"))
+                            onCheckedChanged: UM.Preferences.setValue("cura/check_material_compatibility", checked)
+                        }
+                    }
                 }
             }
 

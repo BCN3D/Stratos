@@ -107,6 +107,7 @@ Item
                 }
                 onClicked:
                 {
+                    //CHECK
                     Cura.ExtruderManager.setActiveExtruderIndex(tabBar.currentIndex)
                 }
             }
@@ -271,7 +272,38 @@ Item
                     height: parent.height
                     width: selectors.textWidth
                     renderType: Text.NativeRendering
+                    Button
+                    {
+                        id: instructionButtonTwo
+                        hoverEnabled: true
+                        contentItem: Item {}
+                        height: 0.5 * materialSelection.height
+                        width: height
+                        anchors.centerIn: parent
+                        background: UM.RecolorImage
+                        {
+                            source: UM.Theme.getIcon("info-circled")
+                            color: {
+                                if (instructionButtonTwo.hovered) {
+                                    return UM.Theme.getColor("primary")
+                                } else if (Cura.MachineManager.activeStack !== null ? Cura.ContainerManager.getContainerMetaDataEntry(Cura.MachineManager.activeStack.material.id, "compatible", "") !== "True" : true) {
+                                    return UM.Theme.getColor("setting_validation_error")
+                                } else {
+                                    return UM.Theme.getColor("setting_validation_warning")
+                                }
+                            }
+                        }
+                        visible: !Cura.MachineManager.isActiveQualitySupported
+                        onClicked: {
+                            if (Cura.MachineManager.activeStack !== null ? Cura.ContainerManager.getContainerMetaDataEntry(Cura.MachineManager.activeStack.material.id, "compatible", "") !== "True" : true) {
+                                return Qt.openUrlExternally("https://www.bcn3d.com/wp-content/uploads/2023/01/BCN3D-Filaments-Compatibility-Table-and-Support-material-combination-v1.0.pdf")
+                            } else {
+                                return Qt.openUrlExternally("https://www.bcn3d.com/wp-content/uploads/2023/01/BCN3D-Filaments-Compatibility-Table-and-Support-material-combination-v1.0.pdf")
+                            }
+                        }
+                    }
                 }
+                
 
                 OldControls.ToolButton
                 {

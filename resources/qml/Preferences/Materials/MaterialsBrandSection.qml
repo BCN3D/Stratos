@@ -34,7 +34,7 @@ Item
             }
             else
             {
-                return UM.Theme.getColor("favorites_header_bar")
+                return UM.Theme.getColor("text_inactive")
             }
         }
         anchors.fill: brand_header
