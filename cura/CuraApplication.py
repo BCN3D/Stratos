@@ -123,6 +123,8 @@ from cura.Operations.AddNodesOperation import AddNodesOperation
 from cura.Settings.SetObjectExtruderOperation import SetObjectExtruderOperation
 from cura.Utils.Bcn3dExcludeInstances import removeNonExcludedInstances
 
+from cura.Utils.Bcn3dUtils import getMaterialInfoInExtruder, setOptimalAdhesionType
+
 if TYPE_CHECKING:
     from UM.Settings.EmptyInstanceContainer import EmptyInstanceContainer
 
@@ -405,6 +407,11 @@ class CuraApplication(QtApplication):
         SettingFunction.registerOperator("defaultExtruderPosition", self._cura_formula_functions.getDefaultExtruderPosition)
         SettingFunction.registerOperator("valueFromContainer", self._cura_formula_functions.getValueFromContainerAtIndex)
         SettingFunction.registerOperator("extruderValueFromContainer", self._cura_formula_functions.getValueFromContainerAtIndexInExtruder)
+        
+        #BCN3D inclusion
+        SettingFunction.registerOperator("materialInfoInExtruder", getMaterialInfoInExtruder)
+        SettingFunction.registerOperator("optimalAdhseionType", setOptimalAdhesionType)
+
 
     def __addAllResourcesAndContainerResources(self) -> None:
         """Adds all resources and container related resources."""

@@ -109,7 +109,9 @@ class Device(NetworkedPrinterOutputDevice):
         self._progress_message.hide()
 
     def get_material_id(self, printerMaterial):
-        materialId = None
+        
+        #We set material as custom
+        materialId = self.get_material_id("CUSTOM")
         
         printerMaterial = printerMaterial.replace(" ", "_").upper()
         if printerMaterial in self.bcn3dModels["extruder_model_materials"]:
@@ -142,12 +144,11 @@ class Device(NetworkedPrinterOutputDevice):
         return {"nozzle_id" : hotendId, "material_id" : materialId}
     
     def _compareMismatchToolsAndPrinterTools(self, tool0, printerTool0, tool1, printerTool1):
-        customId = self.get_material_id("CUSTOM")
         if not printerTool0 and not printerTool1:
             return True
-        if tool0 and printerTool0 and (tool0["nozzle_id"]!= printerTool0["nozzle_id"] or (printerTool0["material_id"] != customId and tool0["material_id"]!= printerTool0["material_id"])):
+        if tool0 and printerTool0 and (tool0["nozzle_id"]!= printerTool0["nozzle_id"] or (tool0["material_id"]!= printerTool0["material_id"])):
             return True
-        if tool1 and printerTool1 and (tool1["nozzle_id"]!= printerTool1["nozzle_id"] or (printerTool1["material_id"] != customId and tool1["material_id"]!= printerTool1["material_id"])):
+        if tool1 and printerTool1 and (tool1["nozzle_id"]!= printerTool1["nozzle_id"] or (tool1["material_id"]!= printerTool1["material_id"])):
             return True
         return False
     

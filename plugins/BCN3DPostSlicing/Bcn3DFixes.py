@@ -21,7 +21,7 @@ class Bcn3DFixes(Job):
     def run(self):
         Job.yieldThread()
         if self._dualPrint:
-            #self._fixAllToolchange()
+            self._fixAllToolchange()
             self._afterFirstToolChangeFix()
         
         scene = Application.getInstance().getController().getScene()
