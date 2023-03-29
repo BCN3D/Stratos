@@ -9258,3 +9258,21 @@ msgstr "Vue Rayon-X"
 #~ msgctxt "@label:"
 #~ msgid "Print Again"
 #~ msgstr "Imprimer à nouveau"
+
+msgctxt "@action:label"
+msgid "New version just release."
+msgstr "Nueva versión disponible."
+
+msgctxt "@action:label"
+msgid "Take a quick look at the new improvements and how to update to the lastest BCN3D Stratos version."
+msgstr "Jetez un coup d'œil aux nouvelles améliorations et comment mettre à jour la dernière version de BCN3D Stratos."
+
+msgctxt "@action:label"
+msgid "Don't worry, all your custom profiles will be saved and instaled in the new version."
+msgstr "Ne vous inquiétez pas, tous vos profils personnalisés seront enregistrés et installés dans la nouvelle version."
+
+msgctxt "@action:button"
+msgid "What's new"
+msgstr "Quoi de neuf "
+
+ 
