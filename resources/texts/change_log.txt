@@ -1,3 +1,14 @@
+[1.6.2]
+
+* Bug fixes:
+- Fixed a bug what prevented you from sending to print to the cloud
+- Fixed a bug where supports not printing would become solid when multiplying objects
+- Fixed bug when using wrong target temperature on tool change.
+- Internal bug fixing
+
+* Translations:
+- Updated some translations for French and Spanish
+
 [1.6.1]
 
 * Added profile compatibility for some BASF Forward AM materials (Epsilon Series): 
