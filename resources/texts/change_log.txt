@@ -1,3 +1,34 @@
+[1.6.3]
+
+* Added profile compatibility for some Fillamentum materials (Epsilon Series): 
+- Fillamentum PLA
+- Fillamentum NonOlien
+- Fillamentum OBC
+- Fillamentum PETG
+
+* Added profile compatibility for some BASF Forward AM materials (Epsilon Series): 
+- TPU 64D
+- PA6 GF30
+- PC ABS FR
+
+* Adjusted printing profile for:
+- PLA 0.6 Standard
+- PETG 0.6 Standard
+- Tough PLA 0.6 Standard
+- ABS 0.6 Standard
+- PAHT CF15 0.6X Standard
+
+* IDEX improvements
+- Fixed a problem that open saved mirror and duplication projects in wrong position
+- Fixed a bug that saved wrong materials in Mirror or Dupli
+- Fixed a bug that casuse models to overlap in duplication mode
+- Improved several visual errors when using IDEX technology
+- Improved model reposition when using IDEX technology
+
+* Bug fixes:
+- Fixed a bug what prevented you from sending print custom materials to the cloud
+- Internal bug fixing
+
 [1.6.2]
 
 * Bug fixes:

@@ -8,7 +8,6 @@ import cura.CuraApplication
 from cura.Scene.CuraSceneNode import CuraSceneNode
 from cura.Scene.DuplicatedNode import DuplicatedNode
 from cura.Settings.ExtruderManager import ExtruderManager
-from cura.Arranging.ShapeArray import ShapeArray
 from UM.Scene.Selection import Selection
 from UM.Logger import Logger
 
@@ -26,6 +25,8 @@ class PrintModeManager:
         application = cura.CuraApplication.CuraApplication.getInstance()
         self._global_stack = application.getGlobalContainerStack()
         self._last_mode = "singleT0"
+        self.openedFromMFReader = False
+        self.savedMode = "singleT0"
         if self._global_stack is not None:
             self._global_stack.setProperty("print_mode", "value", "singleT0")
             for node in Selection.getAllSelectedObjects():
@@ -111,48 +112,52 @@ class PrintModeManager:
         if key == "print_mode" and property_name == "value":
             self.printModeChanged.emit()
 
-    # Re-center and add/remove duplicated node
+    # Add/remove duplicated node
     def _onPrintModeChanged(self):
         if self._global_stack:
-            print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
+            print_mode = self._global_stack.getProperty("print_mode", "value")
+            Logger.info("Print mode has changed from %s to %s" % (self._last_mode, print_mode)) 
             nodes = self._scene.getRoot().getChildren()
-            scene_nodes = 0
-            
-            # ::::: TO SINGLE :::::
-            if print_mode in ["singleT0", "singleT1", "dual"]:
+            # ::::: TO SINGLE/DUAL :::::
+            if print_mode in ["singleT0", "singleT1", "dual"] and self._last_mode in ["mirror", "duplication"]:
                 if self._mesh_on_buildplate(nodes):
+                    #remove duplicate nodes
                     self.removeDuplicatedNodes()
-                    cura.CuraApplication.CuraApplication.getInstance().arrangeAll()
+                    Logger.info("Moving nodes to the right")  
+                    self._moveNodes(nodes, 1)
             
-            # ::::: TO MIRROR :::::
-            else:
-                machine_width = Application.getInstance().getGlobalContainerStack().getProperty("machine_width", "value")
-                offset = 0
+            # ::::: TO IDEX :::::
+            if print_mode in ["mirror", "duplication"]:
+                #Set active extruder for diasable bed area
                 for node in nodes:
                     self._setActiveExtruder(node)
-                    if self._is_node_a_mesh(node):
-                        position = node.getPosition()
-                        
-                        # From Single
-                        if self._last_mode in ["singleT0", "singleT1", "dual"]:
-                            model_plate_proportion = 1/2
-                            model_plate_move = machine_width/4
-                        
-                        # From Mirror
-                        elif self._last_mode in ["mirror", "duplication"]:
-                                model_plate_proportion = 1
-                                model_plate_move = 0
-                        
-                        # Set offset & duplicate
-                        offset = position.x * model_plate_proportion - model_plate_move
-                        self.renderDuplicatedNodes()
-                    
-                        # Set position
-                        node.setPosition(Vector(offset, position.y, position.z))
+                if self._last_mode in ["singleT0", "singleT1", "dual"]:
+                    Logger.info("Moving nodes to the left")
+                    self._moveNodes(nodes, -1)
+                # Render duplicate nodes
+                self.renderDuplicatedNodes()
 
             # Set last print mode
-            if scene_nodes > 0:
-                self._last_mode = print_mode
+            self._last_mode = print_mode
+
+    def _moveNodes(self, nodes, direcction):
+        #If a file is opened from MFReader, the nodes are already moved
+        if self.openedFromMFReader:
+            Logger.info("File opened from MFReader, not need to move nodes")
+            self.openedFromMFReader = False
+        else:
+            nodesMoved = 0
+            machine_width = self._global_stack.getProperty("machine_width", "value")
+            offset = machine_width/4 * direcction
+            for node in nodes:
+                if self._is_node_a_mesh(node):
+                    position = node.getPosition()
+                    node.setPosition(Vector(position.x + offset, position.y, position.z))
+                    nodesMoved += 1
+                    for child in node.getChildren():
+                        self._moveNodes([child], offset, direcction)
+            Logger.info("Nodes moved: %s" % nodesMoved)
+        
 
     # Check if there is a mesh (3D object) in the buildplate
     def _mesh_on_buildplate(self, nodes):

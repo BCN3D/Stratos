@@ -110,12 +110,13 @@ class Device(NetworkedPrinterOutputDevice):
 
     def get_material_id(self, printerMaterial):
         
-        #We set material as custom
-        materialId = "CUSTOM"
-        
         printerMaterial = printerMaterial.replace(" ", "_").upper()
         if printerMaterial in self.bcn3dModels["extruder_model_materials"]:
             materialId = self.bcn3dModels["extruder_model_materials"][printerMaterial]
+        else:
+            #We set material as custom
+            materialId = self.bcn3dModels["extruder_model_materials"]["CUSTOM"]
+
         return materialId
 
     def get_extruder_model_id(self, printerModelExtruder):
