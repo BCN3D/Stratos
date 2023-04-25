@@ -365,7 +365,7 @@
           "description": "Comment with the materials used.",
           "type": "str",
           "default_value": "",
-          "value": "'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + ' ' + str(materialInfoInExtruder(extruder_nr, 'material')) if adhesion_extruder_nr == extruder_nr or extruders_enabled_count == 2 else 'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + ' ' + str(materialInfoInExtruder(extruder_nr, 'material')) if print_mode == \"mirror\" or print_mode == \"duplication\" else ''",
+          "value": "'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + ' ' + str(materialInfoInExtruder(extruder_nr, 'material')) if adhesion_extruder_nr == extruder_nr or extruders_enabled_count == 2 else 'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + ' ' + str(materialInfoInExtruder(0, 'material')) if print_mode == \"mirror\" or print_mode == \"duplication\" else ''",
           "enabled": false,
           "settable_per_extruder": true,
           "comments": "BCN3D setting"
@@ -375,7 +375,7 @@
           "description": "Comment with the brand used.",
           "type": "str",
           "default_value": "",
-          "value": "'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + ' ' + str(materialInfoInExtruder(extruder_nr, 'brand')) if adhesion_extruder_nr == extruder_nr or extruders_enabled_count == 2 else 'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + ' ' + str(materialInfoInExtruder(extruder_nr, 'brand')) if print_mode == \"mirror\" or print_mode == \"duplication\" else ''",
+          "value": "'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + ' ' + str(materialInfoInExtruder(extruder_nr, 'brand')) if adhesion_extruder_nr == extruder_nr or extruders_enabled_count == 2 else 'T' + str(extruderValue(extruder_nr, 'extruder_nr')) + ' ' + str(materialInfoInExtruder(0, 'brand')) if print_mode == \"mirror\" or print_mode == \"duplication\" else ''",
           "enabled": false,
           "settable_per_extruder": true,
           "comments": "BCN3D setting"

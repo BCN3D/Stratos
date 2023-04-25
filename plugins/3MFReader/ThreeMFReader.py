@@ -204,6 +204,7 @@ class ThreeMFReader(MeshReader):
             parser = Savitar.ThreeMFParser()
             scene_3mf = parser.parse(archive.open("3D/3dmodel.model").read())
             self._unit = scene_3mf.getUnit()
+            PrintModeManager.getInstance().openedFromMFReader = True
             for node in scene_3mf.getSceneNodes():
                 um_node = self._convertSavitarNodeToUMNode(node, file_name)
                 if um_node is None:
