@@ -20,48 +20,51 @@ def putBcn3dFirstInMaterials(brand_item_list):
 
     return brand_item_list
 
-def checkMaterialcompability(active_quality_group, global_container_stack):
+def checkMaterialcompatibility(active_quality_group, global_container_stack):
     checkMaterial =  Application.getInstance().getPreferences().getValue("cura/check_material_compatibility")
     if not checkMaterial:
         return active_quality_group.is_available
-    materialcompability = {}
-    materialcompability['PLA'] = ['PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA','PVA', 'BVOH', 'TPU', 'TPU 64D',]
-    materialcompability['Tough PLA'] = ['PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA','PVA', 'BVOH', 'TPU', 'TPU 64D',]
-    materialcompability['PVA'] = ['PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA','PVA', 'TPU', 'TPU 64D', 'PAHT CF15', 'PET CF15']
-    materialcompability['BVOH'] = ['PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA', 'BVOH', 'ABS', 'TPU','TPU 64D', 'PA', 'PAHT CF15', 'PET CF15']
-    materialcompability['ABS'] = ['BVOH', 'ABS', 'PC ABS FR', 'TPU','TPU 64D','PAHT CF15', 'PET CF15']
-    materialcompability['PET-G'] = ['PET-G',  'Fillamentum PET-G','Matterhackers PET-G', 'PET CF15']
-    materialcompability['TPU'] = ['PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA', 'BVOH', 'PVA', 'ABS', 'TPU','TPU 64D', 'PET CF15']
-    materialcompability['PA'] = ['BVOH', 'PA']
-    materialcompability['PP'] = ['PP']
-    materialcompability['PAHT CF15'] = ['PVA', 'BVOH', 'ABS', 'PC ABS FR', 'PAHT CF15']
-    materialcompability['PP GF30'] = ['PP GF30']
-    materialcompability['PET CF15'] = [ 'PVA', 'BVOH', 'ABS', 'PC ABS FR', 'PET-G',  'Fillamentum PET-G','Matterhackers PET-G', 'TPU','TPU 64D','PET CF15']
-    materialcompability['17-4PH'] = ['17-4PH']
-    materialcompability['316L'] = ['316L']
-    materialcompability['Ultrafuse ASA'] = ['Ultrafuse ASA']
-    materialcompability['Ultrafuse PET'] = ['Ultrafuse PET']
-    materialcompability['Ultrafuse rPET'] = ['Ultrafuse rPET']
-    materialcompability['Ultrafuse TPU 85A'] = ['Ultrafuse TPU 85A']
-    materialcompability['Ultrafuse TPS 90A'] = ['Ultrafuse TPS 90A']
-    materialcompability['Tech-X 316L HMs'] = ['Tech-X 316L HMs']
-    materialcompability['Tech-X H13 HMs'] = ['Tech-X H13 HMs']
-    materialcompability['Tech-X 17-4PH HMs'] = ['Tech-X 17-4PH HMs']
-    materialcompability['Tech-X Inconel 625 HMs'] = ['Tech-X Inconel 625 HMs']
-    materialcompability['Essentium HTN'] = ['Essentium HTN']
-    materialcompability['Essentium PACF'] = ['Essentium PACF']
-    materialcompability['Essentium PCTG Z'] = ['Essentium PCTG Z']
-    materialcompability['Essentium PCTG'] = ['Essentium PCTG']
-    materialcompability['Essentium PETCF'] = ['Essentium PETCF']
-    materialcompability['Fillamentum NonOilen'] = ['Fillamentum NonOilen']
-    materialcompability['Matterhackers PET-G'] = ['PET-G',  'Fillamentum PET-G','Matterhackers PET-G', 'PET CF15']
-    materialcompability['Matterhackers PLA'] = ['PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA','PVA', 'BVOH', 'TPU']
-    materialcompability['Fillamentum PLA'] = ['PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA','PVA', 'BVOH', 'TPU']
-    materialcompability['PC ABS FR'] = ['BVOH', 'ABS', 'PC ABS FR', 'TPU','PAHT CF15', 'PET CF15']
-    materialcompability['TPU 64D'] = ['PLA', 'TPU 64D', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA', 'BVOH', 'PVA', 'ABS', 'TPU', 'PET CF15']
-    materialcompability['PA6 GF30'] = ['PA6 GF30']
-    materialcompability['Fillamentum PET-G'] = ['PET-G', 'Fillamentum PET-G', 'Matterhackers PET-G', 'PET CF15']
-    materialcompability['Fillamentum CPE'] = ['Fillamentum CPE']
+    materialcompatibility = {}
+    materialcompatibility['PLA'] = ['PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA','PVA', 'BVOH', 'TPU', 'TPU 64D',]
+    materialcompatibility['Tough PLA'] = ['PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA','PVA', 'BVOH', 'TPU', 'TPU 64D',]
+    materialcompatibility['PVA'] = ['PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA','PVA', 'TPU', 'TPU 64D', 'PAHT CF15', 'PET CF15']
+    materialcompatibility['BVOH'] = ['PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA', 'BVOH', 'ABS', 'TPU','TPU 64D', 'PA', 'PAHT CF15', 'PET CF15']
+    materialcompatibility['ABS'] = ['BVOH', 'ABS', 'PC ABS FR', 'Matterhackers ABS', 'TPU','TPU 64D','PAHT CF15', 'PET CF15']
+    materialcompatibility['PET-G'] = ['PET-G',  'Fillamentum PET-G','Matterhackers PET-G', 'PET CF15']
+    materialcompatibility['TPU'] = ['PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA', 'BVOH', 'PVA', 'ABS', 'TPU','TPU 64D', 'PET CF15']
+    materialcompatibility['PA'] = ['BVOH', 'PA']
+    materialcompatibility['PP'] = ['PP']
+    materialcompatibility['PAHT CF15'] = ['PVA', 'BVOH', 'ABS', 'PC ABS FR', 'Matterhackers ABS', 'PAHT CF15']
+    materialcompatibility['PP GF30'] = ['PP GF30']
+    materialcompatibility['PET CF15'] = [ 'PVA', 'BVOH', 'ABS', 'PC ABS FR', 'Matterhackers ABS', 'PET-G',  'Fillamentum PET-G','Matterhackers PET-G', 'TPU','TPU 64D','PET CF15']
+    materialcompatibility['17-4PH'] = ['17-4PH', 'Ultrafuse Support Layer']
+    materialcompatibility['316L'] = ['316L', 'Ultrafuse Support Layer']
+    materialcompatibility['Ultrafuse ASA'] = ['Ultrafuse ASA']
+    materialcompatibility['Ultrafuse PET'] = ['Ultrafuse PET']
+    materialcompatibility['Ultrafuse rPET'] = ['Ultrafuse rPET']
+    materialcompatibility['Ultrafuse TPU 85A'] = ['Ultrafuse TPU 85A']
+    materialcompatibility['Ultrafuse TPS 90A'] = ['Ultrafuse TPS 90A']
+    materialcompatibility['Tech-X 316L HMs'] = ['Tech-X 316L HMs']
+    materialcompatibility['Tech-X H13 HMs'] = ['Tech-X H13 HMs']
+    materialcompatibility['Tech-X 17-4PH HMs'] = ['Tech-X 17-4PH HMs']
+    materialcompatibility['Tech-X Inconel 625 HMs'] = ['Tech-X Inconel 625 HMs']
+    materialcompatibility['Essentium HTN'] = ['Essentium HTN']
+    materialcompatibility['Essentium PACF'] = ['Essentium PACF']
+    materialcompatibility['Essentium PCTG Z'] = ['Essentium PCTG Z']
+    materialcompatibility['Essentium PCTG'] = ['Essentium PCTG']
+    materialcompatibility['Essentium PETCF'] = ['Essentium PETCF']
+    materialcompatibility['Fillamentum NonOilen'] = ['Fillamentum NonOilen']
+    materialcompatibility['Matterhackers PET-G'] = ['PET-G',  'Fillamentum PET-G','Matterhackers PET-G', 'PET CF15']
+    materialcompatibility['Matterhackers PLA'] = ['PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA','PVA', 'BVOH', 'TPU']
+    materialcompatibility['Matterhackers Nylon'] = ['Matterhackers Nylon']
+    materialcompatibility['Matterhackers ABS'] = ['BVOH', 'ABS', 'PC ABS FR', 'Matterhackers ABS', 'TPU','TPU 64D','PAHT CF15', 'PET CF15' 'Matterhackers ABS']
+    materialcompatibility['Fillamentum PLA'] = ['PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA','PVA', 'BVOH', 'TPU']
+    materialcompatibility['PC ABS FR'] = ['BVOH', 'ABS', 'PC ABS FR', 'Matterhackers ABS', 'TPU','PAHT CF15', 'PET CF15']
+    materialcompatibility['TPU 64D'] = ['PLA', 'TPU 64D', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA', 'BVOH', 'PVA', 'ABS', 'TPU', 'PET CF15']
+    materialcompatibility['PA6 GF30'] = ['PA6 GF30']
+    materialcompatibility['Fillamentum PET-G'] = ['PET-G', 'Fillamentum PET-G', 'Matterhackers PET-G', 'PET CF15']
+    materialcompatibility['Fillamentum CPE'] = ['Fillamentum CPE']
+    materialcompatibility['Ultrafuse Support Layer'] = ['Ultrafuse Support Layer', '316L', '17-4PH']
 
     ext0 = global_container_stack.extruderList[0]
     ext1 = global_container_stack.extruderList[1]
@@ -70,9 +73,9 @@ def checkMaterialcompability(active_quality_group, global_container_stack):
         material2 = ext1.material.metaData['material']
         if material1 == material2:
             return True
-        for material in materialcompability:
+        for material in materialcompatibility:
             if material == material1:
-                for chekingMaterial in materialcompability[material]:
+                for chekingMaterial in materialcompatibility[material]:
                     if chekingMaterial == material2:
                         return True
                 return False

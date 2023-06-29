@@ -1,3 +1,25 @@
+[1.6.4]
+
+* Adjusted printing profile for:
+- PLA 0.4 Fine
+- PETG 0.4 Fine
+- Tough PLA 0.4 Fine
+- ABS 0.4 Fine
+
+* Added profile compatibility for some BASF Forward AM materials (Epsilon Series): 
+- Ultrafuse Support Layer
+
+* Added profile compatibility for some Matterhackers materials (Epsilon Series): 
+- Matterhackers PLA - PRO SERIES
+- Matterhackers Nylon - PRO SERIES
+- Matterhackers PET-G - PRO SERIES
+- Matterhackers ABS - PRO SERIES
+
+* Bug fixes:
+- Fixed a bug that occurred when using IDEX mode with models with support blocks
+- Fixed some names and translations
+- Internal bug fixing
+
 [1.6.3]
 
 * Added profile compatibility for some Fillamentum materials (Epsilon Series): 

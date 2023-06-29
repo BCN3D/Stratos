@@ -5,11 +5,12 @@
       <brand>Matterhackers</brand>
       <material>Matterhackers PLA</material>
       <color>Clear</color>
-      <label>PLA</label>
+      <label>PLA - PRO SERIES</label>
     </name>
     <version>1</version>
     <GUID>49c99e62-0275-46a4-8d85-8fc834557ba7</GUID>
     <color_code>#d2dcd9</color_code>
+    <instruction_link>https://www.bcn3d.com/open-filament-network/</instruction_link>
     <author>
     </author>
     <supplier>
