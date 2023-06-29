@@ -45,9 +45,9 @@ class PrintModeManager:
         node.callDecoration("setBuildPlateNumber", 0)
         if node not in self._duplicated_nodes:
             self._duplicated_nodes.append(node)
-        for child in node.getChildren():
-            if isinstance(child, CuraSceneNode):
-                self.addDuplicatedNode(child)
+            for child in node.getChildren():
+                if isinstance(child, CuraSceneNode):
+                    self.addDuplicatedNode(child)
 
     def deleteDuplicatedNodes(self):
         del self._duplicated_nodes[:]
@@ -140,7 +140,7 @@ class PrintModeManager:
             # Set last print mode
             self._last_mode = print_mode
 
-    def _moveNodes(self, nodes, direcction):
+    def _moveNodes(self, nodes, direction):
         #If a file is opened from MFReader, the nodes are already moved
         if self.openedFromMFReader:
             Logger.info("File opened from MFReader, not need to move nodes")
@@ -148,14 +148,20 @@ class PrintModeManager:
         else:
             nodesMoved = 0
             machine_width = self._global_stack.getProperty("machine_width", "value")
-            offset = machine_width/4 * direcction
+            offset = machine_width/4 * direction
             for node in nodes:
                 if self._is_node_a_mesh(node):
                     position = node.getPosition()
                     node.setPosition(Vector(position.x + offset, position.y, position.z))
-                    nodesMoved += 1
+                    nodesMoved += 1                   
                     for child in node.getChildren():
-                        self._moveNodes([child], offset, direcction)
+                        nodesMoved += 1
+                        Logger.info("check check check moved: %s" % nodesMoved)
+                        ##Look like al childrens are moved with it parents, no need to move them, leave the code for if this behavior is changed in the future 
+                        ''' 
+                        if isinstance(child, CuraSceneNode):
+                            self._moveNodes([child], direction)
+                        '''
             Logger.info("Nodes moved: %s" % nodesMoved)
         
 

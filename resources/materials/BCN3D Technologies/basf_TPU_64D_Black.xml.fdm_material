@@ -3,14 +3,14 @@
   <metadata>
     <name>
       <brand>BASF Forward AM</brand>
-      <material>TPU 64D</material>
+      <material>Ultrafuse TPU 64D</material>
       <color>Black</color>
-      <label>Black TPU 64D</label>
+      <label>Ultrafuse Black TPU 64D</label>
     </name>
     <version>1</version>
     <GUID>ffc983e3-78d9-4d94-a32b-8971767c9797</GUID>
     <color_code>#343537</color_code>
-    <instructions>http://bcn3dtechnologies.com/en/3d-printer-filaments</instructions>
+    <instruction_link>https://www.bcn3d.com/open-filament-network/</instruction_link>
     <author>
     </author>
     <supplier>
