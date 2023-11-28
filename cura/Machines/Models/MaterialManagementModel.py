@@ -1,35 +1,39 @@
-# Copyright (c) 2019 Ultimaker B.V.
+# Copyright (c) 2021 Ultimaker B.V.
 # Cura is released under the terms of the LGPLv3 or higher.
 
 import copy  # To duplicate materials.
-from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot  # To allow the preference page proxy to be used from the actual preferences page.
+from PyQt6.QtCore import pyqtSignal, pyqtSlot, QObject, QUrl
+from PyQt6.QtGui import QDesktopServices
 from typing import Any, Dict, Optional, TYPE_CHECKING
 import uuid  # To generate new GUIDs for new materials.
 
+from UM.Message import Message
 from UM.i18n import i18nCatalog
 from UM.Logger import Logger
+from UM.Resources import Resources  # To find QML files.
 from UM.Signal import postponeSignals, CompressTechnique
 
-import cura.CuraApplication  # Imported like this to prevent circular imports.
+import cura.CuraApplication  # Imported like this to prevent cirmanagecular imports.
 from cura.Machines.ContainerTree import ContainerTree
 from cura.Settings.CuraContainerRegistry import CuraContainerRegistry  # To find the sets of materials belonging to each other, and currently loaded extruder stacks.
+from cura.UltimakerCloud.CloudMaterialSync import CloudMaterialSync
 
 if TYPE_CHECKING:
     from cura.Machines.MaterialNode import MaterialNode
 
 catalog = i18nCatalog("cura")
 
+
 class MaterialManagementModel(QObject):
-    """Proxy class to the materials page in the preferences.
-
-    This class handles the actions in that page, such as creating new materials, renaming them, etc.
-    """
-
     favoritesChanged = pyqtSignal(str)
     """Triggered when a favorite is added or removed.
 
     :param The base file of the material is provided as parameter when this emits
     """
+
+    def __init__(self, parent: Optional[QObject] = None) -> None:
+        super().__init__(parent = parent)
+        self._material_sync = CloudMaterialSync(parent=self)
 
     @pyqtSlot("QVariant", result = bool)
     def canMaterialBeRemoved(self, material_node: "MaterialNode") -> bool:
@@ -79,6 +83,7 @@ class MaterialManagementModel(QObject):
 
         :param material_node: The material to remove.
         """
+        Logger.info(f"Removing material {material_node.container_id}")
 
         container_registry = CuraContainerRegistry.getInstance()
         materials_this_base_file = container_registry.findContainersMetadata(base_file = material_node.base_file)
@@ -194,6 +199,7 @@ class MaterialManagementModel(QObject):
 
         :return: The root material ID of the duplicate material.
         """
+        Logger.info(f"Duplicating material {material_node.base_file} to {new_base_id}")
         return self.duplicateMaterialByBaseFile(material_node.base_file, new_base_id, new_metadata)
 
     @pyqtSlot(result = str)
@@ -262,3 +268,11 @@ class MaterialManagementModel(QObject):
             self.favoritesChanged.emit(material_base_file)
         except ValueError:  # Material was not in the favorites list.
             Logger.log("w", "Material {material_base_file} was already not a favorite material.".format(material_base_file = material_base_file))
+
+    @pyqtSlot()
+    def openSyncAllWindow(self) -> None:
+        """
+        Opens the window to sync all materials.
+        """
+        self._material_sync.openSyncAllWindow()
+

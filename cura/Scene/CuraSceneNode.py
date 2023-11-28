@@ -24,7 +24,7 @@ class CuraSceneNode(SceneNode):
         super().__init__(parent = parent, visible = visible, name = name)
         if not no_setting_override:
             self.addDecorator(SettingOverrideDecorator())  # Now we always have a getActiveExtruderPosition, unless explicitly disabled
-        self._outside_buildarea = True
+        self._outside_buildarea = False
 
     def setOutsideBuildArea(self, new_value: bool) -> None:
         self._outside_buildarea = new_value
@@ -33,11 +33,10 @@ class CuraSceneNode(SceneNode):
         return self._outside_buildarea or self.callDecoration("getBuildPlateNumber") < 0
 
     def isVisible(self) -> bool:
-        print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
-        if print_mode == "duplication" or print_mode == "mirror":
-            return True
-        else:
-            return super().isVisible() and self.callDecoration("getBuildPlateNumber") == cura.CuraApplication.CuraApplication.getInstance().getMultiBuildPlateModel().activeBuildPlate
+        #BCN3D IDEX INCLUSION
+        from cura.Utils.BCN3Dutils.Bcn3dIdexSupport import curaSceneNodeIsVisible
+        return curaSceneNodeIsVisible((super().isVisible() and self.callDecoration("getBuildPlateNumber") == cura.CuraApplication.CuraApplication.getInstance().getMultiBuildPlateModel().activeBuildPlate))
+        return super().isVisible() and self.callDecoration("getBuildPlateNumber") == cura.CuraApplication.CuraApplication.getInstance().getMultiBuildPlateModel().activeBuildPlate
 
     def isSelectable(self) -> bool:
         return super().isSelectable() and self.callDecoration("getBuildPlateNumber") == cura.CuraApplication.CuraApplication.getInstance().getMultiBuildPlateModel().activeBuildPlate
@@ -123,21 +122,23 @@ class CuraSceneNode(SceneNode):
         self._aabb = None
         if self._mesh_data:
             self._aabb = self._mesh_data.getExtents(self.getWorldTransformation(copy = False))
-        else:  # If there is no mesh_data, use a bounding box that encompasses the local (0,0,0)
-            position = self.getWorldPosition()
-            self._aabb = AxisAlignedBox(minimum = position, maximum = position)
 
         for child in self.getAllChildren():
             if child.callDecoration("isNonPrintingMesh"):
                 # Non-printing-meshes inside a group should not affect push apart or drop to build plate
                 continue
-            if not child.getMeshData():
-                # Nodes without mesh data should not affect bounding boxes of their parents.
+            child_bb = child.getBoundingBox()
+            if child_bb is None or child_bb.minimum == child_bb.maximum:
+                # Child had a degenerate bounding box, such as an empty group. Don't count it along.
                 continue
             if self._aabb is None:
-                self._aabb = child.getBoundingBox()
+                self._aabb = child_bb
             else:
-                self._aabb = self._aabb + child.getBoundingBox()
+                self._aabb = self._aabb + child_bb
+
+        if self._aabb is None:  # No children that should be included? Just use your own position then, but it's an invalid AABB.
+            position = self.getWorldPosition()
+            self._aabb = AxisAlignedBox(minimum = position, maximum = position)
 
     def __deepcopy__(self, memo: Dict[int, object]) -> "CuraSceneNode":
         """Taken from SceneNode, but replaced SceneNode with CuraSceneNode"""
@@ -146,6 +147,7 @@ class CuraSceneNode(SceneNode):
         copy.setTransformation(self.getLocalTransformation(copy= False))
         copy.setMeshData(self._mesh_data)
         copy.setVisible(cast(bool, deepcopy(self._visible, memo)))
+        copy.source_mime_type = cast(str, deepcopy(self.source_mime_type, memo))
         copy._selectable = cast(bool, deepcopy(self._selectable, memo))
         copy._name = cast(str, deepcopy(self._name, memo))
         for decorator in self._decorators:

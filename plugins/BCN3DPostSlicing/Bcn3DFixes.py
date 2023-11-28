@@ -17,9 +17,12 @@ class Bcn3DFixes(Job):
         self._gcode_list = gcode_list 
         self._dualPrint = self._container.getProperty("print_mode","value") == 'dual'                     
         self._message = None
+        from cura.CuraApplication import CuraApplication
+        self._stratos_version = CuraApplication.getInstance().getVersion()
 
     def run(self):
         Job.yieldThread()
+        self._changeCuraForStratos()
         if self._dualPrint:
             self._fixAllToolchange()
             self._afterFirstToolChangeFix()
@@ -96,3 +99,25 @@ class Bcn3DFixes(Job):
              Logger.log("d", "FirstAllToolChangeFixed Fix was already applied")
         else:
             Logger.log("d", "FirstAllToolChangeFixed Fix applied")
+
+    def _changeCuraForStratos(self):
+        '''
+            Change the line Generated with CuraSteamEngine
+            to Generated with StratosEngine
+        '''
+        done = False
+        lines = ""
+        for index, layer in enumerate(self._gcode_list):
+            lines = layer.split("\n")
+            #Mark file as StratosEngine gcode
+           
+            if lines[0].startswith(";Generated with Cura_SteamEngine"):
+                done = True
+                break
+            if index > 0:
+                break
+                
+        if done:
+            lines[0] = ';Generated with StratosEngine ' + str(self._stratos_version)
+            layer = "\n".join(lines)
+            self._gcode_list[index] = layer

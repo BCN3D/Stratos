@@ -1,10 +1,9 @@
 // Copyright (c) 2019 Ultimaker B.V.
 // Cura is released under the terms of the LGPLv3 or higher.
-
-import QtQuick 2.10
+import QtQuick 2.7
 import QtQuick.Controls 2.3
 
-import UM 1.3 as UM
+import UM 1.5 as UM
 import Cura 1.1 as Cura
 
 
@@ -37,8 +36,6 @@ Item
         anchors.bottomMargin: UM.Theme.getSize("wide_margin").height
         anchors.left: parent.left
         anchors.right: parent.right
-
-        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
         textArea.text: CuraApplication.getTextManager().getChangeLogText()
         textArea.textFormat: Text.RichText

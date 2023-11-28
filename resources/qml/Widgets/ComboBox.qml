@@ -1,10 +1,10 @@
-// Copyright (c) 2019 Ultimaker B.V.
+// Copyright (c) 2022 Ultimaker B.V.
 // Cura is released under the terms of the LGPLv3 or higher.
 
 import QtQuick 2.10
 import QtQuick.Controls 2.3
 
-import UM 1.3 as UM
+import UM 1.5 as UM
 import Cura 1.1 as Cura
 
 
@@ -15,65 +15,118 @@ ComboBox
 {
     id: control
 
+    property var defaultTextOnEmptyModel: catalog.i18nc("@label", "No items to select from")  // Text displayed in the combobox when the model is empty
+    property var defaultTextOnEmptyIndex: ""  // Text displayed in the combobox when the model has items but no item is selected
+    property alias textFormat: contentLabel.textFormat
+    property alias backgroundColor: background.color
+    property bool forceHighlight: false
+    property int contentLeftPadding: UM.Theme.getSize("setting_unit_margin").width
+    property var textFont: UM.Theme.getFont("default")
+
+    enabled: delegateModel.count > 0
+
+    height: UM.Theme.getSize("combobox").height
+
+    onVisibleChanged: { popup.close() }
+
     states: [
         State
         {
             name: "disabled"
             when: !control.enabled
-            PropertyChanges { target: backgroundRectangle.border; color: UM.Theme.getColor("setting_control_disabled_border")}
-            PropertyChanges { target: backgroundRectangle; color: UM.Theme.getColor("setting_control_disabled")}
+            PropertyChanges { target: background; color: UM.Theme.getColor("setting_control_disabled")}
             PropertyChanges { target: contentLabel; color: UM.Theme.getColor("setting_control_disabled_text")}
         },
         State
         {
+            name: "active"
+            when: control.activeFocus
+            PropertyChanges
+            {
+                target: background
+                borderColor: UM.Theme.getColor("text_field_border_active")
+                liningColor: UM.Theme.getColor("text_field_border_active")
+            }
+        },
+        State
+        {
             name: "highlighted"
-            when: control.hovered || control.activeFocus
-            PropertyChanges { target: backgroundRectangle.border; color: UM.Theme.getColor("setting_control_border_highlight") }
-            PropertyChanges { target: backgroundRectangle; color: UM.Theme.getColor("setting_control_highlight")}
+            when: (control.hovered && !control.activeFocus) || forceHighlight
+            PropertyChanges
+            {
+                target: background
+                liningColor: UM.Theme.getColor("text_field_border_hovered")
+            }
         }
     ]
 
-    background: Rectangle
+    background: UM.UnderlineBackground
     {
-        id: backgroundRectangle
-        color: UM.Theme.getColor("setting_control")
+        id: background
+        // Rectangle for highlighting when this combobox needs to pulse.
+        Rectangle
+        {
+            anchors.fill: parent
+            opacity: 0
+            color: "transparent"
 
-        radius: UM.Theme.getSize("setting_control_radius").width
-        border.width: UM.Theme.getSize("default_lining").width
-        border.color: UM.Theme.getColor("setting_control_border")
+            border.color: UM.Theme.getColor("text_field_border_active")
+            border.width: UM.Theme.getSize("default_lining").width
 
+            SequentialAnimation on opacity
+            {
+                id: pulseAnimation
+                running: false
+                loops: 2
+                PropertyAnimation
+                {
+                    to: 1
+                    duration: 150
+                }
+                PropertyAnimation
+                {
+                    to: 0
+                    duration : 150
+                }
+            }
+        }
     }
 
-    indicator: UM.RecolorImage
+    indicator: UM.ColorImage
     {
         id: downArrow
         x: control.width - width - control.rightPadding
         y: control.topPadding + Math.round((control.availableHeight - height) / 2)
 
-        source: UM.Theme.getIcon("arrow_bottom")
+        source: UM.Theme.getIcon("ChevronSingleDown")
         width: UM.Theme.getSize("standard_arrow").width
         height: UM.Theme.getSize("standard_arrow").height
-        sourceSize.width: width + 5 * screenScaleFactor
-        sourceSize.height: width + 5 * screenScaleFactor
 
         color: UM.Theme.getColor("setting_control_button")
     }
 
-    contentItem: Label
+    contentItem: UM.Label
     {
         id: contentLabel
-        anchors.left: parent.left
-        anchors.leftMargin: UM.Theme.getSize("setting_unit_margin").width
-        anchors.verticalCenter: parent.verticalCenter
+        leftPadding: contentLeftPadding + UM.Theme.getSize("default_margin").width
         anchors.right: downArrow.left
+        wrapMode: Text.NoWrap
+        font: textFont
+        text:
+        {
+            if (control.delegateModel.count == 0)
+            {
+                return control.defaultTextOnEmptyModel != "" ? control.defaultTextOnEmptyModel : control.defaultTextOnEmptyIndex
+            }
+            else
+            {
+                return control.currentIndex == -1 ? control.defaultTextOnEmptyIndex : control.currentText
+            }
+        }
 
-        text: control.currentText
         textFormat: Text.PlainText
-        renderType: Text.NativeRendering
-        font: UM.Theme.getFont("default")
-        color: UM.Theme.getColor("setting_control_text")
+        color: control.currentIndex == -1 ? UM.Theme.getColor("setting_control_disabled_text") : UM.Theme.getColor("setting_control_text")
         elide: Text.ElideRight
-        verticalAlignment: Text.AlignVCenter
     }
 
     popup: Popup
@@ -81,16 +134,17 @@ ComboBox
         y: control.height - UM.Theme.getSize("default_lining").height
         width: control.width
         implicitHeight: contentItem.implicitHeight + 2 * UM.Theme.getSize("default_lining").width
+        bottomMargin: UM.Theme.getSize("default_margin").height
         padding: UM.Theme.getSize("default_lining").width
 
         contentItem: ListView
         {
-            clip: true
             implicitHeight: contentHeight
+
+            ScrollBar.vertical: UM.ScrollBar {}
+            clip: true
             model: control.popup.visible ? control.delegateModel : null
             currentIndex: control.highlightedIndex
-
-            ScrollIndicator.vertical: ScrollIndicator { }
         }
 
         background: Rectangle
@@ -122,26 +176,35 @@ ComboBox
             return (typeof _val !== 'undefined') ? _val : ""
         }
 
-        contentItem: Label
+        contentItem: UM.Label
         {
+            id: delegateLabel
             // FIXME: Somehow the top/bottom anchoring is not correct on Linux and it results in invisible texts.
             anchors.fill: parent
-            anchors.leftMargin: UM.Theme.getSize("setting_unit_margin").width
+            anchors.leftMargin: contentLeftPadding
             anchors.rightMargin: UM.Theme.getSize("setting_unit_margin").width
 
             text: delegateItem.text
-            textFormat: Text.PlainText
-            renderType: Text.NativeRendering
-            color: control.contentItem.color
-            font: UM.Theme.getFont("default")
+            textFormat: control.textFormat
+            font: textFont
+            color: UM.Theme.getColor("setting_control_text")
             elide: Text.ElideRight
-            verticalAlignment: Text.AlignVCenter
+            wrapMode: Text.NoWrap
         }
 
-        background: Rectangle
+        background: UM.TooltipArea
         {
-            color: parent.highlighted ? UM.Theme.getColor("setting_control_highlight") : "transparent"
-            border.color: parent.highlighted ? UM.Theme.getColor("setting_control_border_highlight") : "transparent"
+            Rectangle
+            {
+                color: delegateItem.highlighted ? UM.Theme.getColor("setting_control_highlight") : "transparent"
+                anchors.fill: parent
+            }
+            text: delegateLabel.truncated ? delegateItem.text : ""
         }
+    }
+
+    function pulse()
+    {
+        pulseAnimation.restart();
     }
 }

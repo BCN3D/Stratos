@@ -1,72 +1,69 @@
-// Copyright (c) 2018 Ultimaker B.V.
+// Copyright (c) 2022 UltiMaker
 // Cura is released under the terms of the LGPLv3 or higher.
 
 pragma Singleton
 
 import QtQuick 2.10
-import QtQuick.Controls 1.1
-import QtQuick.Controls 2.3 as Controls2
+import QtQuick.Controls 2.4
 import UM 1.1 as UM
 import Cura 1.0 as Cura
 
 Item
 {
-    property alias newProject: newProjectAction;
-    property alias open: openAction;
-    property alias quit: quitAction;
+    property alias newProject: newProjectAction
+    property alias open: openAction
+    property alias quit: quitAction
 
-    property alias undo: undoAction;
-    property alias redo: redoAction;
+    property alias undo: undoAction
+    property alias redo: redoAction
 
-    property alias view3DCamera: view3DCameraAction;
-    property alias viewFrontCamera: viewFrontCameraAction;
-    property alias viewTopCamera: viewTopCameraAction;
-    property alias viewLeftSideCamera: viewLeftSideCameraAction;
-    property alias viewRightSideCamera: viewRightSideCameraAction;
+    property alias view3DCamera: view3DCameraAction
+    property alias viewFrontCamera: viewFrontCameraAction
+    property alias viewTopCamera: viewTopCameraAction
+    property alias viewLeftSideCamera: viewLeftSideCameraAction
+    property alias viewRightSideCamera: viewRightSideCameraAction
 
-    property alias deleteSelection: deleteSelectionAction;
-    property alias centerSelection: centerSelectionAction;
-    property alias multiplySelection: multiplySelectionAction;
+    property alias deleteSelection: deleteSelectionAction
+    property alias centerSelection: centerSelectionAction
+    property alias multiplySelection: multiplySelectionAction
 
-    property alias deleteObject: deleteObjectAction;
-    property alias centerObject: centerObjectAction;
-    property alias groupObjects: groupObjectsAction;
-    property alias unGroupObjects:unGroupObjectsAction;
-    property alias mergeObjects: mergeObjectsAction;
-    //property alias unMergeObjects: unMergeObjectsAction;
+    property alias deleteObject: deleteObjectAction
+    property alias centerObject: centerObjectAction
+    property alias groupObjects: groupObjectsAction
+    property alias unGroupObjects:unGroupObjectsAction
+    property alias mergeObjects: mergeObjectsAction
+    //property alias unMergeObjects: unMergeObjectsAction
 
-    property alias multiplyObject: multiplyObjectAction;
+    property alias multiplyObject: multiplyObjectAction
 
-    property alias selectAll: selectAllAction;
-    property alias deleteAll: deleteAllAction;
-    property alias reloadAll: reloadAllAction;
-    property alias arrangeAllBuildPlates: arrangeAllBuildPlatesAction;
-    property alias arrangeAll: arrangeAllAction;
-    property alias arrangeSelection: arrangeSelectionAction;
-    property alias resetAllTranslation: resetAllTranslationAction;
-    property alias resetAll: resetAllAction;
+    property alias selectAll: selectAllAction
+    property alias deleteAll: deleteAllAction
+    property alias reloadAll: reloadAllAction
+    property alias arrangeAll: arrangeAllAction
+    property alias arrangeSelection: arrangeSelectionAction
+    property alias resetAllTranslation: resetAllTranslationAction
+    property alias resetAll: resetAllAction
 
-    property alias addMachine: addMachineAction;
-    property alias configureMachines: settingsAction;
-    property alias addProfile: addProfileAction;
-    property alias updateProfile: updateProfileAction;
-    property alias resetProfile: resetProfileAction;
-    property alias manageProfiles: manageProfilesAction;
+    property alias addMachine: addMachineAction
+    property alias configureMachines: settingsAction
+    property alias addProfile: addProfileAction
+    property alias updateProfile: updateProfileAction
+    property alias resetProfile: resetProfileAction
+    property alias manageProfiles: manageProfilesAction
 
-    property alias manageMaterials: manageMaterialsAction;
-    property alias marketplaceMaterials: marketplaceMaterialsAction;
+    property alias manageMaterials: manageMaterialsAction
+    property alias marketplaceMaterials: marketplaceMaterialsAction
 
-    property alias preferences: preferencesAction;
-    property alias plugins: pluginsAction;
+    property alias preferences: preferencesAction
 
-    property alias showProfileFolder: showProfileFolderAction;
-    property alias documentation: documentationAction;
+    property alias showProfileFolder: showProfileFolderAction
+    property alias documentation: documentationAction
     property alias showTroubleshooting: showTroubleShootingAction
-    property alias reportBug: reportBugAction;
+    property alias reportBug: reportBugAction
     property alias whatsNew: whatsNewAction
-    property alias about: aboutAction;
+    property alias about: aboutAction
 
-    property alias toggleFullScreen: toggleFullScreenAction;
+    property alias toggleFullScreen: toggleFullScreenAction
     property alias exitFullScreen: exitFullScreenAction
 
     property alias configureSettingVisibility: configureSettingVisibilityAction
@@ -76,7 +73,7 @@ Item
     UM.I18nCatalog{id: catalog; name: "cura"}
 
 
- Action
+Action
     {
         id: pluginsAction
         onTriggered: Qt.openUrlExternally("https://support.bcn3d.com/knowledge/tips")
@@ -95,7 +92,7 @@ Item
         id: toggleFullScreenAction
         shortcut: StandardKey.FullScreen
         text: catalog.i18nc("@action:inmenu", "Toggle Full Screen")
-        iconName: "view-fullscreen"
+        icon.name: "view-fullscreen"
     }
 
     Action
@@ -103,14 +100,14 @@ Item
         id: exitFullScreenAction
         shortcut: StandardKey.Cancel
         text: catalog.i18nc("@action:inmenu", "Exit Full Screen")
-        iconName: "view-fullscreen"
+        icon.name: "view-fullscreen"
     }
 
     Action
     {
         id: undoAction;
         text: catalog.i18nc("@action:inmenu menubar:edit", "&Undo");
-        iconName: "edit-undo";
+        icon.name: "edit-undo";
         shortcut: StandardKey.Undo;
         onTriggered: UM.OperationStack.undo();
         enabled: UM.OperationStack.canUndo;
@@ -120,7 +117,7 @@ Item
     {
         id: redoAction;
         text: catalog.i18nc("@action:inmenu menubar:edit", "&Redo");
-        iconName: "edit-redo";
+        icon.name: "edit-redo";
         shortcut: StandardKey.Redo;
         onTriggered: UM.OperationStack.redo();
         enabled: UM.OperationStack.canRedo;
@@ -130,7 +127,7 @@ Item
     {
         id: quitAction
         text: catalog.i18nc("@action:inmenu menubar:file","&Quit")
-        iconName: "application-exit"
+        icon.name: "application-exit"
         shortcut: StandardKey.Quit
     }
 
@@ -173,7 +170,7 @@ Item
     {
         id: preferencesAction
         text: catalog.i18nc("@action:inmenu", "Configure BCN3D Stratos...")
-        iconName: "configure"
+        icon.name: "configure"
     }
 
     Action
@@ -186,14 +183,14 @@ Item
     {
         id: settingsAction
         text: catalog.i18nc("@action:inmenu menubar:printer", "Manage Pr&inters...")
-        iconName: "configure"
+        icon.name: "configure"
     }
 
     Action
     {
         id: manageMaterialsAction
         text: catalog.i18nc("@action:inmenu", "Manage Materials...")
-        iconName: "configure"
+        icon.name: "configure"
         shortcut: "Ctrl+K"
     }
 
@@ -234,7 +231,7 @@ Item
     {
         id: manageProfilesAction
         text: catalog.i18nc("@action:inmenu menubar:profile", "Manage Profiles...")
-        iconName: "configure"
+        icon.name: "configure"
         shortcut: "Ctrl+J"
     }
 
@@ -242,7 +239,7 @@ Item
     {
         id: documentationAction;
         text: catalog.i18nc("@action:inmenu menubar:help", "BCN3D Stratos Introduction");
-        iconName: "help-contents";
+        icon.name: "help-contents";
         shortcut: StandardKey.Help;
         onTriggered: Qt.openUrlExternally("https://support.bcn3d.com/knowledge/bcn3d-stratos-introduction")
     }
@@ -250,7 +247,7 @@ Item
     Action {
         id: reportBugAction;
         text: catalog.i18nc("@action:inmenu menubar:help", "Report a &Bug");
-        iconName: "tools-report-bug";
+        icon.name: "tools-report-bug";
         onTriggered: Qt.openUrlExternally("https://support.bcn3d.com/knowledge/kb-tickets/new?hsLang=en")
     }
 
@@ -264,7 +261,7 @@ Item
     {
         id: aboutAction;
         text: catalog.i18nc("@action:inmenu menubar:help", "About...");
-        iconName: "help-about";
+        icon.name: "help-about";
     }
 
     Action
@@ -272,7 +269,7 @@ Item
         id: deleteSelectionAction;
         text: catalog.i18ncp("@action:inmenu menubar:edit", "Delete Selected Model", "Delete Selected Models", UM.Selection.selectionCount);
         enabled: UM.Controller.toolsEnabled && UM.Selection.hasSelection;
-        iconName: "edit-delete";
+        icon.name: "edit-delete";
         shortcut: StandardKey.Delete | "Backspace"
         onTriggered: CuraActions.deleteSelection();
     }
@@ -282,7 +279,7 @@ Item
         id: centerSelectionAction;
         text: catalog.i18ncp("@action:inmenu menubar:edit", "Center Selected Model", "Center Selected Models", UM.Selection.selectionCount);
         enabled: UM.Controller.toolsEnabled && UM.Selection.hasSelection;
-        iconName: "align-vertical-center";
+        icon.name: "align-vertical-center";
         onTriggered: CuraActions.centerSelection();
     }
 
@@ -291,7 +288,7 @@ Item
         id: multiplySelectionAction;
         text: catalog.i18ncp("@action:inmenu menubar:edit", "Multiply Selected Model", "Multiply Selected Models", UM.Selection.selectionCount);
         enabled: UM.Controller.toolsEnabled && UM.Selection.hasSelection;
-        iconName: "edit-duplicate";
+        icon.name: "edit-duplicate";
         shortcut: "Ctrl+M"
     }
 
@@ -300,7 +297,7 @@ Item
         id: deleteObjectAction;
         text: catalog.i18nc("@action:inmenu","Delete Model");
         enabled: UM.Controller.toolsEnabled;
-        iconName: "edit-delete";
+        icon.name: "edit-delete";
     }
 
     Action
@@ -314,7 +311,7 @@ Item
         id: groupObjectsAction
         text: catalog.i18nc("@action:inmenu menubar:edit","&Group Models");
         enabled: UM.Selection.selectionCount > 1 ? true: false
-        iconName: "object-group"
+        icon.name: "object-group"
         shortcut: "Ctrl+G";
         onTriggered: CuraApplication.groupSelected();
     }
@@ -334,7 +331,7 @@ Item
         id: unGroupObjectsAction
         text: catalog.i18nc("@action:inmenu menubar:edit","Ungroup Models");
         enabled: UM.Selection.isGroupSelected
-        iconName: "object-ungroup"
+        icon.name: "object-ungroup"
         shortcut: "Ctrl+Shift+G";
         onTriggered: CuraApplication.ungroupSelected();
     }
@@ -344,7 +341,7 @@ Item
         id: mergeObjectsAction
         text: catalog.i18nc("@action:inmenu menubar:edit","&Merge Models");
         enabled: UM.Selection.selectionCount > 1 ? true: false
-        iconName: "merge";
+        icon.name: "merge";
         shortcut: "Ctrl+Alt+G";
         onTriggered: CuraApplication.mergeSelected();
     }
@@ -353,7 +350,7 @@ Item
     {
         id: multiplyObjectAction;
         text: catalog.i18nc("@action:inmenu","&Multiply Model...");
-        iconName: "edit-duplicate"
+        icon.name: "edit-duplicate"
     }
 
     Action
@@ -361,7 +358,7 @@ Item
         id: selectAllAction;
         text: catalog.i18nc("@action:inmenu menubar:edit","Select All Models");
         enabled: UM.Controller.toolsEnabled;
-        iconName: "edit-select-all";
+        icon.name: "edit-select-all";
         shortcut: "Ctrl+A";
         onTriggered: CuraApplication.selectAll();
     }
@@ -371,7 +368,7 @@ Item
         id: deleteAllAction;
         text: catalog.i18nc("@action:inmenu menubar:edit","Clear Build Plate");
         enabled: UM.Controller.toolsEnabled;
-        iconName: "edit-delete";
+        icon.name: "edit-delete";
         shortcut: "Ctrl+D";
         onTriggered: CuraApplication.deleteAll();
     }
@@ -380,7 +377,7 @@ Item
     {
         id: reloadAllAction;
         text: catalog.i18nc("@action:inmenu menubar:file","Reload All Models");
-        iconName: "document-revert";
+        icon.name: "document-revert";
         shortcut: "F5"
         onTriggered: CuraApplication.reloadAll();
     }
@@ -425,7 +422,7 @@ Item
     {
         id: openAction;
         text: catalog.i18nc("@action:inmenu menubar:file","&Open File(s)...");
-        iconName: "document-open";
+        icon.name: "document-open";
         shortcut: StandardKey.Open;
     }
 
@@ -447,13 +444,13 @@ Item
     {
         id: configureSettingVisibilityAction
         text: catalog.i18nc("@action:menu", "Configure setting visibility...");
-        iconName: "configure"
+        icon.name: "configure"
     }
 
     Action
     {
         id: browsePackagesAction
         text: catalog.i18nc("@action:menu", "&Marketplace")
-        iconName: "plugins_browse"
+        icon.name: "plugins_browse"
     }
 }

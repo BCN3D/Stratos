@@ -1,11 +1,10 @@
 # Copyright (c) 2018 Ultimaker B.V.
 # Cura is released under the terms of the LGPLv3 or higher.
 
-from PyQt5.QtCore import QObject, QUrl
-from PyQt5.QtGui import QDesktopServices
+from PyQt6.QtCore import QObject, QUrl
+from PyQt6.QtGui import QDesktopServices
 from typing import List, cast
-import math
-from UM.Application import Application
+
 from UM.Event import CallFunctionEvent
 from UM.FlameProfiler import pyqtSlot
 from UM.Math.Vector import Vector
@@ -14,14 +13,15 @@ from UM.Scene.Iterator.BreadthFirstIterator import BreadthFirstIterator
 from UM.Operations.GroupedOperation import GroupedOperation
 from UM.Operations.RemoveSceneNodeOperation import RemoveSceneNodeOperation
 from UM.Operations.TranslateOperation import TranslateOperation
+from UM.i18n import i18nCatalog
+i18n_catalog = i18nCatalog("cura")
 
 import cura.CuraApplication
-from cura.Operations.RemoveNodesOperation import RemoveNodesOperation
 from cura.Operations.SetParentOperation import SetParentOperation
 from cura.MultiplyObjectsJob import MultiplyObjectsJob
 from cura.Settings.SetObjectExtruderOperation import SetObjectExtruderOperation
 from cura.Settings.ExtruderManager import ExtruderManager
-from cura.PrintModeManager import PrintModeManager
+
 
 from cura.Operations.SetBuildPlateNumberOperation import SetBuildPlateNumberOperation
 
@@ -38,7 +38,7 @@ class CuraActions(QObject):
         # Starting a web browser from a signal handler connected to a menu will crash on windows.
         # So instead, defer the call to the next run of the event loop, since that does work.
         # Note that weirdly enough, only signal handlers that open a web browser fail like that.
-        event = CallFunctionEvent(self._openUrl, [QUrl("https://ultimaker.com/en/resources/manuals/software")], {})
+        event = CallFunctionEvent(self._openUrl, [QUrl("https://ultimaker.com/en/resources/manuals/software?utm_source=cura&utm_medium=software&utm_campaign=dropdown-documentation")], {})
         cura.CuraApplication.CuraApplication.getInstance().functionEvent(event)
 
     @pyqtSlot()
@@ -70,21 +70,21 @@ class CuraActions(QObject):
                 current_node = parent_node
                 parent_node = current_node.getParent()
 
-            vector = current_node._position
+            # Find out where the bottom of the object is
+            bbox = current_node.getBoundingBox()
+            if bbox:
+                center_y = current_node.getWorldPosition().y - bbox.bottom
+            else:
+                center_y = 0
 
-            print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
-            if print_mode == "duplication" or print_mode == "mirror":
-                machine_width = Application.getInstance().getGlobalContainerStack().getProperty("machine_width", "value")
-                center = -machine_width / 4
-                if print_mode == "mirror":
-                    machine_head_with_fans_polygon = Application.getInstance().getGlobalContainerStack().getProperty("machine_head_with_fans_polygon", "value")
-                    machine_head_size = math.fabs(machine_head_with_fans_polygon[0][0] - machine_head_with_fans_polygon[2][0])
-                    center -= machine_head_size / 4
-                vector = Vector(current_node._position.x - center, current_node._position.y, current_node._position.z)
+            # Move the object so that it's bottom is on to of the buildplate
+            center_operation = TranslateOperation(current_node, Vector(0, center_y, 0), set_position = True)
+            
+            #BCN3D IDEX inclusion
+            from cura.Utils.BCN3Dutils.Bcn3dIdexSupport import recaltulateDuplicatedNodeCenterMoveOperation
+            center_operation = recaltulateDuplicatedNodeCenterMoveOperation(center_operation, current_node)
 
-            center_operation = TranslateOperation(current_node, -vector)
             operation.addOperation(center_operation)
-            # node.setPosition(vector)
         operation.push()
 
     @pyqtSlot(int)
@@ -101,6 +101,12 @@ class CuraActions(QObject):
     @pyqtSlot()
     def deleteSelection(self) -> None:
         """Delete all selected objects."""
+        from UM.Application import Application
+        print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
+        if print_mode == "duplication" or print_mode == "mirror":
+            from UM.Message import Message
+            Message("You cannot delete objects in IDEX mode. Please change to another mode.", title="You can not delete objects in IDEX mode").show()
+            return
 
         if not cura.CuraApplication.CuraApplication.getInstance().getController().getToolsEnabled():
             return
@@ -109,11 +115,11 @@ class CuraActions(QObject):
         op = GroupedOperation()
         nodes = Selection.getAllSelectedObjects()
         for node in nodes:
-            print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
-            if print_mode not in ["singleT0", "singleT1", "dual"]:
-                node_dup = PrintModeManager.getInstance().getDuplicatedNode(node)
-                if(node_dup):
-                    op.addOperation(RemoveNodesOperation(node_dup))
+
+            #BCN3D IDEX inclusion
+            from cura.Utils.BCN3Dutils.Bcn3dIdexSupport import removeDuplitedNode
+            op = removeDuplitedNode(op, node)
+
             op.addOperation(RemoveSceneNodeOperation(node))
             group_node = node.getParent()
             if group_node and group_node.callDecoration("isGroup") and group_node not in removed_group_nodes:

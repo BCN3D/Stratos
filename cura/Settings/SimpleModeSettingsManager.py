@@ -1,7 +1,7 @@
 # Copyright (c) 2017 Ultimaker B.V.
 # Cura is released under the terms of the LGPLv3 or higher.
 
-from PyQt5.QtCore import QObject, pyqtSignal, pyqtProperty
+from PyQt6.QtCore import QObject, pyqtSignal, pyqtProperty
 
 from UM.Application import Application
 
@@ -35,29 +35,17 @@ class SimpleModeSettingsManager(QObject):
         global_stack = self._machine_manager.activeMachine
 
         # check user settings in the global stack
-        # user_setting_keys.update(global_stack.userChanges.getAllKeys())
+        #BCN3D IDEX INCLUSION
         user_setting_keys.update(set([property for property in global_stack.userChanges.getAllKeys() if property != "print_mode"]))
+        #user_setting_keys.update(global_stack.userChanges.getAllKeys())
 
         # check user settings in the extruder stacks
         if global_stack.extruderList:
             for extruder_stack in global_stack.extruderList:
                 user_setting_keys.update(extruder_stack.userChanges.getAllKeys())
 
-        # remove settings that are visible in recommended (we don't show the reset button for those)
-        for skip_key in self.__ignored_custom_setting_keys:
-            if skip_key in user_setting_keys:
-                user_setting_keys.remove(skip_key)
-
         has_customized_user_settings = len(user_setting_keys) > 0
 
         if has_customized_user_settings != self._is_profile_customized:
             self._is_profile_customized = has_customized_user_settings
             self.isProfileCustomizedChanged.emit()
-
-    # These are the settings included in the Simple ("Recommended") Mode, so only when the other settings have been
-    # changed, we consider it as a user customized profile in the Simple ("Recommended") Mode.
-    __ignored_custom_setting_keys = ["support_enable",
-                                     "infill_sparse_density",
-                                     "gradual_infill_steps",
-                                     "adhesion_type",
-                                     "support_extruder_nr"]

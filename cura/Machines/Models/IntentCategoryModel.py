@@ -2,14 +2,14 @@
 #Cura is released under the terms of the LGPLv3 or higher.
 
 import collections
-from PyQt5.QtCore import Qt, QTimer
+from PyQt6.QtCore import Qt, QTimer
 from typing import TYPE_CHECKING, Optional, Dict
 
 from cura.Machines.Models.IntentModel import IntentModel
 from cura.Settings.IntentManager import IntentManager
 from UM.Qt.ListModel import ListModel
 from UM.Settings.ContainerRegistry import ContainerRegistry #To update the list if anything changes.
-from PyQt5.QtCore import pyqtSignal
+from PyQt6.QtCore import pyqtSignal
 import cura.CuraApplication
 if TYPE_CHECKING:
     from UM.Settings.ContainerRegistry import ContainerInterface
@@ -21,11 +21,11 @@ catalog = i18nCatalog("cura")
 class IntentCategoryModel(ListModel):
     """Lists the intent categories that are available for the current printer configuration. """
 
-    NameRole = Qt.UserRole + 1
-    IntentCategoryRole = Qt.UserRole + 2
-    WeightRole = Qt.UserRole + 3
-    QualitiesRole = Qt.UserRole + 4
-    DescriptionRole = Qt.UserRole + 5
+    NameRole = Qt.ItemDataRole.UserRole + 1
+    IntentCategoryRole = Qt.ItemDataRole.UserRole + 2
+    WeightRole = Qt.ItemDataRole.UserRole + 3
+    QualitiesRole = Qt.ItemDataRole.UserRole + 4
+    DescriptionRole = Qt.ItemDataRole.UserRole + 5
 
     modelUpdated = pyqtSignal()
 
@@ -52,6 +52,12 @@ class IntentCategoryModel(ListModel):
             cls._translations["quick"] = {
                 "name": catalog.i18nc("@label", "Draft"),
                 "description": catalog.i18nc("@text", "The draft profile is designed to print initial prototypes and concept validation with the intent of significant print time reduction.")
+            }
+            cls._translations["annealing"] = {
+                "name": catalog.i18nc("@label", "Annealing"),
+                "description": catalog.i18nc("@text",
+                                             "The annealing profile requires post-processing in an oven after the print is finished. This profile retains the dimensional accuracy of the printed part after annealing and improves strength, stiffness, and thermal resistance.")
+
             }
         return cls._translations
 
@@ -106,11 +112,15 @@ class IntentCategoryModel(ListModel):
         for category in available_categories:
             qualities = IntentModel()
             qualities.setIntentCategory(category)
+            try:
+                weight = list(IntentCategoryModel._get_translations().keys()).index(category)
+            except ValueError:
+                weight = 99
             result.append({
-                "name": IntentCategoryModel.translation(category, "name", catalog.i18nc("@label", "Unknown")),
+                "name": IntentCategoryModel.translation(category, "name", category.title()),
                 "description": IntentCategoryModel.translation(category, "description", None),
                 "intent_category": category,
-                "weight": list(IntentCategoryModel._get_translations().keys()).index(category),
+                "weight": weight,
                 "qualities": qualities
             })
         result.sort(key = lambda k: k["weight"])

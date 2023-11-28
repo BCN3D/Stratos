@@ -3,5 +3,5 @@
     "author": "BCN3D",
     "version": "1.0.0",
     "description": "Extension that add/remove some necesary/unnecesaries values post processing",
-    "api": "7.0.0"
+    "api": "8.0.0"
 }

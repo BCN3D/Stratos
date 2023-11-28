@@ -15,10 +15,8 @@ Item
     id: content
 
     property int absoluteMinimumHeight: 200 * screenScaleFactor
-
-    width: UM.Theme.getSize("print_setup_widget").width - 2 * UM.Theme.getSize("default_margin").width
-    height: contents.height + buttonRow.height
-
+    implicitWidth: UM.Theme.getSize("print_setup_widget").width
+    implicitHeight: contents.height + buttonRow.height
     enum Mode
     {
         Recommended = 0,
@@ -44,6 +42,9 @@ Item
         return PrintSetupSelectorContents.Mode.Recommended
     }
     onCurrentModeIndexChanged: UM.Preferences.setValue("cura/active_mode", currentModeIndex)
+    
+    property var machineSet: Cura.MachineManager.activeMachine
+    onMachineSetChanged : currentModeIndex = 0
 
     Item
     {
@@ -68,7 +69,77 @@ Item
                 right: parent.right
                 top: parent.top
             }
-            visible: currentModeIndex == PrintSetupSelectorContents.Mode.Recommended
+            visible: (currentModeIndex == PrintSetupSelectorContents.Mode.Recommended) && Cura.MachineManager.activeMachine.definition.name != "Omega I60"
+            height: {
+                const height = base.height - (recommendedPrintSetup.mapToItem(null, 0, 0).y + buttonRow.height + UM.Theme.getSize("default_margin").height);
+                const maxHeight = UM.Preferences.getValue("view/settings_list_height");
+                return Math.min(height, maxHeight);
+            }
+
+            Connections
+            {
+                target: UM.Preferences
+                function onPreferenceChanged(preference)
+                {
+                    if (preference !== "view/settings_list_height" && preference !== "general/window_height" && preference !== "general/window_state")
+                    {
+                        return;
+                    }
+
+                    const height = base.height - (recommendedPrintSetup.mapToItem(null, 0, 0).y + buttonRow.height + UM.Theme.getSize("default_margin").height);
+                    const maxHeight = UM.Preferences.getValue("view/settings_list_height");
+
+                    recommendedPrintSetup.height = Math.min(maxHeight, height);
+
+                    updateDragPosition();
+                }
+            }
+
+            function onModeChanged()
+            {
+                currentModeIndex = PrintSetupSelectorContents.Mode.Custom;
+            }
+        }
+
+        RecommendedOmegaPrintSetup
+        {
+            id: recommendedOmegaPrintSetup
+            anchors
+            {
+                left: parent.left
+                right: parent.right
+                top: parent.top
+            }
+            visible:  (currentModeIndex == PrintSetupSelectorContents.Mode.Recommended) && Cura.MachineManager.activeMachine.definition.name == "Omega I60"
+            height: {
+                const height = base.height - (recommendedOmegaPrintSetup.mapToItem(null, 0, 0).y + buttonRow.height + UM.Theme.getSize("default_margin").height);
+                const maxHeight = UM.Preferences.getValue("view/settings_list_height");
+                return Math.min(height, maxHeight);
+            }
+
+            Connections
+            {
+                target: UM.Preferences
+                function onPreferenceChanged(preference)
+                {
+                    if (preference !== "view/settings_list_height" && preference !== "general/window_height" && preference !== "general/window_state")
+                    {
+                        return;
+                    }
+
+                    const height = base.height - (recommendedOmegaPrintSetup.mapToItem(null, 0, 0).y + buttonRow.height + UM.Theme.getSize("default_margin").height);
+                    const maxHeight = UM.Preferences.getValue("view/settings_list_height");
+
+                    recommendedOmegaPrintSetup.height = Math.min(maxHeight, height);
+
+                    updateDragPosition();
+                }
+            }
+
+            function onModeChanged()
+            {
+                currentModeIndex = PrintSetupSelectorContents.Mode.Custom;
+            }
         }
 
         CustomPrintSetup
@@ -124,7 +195,15 @@ Item
     {
         id: buttonRow
         property real padding: UM.Theme.getSize("default_margin").width
-        height: recommendedButton.height + 2 * padding + (draggableArea.visible ? draggableArea.height : 0)
+        height:
+        {
+            const draggable_area_height = draggableArea.visible ? draggableArea.height : 0;
+            if (currentModeIndex == PrintSetupSelectorContents.Mode.Custom)
+            {
+                return recommendedButton.height + 2 * padding + draggable_area_height;
+            }
+            return draggable_area_height;
+        }
 
         anchors
         {
@@ -142,28 +221,9 @@ Item
             leftPadding: UM.Theme.getSize("default_margin").width
             rightPadding: UM.Theme.getSize("default_margin").width
             text: catalog.i18nc("@button", "Recommended")
-            iconSource: UM.Theme.getIcon("arrow_left")
+            iconSource: UM.Theme.getIcon("ChevronSingleLeft")
             visible: currentModeIndex == PrintSetupSelectorContents.Mode.Custom
             onClicked: currentModeIndex = PrintSetupSelectorContents.Mode.Recommended
-        }
-
-        Cura.SecondaryButton
-        {
-            id: customSettingsButton
-            anchors.top: parent.top
-            anchors.right: parent.right
-            anchors.margins: UM.Theme.getSize("default_margin").width
-            leftPadding: UM.Theme.getSize("default_margin").width
-            rightPadding: UM.Theme.getSize("default_margin").width
-            text: catalog.i18nc("@button", "Custom")
-            iconSource: UM.Theme.getIcon("arrow_right")
-            isIconOnRightSide: true
-            visible: currentModeIndex == PrintSetupSelectorContents.Mode.Recommended
-            onClicked:
-            {
-                currentModeIndex = PrintSetupSelectorContents.Mode.Custom
-                updateDragPosition();
-            }
         }
 
         //Invisible area at the bottom with which you can resize the panel.
@@ -178,7 +238,6 @@ Item
             }
             height: childrenRect.height
             cursorShape: Qt.SplitVCursor
-            visible: currentModeIndex == PrintSetupSelectorContents.Mode.Custom
             drag
             {
                 target: parent
@@ -203,7 +262,7 @@ Item
                         h -= mouse_absolute_y - base.height;
                     }
                     // Enforce a minimum size (again).
-                    // This is a bit of a hackish way to do it, but we've seen some ocasional reports that the size
+                    // This is a bit of a hackish way to do it, but we've seen some occasional reports that the size
                     // could get below the the minimum height.
                     if(h < absoluteMinimumHeight)
                     {
@@ -227,13 +286,13 @@ Item
                     color: UM.Theme.getColor("lining")
                 }
 
-                UM.RecolorImage
+                UM.ColorImage
                 {
                     width: UM.Theme.getSize("drag_icon").width
                     height: UM.Theme.getSize("drag_icon").height
                     anchors.centerIn: parent
 
-                    source: UM.Theme.getIcon("resize")
+                    source: UM.Theme.getIcon("ThreeDots")
                     color: UM.Theme.getColor("small_button_text")
                 }
             }

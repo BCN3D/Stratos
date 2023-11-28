@@ -1,7 +1,0 @@
-{
-    "name": "BCN3D Idex",
-    "author": "BCN3D",
-    "version": "1.0.0",
-    "description": "Enables features for BCN3D Idex printers. Duplication/Mirror print modes.",
-    "api": "7.0.0"
-}

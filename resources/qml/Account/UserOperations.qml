@@ -98,7 +98,7 @@ Column
         text: catalog.i18nc("@button", "Sign Out")
 
         function signOut() {
-            var success = Cura.AuthenticationService.signOut()
+            var success =  Cura.APIManager.signOut()
             if (success) {
                 popup.close()
             }

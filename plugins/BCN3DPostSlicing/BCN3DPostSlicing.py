@@ -1,5 +1,5 @@
 from UM.Extension import Extension
-from PyQt5.QtCore import pyqtSlot, pyqtSignal, pyqtProperty, QObject
+from PyQt6.QtCore import pyqtSlot, pyqtSignal, pyqtProperty, QObject
 from UM.Application import Application
 from UM.Logger import Logger
 from UM.Message import Message

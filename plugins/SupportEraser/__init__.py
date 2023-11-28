@@ -11,8 +11,7 @@ def getMetaData():
         "tool": {
             "name": i18n_catalog.i18nc("@label", "Support Blocker"),
             "description": i18n_catalog.i18nc("@info:tooltip", "Create a volume in which supports are not printed."),
-            "tool_panel": "BCN3DSupportEraserPanel.qml",
-            "icon": "tool_icon.svg",
+            "icon": "SupportBlocker",
             "weight": 4
         }
     }

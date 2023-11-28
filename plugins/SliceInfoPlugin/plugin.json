@@ -1,8 +1,8 @@
 {
     "name": "Slice info",
-    "author": "BCN3D",
+    "author": "Ultimaker B.V.",
     "version": "1.0.1",
     "description": "Submits anonymous slice info. Can be disabled through preferences.",
-    "api": "7.4.0",
+    "api": 8,
     "i18n-catalog": "cura"
 }
