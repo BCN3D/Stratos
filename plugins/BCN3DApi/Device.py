@@ -1,4 +1,4 @@
-from PyQt5.QtCore import pyqtProperty, pyqtSlot
+from PyQt6.QtCore import pyqtProperty, pyqtSlot
 
 from cura.CuraApplication import CuraApplication
 from UM.Application import Application

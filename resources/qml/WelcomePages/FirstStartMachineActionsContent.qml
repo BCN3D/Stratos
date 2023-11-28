@@ -4,12 +4,12 @@
 import QtQuick 2.10
 import QtQuick.Controls 2.3
 
-import UM 1.3 as UM
+import UM 1.5 as UM
 import Cura 1.1 as Cura
 
 
 //
-// This component contains the content for the "What's new in Ultimaker Cura" page of the welcome on-boarding process.
+// This component contains the content for the "What's new in BCN3D Stratos" page of the welcome on-boarding process.
 //
 Item
 {
@@ -27,7 +27,7 @@ Item
     Connections
     {
         target: machineActionsModel
-        onAllFinished:
+        function onAllFinished()
         {
             if (visible)
             {
@@ -36,7 +36,7 @@ Item
         }
     }
 
-    Label
+    UM.Label
     {
         id: titleLabel
         anchors.top: parent.top
@@ -45,7 +45,6 @@ Item
         text: machineActionsModel.currentItem.title == undefined ? "" : machineActionsModel.currentItem.title
         color: UM.Theme.getColor("primary_button")
         font: UM.Theme.getFont("huge")
-        renderType: Text.NativeRendering
     }
 
     Item

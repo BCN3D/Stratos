@@ -15,30 +15,13 @@ RowLayout
 
     Cura.IconWithText
     {
-        source: UM.Theme.getIcon("category_layer_height")
-        text:
-        {
-            if (Cura.MachineManager.activeStack)
-            {
-                var resultMap = Cura.MachineManager.activeQualityDisplayNameMap
-                var text = resultMap["main"]
-                if (resultMap["suffix"])
-                {
-                    text += " - " + resultMap["suffix"]
-                }
+        source: UM.Theme.getIcon("Sliders", "medium")
+        iconSize: UM.Theme.getSize("button_icon").width
 
-                if (!Cura.MachineManager.hasNotSupportedQuality)
-                {
-                    text += " - " + layerHeight.properties.value + "mm"
-                    text += Cura.MachineManager.isActiveQualityExperimental ? " - " + catalog.i18nc("@label", "Experimental") : ""
-                }
-                return text
-            }
-            return ""
-        }
+        text: Cura.MachineManager.activeQualityDisplayNameStringParts.join(" - ")
         font: UM.Theme.getFont("medium")
         elide: Text.ElideMiddle
-
+        wrapMode: Text.NoWrap
         UM.SettingPropertyProvider
         {
             id: layerHeight
@@ -50,9 +33,10 @@ RowLayout
 
     Cura.IconWithText
     {
-        source: UM.Theme.getIcon("category_infill")
+        source: UM.Theme.getIcon("Infill1")
         text: Cura.MachineManager.activeStack ? parseInt(infillDensity.properties.value) + "%" : "0%"
         font: UM.Theme.getFont("medium")
+        iconSize: UM.Theme.getSize("medium_button_icon").width
 
         UM.SettingPropertyProvider
         {
@@ -65,9 +49,10 @@ RowLayout
 
     Cura.IconWithText
     {
-        source: UM.Theme.getIcon("category_support")
+        source: UM.Theme.getIcon("Support")
         text: supportEnabled.properties.value == "True" ? enabledText : disabledText
         font: UM.Theme.getFont("medium")
+        iconSize: UM.Theme.getSize("medium_button_icon").width
 
         UM.SettingPropertyProvider
         {
@@ -80,9 +65,10 @@ RowLayout
 
     Cura.IconWithText
     {
-        source: UM.Theme.getIcon("category_adhesion")
+        source: UM.Theme.getIcon("Adhesion")
         text: platformAdhesionType.properties.value != "skirt" && platformAdhesionType.properties.value != "none" ? enabledText : disabledText
         font: UM.Theme.getFont("medium")
+        iconSize: UM.Theme.getSize("medium_button_icon").width
 
         UM.SettingPropertyProvider
         {

@@ -1,3 +1,25 @@
+[2.0.0]
+
+* BCN3D Stratos 2.0.0 is based on Ultimaker Cura 5.4 with all Stratos improvements
+- Improved general performance since Cura 4.8
+- Internal bug fixing
+
+* Added Omega I60
+- Omega I60 new definition
+- Prepare machine to support 1,75mm materials
+- Added Omega Hotend Tip 0.4 HR (Omega I60 series)
+- Omega Hotend Tip 0.6 HR (Omega I60 series)
+
+* Added profile compatibility for some BCN3D materials (Omega I60): 
+- Omega Proto material
+- Omega Resistant Nylon
+- Omega Tooling CF
+
+* Added Flexible Printing Surface interface (Espsilon series and Sigma D25)
+
+* Added profile compatibility for some Smart Materials materials (Epsilon Series): 
+- Smart Materials PLA
+
 [1.6.4]
 
 * Adjusted printing profile for:

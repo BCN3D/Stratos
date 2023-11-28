@@ -18,17 +18,14 @@ SettingItem
 
         model: definition.options
         textRole: "value"
+        forceHighlight: base.hovered
 
         anchors.fill: parent
 
         onActivated:
         {
             forceActiveFocus()
-            if (propertyProvider.key == 'print_mode') {
-                Cura.PrintersManagerService.setPrintMode(definition.options[index].key)
-            } else {
-                propertyProvider.setPropertyValue("value", definition.options[index].key)
-            }
+            propertyProvider.setPropertyValue("value", definition.options[index].key)
         }
 
         onActiveFocusChanged:

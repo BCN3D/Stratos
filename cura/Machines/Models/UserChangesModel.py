@@ -4,7 +4,7 @@
 import os
 from collections import OrderedDict
 
-from PyQt5.QtCore import pyqtSlot, Qt
+from PyQt6.QtCore import pyqtSlot, Qt
 
 from UM.Application import Application
 from UM.Logger import Logger
@@ -12,15 +12,15 @@ from UM.Settings.ContainerRegistry import ContainerRegistry
 from UM.i18n import i18nCatalog
 from UM.Settings.SettingFunction import SettingFunction
 from UM.Qt.ListModel import ListModel
-from cura.Utils.Bcn3dExcludeInstances import hidrateCategoryLabel
+
 
 class UserChangesModel(ListModel):
-    KeyRole = Qt.UserRole + 1
-    LabelRole = Qt.UserRole + 2
-    ExtruderRole = Qt.UserRole + 3
-    OriginalValueRole = Qt.UserRole + 4
-    UserValueRole = Qt.UserRole + 6
-    CategoryRole = Qt.UserRole + 7
+    KeyRole = Qt.ItemDataRole.UserRole + 1
+    LabelRole = Qt.ItemDataRole.UserRole + 2
+    ExtruderRole = Qt.ItemDataRole.UserRole + 3
+    OriginalValueRole = Qt.ItemDataRole.UserRole + 4
+    UserValueRole = Qt.ItemDataRole.UserRole + 6
+    CategoryRole = Qt.ItemDataRole.UserRole + 7
 
     def __init__(self, parent = None):
         super().__init__(parent = parent)
@@ -118,18 +118,21 @@ class UserChangesModel(ListModel):
                     if original_value is not None:
                         break
 
-                item_to_add = {"key": setting_key,
-                               "label": label,
-                               "user_value": str(user_changes.getProperty(setting_key, "value")),
-                               "original_value": str(original_value),
-                               "extruder": "",
-                               "category": category_label}
+                item_to_add = {
+                    "key": setting_key,
+                    "label": label,
+                    "user_value": str(user_changes.getProperty(setting_key, "value", default_value_resolve_context)),
+                    "original_value": str(original_value),
+                    "extruder": "",
+                    "category": category_label,
+                }
 
                 if stack != global_stack:
                     item_to_add["extruder"] = stack.getName()
 
                 if category_label not in item_dict:
                     item_dict[category_label] = []
+                from cura.Utils.BCN3Dutils.Bcn3dExcludeInstances import hidrateCategoryLabel
                 item_dict[category_label] = hidrateCategoryLabel(item_dict[category_label], item_to_add)
         for each_item_list in item_dict.values():
             item_list += each_item_list

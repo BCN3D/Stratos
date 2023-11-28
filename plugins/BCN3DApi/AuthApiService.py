@@ -1,4 +1,5 @@
-from PyQt5.QtCore import QObject, pyqtSlot, pyqtProperty, pyqtSignal
+from typing import Any
+from PyQt6.QtCore import QObject, pyqtSlot, pyqtProperty, pyqtSignal
 from cura.OAuth2.Models import UserProfile
 from UM.Message import Message
 from UM.Logger import Logger
@@ -10,6 +11,7 @@ import json
 from .SessionManager import SessionManager
 from .http_helper import get, post
 from threading import Lock
+
 
 class AuthApiService(QObject):
     api_url = None
@@ -29,13 +31,13 @@ class AuthApiService(QObject):
         self._email = None
         self._profile = None
         self._is_logged_in = False
-   
-    def startApi(self, firstRun = True):
+        
+    def startApi(self, firstRun=True):
         apiData = None
         pr = PluginRegistry.getInstance()
         pluginPath = pr.getPluginPath("BCN3DApi")
         try:
-            with open(os.path.join(pluginPath, "ApiData.json"), "r", encoding = "utf-8") as f:
+            with open(os.path.join(pluginPath, "ApiData.json"), "r", encoding="utf-8") as f:
                 apiData = json.load(f)
         except IOError as e:
             Logger.error("Could not open ApiData.json for reading: %s".format(str(e)))
@@ -53,17 +55,15 @@ class AuthApiService(QObject):
                 self._session_manager.initialize()
             if firstRun and self._session_manager.getAccessToken() and self.getToken():
                 self.getCurrentUser()
-    
+
     def email(self):
         return self._email
 
-    @pyqtProperty("QVariantMap", notify=authStateChanged)
     def profile(self):
         if not self._profile:
-            return None
-        return self._profile.__dict__
+            return {}
+        return self._profile
 
-    @pyqtProperty(bool, notify=authStateChanged)
     def isLoggedIn(self):
         return self._is_logged_in
 
@@ -71,12 +71,22 @@ class AuthApiService(QObject):
         return self.client_id and self.api_url
 
     def getCurrentUser(self):
-        headers = {"authorization": "bearer {}".format(self.getToken()), 'Content-Type' : 'application/x-www-form-urlencoded'}
+        headers = {"authorization": "bearer {}".format(self.getToken()),
+                   'Content-Type': 'application/x-www-form-urlencoded'}
         response = get(self.api_url + "/accounts/me", headers=headers)
         if 200 <= response.status_code < 300:
             current_user = response.json()
             self._email = current_user["email"]
-            self._profile = UserProfile(username = current_user["name"])
+            self._profile = {}
+            self._profile["username"] = current_user["name"]
+            self._profile["advanced_user"] = False
+            if "advanced_user" in current_user:
+                advanced_user = current_user["advanced_user"]
+                if advanced_user is not None:
+                    advanced_user = json.loads(advanced_user)
+                    if "stratos_show_custom" in advanced_user:
+                        self._profile["advanced_user"] = advanced_user["stratos_show_custom"]
+            self._profile
             self._is_logged_in = True
             self.authStateChanged.emit(True)
         else:
@@ -85,25 +95,25 @@ class AuthApiService(QObject):
             Logger.error("Could not get current user: %s" % reason)
             return {}
 
-    @pyqtSlot(str, str, result=int)
     def signIn(self, email, password):
         if not self.apiDataIsDefined():
             self.startApi(False)
             if not self.apiDataIsDefined():
                 return -2
         self._email = email.strip()
-        data = {"username": self._email, 
-                "password": password.strip(), 
-                "client_id" : self.client_id, 
-                "grant_type" : self.grant_type, 
-                "scope" : self.scope}
+        data = {"username": self._email,
+                "password": password.strip(),
+                "client_id": self.client_id,
+                "grant_type": self.grant_type,
+                "scope": self.scope}
         response = post(self.api_url + "/token", data)
         if 200 <= response.status_code < 300:
             response_message = response.json()
             self._session_manager.setOuathToken(response_message)
             self._is_logged_in = True
             self.authStateChanged.emit(True)
-            message = Message("Go to Add Printer to see your printers registered to the cloud", title="Sign In successfully")
+            message = Message("Go to Add Printer to see your printers registered to the cloud",
+                              title="Sign In successfully")
             message.show()
             self.getCurrentUser()
             return 200
@@ -116,13 +126,13 @@ class AuthApiService(QObject):
         Logger.log("i", "BCN3D Token expired, refreshed.")
         try:
             response = requests.post(
-				self.api_url + "/token",
-				data = {
-					"client_id": self.client_id,
-					"grant_type": "refresh_token",
-					"refresh_token": self._session_manager.getRefreshToken()
-					}
-			)
+                self.api_url + "/token",
+                data={
+                    "client_id": self.client_id,
+                    "grant_type": "refresh_token",
+                    "refresh_token": self._session_manager.getRefreshToken()
+                }
+            )
             response.raise_for_status()
             response_message = response.json()
             self._session_manager.setOuathToken(response_message)
@@ -132,7 +142,6 @@ class AuthApiService(QObject):
                 Logger.log("e", "Unable to refresh token with error [%d]" % err.response.status_code)
                 self.signOut()
 
-    @pyqtSlot(result=bool)
     def signOut(self):
         self._session_manager.clearSession()
         self._email = None
@@ -141,12 +150,12 @@ class AuthApiService(QObject):
         self.authStateChanged.emit(False)
         return True
 
-
     def getToken(self):
         if self._session_manager.getAccessToken() and self._session_manager.tokenIsExpired():
             with self.getTokenRefreshLock:
-				# We need to check again because there could be calls that were waiting on the lock for an active refresh.
-				# These calls should not have to refresh again as the token would be valid
+                # We need to check again because there could be calls that were waiting on the lock for an active
+                # refresh.
+                # These calls should not have to refresh again as the token would be valid
                 if self._session_manager.tokenIsExpired():
                     self.refresh()
             return self.getToken()
@@ -161,3 +170,10 @@ class AuthApiService(QObject):
         return cls.__instance
 
     __instance = None
+
+class User:
+    def __init__(self, name):
+        self.username = name
+
+    def __getattribute__(self, key: str) -> Any:
+        return getattr(self, key)

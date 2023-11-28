@@ -5,21 +5,23 @@ import sys
 from UM.Logger import Logger
 try:
     from . import ThreeMFWriter
+    threemf_writer_was_imported = True
 except ImportError:
     Logger.log("w", "Could not import ThreeMFWriter; libSavitar may be missing")
-from . import ThreeMFWorkspaceWriter
+    threemf_writer_was_imported = False
 
+from . import ThreeMFWorkspaceWriter
 from UM.i18n import i18nCatalog
-from UM.Platform import Platform
 
 i18n_catalog = i18nCatalog("cura")
+
 
 def getMetaData():
     workspace_extension = "3mf"
 
     metaData = {}
 
-    if "3MFWriter.ThreeMFWriter" in sys.modules:
+    if threemf_writer_was_imported:
         metaData["mesh_writer"] = {
             "output": [{
                 "extension": "3mf",
@@ -31,13 +33,14 @@ def getMetaData():
         metaData["workspace_writer"] = {
             "output": [{
                 "extension": workspace_extension,
-                "description": i18n_catalog.i18nc("@item:inlistbox", "BCN3D Stratos Project 3MF file"),
+                "description": i18n_catalog.i18nc("@item:inlistbox", "Cura Project 3MF file"),
                 "mime_type": "application/vnd.ms-package.3dmanufacturing-3dmodel+xml",
                 "mode": ThreeMFWorkspaceWriter.ThreeMFWorkspaceWriter.OutputMode.BinaryMode
             }]
         }
 
     return metaData
+
 
 def register(app):
     if "3MFWriter.ThreeMFWriter" in sys.modules:

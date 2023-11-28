@@ -1,0 +1,8 @@
+{
+    "name": "BCN3D Update Checker",
+    "author": "BCN3D",
+    "version": "1.0.0",
+    "description": "Checks for updates of the software.",
+    "api": "8.0.0",
+    "i18n-catalog": "uranium"
+}

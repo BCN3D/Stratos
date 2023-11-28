@@ -1,0 +1,6 @@
+{
+  "api_url" : "http://api.astroprint.test:8080/v2/",
+  "client_id" : "d223803f036144cca02864355bd8e9d0",
+  "app_secret" : "51d7e164a39fafd5632ffbb768de7e829634fc4cc4f43315464d4ac7460a5d48",
+  "scope" : "all"
+}

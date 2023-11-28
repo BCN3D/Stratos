@@ -25,6 +25,7 @@ class DevicePlugin(OutputDevicePlugin):
         self._printers_manager = None
         self._supports_cloud_connection = False
         self._is_logged_in = AuthApiService.getInstance().isLoggedIn
+        self.authService = AuthApiService.getInstance()
         self.bcn3dModels = None
 
     def start(self):

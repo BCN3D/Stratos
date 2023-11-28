@@ -142,7 +142,7 @@ Column
         fixedWidthMode: true
 
         function signIn() {
-            signInStatusCode = Cura.AuthenticationService.signIn(email.text, password.text)
+            signInStatusCode = Cura.APIManager.signIn(email.text, password.text)
             if (signInStatusCode == 200) {
                 popup.close()
             }

@@ -5,7 +5,7 @@ import QtQuick 2.10
 import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.3
 
-import UM 1.3 as UM
+import UM 1.5 as UM
 import Cura 1.1 as Cura
 
 
@@ -51,12 +51,10 @@ Item
 
             spacing: base.columnSpacing
 
-            Label   // Title Label
+            UM.Label   // Title Label
             {
                 text: catalog.i18nc("@title:label", "Printer Settings")
                 font: UM.Theme.getFont("medium_bold")
-                color: UM.Theme.getColor("text")
-                renderType: Text.NativeRendering
                 width: parent.width
                 elide: Text.ElideRight
             }
@@ -182,12 +180,10 @@ Item
 
             spacing: base.columnSpacing
 
-            Label   // Title Label
+            UM.Label   // Title Label
             {
                 text: catalog.i18nc("@title:label", "Printhead Settings")
                 font: UM.Theme.getFont("medium_bold")
-                color: UM.Theme.getColor("text")
-                renderType: Text.NativeRendering
                 width: parent.width
                 elide: Text.ElideRight
             }
@@ -307,18 +303,17 @@ Item
 
                     Component.onCompleted:
                     {
-                        update()
+                        updateModel();
                     }
 
-                    function update()
+                    function updateModel()
                     {
-                        clear()
-                        for (var i = 1; i <= Cura.MachineManager.activeMachine.maxExtruderCount; i++)
-                        {
+                        clear();
+                        for (var i = 1; i <= Cura.MachineManager.activeMachine.maxExtruderCount; i ++) {
                             // Use String as value. JavaScript only has Number. PropertyProvider.setPropertyValue()
                             // takes a QVariant as value, and Number gets translated into a float. This will cause problem
                             // for integer settings such as "Number of Extruders".
-                            append({ text: String(i), value: String(i) })
+                            append({ text: String(i), value: String(i) });
                         }
                     }
                 }
@@ -326,10 +321,31 @@ Item
                 Connections
                 {
                     target: Cura.MachineManager
-                    function onGlobalContainerChanged() { extruderCountModel.update() }
+                    function onGlobalContainerChanged() {
+                        extruderCountModel.updateModel();
+                    }
                 }
             }
 
+            /* 
+               - Fix for this issue: https://github.com/Ultimaker/Cura/issues/9167 
+               - Allows user to toggle if GCODE coordinates are affected by the extruder offset. 
+               - Machine wide setting. CuraEngine/src/gcodeExport.cpp is not set up to evaluate per extruder currently.
+               - If it is moved to per-extruder (unlikely), then this should be moved to the extruder tab.
+            */
+            Cura.SimpleCheckBox  // "GCode Affected By Extruder Offsets"
+            {
+                id: applyExtruderOffsetsCheckbox
+                containerStackId: machineStackId
+                settingKey: "machine_use_extruder_offset_to_offset_coords"
+                settingStoreIndex: propertyStoreIndex
+                labelText: catalog.i18nc("@label", "Apply Extruder offsets to GCode")
+                labelFont: base.labelFont
+                labelWidth: base.labelWidth
+                forceUpdateOnChangeFunction: forceUpdateFunction
+            }
+			
+			
             /* The "Shared Heater" feature is temporarily disabled because its
             implementation is incomplete. Printers with multiple filaments going
             into one nozzle will keep the inactive filaments retracted at the

@@ -1,4 +1,4 @@
-# Copyright (c) 2019 Ultimaker B.V.
+# Copyright (c) 2021 Ultimaker B.V.
 # Cura is released under the terms of the LGPLv3 or higher.
 
 import os
@@ -6,7 +6,7 @@ import re
 import configparser
 
 from typing import Any, cast, Dict, Optional, List, Union, Tuple
-from PyQt5.QtWidgets import QMessageBox
+from PyQt6.QtWidgets import QMessageBox
 
 from UM.Decorators import override
 from UM.Settings.ContainerFormatError import ContainerFormatError
@@ -32,6 +32,10 @@ from cura.Machines.ContainerTree import ContainerTree
 from cura.ReaderWriters.ProfileReader import NoProfileException, ProfileReader
 
 from UM.i18n import i18nCatalog
+from .DatabaseHandlers.IntentDatabaseHandler import IntentDatabaseHandler
+from .DatabaseHandlers.QualityDatabaseHandler import QualityDatabaseHandler
+from .DatabaseHandlers.VariantDatabaseHandler import VariantDatabaseHandler
+
 catalog = i18nCatalog("cura")
 
 
@@ -43,6 +47,10 @@ class CuraContainerRegistry(ContainerRegistry):
         # for single extrusion machines, we subscribe to the containerAdded signal, and whenever a global stack
         # is added, we check to see if an extruder stack needs to be added.
         self.containerAdded.connect(self._onContainerAdded)
+
+        self._database_handlers["variant"] = VariantDatabaseHandler()
+        self._database_handlers["quality"] = QualityDatabaseHandler()
+        self._database_handlers["intent"] = IntentDatabaseHandler()
 
     @override(ContainerRegistry)
     def addContainer(self, container: ContainerInterface) -> bool:
@@ -100,7 +108,7 @@ class CuraContainerRegistry(ContainerRegistry):
         :param container_type: :type{string} Type of the container (machine, quality, ...)
         :param container_name: :type{string} Name to check
         """
-        container_class = ContainerStack if container_type == "machine" else InstanceContainer
+        container_class = ContainerStack if "machine" in container_type else InstanceContainer
 
         return self.findContainersMetadata(container_type = container_class, id = container_name, type = container_type, ignore_case = True) or \
                 self.findContainersMetadata(container_type = container_class, name = container_name, type = container_type)
@@ -131,7 +139,7 @@ class CuraContainerRegistry(ContainerRegistry):
             if os.path.exists(file_name):
                 result = QMessageBox.question(None, catalog.i18nc("@title:window", "File Already Exists"),
                                               catalog.i18nc("@label Don't translate the XML tag <filename>!", "The file <filename>{0}</filename> already exists. Are you sure you want to overwrite it?").format(file_name))
-                if result == QMessageBox.No:
+                if result == QMessageBox.StandardButton.No:
                     return False
 
         profile_writer = self._findProfileWriter(extension, description)
@@ -141,20 +149,29 @@ class CuraContainerRegistry(ContainerRegistry):
             success = profile_writer.write(file_name, container_list)
         except Exception as e:
             Logger.log("e", "Failed to export profile to %s: %s", file_name, str(e))
-            m = Message(catalog.i18nc("@info:status Don't translate the XML tags <filename> or <message>!", "Failed to export profile to <filename>{0}</filename>: <message>{1}</message>", file_name, str(e)),
+            m = Message(catalog.i18nc("@info:status Don't translate the XML tags <filename> or <message>!",
+                                      "Failed to export profile to <filename>{0}</filename>: <message>{1}</message>",
+                                      file_name, str(e)),
                         lifetime = 0,
-                        title = catalog.i18nc("@info:title", "Error"))
+                        title = catalog.i18nc("@info:title", "Error"),
+                        message_type = Message.MessageType.ERROR)
             m.show()
             return False
         if not success:
             Logger.log("w", "Failed to export profile to %s: Writer plugin reported failure.", file_name)
-            m = Message(catalog.i18nc("@info:status Don't translate the XML tag <filename>!", "Failed to export profile to <filename>{0}</filename>: Writer plugin reported failure.", file_name),
+            m = Message(catalog.i18nc("@info:status Don't translate the XML tag <filename>!",
+                                      "Failed to export profile to <filename>{0}</filename>: Writer plugin reported failure.",
+                                      file_name),
                         lifetime = 0,
-                        title = catalog.i18nc("@info:title", "Error"))
+                        title = catalog.i18nc("@info:title", "Error"),
+                        message_type = Message.MessageType.ERROR)
             m.show()
             return False
-        m = Message(catalog.i18nc("@info:status Don't translate the XML tag <filename>!", "Exported profile to <filename>{0}</filename>", file_name),
-                    title = catalog.i18nc("@info:title", "Export succeeded"))
+        m = Message(catalog.i18nc("@info:status Don't translate the XML tag <filename>!",
+                                  "Exported profile to <filename>{0}</filename>",
+                                  file_name),
+                    title = catalog.i18nc("@info:title", "Export succeeded"),
+                    message_type = Message.MessageType.POSITIVE)
         m.show()
         return True
 
@@ -381,9 +398,10 @@ class CuraContainerRegistry(ContainerRegistry):
             if profile_count > 1:
                 continue
             # Only one profile found, this should not ever be the case, so that profile needs to be removed!
-            Logger.log("d", "Found an invalid quality_changes profile with the name %s. Going to remove that now", profile_name)
             invalid_quality_changes = ContainerRegistry.getInstance().findContainersMetadata(name=profile_name)
-            self.removeContainer(invalid_quality_changes[0]["id"])
+            if invalid_quality_changes:
+                Logger.log("d", "Found an invalid quality_changes profile with the name %s. Going to remove that now", profile_name)
+                self.removeContainer(invalid_quality_changes[0]["id"])
 
     @override(ContainerRegistry)
     def _isMetadataValid(self, metadata: Optional[Dict[str, Any]]) -> bool:
@@ -400,7 +418,9 @@ class CuraContainerRegistry(ContainerRegistry):
         try:
             if int(metadata["setting_version"]) != cura.CuraApplication.CuraApplication.SettingVersion:
                 return False
-        except ValueError: #Not parsable as int.
+        except ValueError:  # Not parsable as int.
+            return False
+        except TypeError:  # Expecting string input here, not e.g. list or anything.
             return False
         return True
 
@@ -440,7 +460,7 @@ class CuraContainerRegistry(ContainerRegistry):
 
         global_stack = cura.CuraApplication.CuraApplication.getInstance().getGlobalContainerStack()
         if not global_stack:
-            return False, catalog.i18nc("@info:status", "Global stack is missing.")
+            return False, catalog.i18nc("@info:status", "There is no active printer yet.")
 
         definition_id = ContainerTree.getInstance().machines[global_stack.definition.getId()].quality_definition
         profile.setDefinition(definition_id)

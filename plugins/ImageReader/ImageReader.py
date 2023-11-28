@@ -5,8 +5,8 @@ import numpy
 
 import math
 
-from PyQt5.QtGui import QImage, qRed, qGreen, qBlue, qAlpha
-from PyQt5.QtCore import Qt
+from PyQt6.QtGui import QImage, qRed, qGreen, qBlue, qAlpha
+from PyQt6.QtCore import Qt
 
 from UM.Mesh.MeshReader import MeshReader
 from UM.Mesh.MeshBuilder import MeshBuilder
@@ -52,11 +52,8 @@ class ImageReader(MeshReader):
 
     def _generateSceneNode(self, file_name, xz_size, height_from_base, base_height, blur_iterations, max_size, lighter_is_higher, use_transparency_model, transmittance_1mm):
         scene_node = SceneNode()
-
         mesh = MeshBuilder()
-
         img = QImage(file_name)
-
         if img.isNull():
             Logger.log("e", "Image is corrupt.")
             return None
@@ -66,15 +63,14 @@ class ImageReader(MeshReader):
         aspect = height / width
 
         if img.width() < 2 or img.height() < 2:
-            img = img.scaled(width, height, Qt.IgnoreAspectRatio)
+            img = img.scaled(width, height, Qt.AspectRatioMode.IgnoreAspectRatio)
 
         height_from_base = max(height_from_base, 0)
         base_height = max(base_height, 0)
-        peak_height = base_height + height_from_base
 
 
         xz_size = max(xz_size, 1)
-        scale_vector = Vector(xz_size, peak_height, xz_size)
+        scale_vector = Vector(xz_size, height_from_base, xz_size)
 
         if width > height:
             scale_vector = scale_vector.set(z=scale_vector.z * aspect)
@@ -88,15 +84,15 @@ class ImageReader(MeshReader):
 
             width = int(max(round(width * scale_factor), 2))
             height = int(max(round(height * scale_factor), 2))
-            img = img.scaled(width, height, Qt.IgnoreAspectRatio)
+            img = img.scaled(width, height, Qt.AspectRatioMode.IgnoreAspectRatio)
 
         width_minus_one = width - 1
         height_minus_one = height - 1
 
         Job.yieldThread()
 
-        texel_width = 1.0 / (width_minus_one) * scale_vector.x
-        texel_height = 1.0 / (height_minus_one) * scale_vector.z
+        texel_width = 1.0 / width_minus_one * scale_vector.x
+        texel_height = 1.0 / height_minus_one * scale_vector.z
 
         height_data = numpy.zeros((height, width), dtype = numpy.float32)
 
@@ -132,7 +128,7 @@ class ImageReader(MeshReader):
 
         if use_transparency_model:
             divisor = 1.0 / math.log(transmittance_1mm / 100.0) # log-base doesn't matter here. Precompute this value for faster computation of each pixel.
-            min_luminance = (transmittance_1mm / 100.0) ** (peak_height - base_height)
+            min_luminance = (transmittance_1mm / 100.0) ** height_from_base
             for (y, x) in numpy.ndindex(height_data.shape):
                 mapped_luminance = min_luminance + (1.0 - min_luminance) * height_data[y, x]
                 height_data[y, x] = base_height + divisor * math.log(mapped_luminance) # use same base as a couple lines above this

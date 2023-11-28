@@ -1,5 +1,5 @@
-# Copyright (c) 2020 Ultimaker B.V.
-# Cura is released under the terms of the LGPLv3 or higher.
+#  Copyright (c) 2021-2022 Ultimaker B.V.
+#  Cura is released under the terms of the LGPLv3 or higher.
 
 import numpy
 from string import Formatter
@@ -7,8 +7,8 @@ from enum import IntEnum
 import time
 from typing import Any, cast, Dict, List, Optional, Set
 import re
-import Arcus #For typing.
-from PyQt5.QtCore import QCoreApplication
+import pyArcus as Arcus  # For typing.
+from PyQt6.QtCore import QCoreApplication
 
 from UM.Job import Job
 from UM.Logger import Logger
@@ -27,7 +27,6 @@ from UM.Settings.SettingRelation import RelationType
 from cura.CuraApplication import CuraApplication
 from cura.Scene.CuraSceneNode import CuraSceneNode
 from cura.OneAtATimeIterator import OneAtATimeIterator
-from cura.Scene.DuplicatedNode import DuplicatedNode
 from cura.Settings.ExtruderManager import ExtruderManager
 
 
@@ -95,7 +94,7 @@ class StartSliceJob(Job):
         super().__init__()
 
         self._scene = CuraApplication.getInstance().getController().getScene() #type: Scene
-        self._slice_message = slice_message #type: Arcus.PythonMessage
+        self._slice_message: Arcus.PythonMessage = slice_message
         self._is_cancelled = False #type: bool
         self._build_plate_number = None #type: Optional[int]
 
@@ -124,6 +123,9 @@ class StartSliceJob(Job):
             Job.yieldThread()
 
         for changed_setting_key in changed_setting_keys:
+            if not stack.getProperty(changed_setting_key, "enabled"):
+                continue
+
             validation_state = stack.getProperty(changed_setting_key, "validationState")
 
             if validation_state is None:
@@ -196,13 +198,20 @@ class StartSliceJob(Job):
         # Remove old layer data.
         for node in DepthFirstIterator(self._scene.getRoot()):
             if node.callDecoration("getLayerData") and node.callDecoration("getBuildPlateNumber") == self._build_plate_number:
-                # Singe we walk through all nodes in the scene, they always have a parent.
+                # Since we walk through all nodes in the scene, they always have a parent.
                 cast(SceneNode, node.getParent()).removeChild(node)
                 break
 
         # Get the objects in their groups to print.
         object_groups = []
         if stack.getProperty("print_sequence", "value") == "one_at_a_time":
+            modifier_mesh_nodes = []
+
+            for node in DepthFirstIterator(self._scene.getRoot()):
+                build_plate_number = node.callDecoration("getBuildPlateNumber")
+                if node.callDecoration("isNonPrintingMesh") and build_plate_number == self._build_plate_number:
+                    modifier_mesh_nodes.append(node)
+
             for node in OneAtATimeIterator(self._scene.getRoot()):
                 temp_list = []
 
@@ -219,7 +228,7 @@ class StartSliceJob(Job):
                         temp_list.append(child_node)
 
                 if temp_list:
-                    object_groups.append(temp_list)
+                    object_groups.append(temp_list + modifier_mesh_nodes)
                 Job.yieldThread()
             if len(object_groups) == 0:
                 Logger.log("w", "No objects suitable for one at a time found, or no correct order found")
@@ -300,8 +309,7 @@ class StartSliceJob(Job):
 
             for object in group:
                 mesh_data = object.getMeshData()
-                # We only want to slice the original node
-                if mesh_data is None or isinstance(object, DuplicatedNode):
+                if mesh_data is None:
                     continue
                 rot_scale = object.getWorldTransformation().getTransposed().getData()[0:3, 0:3]
                 translate = object.getWorldTransformation().getData()[:3, 3]
@@ -355,10 +363,22 @@ class StartSliceJob(Job):
             result[key] = stack.getProperty(key, "value")
             Job.yieldThread()
 
-        result["print_bed_temperature"] = result["material_bed_temperature"] # Renamed settings.
+        # Material identification in addition to non-human-readable GUID
+        result["material_id"] = stack.material.getMetaDataEntry("base_file", "")
+        result["material_type"] = stack.material.getMetaDataEntry("material", "")
+        result["material_name"] = stack.material.getMetaDataEntry("name", "")
+        result["material_brand"] = stack.material.getMetaDataEntry("brand", "")
+
+        result["quality_name"] = stack.quality.getMetaDataEntry("name", "")
+        result["quality_changes_name"] = stack.qualityChanges.getMetaDataEntry("name")
+
+        # Renamed settings.
+        result["print_bed_temperature"] = result["material_bed_temperature"]
         result["print_temperature"] = result["material_print_temperature"]
         result["travel_speed"] = result["speed_travel"]
-        result["time"] = time.strftime("%H:%M:%S") #Some extra settings.
+
+        #Some extra settings.
+        result["time"] = time.strftime("%H:%M:%S")
         result["date"] = time.strftime("%d-%m-%Y")
         result["day"] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][int(time.strftime("%w"))]
         result["initial_extruder_nr"] = CuraApplication.getInstance().getExtruderManager().getInitialExtruderNr()
@@ -420,6 +440,11 @@ class StartSliceJob(Job):
         extruder_nr = stack.getProperty("extruder_nr", "value")
         settings["machine_extruder_start_code"] = self._expandGcodeTokens(settings["machine_extruder_start_code"], extruder_nr)
         settings["machine_extruder_end_code"] = self._expandGcodeTokens(settings["machine_extruder_end_code"], extruder_nr)
+        from UM.Application import Application
+        print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
+        if print_mode  in ("mirror", "duplication"):
+            settings["machine_extruder_start_code"] = ""
+            settings["machine_extruder_end_code"] = ""
 
         global_definition = cast(ContainerInterface, cast(ContainerStack, stack.getNextStack()).getBottom())
         own_definition = cast(ContainerInterface, stack.getBottom())
@@ -457,15 +482,19 @@ class StartSliceJob(Job):
         bed_temperature_settings = ["material_bed_temperature", "material_bed_temperature_layer_0"]
         pattern = r"\{(%s)(,\s?\w+)?\}" % "|".join(bed_temperature_settings) # match {setting} as well as {setting, extruder_nr}
         settings["material_bed_temp_prepend"] = re.search(pattern, start_gcode) == None
-        print_temperature_settings = ["material_print_temperature", "material_print_temperature_layer_0", "default_material_print_temperature", "material_initial_print_temperature", "material_final_print_temperature", "material_standby_temperature"]
+        print_temperature_settings = ["material_print_temperature", "material_print_temperature_layer_0", "default_material_print_temperature", "material_initial_print_temperature", "material_final_print_temperature", "material_standby_temperature", "print_temperature"]
         pattern = r"\{(%s)(,\s?\w+)?\}" % "|".join(print_temperature_settings) # match {setting} as well as {setting, extruder_nr}
-        settings["material_print_temp_prepend"] = re.search(pattern, start_gcode) == None
+        settings["material_print_temp_prepend"] = re.search(pattern, start_gcode) is None
 
         # Replace the setting tokens in start and end g-code.
         # Use values from the first used extruder by default so we get the expected temperatures
         initial_extruder_nr = CuraApplication.getInstance().getExtruderManager().getInitialExtruderNr()
         settings["machine_start_gcode"] = self._expandGcodeTokens(settings["machine_start_gcode"], initial_extruder_nr)
         settings["machine_end_gcode"] = self._expandGcodeTokens(settings["machine_end_gcode"], initial_extruder_nr)
+
+        # Manually add 'nozzle offsetting', since that is a metadata-entry instead for some reason.
+        # NOTE: This probably needs to be an actual setting at some point.
+        settings["nozzle_offsetting_for_disallowed_areas"] = CuraApplication.getInstance().getGlobalContainerStack().getMetaDataEntry("nozzle_offsetting_for_disallowed_areas", True)
 
         # Add all sub-messages for each individual setting.
         for key, value in settings.items():

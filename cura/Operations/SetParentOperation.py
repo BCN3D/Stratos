@@ -4,8 +4,6 @@ from typing import Optional
 
 from UM.Scene.SceneNode import SceneNode
 from UM.Operations import Operation
-from cura.Scene.DuplicatedNode import DuplicatedNode
-from cura.PrintModeManager import PrintModeManager
 from UM.Application import Application
 
 class SetParentOperation(Operation.Operation):
@@ -22,55 +20,21 @@ class SetParentOperation(Operation.Operation):
         self._node = node
         self._parent = parent_node
         self._old_parent = node.getParent() # To restore the previous parent in case of an undo.
-        self._scene_root = Application.getInstance().getController().getScene().getRoot()
-        self._print_mode_enabled = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "enabled")
-        self._is_duplicated_node = type(node) == DuplicatedNode
 
     def undo(self) -> None:
         """Undoes the set-parent operation, restoring the old parent."""
-        if self._print_mode_enabled and self._is_duplicated_node:
-            self._fixAndSetParent(self._old_parent)
-            if type(self._parent) == DuplicatedNode:
-                if self._parent in PrintModeManager.getInstance().getDuplicatedNodes():
-                    PrintModeManager.getInstance().deleteDuplicatedNode(self._parent, False)
-            elif type(self._old_parent) == DuplicatedNode:
-                if self._old_parent not in PrintModeManager.getInstance().getDuplicatedNodes():
-                    PrintModeManager.getInstance().addDuplicatedNode(self._old_parent)
 
-        else:
-            self._set_parent(self._old_parent)
+        #BCN3D IDEX INCLUSION
+        from cura.Utils.BCN3Dutils.Bcn3dIdexSupport import setParentOperationUndo
+        setParentOperationUndo(self._set_parent, self._parent, self._old_parent, self._node, Application.getInstance().getController().getScene().getRoot())
+        #self._set_parent(self._old_parent)
 
-    # def redo(self, parent) -> None:
-    #     """Re-applies the set-parent operation."""
-    #     print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
-    #     if print_mode == "dual" or "singleT1" or "singleT0" and parent == self._scene_root:
-    #         self._set_parent(None)
-    #     elif print_mode != "dual" or "singleT1" or "singleT0" and parent is None:
-    #         self._set_parent(self._scene_root)
-    #     else:
-    #         self._set_parent(parent)
-    ##  Re-applies the set-parent operation.
-    def redo(self):
-        if self._print_mode_enabled and self._is_duplicated_node:
-            self._fixAndSetParent(self._parent)
-            if type(self._parent) == DuplicatedNode:
-                if self._parent not in PrintModeManager.getInstance().getDuplicatedNodes():
-                    PrintModeManager.getInstance().addDuplicatedNode(self._parent)
-            elif type(self._old_parent) == DuplicatedNode:
-                if self._old_parent in PrintModeManager.getInstance().getDuplicatedNodes():
-                    PrintModeManager.getInstance().deleteDuplicatedNode(self._old_parent, False)
-
-        else:
-            self._set_parent(self._parent)
-
-    def _fixAndSetParent(self, parent):
-        print_mode = Application.getInstance().getGlobalContainerStack().getProperty("print_mode", "value")
-        if print_mode in ["dual", "singleT0", "singleT1"] and parent == self._scene_root:
-            self._set_parent(None)
-        elif print_mode not in ["singleT0", "singleT1", "dual"] and parent is None:
-            self._set_parent(self._scene_root)
-        else:
-            self._set_parent(parent)
+    def redo(self) -> None:
+        """Re-applies the set-parent operation."""
+        #BCN3D IDEX INCLUSION
+        from cura.Utils.BCN3Dutils.Bcn3dIdexSupport import setParentOperationRedo
+        setParentOperationRedo(self._set_parent, self._parent, self._old_parent, self._node, Application.getInstance().getController().getScene().getRoot())
+        #self._set_parent(self._parent)
 
     def _set_parent(self, new_parent: Optional[SceneNode]) -> None:
         """Sets the parent of the node while applying transformations to the world-transform of the node stays the same.

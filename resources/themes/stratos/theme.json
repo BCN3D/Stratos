@@ -1,150 +1,236 @@
 {
     "metadata": {
         "name": "Stratos"
-
     },
+
     "fonts": {
         "large": {
             "size": 1.35,
-            "weight": 40,
+            "weight": 400,
             "family": "Montserrat"
         },
         "large_ja_JP": {
             "size": 1.35,
-            "weight": 50,
+            "weight": 400,
             "family": "Montserrat"
         },
         "large_zh_CN": {
             "size": 1.35,
-            "weight": 50,
+            "weight": 400,
             "family": "Montserrat"
         },
         "large_zh_TW": {
             "size": 1.35,
-            "weight": 50,
+            "weight": 400,
             "family": "Montserrat"
         },
         "large_bold": {
             "size": 1.35,
-            "weight": 63,
+            "weight": 600,
             "family": "Montserrat"
         },
         "huge": {
             "size": 1.8,
-            "weight": 50,
+            "weight": 400,
+            "family": "Montserrat"
+        },
+        "huge_bold": {
+            "size": 1.8,
+            "weight": 600,
             "family": "Montserrat"
         },
         "medium": {
             "size": 1.16,
-            "weight": 40,
+            "weight": 400,
             "family": "Montserrat"
         },
         "medium_ja_JP": {
             "size": 1.16,
-            "weight": 50,
+            "weight": 400,
             "family": "Montserrat"
         },
         "medium_zh_CN": {
             "size": 1.16,
-            "weight": 50,
+            "weight": 400,
             "family": "Montserrat"
         },
         "medium_zh_TW": {
             "size": 1.16,
-            "weight": 50,
+            "weight": 400,
             "family": "Montserrat"
         },
         "medium_bold": {
             "size": 1.16,
-            "weight": 63,
+            "weight": 600,
             "family": "Montserrat"
         },
         "default": {
             "size": 0.95,
-            "weight": 40,
+            "weight": 400,
             "family": "Montserrat"
         },
         "default_ja_JP": {
             "size": 1.0,
-            "weight": 50,
+            "weight": 400,
             "family": "Montserrat"
         },
         "default_zh_CN": {
             "size": 1.0,
-            "weight": 50,
+            "weight": 400,
             "family": "Montserrat"
         },
         "default_zh_TW": {
             "size": 1.0,
-            "weight": 50,
+            "weight": 400,
             "family": "Montserrat"
         },
         "default_bold": {
             "size": 0.95,
-            "weight": 63,
+            "weight": 600,
             "family": "Montserrat"
         },
         "default_bold_ja_JP": {
             "size": 1.0,
-            "weight": 63,
+            "weight": 600,
             "family": "Montserrat"
         },
         "default_bold_zh_CN": {
             "size": 1.0,
-            "weight": 63,
+            "weight": 600,
             "family": "Montserrat"
         },
         "default_bold_zh_TW": {
             "size": 1.0,
-            "weight": 63,
+            "weight": 600,
             "family": "Montserrat"
         },
         "default_italic": {
             "size": 0.95,
-            "weight": 40,
+            "weight": 400,
             "italic": true,
             "family": "Montserrat"
         },
         "default_italic_ja_JP": {
             "size": 1.0,
-            "weight": 50,
+            "weight": 400,
             "italic": true,
             "family": "Montserrat"
         },
         "default_italic_zh_CN": {
             "size": 1.0,
-            "weight": 50,
+            "weight": 400,
             "italic": true,
             "family": "Montserrat"
         },
         "default_italic_zh_TW": {
             "size": 1.0,
-            "weight": 50,
+            "weight": 400,
             "italic": true,
             "family": "Montserrat"
         },
         "small": {
-            "size": 0.7,
-            "weight": 40,
+            "size": 0.9,
+            "weight": 400,
+            "family": "Montserrat"
+        },
+        "small_bold": {
+            "size": 0.9,
+            "weight": 700,
             "family": "Montserrat"
         },
         "small_ja_JP": {
-            "size": 0.7,
-            "weight": 50,
+            "size": 0.9,
+            "weight": 400,
             "family": "Montserrat"
         },
         "small_zh_CN": {
-            "size": 0.7,
-            "weight": 50,
+            "size": 0.9,
+            "weight": 400,
             "family": "Montserrat"
         },
         "small_zh_TW": {
+            "size": 0.9,
+            "weight": 400,
+            "family": "Montserrat"
+        },
+        "small_emphasis": {
+            "size": 0.9,
+            "weight": 700,
+            "family": "Montserrat"
+        },
+        "small_emphasis_ja_JP": {
+            "size": 0.9,
+            "weight": 700,
+            "family": "Montserrat"
+        },
+        "small_emphasis_zh_CN": {
+            "size": 0.9,
+            "weight": 700,
+            "family": "Montserrat"
+        },
+        "small_emphasis_zh_TW": {
+            "size": 0.9,
+            "weight": 700,
+            "family": "Montserrat"
+        },
+        "tiny_emphasis": {
             "size": 0.7,
-            "weight": 50,
+            "weight": 700,
+            "family": "Montserrat"
+        },
+        "tiny_emphasis_ja_JP": {
+            "size": 0.7,
+            "weight": 700,
+            "family": "Montserrat"
+        },
+        "tiny_emphasis_zh_CN": {
+            "size": 0.7,
+            "weight": 700,
+            "family": "Montserrat"
+        },
+        "tiny_emphasis_zh_TW": {
+            "size": 0.7,
+            "weight": 700,
             "family": "Montserrat"
         }
     },
+
+    "base_colors": {
+        "background_1": [31, 31, 32, 255],
+        "background_2": [57, 57, 58, 255],
+        "background_3": [85, 85, 87, 255],
+        "background_4": [23, 23, 23, 255],
+
+        "accent_1": [25, 110, 240, 255],
+        "accent_2": [16, 70, 156, 255],
+        "border_main": [118, 118, 119, 255],
+        "border_accent_1": [255, 255, 255, 255],
+        "border_accent_2": [243, 243, 243, 255],
+        "border_field": [57, 57, 58, 255],
+
+        "text_default": [255, 255, 255, 255],
+        "text_disabled": [118, 118, 118, 255],
+        "text_primary_button": [255, 255, 255, 255],
+        "text_secondary_button": [255, 255, 255, 255],
+        "text_link_hover": [156, 195, 255, 255],
+        "text_lighter": [243, 243, 243, 255],
+
+        "um_green_1": [233, 245, 237, 255],
+        "um_green_5": [36, 162, 73, 255],
+        "um_green_9": [31, 44, 36, 255],
+        "um_red_1": [251, 232, 233, 255],
+        "um_red_5": [218, 30, 40, 255],
+        "um_red_9": [59, 31, 33, 255],
+        "um_orange_1": [255, 235, 221, 255],
+        "um_orange_5": [252, 123, 30, 255],
+        "um_orange_9": [64, 45, 32, 255],
+        "um_yellow_1": [255, 248, 225, 255],
+        "um_yellow_5": [253, 209, 58, 255],
+        "um_yellow_9": [64, 58, 36, 255]
+    },
+
     "colors": {
+
         "main_background": [39, 44, 48, 255],
         "message_background": [39, 44, 48, 255],
         "wide_lining": [31, 36, 39, 255],
@@ -370,9 +456,6 @@
         "monitor_carousel_dot": [119, 119, 119, 255],
         "monitor_carousel_dot_current": [216, 216, 216, 255],
 
-
-
-
         "account_widget_outline_active": [70, 66, 126, 255],
 
         "machine_selector_hover": [68, 72, 75, 255],
@@ -394,8 +477,6 @@
 
 
         "warning": [245, 166, 35, 255],
-
-
 
 
         "button_text_hover": [255, 255, 255, 255],
@@ -505,48 +586,106 @@
         "monitor_image_overlay": [0, 0, 0, 255],
 
 
-        "cloud_unavailable": [153, 153, 153, 255]
+        "cloud_unavailable": [153, 153, 153, 255],
+
+        "text_selection": [156, 195, 255, 127],
+        "border_field": [180, 180, 180, 255],
+
+        "text_disabled": [180, 180, 180, 255],
+
+        "success": [36, 162, 73, 255],
+
+        "extruder_disabled": [255, 255, 255, 102],
+
+        "checkbox_border_disabled": "text_disabled",
+        "checkbox_mark_disabled": "text_disabled",
+        "checkbox_square": [180, 180, 180, 255],
+        "checkbox_text_disabled": "text_disabled",
+
+        "switch": "background_1",
+        "switch_state_checked": "accent_1",
+        "switch_state_unchecked": "text_disabled",
+
+        "radio": "background_1",
+        "radio_disabled": "background_2",
+        "radio_selected": "accent_1",
+        "radio_selected_disabled": "text_disabled",
+        "radio_border": [180, 180, 180, 255],
+        "radio_border_hover": "border_main",
+        "radio_border_disabled": "text_disabled",
+        "radio_dot": "background_1",
+        "radio_dot_disabled": "background_2",
+        "radio_text": "text_default",
+        "radio_text_disabled": "text_disabled",
+
+        "text_field": "background_1",
+        "text_field_border": [180, 180, 180, 255],
+        "text_field_border_hovered": "border_main",
+        "text_field_border_active": "border_accent_2",
+        "text_field_border_disabled": "background_2",
+        "text_field_text": "text_default",
+        "text_field_text_disabled": "text_disabled",
+
+        "message_success_icon": [255, 255, 255, 255],
+        "message_warning_icon": [0, 0, 0, 255],
+        "message_error_icon": [255, 255, 255, 255],
+
+    
+        "layerview_starts": [255, 255, 255, 255],
 
 
+
+        "connection_badge_background": [255, 255, 255, 255],
+        "warning_badge_background": [0, 0, 0, 255],
+        "error_badge_background": [255, 255, 255, 255],
+
+        "border_field_light": [180, 180, 180, 255],
+        "border_main_light": [212, 212, 212, 255],
+
+        "detail_background": "background_2",
+
+        "expandable_active": "background_2",
+        "expandable_hover": "background_2",
+
+        "category_background": "background_3"
 
     },
-     "sizes": {
+
+    "sizes": {
         "window_minimum_size": [80, 48],
-        "large_popup_dialog": [48, 40],
         "popup_dialog": [40, 36],
         "small_popup_dialog": [36, 12],
 
         "main_window_header": [0.0, 4.0],
-        "main_window_header_button": [8, 2.35],
-        "main_window_header_button_icon": [1.2, 1.2],
 
         "stage_menu": [0.0, 4.0],
 
         "account_button": [12, 2.5],
 
         "print_setup_widget": [38.0, 30.0],
-        "print_setup_mode_toggle": [0.0, 2.0],
         "print_setup_extruder_box": [0.0, 6.0],
-        "print_setup_slider_groove": [0.16, 0.16],
-        "print_setup_slider_handle": [1.0, 1.0],
-        "print_setup_slider_tickmarks": [0.32, 0.32],
+        "slider_widget_groove": [0.16, 0.16],
+        "slider_widget_handle": [1.3, 1.3],
+        "slider_widget_tickmarks": [0.5, 0.5],
         "print_setup_big_item": [28, 2.5],
         "print_setup_icon": [1.2, 1.2],
         "drag_icon": [1.416, 0.25],
 
+        "application_switcher_item": [8, 9],
+        "application_switcher_icon": [3.75, 3.75],
+
         "expandable_component_content_header": [0.0, 3.0],
 
         "configuration_selector": [35.0, 4.0],
-        "configuration_selector_mode_tabs": [1.0, 3.0],
 
         "action_panel_widget": [26.0, 0.0],
         "action_panel_information_widget": [20.0, 0.0],
 
         "machine_selector_widget": [20.0, 4.0],
         "machine_selector_widget_content": [25.0, 32.0],
-        "machine_selector_icon": [2.66, 2.66],
+        "machine_selector_icon": [2.5, 2.5],
 
-        "views_selector": [23.0, 4.0],
+        "views_selector": [16.0, 4.0],
 
         "printer_type_label": [3.5, 1.5],
 
@@ -557,7 +696,7 @@
         "default_lining": [0.08, 0.08],
 
         "default_arrow": [0.8, 0.8],
-        "logo": [16, 3.5],
+        "logo": [16, 2],
 
         "wide_margin": [2.0, 2.0],
         "thick_margin": [1.71, 1.43],
@@ -565,55 +704,58 @@
         "thin_margin": [0.71, 0.71],
         "narrow_margin": [0.5, 0.5],
 
-        "extruder_icon": [2.33, 2.33],
+        "extruder_icon": [2.5, 2.5],
 
         "section": [0.0, 2],
+        "section_header": [0.0, 2.5],
+
         "section_control": [0, 1],
-        "section_icon": [1.6, 1.6],
-        "section_icon_column": [2.8, 0.0],
-        "rating_star": [1.0, 1.0],
+        "section_icon": [1.5, 1.5],
+        "section_icon_column": [2.5, 2.5],
 
         "setting": [25.0, 1.8],
         "setting_control": [11.0, 2.0],
         "setting_control_radius": [0.15, 0.15],
         "setting_control_depth_margin": [1.4, 0.0],
-        "setting_preferences_button_margin": [4, 0.0],
-        "setting_control_margin": [0.0, 0.0],
         "setting_unit_margin": [0.5, 0.5],
-        "setting_text_maxwidth": [40.0, 0.0],
 
         "standard_list_lineheight": [1.5, 1.5],
         "standard_arrow": [1.0, 1.0],
 
+        "card": [25.0, 10],
+        "card_icon": [6.0, 6.0],
+        "card_tiny_icon": [1.5, 1.5],
+
         "button": [4, 4],
         "button_icon": [2.5, 2.5],
-        "button_lining": [0, 0],
 
         "action_button": [15.0, 2.5],
-        "action_button_icon": [1.0, 1.0],
+        "action_button_icon": [1.5, 1.5],
+        "action_button_icon_small": [1.0, 1.0],
         "action_button_radius": [0.15, 0.15],
-        "dialog_primary_button_padding": [3.0, 0],
 
         "radio_button": [1.3, 1.3],
 
         "small_button": [2, 2],
         "small_button_icon": [1.5, 1.5],
 
-        "favorites_row": [2, 2],
-        "favorites_button": [2, 2],
-        "favorites_button_icon": [1.2, 1.2],
+        "medium_button": [2.5, 2.5],
+        "medium_button_icon": [2, 2],
+
+        "large_button": [3.0, 3.0],
+        "large_button_icon": [2.8, 2.8],
+
+        "context_menu": [20, 2],
+
+        "icon_indicator": [1, 1],
 
         "printer_status_icon": [1.0, 1.0],
-        "printer_sync_icon": [1.2, 1.2],
 
         "button_tooltip": [1.0, 1.3],
         "button_tooltip_arrow": [0.25, 0.25],
 
-        "tool_button_border": [1.0, 0],
-
         "progressbar": [26.0, 0.75],
         "progressbar_radius": [0.15, 0.15],
-        "progressbar_control": [8.0, 0.75],
 
         "scrollbar": [0.75, 0.5],
 
@@ -627,77 +769,66 @@
         "layerview_row": [11.0, 1.5],
         "layerview_row_spacing": [0.0, 0.5],
 
-        "checkbox": [1.5, 1.5],
-        "checkbox_radius": [0.08, 0.08],
+        "checkbox": [1.33, 1.33],
+        "checkbox_mark": [1, 1],
+        "checkbox_radius": [0.25, 0.25],
+
+        "spinbox": [6.0, 3.0],
+        "combobox": [14, 2],
+        "combobox_wide": [22, 2],
 
         "tooltip": [20.0, 10.0],
         "tooltip_margins": [1.0, 1.0],
         "tooltip_arrow_margins": [2.0, 2.0],
 
-        "save_button_text_margin": [0.3, 0.6],
         "save_button_save_to_button": [0.3, 2.7],
         "save_button_specs_icons": [1.4, 1.4],
 
-        "job_specs_button": [2.7, 2.7],
         "first_run_shadow_radius": [1.2, 1.2],
 
         "monitor_preheat_temperature_control": [4.5, 2.0],
 
-        "welcome_wizard_window": [46.0, 45],
+        "welcome_wizard_window": [46, 50],
         "modal_window_minimum": [60.0, 45],
-        "license_window_minimum": [45, 45],
         "wizard_progress": [10.0, 0.0],
 
         "message": [30.0, 5.0],
         "message_close": [1, 1],
         "message_radius": [0.25, 0.25],
-        "message_action_button": [0, 2.0],
-        "message_image": [15.0, 5.0],
-
-        "infill_button_margin": [0.5, 0.5],
+        "message_action_button": [0, 2.5],
+        "message_image": [15.0, 10.0],
+        "message_type_icon": [2, 2],
+        "menu": [18, 2],
 
         "jobspecs_line": [2.0, 2.0],
 
         "objects_menu_size": [15, 15],
-        "objects_menu_size_collapsed": [20, 17],
-        "build_plate_selection_size": [15, 5],
-        "objects_menu_button": [0.3, 2.7],
-
-        "toolbox_thumbnail_small": [6.0, 6.0],
-        "toolbox_thumbnail_medium": [8.0, 8.0],
-        "toolbox_thumbnail_large": [12.0, 10.0],
-        "toolbox_footer": [1.0, 4.5],
-        "toolbox_footer_button": [8.0, 2.5],
-        "toolbox_header_tab": [12.0, 4.0],
-        "toolbox_detail_header": [1.0, 14.0],
-        "toolbox_back_column": [6.0, 1.0],
-        "toolbox_back_button": [6.0, 2.0],
-        "toolbox_installed_tile": [1.0, 8.0],
-        "toolbox_property_label": [1.0, 2.0],
-        "toolbox_heading_label": [1.0, 3.8],
-        "toolbox_header": [1.0, 4.0],
-        "toolbox_header_highlight": [0.25, 0.25],
-        "toolbox_chart_row": [1.0, 2.0],
-        "toolbox_action_button": [8.0, 2.5],
-        "toolbox_loader": [2.0, 2.0],
 
         "notification_icon": [1.5, 1.5],
 
         "avatar_image": [6.8, 6.8],
 
-        "monitor_config_override_box": [1.0, 14.0],
-        "monitor_extruder_circle": [2.75, 2.75],
-        "monitor_text_line": [1.5, 1.5],
-        "monitor_text_line_large": [2.33, 2.33],
-        "monitor_thick_lining": [0.16, 0.16],
-        "monitor_corner_radius": [0.3, 0.3],
         "monitor_shadow_radius": [0.4, 0.4],
-        "monitor_shadow_offset": [0.15, 0.15],
         "monitor_empty_state_offset": [5.6, 5.6],
         "monitor_empty_state_size": [35.0, 25.0],
-        "monitor_external_link_icon": [1.16, 1.16],
         "monitor_column": [18.0, 1.0],
         "monitor_progress_bar": [16.5, 1.0],
-        "monitor_margin": [1.5, 1.5]
+
+        "table_row": [2.0, 2.0],
+
+        "welcome_wizard_content_image_big": [18, 15],
+        "welcome_wizard_cloud_content_image": [4, 4],
+
+        "banner_icon_size": [2.0, 2.0],
+
+        "marketplace_large_icon": [4.0, 4.0],
+
+        "preferences_page_list_item": [8.0, 2.0],
+
+        "recommended_button_icon": [1.7, 1.7],
+
+        "recommended_section_setting_item": [14.0, 2.0],
+
+        "reset_profile_icon": [1, 1]
     }
 }
