@@ -304,7 +304,7 @@ class PauseAtHeight(Script):
 
         pause_method = self.getSettingValueByKey("pause_method")
         pause_command = {
-            "marlin": self.putValue(M = 0),
+            "marlin": self.putValue(M = 76),
             "griffin": self.putValue(M = 0),
             "bq": self.putValue(M = 25),
             "reprap": self.putValue(M = 226),

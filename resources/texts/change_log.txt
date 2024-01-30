@@ -1,3 +1,22 @@
+[2.0.1]
+
+- Printing profile adjustments
+- Added links for OFN Materials
+
+* Bug fixes:
+- Fixed a problem while printing in dual mode
+- Pause at layer now works properly
+- Fixed some names and translations
+- Internal bug fixing
+
+* Added profile compatibility for some MatX materials (Epsilon Series): 
+- MatX AMBX PLA
+
+* Added profile compatibility for some Smart Materials materials (Epsilon Series): 
+- Smart Materials ABS
+- Smart Materials ASA
+
+
 [2.0.0]
 
 * BCN3D Stratos 2.0.0 is based on Ultimaker Cura 5.4 with all Stratos improvements

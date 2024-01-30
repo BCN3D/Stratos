@@ -11,6 +11,7 @@
     <GUID>dbb5e77e-2ab1-453e-8ea8-1dc05ae82e72</GUID>
     <adhesion_info>Ultrafuse TPU can be printed directly onto a clean build plate. For challenging prints, use 3dLac to improve adhesion.</adhesion_info>
     <color_code>#FFFFFF</color_code>
+    <instruction_link>https://www.bcn3d.com/open-filament-network/?fwp_third_party_suppliers=basf</instruction_link>
     <description>Ultrafuse® TPU 85A comes in its natural white color. Good flexibility at low temperatures, good wear performance and good damping behavior are the key features of Ultrafuse® TPU 85A.</description>
   </metadata>
   <properties>

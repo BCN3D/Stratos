@@ -2,20 +2,26 @@
 <fdmmaterial xmlns="http://www.ultimaker.com/material" xmlns:cura="http://www.ultimaker.com/cura" version="1.3">
   <metadata>
     <name>
-      <brand>Matterhackers</brand>
-      <material>Matterhackers PET-G</material>
-      <color>Blue</color>
-      <label>Blue PETG - PRO SERIES</label>
+      <brand>MatX</brand>
+      <material>AMBX PLA</material>
+      <color>Ultra Marine Blue</color>
+      <label>AMBX PLA</label>
     </name>
     <version>1</version>
-    <GUID>2cac7651-a96b-4c27-b944-7133174f81b0</GUID>
-    <color_code>#0055ff</color_code>
-    <instruction_link>https://www.bcn3d.com/open-filament-network/?fwp_third_party_suppliers=matterhackers</instruction_link> 
+    <GUID>db6306b2-e4f0-4de1-8dc8-0869a33f7038</GUID>
+    <color_code>#0000ff</color_code>
+    <instructions>http://bcn3dtechnologies.com/en/3d-printer-filaments</instructions>
+    <instruction_link>https://www.bcn3d.com/open-filament-network/</instruction_link> 
     <author>
             </author>
     <supplier>
             </supplier>
-    <description />
+    <description>3D printing with antimicrobial filament presents
+numerous benefits. It enables the creation of 3Dprinted items for applications like food
+production, medical devices, and waterrelated
+objects, where bacteria, molds, and even
+algae can easily proliferate. MatX has effectively
+passed numerous tests, including ISO22196, which has established that objects produced with AMBX are over 99.99% more hygienic compared to standard PLA prints.</description>
     <adhesion_info />
   </metadata>
   <properties>
@@ -56,5 +62,5 @@
           <hotend id="0.8mm" />
           <hotend id="1.0mm" />
       </machine>
-    </settings>
+  </settings>
 </fdmmaterial>
