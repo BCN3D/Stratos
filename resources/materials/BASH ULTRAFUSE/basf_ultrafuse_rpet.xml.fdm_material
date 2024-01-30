@@ -11,6 +11,7 @@
     <GUID>9421ec49-fde2-4a0e-a1a5-411a5ebae6af</GUID>
     <adhesion_info>Apply Tape, adhesion spray or glue to a clean build plate to improve adhesion.</adhesion_info>
     <color_code>#FFFFFF</color_code>
+    <instruction_link>https://www.bcn3d.com/open-filament-network/?fwp_third_party_suppliers=basf</instruction_link>
     <description>PET is mainly known by the well-known PET bottle material. This recycled has a natural transparent blueish look. It has excellent 3D printing properties and good mechanical characteristics.</description>
   </metadata>
   <properties>

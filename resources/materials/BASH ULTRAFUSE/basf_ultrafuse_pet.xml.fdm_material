@@ -11,6 +11,7 @@
     <GUID>ae9c8726-ce5b-4dec-bfc3-ed2c7d8fd584</GUID>
     <adhesion_info>Ultrafuse PET can be printed directly onto a clean build plate. For challenging prints, use 3dLac to improve adhesion.</adhesion_info>
     <color_code>#FFFFFF</color_code>
+    <instruction_link>https://www.bcn3d.com/open-filament-network/?fwp_third_party_suppliers=basf</instruction_link>
     <description>Ultrafuse PET is made from a premium PET and prints as easy as PLA, but is much stronger. The filament has a large operating window for printing (temperature vs. speed), so it can be used on every 3D-printer. PET will give you outstanding printing results: a good layer adhesion, a high resolution and it is easy to handle. Ultrafuse PET can be 100% recycled, is watertight and has great colors and finish.</description>
   </metadata>
   <properties>
