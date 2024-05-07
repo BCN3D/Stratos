@@ -6,6 +6,7 @@ import QtQuick.Controls 2.3
 
 import UM 1.3 as UM
 import Cura 1.0 as Cura
+import Cura 1.6 as Curap
 
 import "Recommended"
 import "Custom"
@@ -44,7 +45,16 @@ Item
     onCurrentModeIndexChanged: UM.Preferences.setValue("cura/active_mode", currentModeIndex)
     
     property var machineSet: Cura.MachineManager.activeMachine
-    onMachineSetChanged : currentModeIndex = 0
+    property var profile: Curap.APIManager.profile
+
+    onMachineSetChanged : 
+    {        
+        var takeOutCustom = profile && profile["advanced_user"] ? false : true
+        if(takeOutCustom && Cura.MachineManager.activeMachine.definition.name == "Omega I60")
+        {
+            currentModeIndex = 0
+        }
+    }
 
     Item
     {

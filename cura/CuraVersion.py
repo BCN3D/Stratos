@@ -3,12 +3,12 @@
 
 CuraAppName = "BCN3D Stratos"
 CuraAppDisplayName = "BCN3D Stratos"
-CuraVersion = "2.0.1"
+CuraVersion = "2.1.0"
 CuraBuildType = ""
 CuraDebugMode = False
-CuraCloudAPIRoot = "https://api.ultimaker.com"
+CuraCloudAPIRoot = ""
 CuraCloudAPIVersion = "1"
-CuraCloudAccountAPIRoot = "https://account.ultimaker.com"
-CuraMarketplaceRoot = "https://marketplace.ultimaker.com"
-CuraDigitalFactoryURL = "https://digitalfactory.ultimaker.com"
-CuraLatestURL = "https://software.ultimaker.com/latest.json"
+CuraCloudAccountAPIRoot = ""
+CuraMarketplaceRoot = ""
+CuraDigitalFactoryURL = ""
+CuraLatestURL = ""

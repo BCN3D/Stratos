@@ -345,6 +345,25 @@
                 }
             }
         },
+        "infill":
+        {
+            "children":
+            {
+                "original_infill_sparse_density":
+                {
+                    "default_value": 20,
+                    "description": "Adjusts the density of infill of the print.",
+                    "enabled": false,
+                    "label": "Original Infill Density",
+                    "limit_to_extruder": "infill_extruder_nr",
+                    "maximum_value_warning": "100",
+                    "minimum_value": "0",
+                    "settable_per_mesh": false,
+                    "type": "float",
+                    "unit": "%"
+                }
+            }
+        },
         "machine_settings":
         {
             "children":

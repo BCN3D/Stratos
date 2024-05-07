@@ -3,6 +3,7 @@
 
 import QtQuick 2.10
 import QtQuick.Controls 2.3
+import QtQuick.Layouts 2.3
 
 import UM 1.5 as UM
 import Cura 1.1 as Cura
@@ -17,14 +18,24 @@ Item
 
     property var goToUltimakerPrinter
 
+    ColumnLayout
+    {
+        anchors.top: parent.top
+        //anchors.topMargin: UM.Theme.getSize("wide_margin").height
+        anchors.bottom: backButton.top
+        anchors.bottomMargin: UM.Theme.getSize("default_margin").height
+        anchors.left: parent.left
+        anchors.right: parent.right
+
+        spacing: UM.Theme.getSize("default_margin").height
+
     DropDownWidget
     {
         id: addNetworkPrinterDropDown
 
-        anchors.top: titleLabel.bottom
+        anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.topMargin: UM.Theme.getSize("wide_margin").height
 
         title: catalog.i18nc("@label", "Add a networked printer")
         contentShown: true  // by default expand the network printer list
@@ -68,35 +79,32 @@ Item
         }
     }
 
-    DropDownWidget
-    {
-        id: addLocalPrinterDropDown
-
-        anchors.top: addNetworkPrinterDropDown.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.topMargin: UM.Theme.getSize("default_margin").height
-
-        title: catalog.i18nc("@label", "Add a non-networked printer")
-
-        onClicked:
+        DropDownWidget
         {
-            addNetworkPrinterDropDown.contentShown = !contentShown
-        }
+            id: addLocalPrinterDropDown
 
-        contentComponent: localPrinterListComponent
-        Component
-        {
-            id: localPrinterListComponent
-            AddLocalPrinterScrollView
+            Layout.fillWidth: true
+            Layout.fillHeight: contentShown
+
+            title: catalog.i18nc("@label", "Add a non-networked printer")
+
+            onClicked:
             {
-                id: localPrinterView
-                height: backButton.y - addLocalPrinterDropDown.y - UM.Theme.getSize("expandable_component_content_header").height - UM.Theme.getSize("default_margin").height
+                addNetworkPrinterDropDown.contentShown = !contentShown
+            }
+
+            contentComponent: localPrinterListComponent
+            Component
+            {
+                id: localPrinterListComponent
+                AddLocalPrinterScrollView
+                {
+                    id: localPrinterView
+                }
             }
         }
     }
 
-    // This "Back" button only shows in the "Add Machine" dialog, which has "previous_page_button_text" set to "Cancel"
     Cura.SecondaryButton
     {
         id: backButton

@@ -1,3 +1,18 @@
+[2.1.0]
+
+* BCN3D Stratos 2.1.0 is based on Ultimaker Cura 5.7 with all Stratos improvements
+- Improved general performance since Cura 5.4
+
+* Improved Omega I60 definition
+
+* Adjusted printing profile for:
+- Omega Tooling CF Standard
+- Omega Resistant Nylon
+
+* Bug fixes:
+- Fixed a problem that made switching from custom to recommended when change printer profile
+- Internal bug fixing
+
 [2.0.1]
 
 - Printing profile adjustments

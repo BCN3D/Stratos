@@ -1,4 +1,4 @@
-// Copyright (c) 2022 UltiMaker
+// Copyright (c) 2023 UltiMaker
 //Cura is released under the terms of the LGPLv3 or higher.
 
 import QtQuick 2.10
@@ -9,15 +9,16 @@ import UM 1.6 as UM
 import Cura 1.6 as Cura
 import ".."
 
-ScrollView
+Flickable
 {
     id: recommendedOmegaPrintSetup
+    clip: true
 
-    implicitHeight: settingsColumn.height + 2 * padding
+    contentHeight: settingsColumn.height
+    implicitHeight: settingsColumn.height
 
     property bool settingsEnabled: Cura.ExtruderManager.activeExtruderStackId || extrudersEnabledCount.properties.value == 1
 
-    padding: UM.Theme.getSize("default_margin").width
     property var profile: Cura.APIManager.profile
 
     function onModeChanged() {}
@@ -32,12 +33,15 @@ ScrollView
         }
     }
 
+    boundsBehavior: Flickable.StopAtBounds
+
     Column
     {
         id: settingsColumn
+        padding: UM.Theme.getSize("default_margin").width
         spacing: UM.Theme.getSize("default_margin").height
 
-        width: recommendedPrintSetup.width - 2 * recommendedPrintSetup.padding - (scroll.visible ? scroll.width : 0)
+        width: recommendedPrintSetup.width - 2 * padding - UM.Theme.getSize("thin_margin").width
 
         // TODO
         property real firstColumnWidth: Math.round(width / 3)
@@ -69,11 +73,10 @@ ScrollView
 
         Item { height: UM.Theme.getSize("default_margin").height } // Spacer
 
-
         ProfileWarningReset
         {
             width: parent.width
-            visible: (Cura.MachineManager.hasUserSettings || (fullWarning && Cura.MachineManager.hasCustomQuality)) && (Cura.MachineManager.activeMachine.definition.name != "Omega I60" || profile && profile["advanced_user"]) ? true : false
+            visible: (Cura.MachineManager.activeMachine.definition.name != "Omega I60" || profile && profile["advanced_user"]) ? true : false
         }
 
         Item { height: UM.Theme.getSize("thin_margin").height  + UM.Theme.getSize("narrow_margin").height} // Spacer
@@ -101,22 +104,18 @@ ScrollView
                 width: parent.width
                 UM.Label
                 {
-                    anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     text: catalog.i18nc("@label", "Recommended print settings")
                     font: UM.Theme.getFont("medium")
                 }
 
-
                 Cura.SecondaryButton
                 {
                     id: customSettingsButton
-                    anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.right
                     text: catalog.i18nc("@button", "Show Custom")
                     visible : profile && profile["advanced_user"] ? true : false
                     textFont: UM.Theme.getFont("medium_bold")
-                    outlineColor: "transparent"
                     onClicked: onModeChanged()
                 }
             }
@@ -141,19 +140,17 @@ ScrollView
             RecommendedSupportSelector
             {
                 width: parent.width
-                visible : profile && profile["advanced_user"] ? true : false
-            }
-
-            RecommendedOmegaSupportSelector
-            {
-                width: parent.width
-                visible : profile && profile["advanced_user"] ? false : true
             }
 
             RecommendedAdhesionSelector
             {
                 width: parent.width
-                visible : profile && profile["advanced_user"] ? true : false
+            }
+
+            RecommendedFlexibleBuildPlateSelector
+            {
+                width: parent.width
+                visible: Cura.MachineManager.hasFlexibleBed  && (Cura.MachineManager.activeMachine.definition.name == "Epsilon W50" || Cura.MachineManager.activeMachine.definition.name == "Epsilon W27" || Cura.MachineManager.activeMachine.definition.name == "Sigma D25")
             }
         }
     }

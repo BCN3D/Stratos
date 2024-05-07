@@ -12,10 +12,10 @@
     <color_code>#363534</color_code>
     <instruction_link>https://www.bcn3d.com/product/omega-tooling-cf-bcn3d-filaments/</instruction_link>
     <description>Fast, safe and reliable printing. Omega Tooling CF is ideal for the fast and reliable printing of parts and prototypes with a great surface quality.</description>
-    <adhesion_info>Print on bare glass. Use tape for cold build plates.</adhesion_info>
+    <adhesion_info>Omega Tooling CF is a carbon fiber-reinforced PA6 copolymer filament designed exclusively for use with the Omega I60 printer. This specialized filament boasts remarkable strength, durability, thermal stability, and stiffness —characteristics you’d expect from carbon fiber materials. It excels in high-temperature environments, boasting a high heat deflection temperature (HDT) of 177ºC.</adhesion_info>
   </metadata>
   <properties>
-    <density>1.24</density>
+    <density>1.23</density>
     <diameter>1.75</diameter>
   </properties>
   <settings>

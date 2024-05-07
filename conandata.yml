@@ -1,16 +1,29 @@
+version: "5.7.0"
+requirements:
+  - "uranium/5.7.0"
+  - "curaengine/5.7.0"
+  - "cura_binary_data/5.7.0"
+  - "curaengine_plugin_gradual_flow/0.1.0-beta.3"
+  - "dulcificum/0.2.0-alpha.0"
+  - "pysavitar/5.3.0"
+  - "pynest2d/5.3.0"
+  - "curaengine_grpc_definitions/0.2.0"
+  - "native_cad_plugin/2.0.0"
+requirements_internal:
+  - "cura_private_data/(latest)@internal/testing"
 urls:
     default:
-        cloud_api_root: "https://api.ultimaker.com"
-        cloud_account_api_root: "https://account.ultimaker.com"
-        marketplace_root: "https://marketplace.ultimaker.com"
-        digital_factory_url: "https://digitalfactory.ultimaker.com"
-        cura_latest_url: "https://software.ultimaker.com/latest.json"
+        cloud_api_root: ""
+        cloud_account_api_root: ""
+        marketplace_root: ""
+        digital_factory_url: ""
+        cura_latest_url: ""
     staging:
-        cloud_api_root: "https://api-staging.ultimaker.com"
-        cloud_account_api_root: "https://account-staging.ultimaker.com"
-        marketplace_root: "https://marketplace-staging.ultimaker.com"
-        digital_factory_url: "https://digitalfactory-staging.ultimaker.com"
-        cura_latest_url: "https://software.ultimaker.com/latest.json"
+        cloud_api_root: ""
+        cloud_account_api_root: ""
+        marketplace_root: ""
+        digital_factory_url: ""
+        cura_latest_url: ""
 pyinstaller:
     runinfo:
         entrypoint: "cura_app.py"
@@ -19,6 +32,22 @@ pyinstaller:
             package: "cura"
             src: "plugins"
             dst: "share/cura/plugins"
+        curaengine_gradual_flow_plugin:
+            package: "curaengine_plugin_gradual_flow"
+            src: "res/plugins/CuraEngineGradualFlow"
+            dst: "share/cura/plugins/CuraEngineGradualFlow"
+        curaengine_gradual_flow_plugin_bundled:
+            package: "curaengine_plugin_gradual_flow"
+            src: "res/bundled_packages"
+            dst: "share/cura/resources/bundled_packages"
+        native_cad_plugin:
+          package: "native_cad_plugin"
+          src: "res/plugins/NativeCADplugin"
+          dst: "share/cura/plugins/NativeCADplugin"
+        native_cad_plugin_bundled:
+          package: "native_cad_plugin"
+          src: "res/bundled_packages"
+          dst: "share/cura/resources/bundled_packages"
         cura_resources:
             package: "cura"
             src: "resources"
@@ -52,10 +81,6 @@ pyinstaller:
             package: "cura_binary_data"
             src: "windows"
             dst: "share/windows"
-        fdm_materials:
-            package: "fdm_materials"
-            src: "res/resources/materials"
-            dst: "share/cura/resources/materials"
         tcl:
             package: "tcl"
             src: "lib/tcl8.6"
@@ -70,9 +95,15 @@ pyinstaller:
             src: "bin"
             dst: "."
             binary: "CuraEngine"
+        curaengine_gradual_flow_plugin_service:
+            package: "curaengine_plugin_gradual_flow"
+            src: "bin"
+            dst: "."
+            binary: "curaengine_plugin_gradual_flow"
     hiddenimports:
         - "pySavitar"
         - "pyArcus"
+        - "pyDulcificum"
         - "pynest2d"
         - "PyQt6"
         - "PyQt6.QtNetwork"
@@ -90,7 +121,6 @@ pyinstaller:
         - "sqlite3"
         - "trimesh"
         - "win32ctypes"
-        - "PyQt6"
         - "PyQt6.QtNetwork"
         - "PyQt6.sip"
         - "stl"
@@ -134,6 +164,10 @@ pycharm_targets:
     script_name: tests/TestGCodeListDecorator.py
   - jinja_path: .run_templates/pycharm_cura_test.run.xml.jinja
     module_name: Cura
+    name: pytest in TestHitChecker.py
+    script_name: tests/TestHitChecker.py
+  - jinja_path: .run_templates/pycharm_cura_test.run.xml.jinja
+    module_name: Cura
     name: pytest in TestIntentManager.py
     script_name: tests/TestIntentManager.py
   - jinja_path: .run_templates/pycharm_cura_test.run.xml.jinja
@@ -160,6 +194,10 @@ pycharm_targets:
     module_name: Cura
     name: pytest in TestPrintInformation.py
     script_name: tests/TestPrintInformation.py
+  - jinja_path: .run_templates/pycharm_cura_test.run.xml.jinja
+    module_name: Cura
+    name: pytest in TestPrintOrderManager.py
+    script_name: tests/TestPrintOrderManager.py
   - jinja_path: .run_templates/pycharm_cura_test.run.xml.jinja
     module_name: Cura
     name: pytest in TestProfileRequirements.py

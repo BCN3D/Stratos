@@ -1,0 +1,19 @@
+{
+  "CuraEngineGradualFlow": {
+    "package_info": {
+      "package_id": "CuraEngineGradualFlow",
+      "package_type": "plugin",
+      "display_name": "CuraEngineGradualFlow",
+      "description": "CuraEngine plugin for gradually smoothing the flow to limit high-flow jumps",
+      "package_version": "0.1.0",
+      "sdk_version": "8.4.0",
+      "website": "https://github.com/Ultimaker/CuraEngine_plugin_gradual_flow",
+      "author": {
+        "author_id": "UltimakerPackages",
+        "display_name": "UltiMaker",
+        "email": "plugins@ultimaker.com",
+        "website": "https://ultimaker.com"
+      }
+    }
+  }
+}

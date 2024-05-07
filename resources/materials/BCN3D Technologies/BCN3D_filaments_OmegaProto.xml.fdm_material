@@ -11,11 +11,11 @@
     <GUID>23ab5ec3-903f-4fb2-ab84-e851258567eb</GUID>
     <color_code>#133033</color_code>
     <instruction_link>https://www.bcn3d.com/product/omega-proto-bcn3d-filaments/</instruction_link>
-    <description>Fast, safe and reliable printing. Omega Proto is ideal for the fast and reliable printing of parts and prototypes with a great surface quality.</description>
+    <description>Omega Proto is the top choice for functional prototyping, producing precise parts with an ultra-premium surface finish. Omega Proto stands out for its exceptional versatility, providing remarkable durability, toughness, and chemical resistance. It surpasses PLA in strength, is more user-friendly than ABS, and delivers a surface finish superior to PETG. On top of that, Omega Proto offers great layer adhesion, creating stronger bonds between layers than what is achievable with typical prototyping materials.</description>
     <adhesion_info>Print on bare glass. Use tape for cold build plates.</adhesion_info>
   </metadata>
   <properties>
-    <density>1.24</density>
+    <density>1.27</density>
     <diameter>1.75</diameter>
   </properties>
   <settings>

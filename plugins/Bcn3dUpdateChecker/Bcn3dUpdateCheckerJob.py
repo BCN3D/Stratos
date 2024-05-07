@@ -71,9 +71,6 @@ class Bcn3dUpdateCheckerJob(Job):
 
             latest_version_array = data["tag_name"].split("v")[1].split(".")
             latest_version = Version(list(map(int, latest_version_array)))
-            Logger.log("e", "SONIA a ver!")
-            Logger.log("e", local_version)
-            Logger.log("e", latest_version)
             if local_version < latest_version:
                 image_source="https://blog.bcn3d.com/hubfs/BCN3D/Knowledge%20base/Update%20Stratos%20version/Popup%20pictures/Stratos-popup-picture.png"
                 Logger.log("i", "Found a new version of the software. Spawning message")
