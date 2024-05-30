@@ -1,3 +1,15 @@
+[2.1.1]
+
+* Change Omega I60 definition:
+- All start and end orders will now be handled by the printer's firmware instead of Stratos. It is madatory to have the Omega updated to firmware 1.4.0.
+
+* Bug fixes:
+- Fixed an issue that prevented switching from custom to recommended printer profiles.
+- New materials now appear only in printers that support them.
+- Fixed a bug that caused an error when trying to print with Hotend X and Hotend M.
+- Support blockers can now be used with all extruders.
+- Various internal bug fixes.
+
 [2.1.0]
 
 * BCN3D Stratos 2.1.0 is based on Ultimaker Cura 5.7 with all Stratos improvements

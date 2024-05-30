@@ -22,6 +22,7 @@ class Bcn3DFixes(Job):
 
     def run(self):
         Job.yieldThread()
+        self._updateExtrusorsName()
         self._changeCuraForStratos()
         if self._dualPrint:
             self._fixAllToolchange()
@@ -119,5 +120,34 @@ class Bcn3DFixes(Job):
                 
         if done:
             lines[0] = ';Generated with StratosEngine ' + str(self._stratos_version)
+            layer = "\n".join(lines)
+            self._gcode_list[index] = layer
+
+    def _updateExtrusorsName(self):
+        '''
+            update Extrusoer
+        '''
+        done = False
+        lines = ""
+        for index, layer in enumerate(self._gcode_list):
+            lines = layer.split("\n")
+            #Mark file as StratosEngine gcode
+           
+            if lines[6].startswith(";Extruders used:"):
+                done = True
+                break
+            if index > 0:
+                break
+                
+        if done:
+            if lines[6].startswith(";Extruders used: T0 0.4m"):
+                lines[6] = ";Extruders used: T0 0.4M"
+            if lines[6].startswith(";Extruders used: T1 0.4m"):
+                lines[6] = ";Extruders used: T1 0.4M"
+            if lines[6].startswith(";Extruders used: T0 0.6x"):
+                lines[6] = ";Extruders used: T0 0.6X"
+                hola = "parece que lo ha hecho"
+            if lines[6].startswith(";Extruders used: T1 0.6x"):
+                lines[6] = ";Extruders used: T1 0.6X"
             layer = "\n".join(lines)
             self._gcode_list[index] = layer
