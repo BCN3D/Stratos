@@ -76,7 +76,7 @@ Flickable
         ProfileWarningReset
         {
             width: parent.width
-            visible: (Cura.MachineManager.activeMachine.definition.name != "Omega I60" || profile && profile["advanced_user"]) ? true : false
+            visible: (Cura.MachineManager.hasUserSettings || (fullWarning && Cura.MachineManager.hasCustomQuality)) && (Cura.MachineManager.activeMachine.definition.name != "Omega I60" || profile && profile["advanced_user"]) ? true : false
         }
 
         Item { height: UM.Theme.getSize("thin_margin").height  + UM.Theme.getSize("narrow_margin").height} // Spacer

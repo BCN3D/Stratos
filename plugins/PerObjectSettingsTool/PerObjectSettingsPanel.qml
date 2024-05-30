@@ -115,7 +115,6 @@ Item
                     color: UM.Theme.getColor("icon")
                 }
                 property bool needBorder: true
-                visible: Cura.MachineManager.activeMachine.definition.name != "Omega I60" || profile && profile["advanced_user"] ? true : false
                 checkable:true
                 onClicked: setMeshType(infillMeshType)
                 z: 2

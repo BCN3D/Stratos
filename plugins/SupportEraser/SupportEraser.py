@@ -23,6 +23,7 @@ from cura.Operations.SetParentOperation import SetParentOperation
 
 from cura.Scene.SliceableObjectDecorator import SliceableObjectDecorator
 from cura.Scene.BuildPlateDecorator import BuildPlateDecorator
+from cura.Settings.ExtruderManager import ExtruderManager
 
 from UM.Settings.SettingInstance import SettingInstance
 
@@ -96,7 +97,12 @@ class SupportEraser(Tool):
 
     def _createEraserMesh(self, parent: CuraSceneNode, position: Vector):
         node = CuraSceneNode()
-
+        # Make sure that the support block is made by an enabled extruder
+        for extruder in ExtruderManager.getInstance().getActiveExtruderStacks():
+            if not extruder.isEnabled:
+                continue
+            node.callDecoration("setActiveExtruder", extruder.getId())
+            break
         node.setName("Eraser")
         node.setSelectable(True)
         node.setCalculateBoundingBox(True)
