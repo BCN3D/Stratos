@@ -32,6 +32,7 @@
       <machine_identifier manufacturer="BCN3D Technologies" product="bcn3domega" />
       <hotend id="Omega Hotend Tip 0.4 HR">
       </hotend>
+      <hotend id="Omega Hotend Tip 0.6 HR" />
       <hotend id="Hotend M (0.4mm)">
           <setting key="hardware compatible">no</setting>
       </hotend>

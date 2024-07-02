@@ -131,7 +131,7 @@ class Bcn3DFixes(Job):
         lines = ""
         for index, layer in enumerate(self._gcode_list):
             lines = layer.split("\n")
-            #Mark file as StratosEngine gcode
+            #Uppercase the extruder name
            
             if lines[6].startswith(";Extruders used:"):
                 done = True
@@ -142,12 +142,27 @@ class Bcn3DFixes(Job):
         if done:
             if lines[6].startswith(";Extruders used: T0 0.4m"):
                 lines[6] = ";Extruders used: T0 0.4M"
-            if lines[6].startswith(";Extruders used: T1 0.4m"):
+            elif lines[6].startswith(";Extruders used: T1 0.4m"):
                 lines[6] = ";Extruders used: T1 0.4M"
-            if lines[6].startswith(";Extruders used: T0 0.6x"):
+            elif lines[6].startswith(";Extruders used: T0 0.6x"):
                 lines[6] = ";Extruders used: T0 0.6X"
-                hola = "parece que lo ha hecho"
-            if lines[6].startswith(";Extruders used: T1 0.6x"):
+            elif lines[6].startswith(";Extruders used: T1 0.6x"):
                 lines[6] = ";Extruders used: T1 0.6X"
+            elif lines[6].startswith(";Extruders used: T0 0.4rx"):
+                lines[6] = ";Extruders used: T0 0.4RX"
+            elif lines[6].startswith(";Extruders used: T1 0.4rx"):
+                lines[6] = ";Extruders used: T1 0.4RX"
+            elif lines[6].startswith(";Extruders used: T0 0.6rx"):
+                lines[6] = ";Extruders used: T0 0.6RX"
+            elif lines[6].startswith(";Extruders used: T1 0.6rx"):
+                lines[6] = ";Extruders used: T1 0.6RX"
+            elif lines[6].startswith(";Extruders used: T0 0.4r"):
+                lines[6] = ";Extruders used: T0 0.4R"
+            elif lines[6].startswith(";Extruders used: T1 0.4r"):
+                lines[6] = ";Extruders used: T1 0.4R"
+            elif lines[6].startswith(";Extruders used: T0 0.6r"):
+                lines[6] = ";Extruders used: T0 0.6R"
+            elif lines[6].startswith(";Extruders used: T1 0.6r"):
+                lines[6] = ";Extruders used: T1 0.6R"
             layer = "\n".join(lines)
             self._gcode_list[index] = layer

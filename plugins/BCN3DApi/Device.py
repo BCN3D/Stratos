@@ -55,16 +55,37 @@ class Device(NetworkedPrinterOutputDevice):
             if p['serialNumber'] == serial_number:
                 printer = p
                 break
-
         if printer: 
             if not printer["ready_to_print"]:
                 self._progress_message.hide()
                 Message("The selected printer isn't ready to print.", title="Can't send gcode to printer").show()
                 return
+            
+            if printer['printerModel'] and printer['printerModel']['model'] and printer['printerModel']['model'] == 'i60':
+                self._progress_message.hide()
+                Message("Please note that you cannot send files (.gcode) to your Omega I60 printer via Stratos yet. This feature will be available in the coming months. Alternatively, you can send your G-code files via the BCN3D Cloud.", title="Omega I60 isn't ready to print yet.").show()
+                return
+            
              #Check if we know the gcode:
             printInformation = CuraApplication.getInstance().getPrintInformation()
             printMaterialLengths = printInformation.materialLengths
             printMaterialWeights = printInformation.materialWeights
+
+            if not self.bcn3dModels : 
+                from UM.PluginRegistry import PluginRegistry  # For path plugin's directory.
+                import json
+                import os
+                pr = PluginRegistry.getInstance()
+                pluginPath = pr.getPluginPath("BCN3DApi")
+                try:
+                    with open(os.path.join(pluginPath, "bcn3d-mapped-models.json"), "r", encoding = "utf-8") as f:
+                        self.bcn3dModels = json.load(f)
+                except IOError as e:
+                    Logger.error("Could not open bcn3d-mapped-models.json for reading: %s".format(str(e)))
+                except Exception as e:
+                    Logger.error("Could not parse bcn3d-mapped-models.json: %s".format(str(e)))
+            
+
             if self.bcn3dModels and ((not all(i==0 for i in printMaterialLengths)) or (not all(i==0 for i in printMaterialWeights))):
                 #We have gcode data, so we generated it, lets see if it is compatible with the printer
                 extruders = ExtruderManager.getInstance().getActiveExtruderStacks()

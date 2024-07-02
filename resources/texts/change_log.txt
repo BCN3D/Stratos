@@ -1,3 +1,19 @@
+[2.1.2]
+
+* Omega I60:
+  - You can now add Omega to the BCN3D Cloud if the machine is registered, and you will then see it online in Stratos. However, please note that you cannot send files (.gcode) to your printer via Stratos yet. This feature will be available in the coming months.
+  - Definition: Redefined Start and End Extruder commands.
+
+* Added new certified print profiles for Omega Proto (Omega I60):
+  - Hotend Tip 0.4 HR: A new print profile called Standard has been added. This profile is the first version of high-speed for Omega and works at a maximum of 150mm/s and 2000mm/s² acceleration. It reduces print time by around 50% compared to the Fine profile, while ensuring similar finish and strength.
+  - Hotend Tip 0.6 HR: A new print profile called Standard has been added. It is the first one for the 0.6mm Hotend Tip for Omega Proto material and is ideal for printing large tooling quickly while ensuring good print surface quality and strength.
+
+* Bug fixes:
+  - Fixed a bug that caused an error when trying to print with Hotend RX.
+  - Fixed a bug in Sigma printers that caused certain materials, such as ABS or PA, to not be detected.
+  - Materials and extruders mismatch was not checked; this is now fixed.
+  - Various internal bug fixes.
+
 [2.1.1]
 
 * Change Omega I60 definition:

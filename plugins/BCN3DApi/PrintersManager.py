@@ -49,7 +49,10 @@ class PrintersManager(QObject):
         discovered_printers = discovered_printers_model.discoveredPrinters
         for printer in discovered_printers:
             if printer.getKey() == device_id:
-                new_machine = CuraStackBuilder.createMachine(printer.name, "bcn3d" + printer.machineType[-3:].lower())
+                machineModel = "bcn3d" + printer.machineType[-3:].lower()
+                if machineModel == "bcn3di60":
+                    machineModel = "bcn3domega"
+                new_machine = CuraStackBuilder.createMachine(printer.name, machineModel)
 
         if not new_machine:
             Logger.log("e", "Failed creating a new machine")
