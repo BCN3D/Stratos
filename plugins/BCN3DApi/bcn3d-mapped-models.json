@@ -1,43 +1,77 @@
 {
   "printer_models": {
-    "040": "f769402e276e430cae45f2f02313c16c",
-    "050": "081008d67cbf45a4ac826f43b0248884",
-    "060": "d69fbd6ea1bd419dbef90a9d105dc644"
+    "040": "f769402e-276e-430c-ae45-f2f02313c16c",
+    "050": "081008d6-7cbf-45a4-ac82-6f43b0248884",
+    "060": "d69fbd6e-a1bd-419d-bef9-0a9d105dc644",
+    "080": "3a5535da-4dd3-4380-ad83-0753d66f38a9"
   },
   "extruder_model_diameters": {
-    "0.4": "619f60bab31247f0a4a77fb39193129c",
-    "0.4M": "07e97c210c644b348613e30b034fdbfe",
-    "0.5": "8b41c236440a4c1bb4863234858b0cda",
-    "0.6": "2965dc90923c4763a39080c6e79c972b",
-    "0.6X": "845e27c73b9540069dd5bcf6770b454a",
-    "0.8": "7eb46d68d070416e9d0399189c4c2cf4",
-    "1.0": "a088f37479704b57a61d47410bf0f538"
+    "0.4": "619f60ba-b312-47f0-a4a7-7fb39193129c",
+    "0.4M": "07e97c21-0c64-4b34-8613-e30b034fdbfe",
+    "0.5": "8b41c236-440a-4c1b-b486-3234858b0cda",
+    "0.6": "2965dc90-923c-4763-a390-80c6e79c972b",
+    "0.6X": "845e27c7-3b95-4006-9dd5-bcf6770b454a",
+    "0.8": "7eb46d68-d070-416e-9d03-99189c4c2cf4",
+    "1.0": "a088f374-7970-4b57-a61d-47410bf0f538",
+    "0.4RX": "9864a9e0-6660-4562-976e-2ec64c0494c3",
+    "0.6RX": "c7e940e0-4e95-4e8e-8712-0af060434117",
+    "0.4R": "f1b8954d-36ab-4768-af9e-cf72fc7cc1a7",
+    "0.6R": "c0229fad-0b4b-42b5-94cd-505b7d69c17b"
   },
   "extruder_model_materials": {
-    "TPU": "2e5b81fc86df4ca9aa7c7f7c169d002e",
-    "TOUGH_PLA": "618dedd4f81a4852a2f3427ba74d03c6",
-    "PVA": "eb4f299b4fb74478b531fecbe05491f5",
-    "PP_GF30": "80476d2c1f104c98bbac6d80a16fd41d",
-    "PP": "e180a19f934c4eef96db06b0e98d652c",
-    "PLA": "81fc6cec95f94f19a878883f0d2ca123",
-    "PET-G": "fcb309d3d5634708a4a03f7bedf2f969",
-    "PAHT_CF15": "b1e227d3b9b24cd8ad2fa1617306df2c",
-    "PA": "fddd64391c6940d386433fdbb97bbcf0",
-    "BVOH": "da7478bbcdb54d2ab83ccba51e90fd03",
-    "ABS": "463116e5c0da4b48bc38e74212163f42",
-    "CUSTOM": "c29d221fbe13488aaf8c2a26b49b618c",
-    "PET_CF15": "d54cba13b99f433483e32615384ba2a3",
-    "316L": "00fd97e1f0f0467dbd5eaef8371637f3",
-    "17-4PH": "3f33e4b396ff4348b3edf4dc8dbe7bdf"
+    "TPU": "2e5b81fc-86df-4ca9-aa7c-7f7c169d002e",
+    "TOUGH_PLA": "618dedd4-f81a-4852-a2f3-427ba74d03c6",
+    "PVA": "eb4f299b-4fb7-4478-b531-fecbe05491f5",
+    "PP_GF30": "80476d2c-1f10-4c98-bbac-6d80a16fd41d",
+    "PP": "e180a19f-934c-4eef-96db-06b0e98d652c",
+    "PLA": "81fc6cec-95f9-4f19-a878-883f0d2ca123",
+    "PET-G": "fcb309d3-d563-4708-a4a0-3f7bedf2f969",
+    "PAHT_CF15": "b1e227d3-b9b2-4cd8-ad2f-a1617306df2c",
+    "PA": "fddd6439-1c69-40d3-8643-3fdbb97bbcf0",
+    "BVOH": "da7478bb-cdb5-4d2a-b83c-cba51e90fd03",
+    "ABS": "463116e5-c0da-4b48-bc38-e74212163f42",
+    "CUSTOM": "c29d221f-be13-488a-af8c-2a26b49b618c",
+    "PET_CF15": "d54cba13-b99f-4334-83e3-2615384ba2a3",
+    "316L": "00fd97e1-f0f0-467d-bd5e-aef8371637f3",
+    "17-4PH": "3f33e4b3-96ff-4348-b3ed-f4dc8dbe7bdf",
+    "OMEGA_PROTO": "00abee39-9b02-4236-908e-577c7551810d",
+    "OMEGA_IMPACT_ASA": "35988629-1720-4005-9cdb-b5dc3971ff48",
+    "OMEGA_RESISTANT_NYLON": "48bdd04f-63db-49f3-808c-ea7359d3c71a",
+    "OMEGA_TOOLING_CF": "0382c934-d96b-4e8a-9a74-7088303ad53e",
+    "OMEGA_SUPPORT": "741eee9c-94b0-4a35-8431-cb64020c901c"
   },
   "variant_identifier": {
     "040": "w50",
     "050": "w27",
-    "060": "d25"
+    "060": "d25",
+    "080": "i60"
   },
   "product_identifier": {
     "040": "epsilon",
     "050": "epsilon",
-    "060": "sigma"
+    "060": "sigma",
+    "080": "omega"
+  },
+  "sku_extruder_diameter": {
+    "10383": "0.4",
+    "10064": "0.4",
+    "10363": "0.6",
+    "10365": "0.8",
+    "10366": "1.0",
+    "10364": "0.6X",
+    "10384": "Family",
+    "10380": "0.4M"
+  },
+  "revo_nozzle_extruder_model": {
+    "14": "9864a9e0-6660-4562-976e-2ec64c0494c3",
+    "16": "c7e940e0-4e95-4e8e-8712-0af060434117",
+    "04": "f1b8954d-36ab-4768-af9e-cf72fc7cc1a7",
+    "06": "c0229fad-0b4b-42b5-94cd-505b7d69c17b"
+  },
+  "revo_nozzle_short_name": {
+    "14": "Omega Hotend Tip 0.4 HR",
+    "16": "Omega Hotend Tip 0.6 HR",
+    "04": "Omega Hotend Tip 0.4",
+    "06": "Omega Hotend Tip 0.6"
   }
 }
