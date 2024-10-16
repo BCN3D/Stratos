@@ -54,6 +54,8 @@ class Device(NetworkedPrinterOutputDevice):
         for p in connectedPrinters['data']:
             if p['serialNumber'] == serial_number:
                 printer = p
+                print("sonia")
+                print(printer)
                 break
         if printer: 
             if not printer["ready_to_print"]:
@@ -70,6 +72,7 @@ class Device(NetworkedPrinterOutputDevice):
             printInformation = CuraApplication.getInstance().getPrintInformation()
             printMaterialLengths = printInformation.materialLengths
             printMaterialWeights = printInformation.materialWeights
+
 
             if not self.bcn3dModels : 
                 from UM.PluginRegistry import PluginRegistry  # For path plugin's directory.
@@ -119,7 +122,7 @@ class Device(NetworkedPrinterOutputDevice):
             Message("The selected printer doesn't exist or you don't have permissions to print.",
                     title="Can't send gcode to printer").show()
             return
-
+        
         self.writeStarted.emit(self)
         active_build_plate = CuraApplication.getInstance().getMultiBuildPlateModel().activeBuildPlate
         self._gcode = getattr(Application.getInstance().getController().getScene(), "gcode_dict")[active_build_plate]
@@ -128,12 +131,12 @@ class Device(NetworkedPrinterOutputDevice):
         self._data_api_service.sendGcode(gcode, file_name_with_extension, printer['id'], self._name == "cloud_save")
         self.writeFinished.emit()
         self._progress_message.hide()
-
+  
     def get_material_id(self, printerMaterial):
         
         printerMaterial = printerMaterial.replace(" ", "_").upper()
         if printerMaterial in self.bcn3dModels["extruder_model_materials"]:
-            materialId = self.bcn3dModels["extruder_model_materials"][printerMaterial]
+            materialId = self.bcn3dModels["extruder_model_materials"][printerMaterial].replace("-", "")
         else:
             #We set material as custom
             materialId = self.bcn3dModels["extruder_model_materials"]["CUSTOM"]
@@ -150,12 +153,14 @@ class Device(NetworkedPrinterOutputDevice):
             "0.6mm": "0.6",
             "Hotend X (0.6mm)": "0.6X",
             "0.8mm": "0.8",
-            "1.0mm": "1.0"
+            "1.0mm": "1.0",
+            "Omega Hotend Tip 0.4 HR" : "0.4HR",
+            "Omega Hotend Tip 0.6 HR" : "0.6HR"
         }
         cloudModelMame = extruder_model_diameters[printerModelExtruder]
         extruderModelId = None
         if cloudModelMame in self.bcn3dModels["extruder_model_diameters"]:
-            extruderModelId = self.bcn3dModels["extruder_model_diameters"][cloudModelMame]
+            extruderModelId = self.bcn3dModels["extruder_model_diameters"][cloudModelMame].replace("-", "")
         return extruderModelId
 
     def _setToolData(self, extruder):

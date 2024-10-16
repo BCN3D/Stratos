@@ -51,7 +51,7 @@ class CuraConan(ConanFile):
 
     def set_version(self):
         if not self.version:
-            self.version =  "2.1.2"
+            self.version =  "2.1.3"
 
     @property
     def _i18n_options(self):

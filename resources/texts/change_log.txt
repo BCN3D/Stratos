@@ -1,3 +1,19 @@
+[2.1.3]
+
+* Omega I60:
+  - Added Omega Impact ABS material and print profile Standard.
+  - Added Omega Custom. This material is based on the Omega Proto and will be used as a basis for creating new user materials for those who have an Omega Open Filament License (OOFL).
+
+* Adjusted printing profile for:
+  - Omega Tooling CF Standard
+  - Omega Resistant Nylon Fine
+  - Omega Proto Standard
+  - Omega Proto Fine
+
+* Bug fixes:
+  - Fixed a bug that caused an error when trying to send G-codes to the cloud.
+  - Fixed a bug in Omega that caused incorrect purging during dual printing.
+
 [2.1.2]
 
 * Omega I60:
