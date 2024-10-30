@@ -34,11 +34,17 @@
     "PET_CF15": "d54cba13-b99f-4334-83e3-2615384ba2a3",
     "316L": "00fd97e1-f0f0-467d-bd5e-aef8371637f3",
     "17-4PH": "3f33e4b3-96ff-4348-b3ed-f4dc8dbe7bdf",
+    "PROTO": "00abee39-9b02-4236-908e-577c7551810d",
     "OMEGA_PROTO": "00abee39-9b02-4236-908e-577c7551810d",
-    "OMEGA_IMPACT_ASA": "35988629-1720-4005-9cdb-b5dc3971ff48",
+    "IMPACT_ABS": "35988629-1720-4005-9cdb-b5dc3971ff48",
+    "OMEGA_IMPACT_ABS": "35988629-1720-4005-9cdb-b5dc3971ff48",
+    "RESISTANT_NYLON": "48bdd04f-63db-49f3-808c-ea7359d3c71a",
     "OMEGA_RESISTANT_NYLON": "48bdd04f-63db-49f3-808c-ea7359d3c71a",
+    "TOOLING_CF": "0382c934-d96b-4e8a-9a74-7088303ad53e",
     "OMEGA_TOOLING_CF": "0382c934-d96b-4e8a-9a74-7088303ad53e",
-    "OMEGA_SUPPORT": "741eee9c-94b0-4a35-8431-cb64020c901c"
+    "SUPPORT": "741eee9c-94b0-4a35-8431-cb64020c901c",
+    "OMEGA_SUPPORT": "741eee9c-94b0-4a35-8431-cb64020c901c",
+    "OMEGA_CUSTOM": "ff2f6987-8578-4943-b81a-e0766ff18b22"
   },
   "variant_identifier": {
     "040": "w50",
@@ -69,9 +75,9 @@
     "06": "c0229fad-0b4b-42b5-94cd-505b7d69c17b"
   },
   "revo_nozzle_short_name": {
-    "14": "Omega Hotend Tip 0.4 HR",
-    "16": "Omega Hotend Tip 0.6 HR",
-    "04": "Omega Hotend Tip 0.4",
-    "06": "Omega Hotend Tip 0.6"
+    "14": "0.4RX",
+    "16": "0.6RX",
+    "04": "0.4",
+    "06": "0.6"
   }
 }

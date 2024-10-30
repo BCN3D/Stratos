@@ -71,8 +71,11 @@ def checkMaterialcompatibility(active_quality_group, global_container_stack):
     materialcompatibility['Omega Proto'] = ['Omega Proto']
     materialcompatibility['Omega Resistant Nylon'] = ['Omega Resistant Nylon']
     materialcompatibility['Omega Tooling CF'] = ['Omega Tooling CF']
+    materialcompatibility['Omega Impact ABS'] = ['Omega Impact ABS']
     materialcompatibility['Smart Materials PLA'] = ['PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA','PVA', 'BVOH', 'TPU', 'Smart Materials PLA', 'AMBX PLA']
     materialcompatibility['AMBX PLA'] = ['AMBX PLA', 'PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA','PVA', 'BVOH', 'TPU', 'Smart Materials PLA']
+
+    listOfMaterials = ['PLA', 'Tough PLA', 'PVA', 'BVOH', 'ABS', 'Smart Materials ABS', 'PET-G', 'TPU', 'PA', 'PP', 'PAHT CF15', 'PP GF30', 'PET CF15', '17-4PH', '316L', 'Ultrafuse ASA', 'Smart Materials ASA', 'Ultrafuse PET', 'Ultrafuse rPET', 'Ultrafuse TPU 85A', 'Ultrafuse TPS 90A', 'Tech-X 316L HMs', 'Tech-X H13 HMs', 'Tech-X 17-4PH HMs', 'Tech-X Inconel 625 HMs', 'Essentium HTN', 'Essentium PACF', 'Essentium PCTG Z', 'Essentium PCTG', 'Essentium PETCF', 'Fillamentum NonOilen', 'Matterhackers PET-G', 'Matterhackers PLA', 'Matterhackers Nylon', 'Matterhackers ABS', 'Fillamentum PLA', 'Ultrafuse PC ABS FR', 'Ultrafuse TPU 64D', 'Ultrafuse PA6 GF30', 'Fillamentum PET-G', 'Fillamentum CPE', 'Ultrafuse Support Layer', 'Omega Proto', 'Omega Resistant Nylon', 'Omega Tooling CF', 'Omega Impact ABS', 'Smart Materials PLA', 'AMBX PLA']
 
 
     ext0 = global_container_stack.extruderList[0]
@@ -82,6 +85,8 @@ def checkMaterialcompatibility(active_quality_group, global_container_stack):
         material2 = ext1.material.metaData['material']
         if material1 == material2:
             return True
+        if material1 not in listOfMaterials or material2 not in listOfMaterials:
+            return active_quality_group.is_available
         for material in materialcompatibility:
             if material == material1:
                 for chekingMaterial in materialcompatibility[material]:

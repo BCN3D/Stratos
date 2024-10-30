@@ -12,7 +12,7 @@
             "0": "bcn3domega_extruder_left",
             "1": "bcn3domega_extruder_right"
         },
-        "preferred_material": "BCN3D_filaments_OmegaProto",
+        "preferred_material": "BCN3D_filaments_OmegaCustom",
         "preferred_variant_name": "Omega Hotend Tip 0.4 HR",
         "supports_cloud_connection": true,
         "supports_firmware_updates": false,
