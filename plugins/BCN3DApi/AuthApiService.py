@@ -16,7 +16,6 @@ from threading import Lock
 class AuthApiService(QObject):
     api_url = None
     client_id = None
-    app_secret = None
     scope = None
     _session_manager = None
     grant_type = 'password'
@@ -48,7 +47,6 @@ class AuthApiService(QObject):
         if apiData:
             self.api_url = apiData['api_url']
             self.client_id = apiData['client_id']
-            self.app_secret = apiData['app_secret']
             self.scope = apiData['scope']
             if not self._session_manager:
                 self._session_manager = SessionManager.getInstance()
@@ -73,7 +71,7 @@ class AuthApiService(QObject):
     def getCurrentUser(self):
         headers = {"authorization": "bearer {}".format(self.getToken()),
                    'Content-Type': 'application/x-www-form-urlencoded'}
-        response = get(self.api_url + "/accounts/me", headers=headers)
+        response = get(self.api_url + "/cura_plugging/user/current/", headers=headers)
         if 200 <= response.status_code < 300:
             current_user = response.json()
             self._email = current_user["email"]
@@ -106,7 +104,8 @@ class AuthApiService(QObject):
                 "client_id": self.client_id,
                 "grant_type": self.grant_type,
                 "scope": self.scope}
-        response = post(self.api_url + "/token", data)
+        
+        response = requests.post(self.api_url + "/api/v2/auth/token/", data)
         if 200 <= response.status_code < 300:
             response_message = response.json()
             self._session_manager.setOuathToken(response_message)
@@ -126,7 +125,7 @@ class AuthApiService(QObject):
         Logger.log("i", "BCN3D Token expired, refreshed.")
         try:
             response = requests.post(
-                self.api_url + "/token",
+                self.api_url + "/api/v2/auth/token/",
                 data={
                     "client_id": self.client_id,
                     "grant_type": "refresh_token",

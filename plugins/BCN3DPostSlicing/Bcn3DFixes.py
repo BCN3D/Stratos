@@ -127,42 +127,24 @@ class Bcn3DFixes(Job):
         '''
             update Extrusoer
         '''
-        done = False
+        check = False
         lines = ""
         for index, layer in enumerate(self._gcode_list):
             lines = layer.split("\n")
             #Uppercase the extruder name
            
             if lines[6].startswith(";Extruders used:"):
-                done = True
+                check = True
                 break
             if index > 0:
                 break
                 
-        if done:
-            if lines[6].startswith(";Extruders used: T0 0.4m"):
-                lines[6] = ";Extruders used: T0 0.4M"
-            elif lines[6].startswith(";Extruders used: T1 0.4m"):
-                lines[6] = ";Extruders used: T1 0.4M"
-            elif lines[6].startswith(";Extruders used: T0 0.6x"):
-                lines[6] = ";Extruders used: T0 0.6X"
-            elif lines[6].startswith(";Extruders used: T1 0.6x"):
-                lines[6] = ";Extruders used: T1 0.6X"
-            elif lines[6].startswith(";Extruders used: T0 0.4rx"):
-                lines[6] = ";Extruders used: T0 0.4RX"
-            elif lines[6].startswith(";Extruders used: T1 0.4rx"):
-                lines[6] = ";Extruders used: T1 0.4RX"
-            elif lines[6].startswith(";Extruders used: T0 0.6rx"):
-                lines[6] = ";Extruders used: T0 0.6RX"
-            elif lines[6].startswith(";Extruders used: T1 0.6rx"):
-                lines[6] = ";Extruders used: T1 0.6RX"
-            elif lines[6].startswith(";Extruders used: T0 0.4r"):
-                lines[6] = ";Extruders used: T0 0.4R"
-            elif lines[6].startswith(";Extruders used: T1 0.4r"):
-                lines[6] = ";Extruders used: T1 0.4R"
-            elif lines[6].startswith(";Extruders used: T0 0.6r"):
-                lines[6] = ";Extruders used: T0 0.6R"
-            elif lines[6].startswith(";Extruders used: T1 0.6r"):
-                lines[6] = ";Extruders used: T1 0.6R"
+        if check:
+            lines[6] = lines[6].replace("0.4rx", "0.4RX")
+            lines[6] = lines[6].replace("0.6rx", "0.6RX")
+            lines[6] = lines[6].replace("0.4hs", "0.4HS")
+            lines[6] = lines[6].replace("0.6hs", "0.6HS")
+            lines[6] = lines[6].replace("0.6x", "0.6X")
+            lines[6] = lines[6].replace("0.4m", "0.4M")
             layer = "\n".join(lines)
             self._gcode_list[index] = layer

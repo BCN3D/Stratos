@@ -90,8 +90,8 @@
         "machine_heated_build_volume": { "value": true },
         "machine_height": { "default_value": 450 },
         "machine_max_feedrate_e": { "default_value": 1000 },
-        "machine_max_feedrate_x": { "default_value": 200 },
-        "machine_max_feedrate_y": { "default_value": 200 },
+        "machine_max_feedrate_x": { "default_value": 566 },
+        "machine_max_feedrate_y": { "default_value": 566 },
         "machine_max_feedrate_z": { "default_value": 12 },
         "machine_max_jerk_xy": { "value": 12.5 },
         "machine_name": { "default_value": "Omega I60" },
@@ -174,13 +174,44 @@
             "enabled": false,
             "value": 1
         },
-        "speed_equalize_flow_max": { "value": 100 },
-        "speed_support_interface": { "value": "speed_wall" },
-        "speed_topbottom": { "value": "speed_wall_x" },
-        "speed_travel": { "value": 120 },
+        "speed_equalize_flow_max":
+        {
+            "maximum_value_warning": 600,
+            "value": 100
+        },
+        "speed_infill": { "maximum_value_warning": 600 },
+        "speed_print": { "maximum_value_warning": 600 },
+        "speed_support": { "maximum_value_warning": 600 },
+        "speed_support_infill": { "maximum_value_warning": 600 },
+        "speed_support_interface":
+        {
+            "maximum_value_warning": 600,
+            "value": "speed_wall"
+        },
+        "speed_topbottom":
+        {
+            "maximum_value_warning": 600,
+            "value": "speed_wall_x"
+        },
+        "speed_travel":
+        {
+            "maximum_value_warning": 600,
+            "value": 120
+        },
         "speed_travel_layer_0": { "value": "round(speed_travel * speed_layer_0 / speed_print, 1)" },
-        "speed_wall_0": { "value": "speed_wall" },
-        "speed_wall_x": { "value": "round(speed_print - (speed_print - speed_wall) / 2, 1)" },
+        "speed_wall": { "maximum_value_warning": 600 },
+        "speed_wall_0":
+        {
+            "maximum_value_warning": 600,
+            "value": "speed_wall"
+        },
+        "speed_wall_0_roofing": { "maximum_value_warning": 600 },
+        "speed_wall_x":
+        {
+            "maximum_value_warning": 600,
+            "value": "round(speed_print - (speed_print - speed_wall) / 2, 1)"
+        },
+        "speed_wall_x_roofing": { "maximum_value_warning": 600 },
         "start_purge_distance": { "value": 10 },
         "support_angle": { "value": 60 },
         "support_bottom_distance": { "value": "layer_height" },

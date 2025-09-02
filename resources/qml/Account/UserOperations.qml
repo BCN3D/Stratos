@@ -80,7 +80,7 @@ Column
         width: UM.Theme.getSize("account_button").width
         height: UM.Theme.getSize("account_button").height
         text: catalog.i18nc("@button", "BCN3D Cloud")
-        onClicked: Qt.openUrlExternally("https://cloud.bcn3d.com/settings")
+        onClicked: Qt.openUrlExternally("https://www.cloudbcn3d.app")
         fixedWidthMode: false
     }
 

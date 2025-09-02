@@ -1,3 +1,38 @@
+
+[2.2.0]
+
+* BCN3D Cloud:
+  - BCN3D Stratos 2.2.0 is now ready to communicate with the new BCN3D Cloud 2.0
+  Log in with your account and enjoy printing your G-code files directly from the cloud to your printer!
+  - Please remember that the new BCN3D Cloud 2.0 is now available at: https://www.cloudbcn3d.app
+
+[2.1.4]
+
+* Omega I60:
+  - Updated printer definition, enabling even faster printing speeds!
+  - Added Omega Hotend Tip 0.4 HF (Omega I60 series)
+  - Added Omega Hotend Tip 0.6 HF (Omega I60 series)
+
+* Added High Speed profiles for some BCN3D materials (Omega I60): 
+  - Omega Proto material
+  - Omega Impact ABS
+  - Omega Custom
+
+* Added profile compatibility for some new OFN materials (Omega I60): 
+  - Polimaker PolySupport
+  - Polimaker PolyCast
+  - BASF Forward AM Ultrafuse PC ABS
+  - Smart Materials ASA
+
+* Adjusted printing profile for:
+  - Omega Tooling CF Standard
+  - Omega Resistant Nylon Fine
+  - Omega Proto Standard
+  - Omega Proto Fine
+
+* Bug fixes:
+  - Fixed a bug in Omega that caused incorrect extruder information when printing in dual dupli or mirror.
+
 [2.1.3]
 
 * Omega I60:
@@ -25,7 +60,7 @@
   - Hotend Tip 0.6 HR: A new print profile called Standard has been added. It is the first one for the 0.6mm Hotend Tip for Omega Proto material and is ideal for printing large tooling quickly while ensuring good print surface quality and strength.
 
 * Bug fixes:
-  - Fixed a bug that caused an error when trying to print with Hotend RX.
+  - Fixed a bug that caused an error when trying to print with Hotend HR.
   - Fixed a bug in Sigma printers that caused certain materials, such as ABS or PA, to not be detected.
   - Materials and extruders mismatch was not checked; this is now fixed.
   - Various internal bug fixes.

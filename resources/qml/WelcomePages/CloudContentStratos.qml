@@ -175,7 +175,7 @@ Item
             width: UM.Theme.getSize("account_button").width
             height: UM.Theme.getSize("account_button").height
             text: catalog.i18nc("@button", "Create account")
-            onClicked: Qt.openUrlExternally("https://cloud.bcn3d.com")
+            onClicked: Qt.openUrlExternally("https://www.cloudbcn3d.app")
             fixedWidthMode: true
         }
 
