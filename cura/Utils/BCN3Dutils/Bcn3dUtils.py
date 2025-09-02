@@ -72,10 +72,12 @@ def checkMaterialcompatibility(active_quality_group, global_container_stack):
     materialcompatibility['Omega Resistant Nylon'] = ['Omega Resistant Nylon']
     materialcompatibility['Omega Tooling CF'] = ['Omega Tooling CF']
     materialcompatibility['Omega Impact ABS'] = ['Omega Impact ABS']
+    materialcompatibility['Ultrafuse PC ABS'] = ['Ultrafuse PC ABS']
+    materialcompatibility['Smart Materials ASA 175'] = ['Smart Materials ASA 175']
     materialcompatibility['Smart Materials PLA'] = ['PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA','PVA', 'BVOH', 'TPU', 'Smart Materials PLA', 'AMBX PLA']
     materialcompatibility['AMBX PLA'] = ['AMBX PLA', 'PLA', 'Fillamentum PLA', 'Matterhackers PLA', 'Tough PLA','PVA', 'BVOH', 'TPU', 'Smart Materials PLA']
 
-    listOfMaterials = ['PLA', 'Tough PLA', 'PVA', 'BVOH', 'ABS', 'Smart Materials ABS', 'PET-G', 'TPU', 'PA', 'PP', 'PAHT CF15', 'PP GF30', 'PET CF15', '17-4PH', '316L', 'Ultrafuse ASA', 'Smart Materials ASA', 'Ultrafuse PET', 'Ultrafuse rPET', 'Ultrafuse TPU 85A', 'Ultrafuse TPS 90A', 'Tech-X 316L HMs', 'Tech-X H13 HMs', 'Tech-X 17-4PH HMs', 'Tech-X Inconel 625 HMs', 'Essentium HTN', 'Essentium PACF', 'Essentium PCTG Z', 'Essentium PCTG', 'Essentium PETCF', 'Fillamentum NonOilen', 'Matterhackers PET-G', 'Matterhackers PLA', 'Matterhackers Nylon', 'Matterhackers ABS', 'Fillamentum PLA', 'Ultrafuse PC ABS FR', 'Ultrafuse TPU 64D', 'Ultrafuse PA6 GF30', 'Fillamentum PET-G', 'Fillamentum CPE', 'Ultrafuse Support Layer', 'Omega Proto', 'Omega Resistant Nylon', 'Omega Tooling CF', 'Omega Impact ABS', 'Smart Materials PLA', 'AMBX PLA']
+    listOfMaterials = ['PLA', 'Tough PLA', 'PVA', 'BVOH', 'ABS', 'Smart Materials ABS', 'PET-G', 'TPU', 'PA', 'PP', 'PAHT CF15', 'PP GF30', 'PET CF15', '17-4PH', '316L', 'Ultrafuse ASA', 'Smart Materials ASA', 'Ultrafuse PET', 'Ultrafuse rPET', 'Ultrafuse TPU 85A', 'Ultrafuse TPS 90A', 'Tech-X 316L HMs', 'Tech-X H13 HMs', 'Tech-X 17-4PH HMs', 'Tech-X Inconel 625 HMs', 'Essentium HTN', 'Essentium PACF', 'Essentium PCTG Z', 'Essentium PCTG', 'Essentium PETCF', 'Fillamentum NonOilen', 'Matterhackers PET-G', 'Matterhackers PLA', 'Matterhackers Nylon', 'Matterhackers ABS', 'Fillamentum PLA', 'Ultrafuse PC ABS FR', 'Ultrafuse TPU 64D', 'Ultrafuse PA6 GF30', 'Fillamentum PET-G', 'Fillamentum CPE', 'Ultrafuse Support Layer', 'Omega Proto', 'Omega Resistant Nylon', 'Omega Tooling CF', 'Omega Impact ABS', 'Smart Materials PLA', 'AMBX PLA', 'Ultrafuse PC ABS', 'Smart Materials ASA 175']
 
 
     ext0 = global_container_stack.extruderList[0]

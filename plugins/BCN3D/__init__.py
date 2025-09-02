@@ -1,7 +1,5 @@
 from .tools import ToolsLoader
 from .extensions import ExtensionsLoader
-from .output_devices import OutputDeviceLoader
-from .extensions.api import BCN3DApplication
 from UM.Logger import Logger
 
 from UM.i18n import i18nCatalog
@@ -25,11 +23,8 @@ def getMetaData():
 def register(app):
     Logger.info(f"BCN3D plugin register")
     return {
-            #extruder management, discovering printers, api
             "extension": ExtensionsLoader.ExtensionsLoader(),          
             "tool": ToolsLoader.ToolsLoader(), # print_modes
-            #"output_device": OutputDeviceLoader.OutputDeviceLoader(),
-            #"cura_application": BCN3DApplication.BCN3DApplication(),
             }
 
 

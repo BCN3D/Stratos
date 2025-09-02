@@ -40,6 +40,9 @@
                 <setting key="hardware compatible">no</setting>
             </hotend>
             <hotend id="Omega Hotend Tip 0.6 HR" />
+            <hotend id="Omega Hotend Tip 0.4 HR">
+                <setting key="hardware compatible">no</setting>
+            </hotend>
             <hotend id="0.8mm">
                 <setting key="hardware compatible">no</setting>
             </hotend>

@@ -193,7 +193,7 @@ Item
             text: catalog.i18nc("@label", "Add cloud printer")
             height: UM.Theme.getSize("message_action_button").height
             onClicked: {
-               onClicked: Qt.openUrlExternally("https://cloud.bcn3d.com")
+               onClicked: Qt.openUrlExternally("https://www.cloudbcn3d.app")
             }
         }
 

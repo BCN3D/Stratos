@@ -36,7 +36,7 @@
                     "default_value": false,
                     "description": "Properties chosen for printers which include flexible bed.",
                     "enabled": true,
-                    "label": "Flexible bed",
+                    "label": "Flexible surface",
                     "minimum_value": 1,
                     "settable_per_extruder": false,
                     "settable_per_mesh": true,
