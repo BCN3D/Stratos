@@ -78,10 +78,9 @@ class AuthApiService(QObject):
             self._profile = {}
             self._profile["username"] = current_user["name"]
             self._profile["advanced_user"] = False
-            if "advanced_user" in current_user:
-                advanced_user = current_user["advanced_user"]
+            if "stratos_advanced_user" in current_user:
+                advanced_user = current_user["stratos_advanced_user"]
                 if advanced_user is not None:
-                    advanced_user = json.loads(advanced_user)
                     if "stratos_show_custom" in advanced_user:
                         self._profile["advanced_user"] = advanced_user["stratos_show_custom"]
             self._profile

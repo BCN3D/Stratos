@@ -106,7 +106,7 @@ class Bcn3dUpdateCheckerJob(Job):
 
     def _onMessageActionTriggered(self, message, action):
         if action == "open_url":
-            from PyQt5.QtGui import QDesktopServices
-            from PyQt5.QtCore import QUrl
+            from PyQt6.QtGui import QDesktopServices
+            from PyQt6.QtCore import QUrl
             url = "https://www.bcn3d.com/update-bcn3d-stratos"
             QDesktopServices.openUrl(QUrl(url))

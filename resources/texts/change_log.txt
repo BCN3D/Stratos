@@ -1,4 +1,9 @@
 
+[2.2.1]
+
+* Bug fixes:
+  - Fixed a bug that prevent users to see advanced settings in their Omega I60.
+
 [2.2.0]
 
 * BCN3D Cloud:
