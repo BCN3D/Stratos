@@ -1,6 +1,7 @@
 from UM.Extension import Extension
 from PyQt6.QtCore import pyqtSlot, pyqtSignal, pyqtProperty, QObject
 from UM.Application import Application
+from cura.CuraApplication import CuraApplication
 from UM.Logger import Logger
 from UM.Message import Message
 from UM.i18n import i18nCatalog
@@ -15,6 +16,8 @@ class BCN3DPostSlicing(QObject, Extension):
         Extension.__init__(self)
         self._bcn3d_fixes_job = None
         Application.getInstance().getOutputDeviceManager().writeStarted.connect(self.applyPostSlice)
+        self._application = CuraApplication.getInstance()
+        #self._application.getOutputDeviceManager().writeStarted.writeStarted.connect(self.applyPostSlice)
 
     def applyPostSlice(self, output_device)  -> None:
         if self._bcn3d_fixes_job is not None and self._bcn3d_fixes_job.isRunning():
