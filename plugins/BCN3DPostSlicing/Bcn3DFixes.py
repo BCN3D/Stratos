@@ -25,6 +25,7 @@ class Bcn3DFixes(Job):
         self._updateExtrusorsName()
         self._changeCuraForStratos()
         if self._dualPrint:
+            self._toolChangeTravelFix()
             self._fixAllToolchange()
             self._afterFirstToolChangeFix()
         
@@ -148,3 +149,43 @@ class Bcn3DFixes(Job):
             lines[6] = lines[6].replace("0.4m", "0.4M")
             layer = "\n".join(lines)
             self._gcode_list[index] = layer
+
+    #Function to fix OST-304
+    def _toolChangeTravelFix(self):
+        """
+        Fix tool change travel moves across the entire G-code.
+        Each match of:
+            ;MESH:[...]
+            G0 F... X... Y... Z...
+            G0 X... Y...
+        Is replaced by:
+            G0 F... X... Y... Z...
+            ;toolChangeTravelFixed
+        This is done for each occurrence (not just once per layer).
+        """
+        import re
+        pattern = re.compile(
+            r";MESH:[^\r\n]+\r?\nG0 F([\d.-]+) X[\d.-]+ Y[\d.-]+ Z([\d.-]+)\r?\nG0 X([\d.-]+) Y([\d.-]+)"
+        )
+
+        applied_count = 0
+
+        for index, layer in enumerate(self._gcode_list):
+            if ";toolChangeTravelFixed" in layer:
+                continue  # skip if already marked
+
+            def replacer(match):
+                nonlocal applied_count
+                f = match.group(1)
+                z, x, y = match.group(2), match.group(3), match.group(4)
+                applied_count += 1
+                return f"G0 F{f} X{x} Y{y} Z{z}\n;toolChangeTravelFixed"
+
+            new_layer, subs = pattern.subn(replacer, layer)
+            if subs > 0:
+                self._gcode_list[index] = new_layer
+
+        if applied_count > 0:
+            Logger.log("d", f"ToolChangeTravel Fix applied {applied_count} time(s)")
+        else:
+            Logger.log("d", "ToolChangeTravel Fix not applied – no matches found or already fixed")
