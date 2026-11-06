@@ -6,7 +6,7 @@
     {
         "platform": "bcn3dsigmax_bed.stl",
         "quality_definition": "bcn3dsigma",
-        "weight": "6"
+        "weight": "7"
     },
     "overrides":
     {

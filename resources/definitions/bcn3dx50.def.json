@@ -1,0 +1,46 @@
+{
+    "version": 2,
+    "name": "Epsilon X50",
+    "inherits": "bcn3dw50",
+    "metadata":
+    {
+        "exclude_materials": [
+            "BCN3D_filaments_OmegaImpact",
+            "BCN3D_Filaments_OmegaTooling",
+            "BCN3D_filaments_OmegaCustom",
+            "BCN3D_filaments_OmegaResistantNylon",
+            "BCN3D_filaments_OmegaProto",
+            "polymaker_polysupport_175",
+            "polymaker_polycast_175",
+            "basf_pc_abs_175",
+            "SmartMaterials_asa_175"
+        ],
+        "machine_extruder_trains":
+        {
+            "0": "bcn3dx50_extruder_left",
+            "1": "bcn3dx50_extruder_right"
+        },
+        "preferred_material": "BCN3D_Filaments_PLA_G2",
+        "weight": "1"
+    },
+    "overrides":
+    {
+        "cool_min_temperature": { "maximum_value": 300 },
+        "default_material_print_temperature": { "maximum_value": 300 },
+        "machine_depth": { "default_value": 273.5 },
+        "machine_disallowed_areas": { "value": "[[[-machine_width / 2, machine_depth / 2], [-machine_width / 2, machine_depth / 2 - 27.5], [machine_width / 2, machine_depth / 2 - 27.5], [machine_width / 2, machine_depth / 2]]] if print_mode == 'dual' or print_mode == 'singleT0' or print_mode == 'singleT1' else [[[-machine_width / 2, machine_depth / 2], [-machine_width / 2, machine_depth / 2 - 27.5], [machine_width / 2, machine_depth / 2 - 27.5], [machine_width / 2, machine_depth / 2]], [[-(abs(machine_head_with_fans_polygon[0][0]) + abs(machine_head_with_fans_polygon[2][0])) / 2, machine_depth / 2], [-(abs(machine_head_with_fans_polygon[0][0]) + abs(machine_head_with_fans_polygon[2][0])) / 2, -machine_depth / 2], [machine_width / 2, -machine_depth / 2], [machine_width / 2, machine_depth / 2]]] if print_mode == 'mirror' else [[[-machine_width / 2, machine_depth / 2], [-machine_width / 2, machine_depth / 2 - 27.5], [machine_width / 2, machine_depth / 2 - 27.5], [machine_width / 2, machine_depth / 2]], [[0, machine_depth / 2], [0, -machine_depth / 2], [machine_width / 2, -machine_depth / 2], [machine_width / 2, machine_depth / 2]]]" },
+        "machine_max_feedrate_e": { "default_value": 60 },
+        "machine_max_feedrate_x": { "default_value": 180 },
+        "machine_max_feedrate_y": { "default_value": 180 },
+        "machine_max_feedrate_z": { "default_value": 10 },
+        "machine_name": { "default_value": "Epsilon X50" },
+        "machine_width": { "default_value": 390 },
+        "material_break_preparation_temperature": { "maximum_value": 300 },
+        "material_break_temperature": { "maximum_value": 300 },
+        "material_final_print_temperature": { "maximum_value": 300 },
+        "material_initial_print_temperature": { "maximum_value": 300 },
+        "material_print_temperature": { "maximum_value": 300 },
+        "material_print_temperature_layer_0": { "maximum_value": 300 },
+        "material_standby_temperature": { "maximum_value": 300 }
+    }
+}

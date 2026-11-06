@@ -14,7 +14,10 @@ class CreateThumbnail(Script):
     def _createSnapshot(self, width, height):
         Logger.log("d", "Creating thumbnail image...")
         try:
-            return Snapshot.snapshot(width, height)
+            # IDEX copies are visual-only nodes. Render them in the thumbnail
+            # without making them sliceable or adding them to the G-code.
+            return Snapshot.snapshot(
+                width, height, include_duplicated_nodes = True, add_print_mode_indicator = True)
         except Exception:
             Logger.logException("w", "Failed to create snapshot image")
 

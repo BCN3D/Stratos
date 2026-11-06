@@ -79,7 +79,8 @@ Item
                 right: parent.right
                 top: parent.top
             }
-            visible: (currentModeIndex == PrintSetupSelectorContents.Mode.Recommended) && Cura.MachineManager.activeMachine.definition.name != "Omega I60"
+            //visible: (currentModeIndex == PrintSetupSelectorContents.Mode.Recommended) && Cura.MachineManager.activeMachine.definition.name != "Omega I60"
+            visible : currentModeIndex == PrintSetupSelectorContents.Mode.Recommended
             height: {
                 const height = base.height - (recommendedPrintSetup.mapToItem(null, 0, 0).y + buttonRow.height + UM.Theme.getSize("default_margin").height);
                 const maxHeight = UM.Preferences.getValue("view/settings_list_height");
@@ -120,7 +121,8 @@ Item
                 right: parent.right
                 top: parent.top
             }
-            visible:  (currentModeIndex == PrintSetupSelectorContents.Mode.Recommended) && Cura.MachineManager.activeMachine.definition.name == "Omega I60"
+            //visible:  (currentModeIndex == PrintSetupSelectorContents.Mode.Recommended) && Cura.MachineManager.activeMachine.definition.name == "Omega I60"
+            visible : false
             height: {
                 const height = base.height - (recommendedOmegaPrintSetup.mapToItem(null, 0, 0).y + buttonRow.height + UM.Theme.getSize("default_margin").height);
                 const maxHeight = UM.Preferences.getValue("view/settings_list_height");

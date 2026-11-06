@@ -86,17 +86,33 @@ Loader {
                         {
                             return UM.Theme.getIcon("PrinterTriple", "medium")
                         }
+                        else if (model.machineDefinition == "aurora")
+                        {
+                            return UM.Theme.getIcon("aurora", "default")
+                        }
                         else if (model.machineDefinition == "bcn3dd25")
                         {
                             return UM.Theme.getIcon("Sigma_d25", "default")
+                        }
+                        else if (model.machineDefinition == "bcn3domega2")
+                        {
+                            return UM.Theme.getIcon("Omega_I60_G2", "default")
                         }
                         else if (model.machineDefinition == "bcn3domega")
                         {
                             return UM.Theme.getIcon("Omega_I60", "default")
                         }
+                        else if (model.machineDefinition == "bcn3dx50")
+                        {
+                            return UM.Theme.getIcon("Epsilon_x50", "default")
+                        }
                         else if (model.machineDefinition == "bcn3dw50")
                         {
                             return UM.Theme.getIcon("Epsilon_w50", "default")
+                        }
+                        else if (model.machineDefinition == "bcn3dx27")
+                        {
+                            return UM.Theme.getIcon("Epsilon_x27", "default")
                         }
                         else if (model.machineDefinition == "bcn3dw27")
                         {

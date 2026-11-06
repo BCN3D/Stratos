@@ -1,3 +1,37 @@
+[2.3.0]
+
+* Added Aurora
+  - Added a new Aurora printer definition.
+  - Features a larger display for an improved user experience.
+  - Added dedicated material compatibility and quality-profile support.
+  - Added compatible Aurora Hotend tip variants.
+
+* Added Omega I60 G2
+  - New printer definition based on Omega I60.
+  - Added dedicated material compatibility and quality-profile support.
+  - Added compatible Omega Hotend Tip variants.
+
+* Added Epsilon X50
+  - New printer definition based on Epsilon W50.
+  - Prepared the machine to support 1.75 mm materials.
+  - Added dedicated left and right extruder definitions.
+  - Added compatible hotend variants and W50 quality-profile support.
+  - Set the build plate to 390 x 273.5 mm to account for the larger extruders and their reduced printable area.
+
+* Added Epsilon X27
+  - New printer definition based on Epsilon W27.
+  - Prepared the machine to support 1.75 mm materials.
+  - Added dedicated left and right extruder definitions.
+  - Added compatible hotend variants and W27 quality-profile support.
+  - Set the build plate to 390 x 273.5 mm to account for the larger extruders and their reduced printable area.
+
+* Added Open in Cura / Open in Stratos support
+  Added support for opening 3D models directly from websites and applications that provide "Open in Cura" or "Open in Stratos" functionality.
+
+* Bug fixes:
+- Fixed the virtual IDEX copy orientation when switching directly between Duplication and Mirror modes.
+- Internal bug fixing
+
 [2.2.2]
 
 * Omega I60:

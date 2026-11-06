@@ -1,0 +1,14 @@
+{
+    "version": 2,
+    "name": "Aurora",
+    "inherits": "bcn3domega",
+    "metadata":
+    {
+        "quality_definition": "bcn3domega",
+        "weight": "-3"
+    },
+    "overrides":
+    {
+        "machine_name": { "default_value": "Aurora" }
+    }
+}

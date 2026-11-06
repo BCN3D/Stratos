@@ -6,10 +6,12 @@ from typing import Optional
 
 from PyQt6 import QtCore
 from PyQt6.QtCore import QCoreApplication
-from PyQt6.QtGui import QImage
+from PyQt6.QtGui import QColor, QFont, QImage, QPainter
 
 from UM.Logger import Logger
 from cura.PreviewPass import PreviewPass
+#BCN3D inclusion
+from cura.Utils.BCN3Dutils.Scene.DuplicatedNode import DuplicatedNode
 
 from UM.Application import Application
 from UM.Math.AxisAlignedBox import AxisAlignedBox
@@ -121,16 +123,23 @@ class Snapshot:
         return render_pass.getOutput()
 
     @staticmethod
-    def isNodeRenderable(node):
-        return not getattr(node, "_outside_buildarea", False) and node.callDecoration(
-            "isSliceable") and node.getMeshData() and node.isVisible() and not node.callDecoration(
-            "isNonThumbnailVisibleMesh")
+    #BCN3D inclusion
+    def isNodeRenderable(node, include_duplicated_nodes: bool = False):
+        is_renderable_duplicate = include_duplicated_nodes and isinstance(node, DuplicatedNode)
+        return (
+            not getattr(node, "_outside_buildarea", False)
+            and (node.callDecoration("isSliceable") or is_renderable_duplicate)
+            and node.getMeshData()
+            and node.isVisible()
+            and not node.callDecoration("isNonThumbnailVisibleMesh")
+        )
 
     @staticmethod
-    def nodeBounds(root_node: SceneNode) -> Optional[AxisAlignedBox]:
+    #BCN3D inclusion
+    def nodeBounds(root_node: SceneNode, include_duplicated_nodes: bool = False) -> Optional[AxisAlignedBox]:
         axis_aligned_box = None
         for node in DepthFirstIterator(root_node):
-            if Snapshot.isNodeRenderable(node):
+            if Snapshot.isNodeRenderable(node, include_duplicated_nodes):
                 if axis_aligned_box is None:
                     axis_aligned_box = node.getBoundingBox()
                 else:
@@ -138,7 +147,44 @@ class Snapshot:
         return axis_aligned_box
 
     @staticmethod
-    def snapshot(width = DEFAULT_WIDTH_HEIGHT, height = DEFAULT_WIDTH_HEIGHT, number_of_attempts = ATTEMPTS_FOR_SNAPSHOT):
+    #BCN3D inclusion
+    def addPrintModeIndicator(image: QImage) -> QImage:
+        """Show the active IDEX mode on a thumbnail containing its virtual copy."""
+        global_stack = Application.getInstance().getGlobalContainerStack()
+        if global_stack is None:
+            return image
+        print_mode = global_stack.getProperty("print_mode", "value")
+        indicator = {"mirror": "M", "duplication": "D"}.get(print_mode)
+        if indicator is None:
+            return image
+
+        smallest_dimension = min(image.width(), image.height())
+        badge_size = min(smallest_dimension - 2, max(8, smallest_dimension // 4))
+        if badge_size <= 0:
+            return image
+
+        margin = max(1, badge_size // 6)
+        painter = QPainter(image)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        painter.setPen(QtCore.Qt.PenStyle.NoPen)
+        painter.setBrush(QColor(37, 99, 235))
+        painter.drawRoundedRect(margin, margin, badge_size, badge_size, badge_size / 4, badge_size / 4)
+        font = QFont()
+        font.setBold(True)
+        font.setPixelSize(max(6, int(badge_size * 0.65)))
+        painter.setFont(font)
+        painter.setPen(QColor(255, 255, 255))
+        painter.drawText(
+            margin, margin, badge_size, badge_size,
+            QtCore.Qt.AlignmentFlag.AlignCenter, indicator)
+        painter.end()
+        return image
+
+    @staticmethod
+    #BCN3D inclusion
+    def snapshot(width = DEFAULT_WIDTH_HEIGHT, height = DEFAULT_WIDTH_HEIGHT,
+                 number_of_attempts = ATTEMPTS_FOR_SNAPSHOT, include_duplicated_nodes: bool = False,
+                 add_print_mode_indicator: bool = False):
         """Return a QImage of the scene
 
         Uses PreviewPass that leaves out some elements Aspect ratio assumes a square
@@ -154,13 +200,16 @@ class Snapshot:
         render_width = int(render_width)
         render_height = int(render_height)
         QCoreApplication.processEvents()  # This ensures that the opengl context is correctly available
-        preview_pass = PreviewPass(render_width, render_height)
+        #BCN3D inclusion
+        preview_pass = PreviewPass(
+            render_width, render_height, include_duplicated_nodes = include_duplicated_nodes)
 
         root = scene.getRoot()
         camera = Camera("snapshot", root)
 
         # determine zoom and look at
-        bbox = Snapshot.nodeBounds(root)
+        #BCN3D inclusion
+        bbox = Snapshot.nodeBounds(root, include_duplicated_nodes)
         # If there is no bounding box, it means that there is no model in the buildplate
         if bbox is None:
             Logger.log("w", "Unable to create snapshot as we seem to have an empty buildplate")
@@ -202,7 +251,9 @@ class Snapshot:
                 else:
                     number_of_attempts = number_of_attempts - 1
                     Logger.info("Trying to get the snapshot again.")
-                    return Snapshot.snapshot(width, height, number_of_attempts)
+                    #BCN3D inclusion
+                    return Snapshot.snapshot(
+                        width, height, number_of_attempts, include_duplicated_nodes, add_print_mode_indicator)
 
             size = max((max_x - min_x) / render_width, (max_y - min_y) / render_height)
             if size > 0.5 or satisfied:
@@ -226,4 +277,7 @@ class Snapshot:
             aspectRatioMode = QtCore.Qt.AspectRatioMode.IgnoreAspectRatio,
             transformMode = QtCore.Qt.TransformationMode.SmoothTransformation)
 
+        #BCN3D inclusion
+        if add_print_mode_indicator:
+            return Snapshot.addPrintModeIndicator(scaled_image)
         return scaled_image
