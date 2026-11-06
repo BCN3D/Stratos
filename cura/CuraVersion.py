@@ -3,7 +3,7 @@
 
 CuraAppName = "BCN3D Stratos"
 CuraAppDisplayName = "BCN3D Stratos"
-CuraVersion = "2.2.2"
+CuraVersion = "2.3.0"
 CuraBuildType = ""
 CuraDebugMode = False
 CuraCloudAPIRoot = ""

@@ -15,6 +15,8 @@ from UM.View.RenderBatch import RenderBatch
 
 from UM.Scene.Iterator.DepthFirstIterator import DepthFirstIterator
 from cura.Scene.CuraSceneNode import CuraSceneNode
+#BCN3D inclusion
+from cura.Utils.BCN3Dutils.Scene.DuplicatedNode import DuplicatedNode
 
 if TYPE_CHECKING:
     from UM.View.GL.ShaderProgram import ShaderProgram
@@ -45,7 +47,9 @@ class PreviewPass(RenderPass):
     This is useful to get a preview image of a scene taken from a different location as the active camera.
     """
 
-    def __init__(self, width: int, height: int, *, root: CuraSceneNode = None) -> None:
+    #BCN3D inclusion
+    def __init__(self, width: int, height: int, *, root: CuraSceneNode = None,
+                 include_duplicated_nodes: bool = False) -> None:
         super().__init__("preview", width, height, 0)
 
         self._camera: Optional[Camera] = None
@@ -56,6 +60,7 @@ class PreviewPass(RenderPass):
         self._non_printing_shader: Optional[ShaderProgram] = None
         self._support_mesh_shader: Optional[ShaderProgram] = None
         self._root = Application.getInstance().getController().getScene().getRoot() if root is None else root
+        self._include_duplicated_nodes = include_duplicated_nodes
 
     #   Set the camera to be used by this render pass
     #   if it's None, the active camera is used
@@ -98,7 +103,10 @@ class PreviewPass(RenderPass):
         # Fill up the batch with objects that can be sliced.
         for node in DepthFirstIterator(self._root):
             if hasattr(node, "_outside_buildarea") and not getattr(node, "_outside_buildarea"):
-                if node.callDecoration("isSliceable") and node.getMeshData() and node.isVisible():
+                #BCN3D inclusion
+                is_renderable_duplicate = self._include_duplicated_nodes and isinstance(node, DuplicatedNode)
+                if ((node.callDecoration("isSliceable") or is_renderable_duplicate)
+                        and node.getMeshData() and node.isVisible()):
                     per_mesh_stack = node.callDecoration("getStack")
                     if node.callDecoration("isNonThumbnailVisibleMesh"):
                         # Non printing mesh

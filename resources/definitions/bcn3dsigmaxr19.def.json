@@ -7,7 +7,7 @@
         "visible": true,
         "platform": "bcn3dsigmax_bed.stl",
         "quality_definition": "bcn3dsigmar19",
-        "weight": "4"
+        "weight": "5"
     },
     "overrides":
     {

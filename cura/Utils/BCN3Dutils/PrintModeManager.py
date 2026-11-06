@@ -131,6 +131,12 @@ class PrintModeManager:
         for node in self._duplicated_nodes:
             self.renderDuplicatedNode(node)
 
+    #BCN3D inclusion
+    def updateDuplicatedNodes(self) -> None:
+        """Reapply the current IDEX transformation to every virtual copy."""
+        for node in self._duplicated_nodes:
+            node.update()
+
     def removeDuplicatedNodes(self) -> None:
         for node in self._duplicated_nodes:
             op = RemoveSceneNodeOperation(node)
@@ -185,6 +191,10 @@ class PrintModeManager:
                 if self._last_mode in ["singleT0", "singleT1", "dual"]:
                     Logger.info("Moving nodes to the left")
                     self._moveNodes(nodes, -1)
+                #BCN3D inclusion
+                # Switching directly between Mirror and Duplication does not alter
+                # the original nodes, so their virtual copies must be refreshed here.
+                self.updateDuplicatedNodes()
 
             # Set last print mode
             self._last_mode = print_mode
